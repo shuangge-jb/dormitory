@@ -12,7 +12,7 @@
 
 
 	<!-- 引入jdbc配置文件 -->
-	<!-- 1.配置数据库相关参数properties的属性：${url} -->
+	<!-- 配置数据库相关参数properties的属性 -->
 	<context:property-placeholder location="classpath:jdbc.properties" />
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
