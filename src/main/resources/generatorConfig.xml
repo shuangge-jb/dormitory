@@ -8,6 +8,8 @@
 		location="E:\Program Files\maven\repository\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar" />
 
 	<context id="mysqlTables">
+	<!-- 自动生成entity类的toString方法 -->
+	 <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
 		<!-- suppressDate :false时打开时间标志，true时关闭 -->
 		<!-- suppressAllComments :false时打开注释，true时关闭注释 -->
 		<commentGenerator>
@@ -49,8 +51,52 @@
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
-			<!-- <columnOverride column="username" property="name" /> <ignoreColumn 
-				column="password"/> <columnOverride column="age" javaType="String"></columnOverride> -->
 		</table>
+		<table tableName="dormitory" domainObjectName="Dormitory"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+		<table tableName="water" domainObjectName="Water"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+		<table tableName="electricity" domainObjectName="Electricity"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+		<table tableName="network" domainObjectName="Network"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+		<table tableName="network_record" domainObjectName="NetworkRecord"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+		<table tableName="water_record" domainObjectName="WaterRecord"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+		<table tableName="electricity_record" domainObjectName="ElectricityRecord"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+		<table tableName="campus_card" domainObjectName="CampusCard"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+		<table tableName="campus_card_record" domainObjectName="CampusCardRecord"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+		
 	</context>
 </generatorConfiguration>
