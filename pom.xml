@@ -12,9 +12,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
 		<spring.version>4.3.7.RELEASE</spring.version>
-		<mybatis.version>3.2.1</mybatis.version>
+		<mybatis.version>3.3.1</mybatis.version>
 		<mybatisspring.version>1.1.1</mybatisspring.version>
-		<junit.version>4.11</junit.version>
+		<junit.version>4.12</junit.version>
 		<slf4j.version>1.7.2</slf4j.version>
 		<mysql.version>5.1.34</mysql.version>
 	</properties>
@@ -22,11 +22,11 @@
 
 	<dependencies>
 		<!-- slf4j -->
-		 <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>${slf4j.version}</version>
-    </dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -107,7 +107,7 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<!-- serlvet -->
-		
+
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -122,26 +122,24 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- java ee  -->
-    <dependency>
-        <groupId>javax</groupId>
-        <artifactId>javaee-api</artifactId>
-        <version>7.0</version>
-    </dependency>
-		 <!-- dbcp，用来在applicationContext.xml中配置数据库 -->
-    <dependency>
-        <groupId>commons-dbcp</groupId>
-        <artifactId>commons-dbcp</artifactId>
-        <version>1.2.2</version>
-    </dependency>
+		<!-- java ee -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+		</dependency>
+		<!-- dbcp，用来在applicationContext.xml中配置数据库 -->
+		<!-- <dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.2.2</version>
+		</dependency> -->
+		
+		
 	</dependencies>
+	
 
-
-<dependency>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-resources-plugin</artifactId>
-    <version>2.4.3</version>
-</dependency>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -160,6 +158,16 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+			
+			 <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <overwrite>true</overwrite>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 </project>
