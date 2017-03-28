@@ -1,8 +1,5 @@
 package com.dormitory.entity;
 
-import javax.persistence.Entity;
-
-@Entity
 public class Student {
     private Long studentId;
 
@@ -74,16 +71,20 @@ public class Student {
         this.password = password == null ? null : password.trim();
     }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Student [getStudentId()=" + getStudentId()
-				+ ", getDormitoryId()=" + getDormitoryId() + ", getBedId()="
-				+ getBedId() + ", getName()=" + getName()
-				+ ", getPhoneNumber()=" + getPhoneNumber() + ", getEmail()="
-				+ getEmail() + ", getPassword()=" + getPassword() + "]";
-	}
-   
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", studentId=").append(studentId);
+        sb.append(", dormitoryId=").append(dormitoryId);
+        sb.append(", bedId=").append(bedId);
+        sb.append(", name=").append(name);
+        sb.append(", phoneNumber=").append(phoneNumber);
+        sb.append(", email=").append(email);
+        sb.append(", password=").append(password);
+        sb.append("]");
+        return sb.toString();
+    }
 }
