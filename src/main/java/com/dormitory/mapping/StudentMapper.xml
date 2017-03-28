@@ -19,7 +19,10 @@
     from student
     where student_id = #{studentId,jdbcType=BIGINT}
   </select>
-  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from student
+    where student_id = #{studentId,jdbcType=BIGINT}
+  </delete>
   <insert id="insert" parameterType="com.dormitory.entity.Student">
     insert into student (student_id, dormitory_id, bed_id, 
       name, phone_number, email, 
