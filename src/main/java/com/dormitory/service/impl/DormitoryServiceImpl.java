@@ -15,8 +15,8 @@ private DormitoryDAO dormitoryDAO;
 	 * @see com.dormitory.service.DormitoryService#getDormitory(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Dormitory getDormitory(String building, String room) {
-		return dormitoryDAO.getDormitory(building, room);
+	public Dormitory getDormitory(Integer dormitoryId) {
+		return dormitoryDAO.getDormitory(dormitoryId);
 	}
 	/**
 	 * @return the dormitoryDAO

@@ -1,7 +1,7 @@
 package com.dormitory.service;
 
-import com.dormitory.entity.Electricity;
+import com.dormitory.service.dto.ElectricityDTO;
 
 public interface ElectricityService {
-	public Electricity getElectricity(Integer dormitoryId);
+	public ElectricityDTO getElectricity(Long studentId);
 }

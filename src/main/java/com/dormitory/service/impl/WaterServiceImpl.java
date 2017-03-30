@@ -4,19 +4,33 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.dormitory.dao.DormitoryDAO;
+import com.dormitory.dao.StudentDAO;
 import com.dormitory.dao.WaterDAO;
+import com.dormitory.entity.Dormitory;
+import com.dormitory.entity.Student;
 import com.dormitory.entity.Water;
 import com.dormitory.service.WaterService;
+import com.dormitory.service.dto.WaterDTO;
 @Service
 public class WaterServiceImpl implements WaterService {
 @Resource
 private WaterDAO waterDAO;
+@Resource
+private DormitoryDAO dormitoryDAO;
+@Resource 
+private StudentDAO studentDAO;
 	/* (non-Javadoc)
 	 * @see com.dormitory.service.WaterService#getWater(java.lang.Integer)
 	 */
 	@Override
-	public Water getWater(Integer dormitoryId) {
-		return waterDAO.getWater(dormitoryId);
+	public WaterDTO getWater(Long studentId) {
+		Student student=studentDAO.getStudent(studentId);
+		Dormitory dormitory=dormitoryDAO.getDormitory(student.getDormitoryId());
+		Water water=waterDAO.getWater(student.getDormitoryId());
+		WaterDTO waterDTO=new WaterDTO();
+		waterDTO.init(dormitory,water);
+		return waterDTO;
 	}
 	/**
 	 * @return the waterDAO
@@ -29,6 +43,30 @@ private WaterDAO waterDAO;
 	 */
 	public void setWaterDAO(WaterDAO waterDAO) {
 		this.waterDAO = waterDAO;
+	}
+	/**
+	 * @return the dormitoryDAO
+	 */
+	public DormitoryDAO getDormitoryDAO() {
+		return dormitoryDAO;
+	}
+	/**
+	 * @param dormitoryDAO the dormitoryDAO to set
+	 */
+	public void setDormitoryDAO(DormitoryDAO dormitoryDAO) {
+		this.dormitoryDAO = dormitoryDAO;
+	}
+	/**
+	 * @return the studentDAO
+	 */
+	public StudentDAO getStudentDAO() {
+		return studentDAO;
+	}
+	/**
+	 * @param studentDAO the studentDAO to set
+	 */
+	public void setStudentDAO(StudentDAO studentDAO) {
+		this.studentDAO = studentDAO;
 	}
 	
 	

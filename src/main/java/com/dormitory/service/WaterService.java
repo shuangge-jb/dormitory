@@ -1,7 +1,7 @@
 package com.dormitory.service;
 
-import com.dormitory.entity.Water;
+import com.dormitory.service.dto.WaterDTO;
 
 public interface WaterService {
-	public Water getWater(Integer dormitoryId);
+	public WaterDTO getWater(Long studentId);
 }
