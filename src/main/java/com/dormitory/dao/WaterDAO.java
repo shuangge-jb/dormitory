@@ -1,14 +1,11 @@
 package com.dormitory.dao;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.type.JdbcType;
-import org.springframework.stereotype.Repository;
-
 import com.dormitory.entity.Water;
 
 public interface WaterDAO {
