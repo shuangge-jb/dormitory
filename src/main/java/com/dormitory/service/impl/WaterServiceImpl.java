@@ -12,63 +12,75 @@ import com.dormitory.entity.Student;
 import com.dormitory.entity.Water;
 import com.dormitory.service.WaterService;
 import com.dormitory.service.dto.WaterDTO;
+
 @Service
 public class WaterServiceImpl implements WaterService {
-@Resource
-private WaterDAO waterDAO;
-@Resource
-private DormitoryDAO dormitoryDAO;
-@Resource 
-private StudentDAO studentDAO;
-	/* (non-Javadoc)
+	@Resource
+	private WaterDAO waterDAO;
+	@Resource
+	private DormitoryDAO dormitoryDAO;
+	@Resource
+	private StudentDAO studentDAO;
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.dormitory.service.WaterService#getWater(java.lang.Integer)
 	 */
 	@Override
 	public WaterDTO getWater(Long studentId) {
-		Student student=studentDAO.getStudent(studentId);
-		Dormitory dormitory=dormitoryDAO.getDormitory(student.getDormitoryId());
-		Water water=waterDAO.getWater(student.getDormitoryId());
-		WaterDTO waterDTO=new WaterDTO();
-		waterDTO.init(dormitory,water);
+		Student student = studentDAO.getStudent(studentId);
+		Dormitory dormitory = dormitoryDAO.getDormitory(student
+				.getDormitoryId());
+		Water water = waterDAO.getWater(student.getDormitoryId());
+		WaterDTO waterDTO = new WaterDTO();
+		waterDTO.init(dormitory, water);
 		return waterDTO;
 	}
+
 	/**
 	 * @return the waterDAO
 	 */
 	public WaterDAO getWaterDAO() {
 		return waterDAO;
 	}
+
 	/**
-	 * @param waterDAO the waterDAO to set
+	 * @param waterDAO
+	 *            the waterDAO to set
 	 */
 	public void setWaterDAO(WaterDAO waterDAO) {
 		this.waterDAO = waterDAO;
 	}
+
 	/**
 	 * @return the dormitoryDAO
 	 */
 	public DormitoryDAO getDormitoryDAO() {
 		return dormitoryDAO;
 	}
+
 	/**
-	 * @param dormitoryDAO the dormitoryDAO to set
+	 * @param dormitoryDAO
+	 *            the dormitoryDAO to set
 	 */
 	public void setDormitoryDAO(DormitoryDAO dormitoryDAO) {
 		this.dormitoryDAO = dormitoryDAO;
 	}
+
 	/**
 	 * @return the studentDAO
 	 */
 	public StudentDAO getStudentDAO() {
 		return studentDAO;
 	}
+
 	/**
-	 * @param studentDAO the studentDAO to set
+	 * @param studentDAO
+	 *            the studentDAO to set
 	 */
 	public void setStudentDAO(StudentDAO studentDAO) {
 		this.studentDAO = studentDAO;
 	}
-	
-	
 
 }

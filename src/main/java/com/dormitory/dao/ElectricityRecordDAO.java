@@ -19,7 +19,7 @@ public interface ElectricityRecordDAO {
 			@Result(property = "money", column = "money", javaType = Integer.class, jdbcType = JdbcType.INTEGER),
 			@Result(property = "createTime", column = "create_time", javaType = Date.class, jdbcType = JdbcType.DATE),
 			@Result(property = "payTime", column = "pay_time", javaType = Date.class, jdbcType = JdbcType.DATE),
-			@Result(property = "buyElectricity", column = "buy_electricity", javaType = BigDecimal.class, jdbcType = JdbcType.DECIMAL),
+			@Result(property = "buyElectricity", column = "buy_electricity", javaType = Double.class, jdbcType = JdbcType.DECIMAL),
 			@Result(property = "state", column = "state", javaType = String.class, jdbcType = JdbcType.VARCHAR) })
 	public List<ElectricityRecord> listElectricityRecord(Integer dormitoryId);
 

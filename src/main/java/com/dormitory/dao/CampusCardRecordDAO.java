@@ -11,8 +11,9 @@ import com.dormitory.entity.CampusCardRecord;
 
 public interface CampusCardRecordDAO {
 
-	@Select("select * from campus_card_record r "
-			+" where r.student_id=#{0}")
+	@Select("select r.* from campus_card_record r join campus_card c "
+			+" on r.campus_card_id=c.campus_card_id "
+			+" where c.student_id=#{0}")
 	@Results(value = {
 			@Result(id = true, property = "campusCardRecordId", column = "campus_card_record_id", javaType = Integer.class, jdbcType = JdbcType.INTEGER),
 			@Result(property = "campusCardId", column = "campus_card_id", javaType = Integer.class, jdbcType = JdbcType.INTEGER),
