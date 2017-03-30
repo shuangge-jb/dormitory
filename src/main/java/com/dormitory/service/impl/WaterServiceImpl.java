@@ -10,25 +10,27 @@ import com.dormitory.service.WaterService;
 @Service
 public class WaterServiceImpl implements WaterService {
 @Resource
-private WaterDAO waterMapper;
+private WaterDAO waterDAO;
 	/* (non-Javadoc)
 	 * @see com.dormitory.service.WaterService#getWater(java.lang.Integer)
 	 */
 	@Override
 	public Water getWater(Integer dormitoryId) {
-		return waterMapper.getWater(dormitoryId);
+		return waterDAO.getWater(dormitoryId);
 	}
 	/**
-	 * @return the waterMapper
+	 * @return the waterDAO
 	 */
-	public WaterDAO getWaterMapper() {
-		return waterMapper;
+	public WaterDAO getWaterDAO() {
+		return waterDAO;
 	}
 	/**
-	 * @param waterMapper the waterMapper to set
+	 * @param waterDAO the waterDAO to set
 	 */
-	public void setWaterMapper(WaterDAO waterMapper) {
-		this.waterMapper = waterMapper;
+	public void setWaterDAO(WaterDAO waterDAO) {
+		this.waterDAO = waterDAO;
 	}
+	
+	
 
 }

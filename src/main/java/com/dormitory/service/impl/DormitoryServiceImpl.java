@@ -10,26 +10,27 @@ import com.dormitory.service.DormitoryService;
 @Service
 public class DormitoryServiceImpl implements DormitoryService {
 @Resource
-private DormitoryDAO dormitoryMapper;
+private DormitoryDAO dormitoryDAO;
 	/* (non-Javadoc)
 	 * @see com.dormitory.service.DormitoryService#getDormitory(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public Dormitory getDormitory(String building, String room) {
-		return dormitoryMapper.getDormitory(building, room);
+		return dormitoryDAO.getDormitory(building, room);
 	}
 	/**
-	 * @return the dormitoryMapper
+	 * @return the dormitoryDAO
 	 */
-	public DormitoryDAO getDormitoryMapper() {
-		return dormitoryMapper;
+	public DormitoryDAO getDormitoryDAO() {
+		return dormitoryDAO;
 	}
 	/**
-	 * @param dormitoryMapper the dormitoryMapper to set
+	 * @param dormitoryDAO the dormitoryDAO to set
 	 */
-	public void setDormitoryMapper(DormitoryDAO dormitoryMapper) {
-		this.dormitoryMapper = dormitoryMapper;
+	public void setDormitoryDAO(DormitoryDAO dormitoryDAO) {
+		this.dormitoryDAO = dormitoryDAO;
 	}
+	
 
 	
 }

@@ -10,26 +10,27 @@ import com.dormitory.service.ElectricityService;
 @Service
 public class ElectricityServiceImpl implements ElectricityService {
 @Resource
-private ElectricityDAO electricityMapper;
+private ElectricityDAO electricityDAO;
 	/* (non-Javadoc)
 	 * @see com.dormitory.service.ElectricityService#getElectricity(java.lang.Integer)
 	 */
 	@Override
 	public Electricity getElectricity(Integer dormitoryId) {
-		return electricityMapper.getElectricity(dormitoryId);
+		return electricityDAO.getElectricity(dormitoryId);
 	}
 	/**
-	 * @return the electricityMapper
+	 * @return the electricityDAO
 	 */
-	public ElectricityDAO getElectricityMapper() {
-		return electricityMapper;
+	public ElectricityDAO getElectricityDAO() {
+		return electricityDAO;
 	}
 	/**
-	 * @param electricityMapper the electricityMapper to set
+	 * @param electricityDAO the electricityDAO to set
 	 */
-	public void setElectricityMapper(ElectricityDAO electricityMapper) {
-		this.electricityMapper = electricityMapper;
+	public void setElectricityDAO(ElectricityDAO electricityDAO) {
+		this.electricityDAO = electricityDAO;
 	}
+	
 
 	
 }

@@ -13,7 +13,7 @@ import com.dormitory.service.WaterRecordService;
 @Service
 public class WaterRecordServiceImpl implements WaterRecordService {
 	@Resource
-	private WaterRecordDAO waterRecordMapper;
+	private WaterRecordDAO waterRecordDAO;
 
 	/*
 	 * (non-Javadoc)
@@ -24,22 +24,25 @@ public class WaterRecordServiceImpl implements WaterRecordService {
 	 */
 	@Override
 	public List<WaterRecord> listWaterRecord(Integer dormitoryId) {
-		return waterRecordMapper.listWaterRecord(dormitoryId);
+		return waterRecordDAO.listWaterRecord(dormitoryId);
 	}
 
 	/**
-	 * @return the waterRecordMapper
+	 * @return the waterRecordDAO
 	 */
-	public WaterRecordDAO getWaterRecordMapper() {
-		return waterRecordMapper;
+	public WaterRecordDAO getWaterRecordDAO() {
+		return waterRecordDAO;
 	}
 
 	/**
-	 * @param waterRecordMapper
-	 *            the waterRecordMapper to set
+	 * @param waterRecordDAO the waterRecordDAO to set
 	 */
-	public void setWaterRecordMapper(WaterRecordDAO waterRecordMapper) {
-		this.waterRecordMapper = waterRecordMapper;
+	public void setWaterRecordDAO(WaterRecordDAO waterRecordDAO) {
+		this.waterRecordDAO = waterRecordDAO;
 	}
+
+	
+
+	
 
 }

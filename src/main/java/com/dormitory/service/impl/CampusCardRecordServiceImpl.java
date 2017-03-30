@@ -12,27 +12,27 @@ import com.dormitory.service.CampusCardRecordService;
 @Service
 public class CampusCardRecordServiceImpl implements CampusCardRecordService {
 @Resource
-private CampusCardRecordDAO campusCardRecordMapper;
+private CampusCardRecordDAO campusCardRecordDAO;
 	/* (non-Javadoc)
 	 * @see com.dormitory.service.CampusCardRecordService#listCampusCardRecord(java.lang.Long)
 	 */
 	@Override
 	public List<CampusCardRecord> listCampusCardRecord(Long studentId) {
-		return campusCardRecordMapper.listCampusCardRecord(studentId);
+		return campusCardRecordDAO.listCampusCardRecord(studentId);
 	}
 	/**
-	 * @return the campusCardRecordMapper
+	 * @return the campusCardRecordDAO
 	 */
-	public CampusCardRecordDAO getCampusCardRecordMapper() {
-		return campusCardRecordMapper;
+	public CampusCardRecordDAO getCampusCardRecordDAO() {
+		return campusCardRecordDAO;
 	}
 	/**
-	 * @param campusCardRecordMapper the campusCardRecordMapper to set
+	 * @param campusCardRecordDAO the campusCardRecordDAO to set
 	 */
-	public void setCampusCardRecordMapper(
-			CampusCardRecordDAO campusCardRecordMapper) {
-		this.campusCardRecordMapper = campusCardRecordMapper;
+	public void setCampusCardRecordDAO(CampusCardRecordDAO campusCardRecordDAO) {
+		this.campusCardRecordDAO = campusCardRecordDAO;
 	}
+	
 
 	
 }

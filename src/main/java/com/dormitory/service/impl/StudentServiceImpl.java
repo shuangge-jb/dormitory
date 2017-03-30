@@ -11,7 +11,7 @@ import com.dormitory.service.StudentService;
 @Service
 public class StudentServiceImpl implements StudentService {
 	@Resource
-	private StudentDAO studentMapper;
+	private StudentDAO studentDAO;
 
 	/*
 	 * (non-Javadoc)
@@ -21,22 +21,23 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public Student getStudent(Long studentId) {
 
-		return studentMapper.getStudent(studentId);
+		return studentDAO.getStudent(studentId);
 	}
 
 	/**
-	 * @return the studentMapper
+	 * @return the studentDAO
 	 */
-	public StudentDAO getStudentMapper() {
-		return studentMapper;
+	public StudentDAO getStudentDAO() {
+		return studentDAO;
 	}
 
 	/**
-	 * @param studentMapper
-	 *            the studentMapper to set
+	 * @param studentDAO the studentDAO to set
 	 */
-	public void setStudentMapper(StudentDAO studentMapper) {
-		this.studentMapper = studentMapper;
+	public void setStudentDAO(StudentDAO studentDAO) {
+		this.studentDAO = studentDAO;
 	}
+
+	
 
 }

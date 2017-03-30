@@ -11,7 +11,7 @@ import com.dormitory.service.CampusCardService;
 @Service
 public class CampusCardServiceImpl implements CampusCardService {
 	@Resource
-	private CampusCardDAO campusCardMapper;
+	private CampusCardDAO campusCardDAO;
 
 	/*
 	 * (non-Javadoc)
@@ -21,22 +21,23 @@ public class CampusCardServiceImpl implements CampusCardService {
 	 */
 	@Override
 	public CampusCard getCampusCard(Long studentId) {
-		return campusCardMapper.getCampusCard(studentId);
+		return campusCardDAO.getCampusCard(studentId);
 	}
 
 	/**
-	 * @return the campusCardMapper
+	 * @return the campusCardDAO
 	 */
-	public CampusCardDAO getCampusCardMapper() {
-		return campusCardMapper;
+	public CampusCardDAO getCampusCardDAO() {
+		return campusCardDAO;
 	}
 
 	/**
-	 * @param campusCardMapper
-	 *            the campusCardMapper to set
+	 * @param campusCardDAO the campusCardDAO to set
 	 */
-	public void setCampusCardMapper(CampusCardDAO campusCardMapper) {
-		this.campusCardMapper = campusCardMapper;
+	public void setCampusCardDAO(CampusCardDAO campusCardDAO) {
+		this.campusCardDAO = campusCardDAO;
 	}
+
+	
 
 }

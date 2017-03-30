@@ -13,7 +13,7 @@ import com.dormitory.service.ElectricityRecordService;
 @Service
 public class ElectricityRecordServiceImpl implements ElectricityRecordService {
 	@Resource
-	private ElectricityRecordDAO electricityRecordMapper;
+	private ElectricityRecordDAO electricityRecordDAO;
 
 	/*
 	 * (non-Javadoc)
@@ -24,22 +24,23 @@ public class ElectricityRecordServiceImpl implements ElectricityRecordService {
 	 */
 	@Override
 	public List<ElectricityRecord> listElectricityRecord(Integer dormitoryId) {
-		return electricityRecordMapper.listElectricityRecord(dormitoryId);
+		return electricityRecordDAO.listElectricityRecord(dormitoryId);
 	}
 
 	/**
-	 * @return the electricityRecordMapper
+	 * @return the electricityRecordDAO
 	 */
-	public ElectricityRecordDAO getElectricityRecordMapper() {
-		return electricityRecordMapper;
+	public ElectricityRecordDAO getElectricityRecordDAO() {
+		return electricityRecordDAO;
 	}
 
 	/**
-	 * @param electricityRecordMapper the electricityRecordMapper to set
+	 * @param electricityRecordDAO the electricityRecordDAO to set
 	 */
-	public void setElectricityRecordMapper(
-			ElectricityRecordDAO electricityRecordMapper) {
-		this.electricityRecordMapper = electricityRecordMapper;
+	public void setElectricityRecordDAO(ElectricityRecordDAO electricityRecordDAO) {
+		this.electricityRecordDAO = electricityRecordDAO;
 	}
+
+	
 
 }

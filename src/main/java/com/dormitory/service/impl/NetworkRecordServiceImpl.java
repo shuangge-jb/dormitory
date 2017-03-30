@@ -12,26 +12,27 @@ import com.dormitory.service.NetworkRecordService;
 @Service
 public class NetworkRecordServiceImpl implements NetworkRecordService {
 @Resource
-private NetworkRecordDAO networkRecordMapper;
+private NetworkRecordDAO networkRecordDAO;
 	/* (non-Javadoc)
 	 * @see com.dormitory.service.NetworkRecordService#listNetworkRecord(java.lang.Long)
 	 */
 	@Override
 	public List<NetworkRecord> listNetworkRecord(Long studentId) {
-		return networkRecordMapper.listNetworkRecord(studentId);
+		return networkRecordDAO.listNetworkRecord(studentId);
 	}
 	/**
-	 * @return the networkRecordMapper
+	 * @return the networkRecordDAO
 	 */
-	public NetworkRecordDAO getNetworkRecordMapper() {
-		return networkRecordMapper;
+	public NetworkRecordDAO getNetworkRecordDAO() {
+		return networkRecordDAO;
 	}
 	/**
-	 * @param networkRecordMapper the networkRecordMapper to set
+	 * @param networkRecordDAO the networkRecordDAO to set
 	 */
-	public void setNetworkRecordMapper(NetworkRecordDAO networkRecordMapper) {
-		this.networkRecordMapper = networkRecordMapper;
+	public void setNetworkRecordDAO(NetworkRecordDAO networkRecordDAO) {
+		this.networkRecordDAO = networkRecordDAO;
 	}
+	
 
 	
 }

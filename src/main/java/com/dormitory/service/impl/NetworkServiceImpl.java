@@ -11,7 +11,7 @@ import com.dormitory.service.NetworkService;
 @Service
 public class NetworkServiceImpl implements NetworkService {
 	@Resource
-	private NetworkDAO networkMapper;
+	private NetworkDAO networkDAO;
 
 	/*
 	 * (non-Javadoc)
@@ -20,22 +20,23 @@ public class NetworkServiceImpl implements NetworkService {
 	 */
 	@Override
 	public Network getNetwork(Long studentId) {
-		return networkMapper.getNetwork(studentId);
+		return networkDAO.getNetwork(studentId);
 	}
 
 	/**
-	 * @return the networkMapper
+	 * @return the networkDAO
 	 */
-	public NetworkDAO getNetworkMapper() {
-		return networkMapper;
+	public NetworkDAO getNetworkDAO() {
+		return networkDAO;
 	}
 
 	/**
-	 * @param networkMapper
-	 *            the networkMapper to set
+	 * @param networkDAO the networkDAO to set
 	 */
-	public void setNetworkMapper(NetworkDAO networkMapper) {
-		this.networkMapper = networkMapper;
+	public void setNetworkDAO(NetworkDAO networkDAO) {
+		this.networkDAO = networkDAO;
 	}
+
+	
 
 }
