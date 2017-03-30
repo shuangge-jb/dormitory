@@ -26,6 +26,90 @@ public class WaterDTO {
 		this.price = water.getPrice();
 	}
 
+	/**
+	 * @return the building
+	 */
+	public String getBuilding() {
+		return building;
+	}
+
+	/**
+	 * @param building the building to set
+	 */
+	public void setBuilding(String building) {
+		this.building = building;
+	}
+
+	/**
+	 * @return the room
+	 */
+	public String getRoom() {
+		return room;
+	}
+
+	/**
+	 * @param room the room to set
+	 */
+	public void setRoom(String room) {
+		this.room = room;
+	}
+
+	/**
+	 * @return the prevTime
+	 */
+	public Date getPrevTime() {
+		return prevTime;
+	}
+
+	/**
+	 * @param prevTime the prevTime to set
+	 */
+	public void setPrevTime(Date prevTime) {
+		this.prevTime = prevTime;
+	}
+
+	/**
+	 * @return the thisTime
+	 */
+	public Date getThisTime() {
+		return thisTime;
+	}
+
+	/**
+	 * @param thisTime the thisTime to set
+	 */
+	public void setThisTime(Date thisTime) {
+		this.thisTime = thisTime;
+	}
+
+	/**
+	 * @return the readout
+	 */
+	public Long getReadout() {
+		return readout;
+	}
+
+	/**
+	 * @param readout the readout to set
+	 */
+	public void setReadout(Long readout) {
+		this.readout = readout;
+	}
+
+	/**
+	 * @return the price
+	 */
+	public Double getPrice() {
+		return price;
+	}
+
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

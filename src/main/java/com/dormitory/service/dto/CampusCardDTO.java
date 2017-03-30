@@ -22,6 +22,76 @@ public class CampusCardDTO {
 		this.hotwaterBalance = campusCard.getHotwaterBalance();
 	}
 
+	/**
+	 * @return the campusCardId
+	 */
+	public Integer getCampusCardId() {
+		return campusCardId;
+	}
+
+	/**
+	 * @param campusCardId the campusCardId to set
+	 */
+	public void setCampusCardId(Integer campusCardId) {
+		this.campusCardId = campusCardId;
+	}
+
+	/**
+	 * @return the studentId
+	 */
+	public Long getStudentId() {
+		return studentId;
+	}
+
+	/**
+	 * @param studentId the studentId to set
+	 */
+	public void setStudentId(Long studentId) {
+		this.studentId = studentId;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the cardBalance
+	 */
+	public Double getCardBalance() {
+		return cardBalance;
+	}
+
+	/**
+	 * @param cardBalance the cardBalance to set
+	 */
+	public void setCardBalance(Double cardBalance) {
+		this.cardBalance = cardBalance;
+	}
+
+	/**
+	 * @return the hotwaterBalance
+	 */
+	public Double getHotwaterBalance() {
+		return hotwaterBalance;
+	}
+
+	/**
+	 * @param hotwaterBalance the hotwaterBalance to set
+	 */
+	public void setHotwaterBalance(Double hotwaterBalance) {
+		this.hotwaterBalance = hotwaterBalance;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
