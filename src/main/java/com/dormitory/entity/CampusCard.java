@@ -11,7 +11,7 @@ public class CampusCard {
 
     private BigDecimal cardBalance;
 
-    private BigDecimal hotwaterBalance;
+    private Double hotwaterBalance;
 
     public Integer getCampusCardId() {
         return campusCardId;
@@ -37,11 +37,11 @@ public class CampusCard {
         this.cardBalance = cardBalance;
     }
 
-    public BigDecimal getHotwaterBalance() {
+    public Double getHotwaterBalance() {
         return hotwaterBalance;
     }
 
-    public void setHotwaterBalance(BigDecimal hotwaterBalance) {
+    public void setHotwaterBalance(Double hotwaterBalance) {
         this.hotwaterBalance = hotwaterBalance;
     }
 

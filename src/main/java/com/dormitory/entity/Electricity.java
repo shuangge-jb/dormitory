@@ -7,9 +7,9 @@ import javax.persistence.Entity;
 public class Electricity {
     private Integer dormitoryId;
 
-    private BigDecimal restElectricity;
+    private Double restElectricity;
 
-    private BigDecimal sumElectricity;
+    private Double sumElectricity;
 
     private BigDecimal balance;
 
@@ -21,19 +21,19 @@ public class Electricity {
         this.dormitoryId = dormitoryId;
     }
 
-    public BigDecimal getRestElectricity() {
+    public Double getRestElectricity() {
         return restElectricity;
     }
 
-    public void setRestElectricity(BigDecimal restElectricity) {
+    public void setRestElectricity(Double restElectricity) {
         this.restElectricity = restElectricity;
     }
 
-    public BigDecimal getSumElectricity() {
+    public Double getSumElectricity() {
         return sumElectricity;
     }
 
-    public void setSumElectricity(BigDecimal sumElectricity) {
+    public void setSumElectricity(Double sumElectricity) {
         this.sumElectricity = sumElectricity;
     }
 

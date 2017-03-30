@@ -16,7 +16,7 @@ public class ElectricityRecord {
 
     private Date payTime;
 
-    private BigDecimal buyElectricity;
+    private Double buyElectricity;
 
     private String state;
 
@@ -60,11 +60,11 @@ public class ElectricityRecord {
         this.payTime = payTime;
     }
 
-    public BigDecimal getBuyElectricity() {
+    public Double getBuyElectricity() {
         return buyElectricity;
     }
 
-    public void setBuyElectricity(BigDecimal buyElectricity) {
+    public void setBuyElectricity(Double buyElectricity) {
         this.buyElectricity = buyElectricity;
     }
 
