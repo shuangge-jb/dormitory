@@ -11,7 +11,7 @@ public class Electricity {
 
     private Double sumElectricity;
 
-    private BigDecimal balance;
+    private Double balance;
 
     public Integer getDormitoryId() {
         return dormitoryId;
@@ -37,11 +37,11 @@ public class Electricity {
         this.sumElectricity = sumElectricity;
     }
 
-    public BigDecimal getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 
