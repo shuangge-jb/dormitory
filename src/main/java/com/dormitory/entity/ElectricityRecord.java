@@ -1,9 +1,6 @@
 package com.dormitory.entity;
 
-import java.math.BigDecimal;
 import java.util.Date;
-
-import javax.persistence.Entity;
 
 public class ElectricityRecord {
     private Integer electricityRecordId;

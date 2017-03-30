@@ -1,15 +1,11 @@
 package com.dormitory.entity;
 
-import java.math.BigDecimal;
-
-import javax.persistence.Entity;
-
 public class CampusCard {
     private Integer campusCardId;
 
     private Long studentId;
 
-    private BigDecimal cardBalance;
+    private Double cardBalance;
 
     private Double hotwaterBalance;
 
@@ -29,11 +25,11 @@ public class CampusCard {
         this.studentId = studentId;
     }
 
-    public BigDecimal getCardBalance() {
+    public Double getCardBalance() {
         return cardBalance;
     }
 
-    public void setCardBalance(BigDecimal cardBalance) {
+    public void setCardBalance(Double cardBalance) {
         this.cardBalance = cardBalance;
     }
 

@@ -2,8 +2,6 @@ package com.dormitory.entity;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-
 public class NetworkRecord {
     private Integer networkRecordId;
 

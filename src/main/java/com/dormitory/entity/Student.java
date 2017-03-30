@@ -1,7 +1,5 @@
 package com.dormitory.entity;
 
-import javax.persistence.Entity;
-
 
 public class Student {
     private Long studentId;

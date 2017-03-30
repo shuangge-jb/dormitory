@@ -2,71 +2,87 @@ package com.dormitory.entity;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-
 public class Water {
-    private Integer dormitoryId;
+	private Integer dormitoryId;
 
-    private Long prevReadout;
+	private Long prevReadout;
 
-    private Date prevTime;
+	private Date prevTime;
 
-    private Long thisReadout;
+	private Long thisReadout;
 
-    private Date thisTime;
+	private Date thisTime;
 
-    public Integer getDormitoryId() {
-        return dormitoryId;
-    }
+	private Double price;
 
-    public void setDormitoryId(Integer dormitoryId) {
-        this.dormitoryId = dormitoryId;
-    }
+	public Integer getDormitoryId() {
+		return dormitoryId;
+	}
 
-    public Long getPrevReadout() {
-        return prevReadout;
-    }
+	public void setDormitoryId(Integer dormitoryId) {
+		this.dormitoryId = dormitoryId;
+	}
 
-    public void setPrevReadout(Long prevReadout) {
-        this.prevReadout = prevReadout;
-    }
+	public Long getPrevReadout() {
+		return prevReadout;
+	}
 
-    public Date getPrevTime() {
-        return prevTime;
-    }
+	public void setPrevReadout(Long prevReadout) {
+		this.prevReadout = prevReadout;
+	}
 
-    public void setPrevTime(Date prevTime) {
-        this.prevTime = prevTime;
-    }
+	public Date getPrevTime() {
+		return prevTime;
+	}
 
-    public Long getThisReadout() {
-        return thisReadout;
-    }
+	public void setPrevTime(Date prevTime) {
+		this.prevTime = prevTime;
+	}
 
-    public void setThisReadout(Long thisReadout) {
-        this.thisReadout = thisReadout;
-    }
+	public Long getThisReadout() {
+		return thisReadout;
+	}
 
-    public Date getThisTime() {
-        return thisTime;
-    }
+	public void setThisReadout(Long thisReadout) {
+		this.thisReadout = thisReadout;
+	}
 
-    public void setThisTime(Date thisTime) {
-        this.thisTime = thisTime;
-    }
+	public Date getThisTime() {
+		return thisTime;
+	}
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", dormitoryId=").append(dormitoryId);
-        sb.append(", prevReadout=").append(prevReadout);
-        sb.append(", prevTime=").append(prevTime);
-        sb.append(", thisReadout=").append(thisReadout);
-        sb.append(", thisTime=").append(thisTime);
-        sb.append("]");
-        return sb.toString();
-    }
+	public void setThisTime(Date thisTime) {
+		this.thisTime = thisTime;
+	}
+
+	/**
+	 * @return the price
+	 */
+	public Double getPrice() {
+		return price;
+	}
+
+	/**
+	 * @param price
+	 *            the price to set
+	 */
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getClass().getSimpleName());
+		sb.append(" [");
+		sb.append("Hash = ").append(hashCode());
+		sb.append(", dormitoryId=").append(dormitoryId);
+		sb.append(", prevReadout=").append(prevReadout);
+		sb.append(", prevTime=").append(prevTime);
+		sb.append(", thisReadout=").append(thisReadout);
+		sb.append(", thisTime=").append(thisTime);
+		sb.append(", price=").append(price);
+		sb.append("]");
+		return sb.toString();
+	}
 }

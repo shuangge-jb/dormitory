@@ -1,9 +1,5 @@
 package com.dormitory.entity;
 
-import java.math.BigDecimal;
-
-import javax.persistence.Entity;
-
 public class Electricity {
     private Integer dormitoryId;
 
