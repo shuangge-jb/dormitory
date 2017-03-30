@@ -13,7 +13,7 @@ import com.dormitory.entity.Electricity;
 public interface ElectricityDAO {
    
 @Select("select * from electricity e "
-		+" where e.dormitory_id=#{dormitoryId} ")
+		+" where e.dormitory_id=#{0} ")
 @Results(value = {
         @Result(id = true, property = "dormitoryId", column = "dormitory_id", javaType = Integer.class, jdbcType = JdbcType.INTEGER),
         @Result(property = "restElectricity", column = "rest_electricity", javaType = BigDecimal.class, jdbcType = JdbcType.DECIMAL),

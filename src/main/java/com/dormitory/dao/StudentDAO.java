@@ -10,7 +10,7 @@ import com.dormitory.entity.Student;
 
 public interface StudentDAO {
     
-	@Select("select * from student where student_id=#{studentId}")
+	@Select("select * from student where student_id=#{0}")
 	@Results(value = {
             @Result(id = true, property = "studentId", column = "student_id", javaType = Long.class, jdbcType = JdbcType.DECIMAL),
             @Result( property = "dormitoryId", column = "dormitory_id", javaType = Integer.class, jdbcType = JdbcType.INTEGER),

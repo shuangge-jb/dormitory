@@ -13,9 +13,8 @@ import org.springframework.stereotype.Repository;
 import com.dormitory.entity.ElectricityRecord;
 
 public interface ElectricityRecordDAO {
-	@Select("select * from electricity_record r join electricity e "
-			+ " on r.dormitory_id=e.dormitory_id "
-			+ " where  e.dormitory_id=#{0}")
+	@Select("select * from electricity_record r "
+			+ " where r.dormitory_id=#{0}")
 	@Results(value = {
 			@Result(id = true, property = "electricityRecordId", column = "electricity_record_id", javaType = Integer.class, jdbcType = JdbcType.INTEGER),
 			@Result(property = "dormitoryId", column = "dormitory_id", javaType = Integer.class, jdbcType = JdbcType.INTEGER),

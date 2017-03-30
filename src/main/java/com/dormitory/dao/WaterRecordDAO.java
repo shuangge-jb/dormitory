@@ -14,9 +14,8 @@ import com.dormitory.entity.WaterRecord;
 
 public interface WaterRecordDAO {
    
-	@Select("select * from water_record r join water w "
-			+ " on r.dormitory_id=w.dormitory_id "
-			+ " where  w.dormitory_id=#{0}")
+	@Select("select * from water_record r"
+			+ " where  r.dormitory_id=#{0}")
 	@Results(value = {
 			@Result(id = true, property = "waterRecordId", column = "water_record_id", javaType = Integer.class, jdbcType = JdbcType.INTEGER),
 			@Result(property = "dormitoryId", column = "dormitory_id", javaType = Integer.class, jdbcType = JdbcType.INTEGER),

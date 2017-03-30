@@ -14,9 +14,8 @@ import com.dormitory.entity.NetworkRecord;
 
 public interface NetworkRecordDAO {
    
-	@Select("select * from network_record r join network n "
-			+ " on r.student_id=n.student_id "
-			+ " where  n.student_id=#{0}")
+	@Select("select * from network_record r "
+			+ " where  r.student_id=#{0}")
 	@Results(value = {
 			@Result(id = true, property = "networkRecordId", column = "network_record_id", javaType = Integer.class, jdbcType = JdbcType.INTEGER),
 			@Result(property = "studentId", column = "student_id", javaType = Long.class, jdbcType = JdbcType.DECIMAL),
