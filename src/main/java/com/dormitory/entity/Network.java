@@ -8,12 +8,12 @@ public class Network {
 
     private Integer money;
 
-    public Long getSutdentId() {
+    public Long getStudentId() {
         return studentId;
     }
 
-    public void setSutdentId(Long sutdentId) {
-        this.studentId = sutdentId;
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 
     public String getTariffPackage() {
