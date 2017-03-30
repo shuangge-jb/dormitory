@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.dormitory.dao.DormitoryDAO;
 import com.dormitory.entity.Dormitory;
 import com.dormitory.service.DormitoryService;
 
@@ -21,11 +20,10 @@ public class DormitoryServiceImplTest {
 
 	@Test
 	public void testGetDormitory() {
+		Integer dormitoryId=1;
 		String building="C10";
 		String room="512";
-		Dormitory dormitory = dormitoryService.getDormitory(building,
-				room);
-		
+		Dormitory dormitory = dormitoryService.getDormitory(dormitoryId);
 		assertNotNull(dormitory);
 		assertEquals(new Integer(1), dormitory.getDormitoryId());
 		assertEquals(building, dormitory.getBuilding());

@@ -2,7 +2,7 @@ package test.dormitory.service.impl;
 
 import static org.junit.Assert.*;
 
-import java.math.BigDecimal;
+
 
 import javax.annotation.Resource;
 
@@ -11,8 +11,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.dormitory.entity.Electricity;
 import com.dormitory.service.ElectricityService;
+import com.dormitory.service.dto.ElectricityDTO;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml",
 		"classpath:spring-mybatis.xml" })
@@ -21,13 +21,12 @@ public class ElectricityServiceImplTest {
 private ElectricityService electricityService;
 	@Test
 	public void testGetElectricity() {
-		Integer dormitoryId=1;
-		BigDecimal restElectricity=new BigDecimal("100.00");
-		BigDecimal sumElectricity=new BigDecimal("300.00");
-		BigDecimal balance=new BigDecimal("60.00");
-		Electricity electricity=electricityService.getElectricity(dormitoryId);
+		Long studentId=201330610505L;
+		Double restElectricity=new Double("100.00");
+		Double sumElectricity=new Double("300.00");
+		Double balance=new Double("60.00");
+		ElectricityDTO electricity=electricityService.getElectricity(studentId);
 		assertNotNull(electricity);
-		assertEquals(dormitoryId, electricity.getDormitoryId());
 		assertEquals(restElectricity, electricity.getRestElectricity());
 		assertEquals(sumElectricity, electricity.getSumElectricity());
 		assertEquals(balance, electricity.getBalance());

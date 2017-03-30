@@ -2,8 +2,6 @@ package test.dormitory.service.impl;
 
 import static org.junit.Assert.*;
 
-import java.util.Date;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -11,8 +9,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.dormitory.entity.Water;
 import com.dormitory.service.WaterService;
+import com.dormitory.service.dto.WaterDTO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml",
@@ -23,15 +21,18 @@ public class WaterServiceImplTest {
 
 	@Test
 	public void testGetWater() {
-		Integer dormitoryId = 1;
-		Long prevReadout = 1000L;
-		Long thisReadout = 1999L;
-		Water water = waterService.getWater(dormitoryId);
-		assertNotNull(water);
-		assertEquals(dormitoryId, water.getDormitoryId());
-		assertEquals(prevReadout, water.getPrevReadout());
-		assertEquals(thisReadout, water.getThisReadout());
-		System.out.println(water);
+		Long studentId=201330610505L;
+		String building="C10";
+		String room="512";
+		Long readout = 999L;
+		Double price=new Double(130);
+		WaterDTO waterDTO = waterService.getWater(studentId);
+		assertNotNull(waterDTO);
+		assertEquals(building, waterDTO.getBuilding());
+		assertEquals(room, waterDTO.getRoom());
+		assertEquals(readout, waterDTO.getReadout());
+		assertEquals(price, waterDTO.getPrice());
+		System.out.println(waterDTO);
 	}
 
 }

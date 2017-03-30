@@ -9,8 +9,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.dormitory.entity.Network;
 import com.dormitory.service.NetworkService;
+import com.dormitory.service.dto.NetworkDTO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml",
@@ -24,9 +24,9 @@ public class NetworkServiceImplTest {
 		Long studentId = 201330610505L;
 		String tariffPackage = "包学期";
 		Integer money = 120;
-		Network network = networkService.getNetwork(studentId);
+		NetworkDTO network = networkService.getNetwork(studentId);
 		assertNotNull(network);
-		assertEquals(studentId, network.getSutdentId());
+		assertEquals(studentId, network.getStudentId());
 		assertEquals(tariffPackage, network.getTariffPackage());
 		assertEquals(money, network.getMoney());
 		System.out.println(network);
