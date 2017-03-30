@@ -3,5 +3,5 @@ package com.dormitory.service;
 import com.dormitory.service.dto.ElectricityDTO;
 
 public interface ElectricityService {
-	public ElectricityDTO getElectricity(Long studentId);
+	public ElectricityDTO getElectricity(Integer dormitoryId);
 }

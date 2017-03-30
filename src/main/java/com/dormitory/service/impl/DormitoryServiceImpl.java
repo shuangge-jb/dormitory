@@ -22,8 +22,17 @@ private StudentDAO studentDAO;
 	@Override
 	public Dormitory getDormitory(Long studentId) {
 		Student student=studentDAO.getStudent(studentId);
-		return dormitoryDAO.getDormitory(student.getDormitoryId());
+		return getDormitory(student.getDormitoryId());
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.dormitory.service.DormitoryService#getDormitory(java.lang.Integer)
+	 */
+	@Override
+	public Dormitory getDormitory(Integer dormitoryId) {
+		return dormitoryDAO.getDormitory(dormitoryId);
+	}
+
 	/**
 	 * @return the dormitoryDAO
 	 */

@@ -22,17 +22,15 @@ public class WaterServiceImpl implements WaterService {
 	@Resource
 	private StudentDAO studentDAO;
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	
+
+	/* (non-Javadoc)
 	 * @see com.dormitory.service.WaterService#getWater(java.lang.Integer)
 	 */
 	@Override
-	public WaterDTO getWater(Long studentId) {
-		Student student = studentDAO.getStudent(studentId);
-		Dormitory dormitory = dormitoryDAO.getDormitory(student
-				.getDormitoryId());
-		Water water = waterDAO.getWater(student.getDormitoryId());
+	public WaterDTO getWater(Integer dormitoryId) {
+		Dormitory dormitory = dormitoryDAO.getDormitory(dormitoryId);
+		Water water = waterDAO.getWater(dormitoryId);
 		WaterDTO waterDTO = new WaterDTO();
 		waterDTO.init(dormitory, water);
 		return waterDTO;

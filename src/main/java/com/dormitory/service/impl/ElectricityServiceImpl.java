@@ -25,10 +25,9 @@ private DormitoryDAO dormitoryDAO;
 	 * @see com.dormitory.service.ElectricityService#getElectricity(java.lang.Integer)
 	 */
 	@Override
-	public ElectricityDTO getElectricity(Long studentId) {
-		Student student=studentDAO.getStudent(studentId);
-		Dormitory dormitory=dormitoryDAO.getDormitory(student.getDormitoryId());
-		Electricity electricity=electricityDAO.getElectricity(student.getDormitoryId());
+	public ElectricityDTO getElectricity(Integer dormitoryId) {
+		Dormitory dormitory=dormitoryDAO.getDormitory(dormitoryId);
+		Electricity electricity=electricityDAO.getElectricity(dormitoryId);
 		ElectricityDTO electricityDTO=new ElectricityDTO();
 		electricityDTO.init(dormitory, electricity);
 		return electricityDTO;

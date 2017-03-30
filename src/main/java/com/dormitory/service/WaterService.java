@@ -3,5 +3,5 @@ package com.dormitory.service;
 import com.dormitory.service.dto.WaterDTO;
 
 public interface WaterService {
-	public WaterDTO getWater(Long studentId);
+	public WaterDTO getWater(Integer dormitoryId);
 }
