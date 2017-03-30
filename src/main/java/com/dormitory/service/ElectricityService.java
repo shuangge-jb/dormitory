@@ -1,5 +1,7 @@
 package com.dormitory.service;
 
-public interface ElectricityService {
+import com.dormitory.entity.Electricity;
 
+public interface ElectricityService {
+	public Electricity getElectricity(Integer dormitoryId);
 }

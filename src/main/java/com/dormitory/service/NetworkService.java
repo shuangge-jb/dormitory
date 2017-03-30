@@ -1,5 +1,7 @@
 package com.dormitory.service;
 
-public interface NetworkService {
+import com.dormitory.entity.Network;
 
+public interface NetworkService {
+	public Network getNetwork(Long studentId);
 }

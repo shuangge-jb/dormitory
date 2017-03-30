@@ -1,5 +1,10 @@
 package com.dormitory.service;
 
-public interface NetworkRecordService {
+import java.util.List;
 
+import com.dormitory.entity.ElectricityRecord;
+import com.dormitory.entity.NetworkRecord;
+
+public interface NetworkRecordService {
+	public List<NetworkRecord> listNetworkRecord(Long studentId);
 }

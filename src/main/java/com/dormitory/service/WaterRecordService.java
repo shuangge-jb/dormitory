@@ -1,5 +1,9 @@
 package com.dormitory.service;
 
-public interface WaterRecordService {
+import java.util.List;
 
+import com.dormitory.entity.WaterRecord;
+
+public interface WaterRecordService {
+	public List<WaterRecord> listWaterRecord(Integer dormitoryId);
 }

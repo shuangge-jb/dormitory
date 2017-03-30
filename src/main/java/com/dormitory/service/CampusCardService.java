@@ -1,5 +1,7 @@
 package com.dormitory.service;
 
-public interface CampusCardService {
+import com.dormitory.entity.CampusCard;
 
+public interface CampusCardService {
+	public CampusCard getCampusCard(Long studentId);
 }

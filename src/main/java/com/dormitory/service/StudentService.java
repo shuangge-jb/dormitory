@@ -1,5 +1,7 @@
 package com.dormitory.service;
 
-public interface StudentService {
+import com.dormitory.entity.Student;
 
+public interface StudentService {
+	public Student getStudent(Long studentId);
 }
