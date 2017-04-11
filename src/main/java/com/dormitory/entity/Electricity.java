@@ -2,14 +2,23 @@ package com.dormitory.entity;
 
 import java.math.BigDecimal;
 
+
+
+
+
+
+
+
+import javax.persistence.Entity;
+
 public class Electricity {
-    private Integer dormitoryId;
+	protected Integer dormitoryId;
 
-	private BigDecimal restElectricity;
+	protected Double restElectricity;
 
-	private BigDecimal sumElectricity;
+	protected Double sumElectricity;
 
-	private BigDecimal balance;
+	protected Double balance;
 
 	public Integer getDormitoryId() {
 		return dormitoryId;
@@ -19,27 +28,27 @@ public class Electricity {
 		this.dormitoryId = dormitoryId;
 	}
 
-	public BigDecimal getRestElectricity() {
+	public Double getRestElectricity() {
 		return restElectricity;
 	}
 
-	public void setRestElectricity(BigDecimal restElectricity) {
+	public void setRestElectricity(Double restElectricity) {
 		this.restElectricity = restElectricity;
 	}
 
-	public BigDecimal getSumElectricity() {
+	public Double getSumElectricity() {
 		return sumElectricity;
 	}
 
-	public void setSumElectricity(BigDecimal sumElectricity) {
+	public void setSumElectricity(Double sumElectricity) {
 		this.sumElectricity = sumElectricity;
 	}
 
-	public BigDecimal getBalance() {
+	public Double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(BigDecimal balance) {
+	public void setBalance(Double balance) {
 		this.balance = balance;
 	}
 

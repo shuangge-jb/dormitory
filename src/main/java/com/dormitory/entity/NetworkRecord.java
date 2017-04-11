@@ -2,20 +2,22 @@ package com.dormitory.entity;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 public class NetworkRecord {
-    private Integer networkRecordId;
+    protected Integer networkRecordId;
 
-	private Long studentId;
+	protected Long studentId;
 
-	private String tariffPackage;
+	protected String tariffPackage;
 
-	private Integer money;
+	protected Integer money;
 
-	private Date createTime;
+	protected Date createTime;
 
-	private Date payTime;
+	protected Date payTime;
 
-	private String state;
+	protected String state;
 
 	public Integer getNetworkRecordId() {
 		return networkRecordId;

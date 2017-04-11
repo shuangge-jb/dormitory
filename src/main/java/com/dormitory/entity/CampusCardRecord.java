@@ -2,20 +2,22 @@ package com.dormitory.entity;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 public class CampusCardRecord {
-    private Integer campusCardRecordId;
+	protected Integer campusCardRecordId;
 
-	private Integer campusCardId;
+	protected Integer campusCardId;
 
-	private String business;
+	protected String business;
 
-	private Integer money;
+	protected Integer money;
 
-	private Date createTime;
+	protected Date createTime;
 
-	private Date payTime;
+	protected Date payTime;
 
-	private String state;
+	protected String state;
 
 	public Integer getCampusCardRecordId() {
 		return campusCardRecordId;

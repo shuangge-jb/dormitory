@@ -1,20 +1,23 @@
 package com.dormitory.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+
 public class ElectricityRecord {
-    private Integer electricityRecordId;
+	protected Integer electricityRecordId;
 
-	private Integer dormitoryId;
+	protected Integer dormitoryId;
 
-	private Integer money;
+	protected Integer money;
 
-	private Date createTime;
+	protected Date createTime;
 
-	private Date payTime;
+	protected Date payTime;
 
-	private BigDecimal buyElectricity;
+	protected Double buyElectricity;
 
 	private String state;
 
@@ -58,11 +61,11 @@ public class ElectricityRecord {
 		this.payTime = payTime;
 	}
 
-	public BigDecimal getBuyElectricity() {
+	public Double getBuyElectricity() {
 		return buyElectricity;
 	}
 
-	public void setBuyElectricity(BigDecimal buyElectricity) {
+	public void setBuyElectricity(Double buyElectricity) {
 		this.buyElectricity = buyElectricity;
 	}
 

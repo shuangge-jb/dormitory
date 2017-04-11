@@ -2,18 +2,20 @@ package com.dormitory.entity;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 public class WaterRecord {
-    private Integer waterRecordId;
+    protected Integer waterRecordId;
 
-    private Integer dormitoryId;
+    protected Integer dormitoryId;
 
-    private Integer money;
+    protected Integer money;
 
-    private Date createTime;
+    protected Date createTime;
 
-    private Date payTime;
+    protected Date payTime;
 
-    private String state;
+    protected String state;
 
     public Integer getWaterRecordId() {
         return waterRecordId;

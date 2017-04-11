@@ -1,12 +1,14 @@
 package com.dormitory.entity;
 
+import javax.persistence.Entity;
+
 
 public class Network {
-    private Long studentId;
+	protected Long studentId;
 
-	private String tariffPackage;
+	protected String tariffPackage;
 
-	private Integer money;
+	protected Integer money;
 
 	public Long getStudentId() {
 		return studentId;

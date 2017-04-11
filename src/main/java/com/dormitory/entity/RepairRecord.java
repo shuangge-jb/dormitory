@@ -3,17 +3,17 @@ package com.dormitory.entity;
 import java.util.Date;
 
 public class RepairRecord {
-    private Integer repairRecordId;
+    protected Integer repairRecordId;
 
-    private Integer dormitoryId;
+    protected Integer dormitoryId;
 
-    private String content;
+    protected String content;
 
-    private Integer state;
+    protected Integer state;
 
-    private Date createTime;
+    protected Date createTime;
 
-    private Date repairTime;
+    protected Date repairTime;
 
     public Integer getRepairRecordId() {
         return repairRecordId;
