@@ -15,7 +15,7 @@ public interface NetworkRecordDAO {
    
 	@Select("select * from network_record r "
 			+ " where  r.student_id=#{0}")
-	@ResultMap("com.dormitory.mapper.NetworkRecordMapper.networkRecord")
+	//@ResultMap("com.dormitory.mapper.NetworkRecordMapper.networkRecord")
     List<NetworkRecord> listNetworkRecord(Long studentId);
 
     
