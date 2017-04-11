@@ -9,7 +9,6 @@ import com.dormitory.dao.ElectricityDAO;
 import com.dormitory.dao.StudentDAO;
 import com.dormitory.entity.Dormitory;
 import com.dormitory.entity.Electricity;
-import com.dormitory.entity.Student;
 import com.dormitory.service.ElectricityService;
 import com.dormitory.service.dto.ElectricityDTO;
 @Service

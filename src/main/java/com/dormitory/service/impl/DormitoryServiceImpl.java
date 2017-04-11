@@ -9,7 +9,6 @@ import com.dormitory.dao.StudentDAO;
 import com.dormitory.entity.Dormitory;
 import com.dormitory.entity.Student;
 import com.dormitory.service.DormitoryService;
-import com.dormitory.service.StudentService;
 @Service
 public class DormitoryServiceImpl implements DormitoryService {
 @Resource

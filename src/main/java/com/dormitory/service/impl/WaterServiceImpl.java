@@ -8,7 +8,6 @@ import com.dormitory.dao.DormitoryDAO;
 import com.dormitory.dao.StudentDAO;
 import com.dormitory.dao.WaterDAO;
 import com.dormitory.entity.Dormitory;
-import com.dormitory.entity.Student;
 import com.dormitory.entity.Water;
 import com.dormitory.service.WaterService;
 import com.dormitory.service.dto.WaterDTO;
