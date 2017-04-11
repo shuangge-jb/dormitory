@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dormitory.mapper.NetworkRecordMapper">
+  <resultMap id="networkRecord" type="com.dormitory.entity.NetworkRecord">
+    <id column="network_record_id" jdbcType="INTEGER" property="networkRecordId" />
+    <result column="student_id" jdbcType="BIGINT" property="studentId" />
+    <result column="tariff_package" jdbcType="VARCHAR" property="tariffPackage" />
+    <result column="money" jdbcType="INTEGER" property="money" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="pay_time" jdbcType="DATE" property="payTime" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+  </resultMap>
+  
+</mapper>
