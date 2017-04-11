@@ -1,5 +1,6 @@
 package com.dormitory.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -15,7 +16,7 @@ public class Water {
 
     protected Date thisTime;
 
-	protected Double price;
+	protected BigDecimal price;
 
 	public Integer getDormitoryId() {
 		return dormitoryId;
@@ -57,11 +58,11 @@ public class Water {
 		this.thisTime = thisTime;
 	}
 
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
