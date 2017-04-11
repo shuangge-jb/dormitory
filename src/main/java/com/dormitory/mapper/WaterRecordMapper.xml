@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dormitory.mapper.WaterRecordMapper">
+  <resultMap id="waterRecord" type="com.dormitory.entity.WaterRecord">
+    <id column="water_record_id" jdbcType="INTEGER" property="waterRecordId" />
+    <result column="dormitory_id" jdbcType="INTEGER" property="dormitoryId" />
+    <result column="money" jdbcType="INTEGER" property="money" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="pay_time" jdbcType="DATE" property="payTime" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+  </resultMap>
+  
+</mapper>
