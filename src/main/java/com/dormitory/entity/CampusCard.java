@@ -2,18 +2,16 @@ package com.dormitory.entity;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Entity;
-
 public class CampusCard {
 	protected Integer campusCardId;
 
 	protected Long studentId;
 
 
-	protected Double cardBalance;
+	protected BigDecimal cardBalance;
 
 
-	protected Double hotwaterBalance;
+	protected BigDecimal hotwaterBalance;
 
 	public Integer getCampusCardId() {
 		return campusCardId;
@@ -32,21 +30,21 @@ public class CampusCard {
 	}
 
 
-	public Double getCardBalance() {
+	public BigDecimal getCardBalance() {
 		return cardBalance;
 	}
 
 
-	public void setCardBalance(Double cardBalance) {
+	public void setCardBalance(BigDecimal cardBalance) {
 		this.cardBalance = cardBalance;
 	}
 
 
-	public Double getHotwaterBalance() {
+	public BigDecimal getHotwaterBalance() {
 		return hotwaterBalance;
 	}
 
-	public void setHotwaterBalance(Double hotwaterBalance) {
+	public void setHotwaterBalance(BigDecimal hotwaterBalance) {
 		this.hotwaterBalance = hotwaterBalance;
 	}
 
