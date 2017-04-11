@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dormitory.dao.NetworkMapper">
+<mapper namespace="com.dormitory.mapper.NetworkMapper">
   <resultMap id="network" type="com.dormitory.entity.Network">
     <id column="student_id" jdbcType="BIGINT" property="studentId" />
     <result column="tariff_package" jdbcType="VARCHAR" property="tariffPackage" />

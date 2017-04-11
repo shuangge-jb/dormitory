@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dormitory.dao.PostcardMapper">
+<mapper namespace="com.dormitory.mapper.PostcardMapper">
   <resultMap id="BaseResultMap" type="com.dormitory.entity.Postcard">
     <id column="postcard_id" jdbcType="INTEGER" property="postcardId" />
     <result column="student_id" jdbcType="BIGINT" property="studentId" />

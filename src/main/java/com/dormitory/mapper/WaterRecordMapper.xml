@@ -5,8 +5,8 @@
     <id column="water_record_id" jdbcType="INTEGER" property="waterRecordId" />
     <result column="dormitory_id" jdbcType="INTEGER" property="dormitoryId" />
     <result column="money" jdbcType="INTEGER" property="money" />
-    <result column="create_time" jdbcType="DATE" property="createTime" />
-    <result column="pay_time" jdbcType="DATE" property="payTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
     <result column="state" jdbcType="VARCHAR" property="state" />
   </resultMap>
   

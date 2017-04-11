@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dormitory.dao.DormitoryMapper">
+<mapper namespace="com.dormitory.mapper.DormitoryMapper">
   <resultMap id="dormitory" type="com.dormitory.entity.Dormitory">
     <id column="dormitory_id" jdbcType="INTEGER" property="dormitoryId" />
     <result column="building" jdbcType="VARCHAR" property="building" />

@@ -6,8 +6,8 @@
     <result column="student_id" jdbcType="BIGINT" property="studentId" />
     <result column="tariff_package" jdbcType="VARCHAR" property="tariffPackage" />
     <result column="money" jdbcType="INTEGER" property="money" />
-    <result column="create_time" jdbcType="DATE" property="createTime" />
-    <result column="pay_time" jdbcType="DATE" property="payTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
     <result column="state" jdbcType="VARCHAR" property="state" />
   </resultMap>
   
