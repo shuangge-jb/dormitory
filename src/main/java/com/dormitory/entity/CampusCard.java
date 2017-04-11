@@ -7,7 +7,6 @@ public class CampusCard {
 
 	protected Long studentId;
 
-
 	protected BigDecimal cardBalance;
 
 

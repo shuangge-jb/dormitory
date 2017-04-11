@@ -1,8 +1,7 @@
 package com.dormitory.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
-
-import javax.persistence.Entity;
 
 public class WaterRecord {
     protected Integer waterRecordId;
@@ -11,9 +10,9 @@ public class WaterRecord {
 
     protected Integer money;
 
-    protected Date createTime;
+    protected Timestamp createTime;
 
-    protected Date payTime;
+    protected Timestamp payTime;
 
     protected String state;
 
@@ -45,7 +44,7 @@ public class WaterRecord {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
 
@@ -53,7 +52,7 @@ public class WaterRecord {
         return payTime;
     }
 
-    public void setPayTime(Date payTime) {
+    public void setPayTime(Timestamp payTime) {
         this.payTime = payTime;
     }
 

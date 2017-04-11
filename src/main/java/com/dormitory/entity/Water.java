@@ -1,20 +1,18 @@
 package com.dormitory.entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
-
-import javax.persistence.Entity;
+import java.sql.Timestamp;
 
 public class Water {
     protected Integer dormitoryId;
 
     protected Long prevReadout;
 
-    protected Date prevTime;
+    protected Timestamp prevTime;
 
     protected Long thisReadout;
 
-    protected Date thisTime;
+    protected Timestamp thisTime;
 
 	protected BigDecimal price;
 
@@ -34,11 +32,11 @@ public class Water {
 		this.prevReadout = prevReadout;
 	}
 
-	public Date getPrevTime() {
+	public Timestamp getPrevTime() {
 		return prevTime;
 	}
 
-	public void setPrevTime(Date prevTime) {
+	public void setPrevTime(Timestamp prevTime) {
 		this.prevTime = prevTime;
 	}
 
@@ -50,11 +48,11 @@ public class Water {
 		this.thisReadout = thisReadout;
 	}
 
-	public Date getThisTime() {
+	public Timestamp getThisTime() {
 		return thisTime;
 	}
 
-	public void setThisTime(Date thisTime) {
+	public void setThisTime(Timestamp thisTime) {
 		this.thisTime = thisTime;
 	}
 

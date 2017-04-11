@@ -1,13 +1,13 @@
 package com.dormitory.entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Announcement {
     protected Integer announcementId;
 
     protected String content;
 
-    protected Date createTime;
+    protected Timestamp createTime;
 
     protected Integer state;
 
@@ -27,11 +27,11 @@ public class Announcement {
         this.content = content == null ? null : content.trim();
     }
 
-    public Date getCreateTime() {
+    public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
 

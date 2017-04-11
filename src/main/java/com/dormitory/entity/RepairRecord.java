@@ -1,6 +1,6 @@
 package com.dormitory.entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class RepairRecord {
     protected Integer repairRecordId;
@@ -11,9 +11,9 @@ public class RepairRecord {
 
     protected Integer state;
 
-    protected Date createTime;
+    protected Timestamp createTime;
 
-    protected Date repairTime;
+    protected Timestamp repairTime;
 
     public Integer getRepairRecordId() {
         return repairRecordId;
@@ -47,19 +47,19 @@ public class RepairRecord {
         this.state = state;
     }
 
-    public Date getCreateTime() {
+    public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
 
-    public Date getRepairTime() {
+    public Timestamp getRepairTime() {
         return repairTime;
     }
 
-    public void setRepairTime(Date repairTime) {
+    public void setRepairTime(Timestamp repairTime) {
         this.repairTime = repairTime;
     }
 

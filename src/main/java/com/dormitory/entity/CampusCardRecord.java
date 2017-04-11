@@ -1,8 +1,6 @@
 package com.dormitory.entity;
 
-import java.util.Date;
-
-import javax.persistence.Entity;
+import java.sql.Timestamp;
 
 public class CampusCardRecord {
 	protected Integer campusCardRecordId;
@@ -13,9 +11,9 @@ public class CampusCardRecord {
 
 	protected Integer money;
 
-	protected Date createTime;
+	protected Timestamp createTime;
 
-	protected Date payTime;
+	protected Timestamp payTime;
 
 	protected String state;
 
@@ -51,19 +49,19 @@ public class CampusCardRecord {
 		this.money = money;
 	}
 
-	public Date getCreateTime() {
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 
-	public Date getPayTime() {
+	public Timestamp getPayTime() {
 		return payTime;
 	}
 
-	public void setPayTime(Date payTime) {
+	public void setPayTime(Timestamp payTime) {
 		this.payTime = payTime;
 	}
 

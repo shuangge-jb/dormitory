@@ -1,6 +1,6 @@
 package com.dormitory.entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class LostFound {
 	protected Integer lostFoundId;
@@ -9,7 +9,7 @@ public class LostFound {
 
 	protected String content;
 
-	protected Date createTime;
+	protected Timestamp createTime;
 
 	protected Integer state;
 
@@ -37,11 +37,11 @@ public class LostFound {
         this.content = content == null ? null : content.trim();
     }
 
-    public Date getCreateTime() {
+    public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
 
