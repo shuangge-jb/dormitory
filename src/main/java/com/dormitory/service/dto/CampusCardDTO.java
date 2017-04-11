@@ -12,6 +12,10 @@ public class CampusCardDTO extends CampusCard{
 
 	public void init(Student student, CampusCard campusCard) {
 		this.name=student.getName();
+		this.campusCardId=campusCard.getCampusCardId();
+		this.cardBalance=campusCard.getCardBalance();
+		this.hotwaterBalance=campusCard.getHotwaterBalance();
+		this.studentId=student.getStudentId();
 	}
 
 
