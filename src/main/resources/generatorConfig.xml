@@ -47,7 +47,7 @@
 		<!-- mybatis generator代码生成器在默认的情况下会生成对于表实体类的一个Examle类,可以更改生成器的配置为false避免生成Examle类 -->
 		<!-- columnOverride:如果不存在则默认按数据库中字段类型创建实体类，如果存在则按以下指定的名称和类型创建实体类字段， -->
 		<!-- ignoreColumn:在实体类中不创建此属性 -->
-		<!-- <table tableName="student" domainObjectName="Student"
+		<table tableName="student" domainObjectName="Student"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
@@ -67,7 +67,7 @@
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
 		</table>
-		-->
+		
 		<table tableName="network" domainObjectName="Network"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
@@ -83,7 +83,7 @@
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
-		</table>
+		</table>-->
 		<table tableName="electricity_record" domainObjectName="ElectricityRecord"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
@@ -98,7 +98,7 @@
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
-		</table> -->
+		</table> 
 		
 		<!-- <table tableName="repair_record" domainObjectName="RepairRecord"
 			enableCountByExample="false" enableUpdateByExample="false"

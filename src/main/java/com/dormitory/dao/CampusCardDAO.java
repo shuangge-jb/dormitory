@@ -1,9 +1,11 @@
 package com.dormitory.dao;
 
 import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.type.JdbcType;
+
 import com.dormitory.entity.CampusCard;
 
 public interface CampusCardDAO {
@@ -15,6 +17,7 @@ public interface CampusCardDAO {
             @Result(property = "cardBalance", column = "card_balance", javaType = Double.class, jdbcType = JdbcType.DECIMAL),
             @Result(property = "hotwaterBalance", column = "hotwater_balance", javaType = Double.class, jdbcType = JdbcType.DECIMAL)
             })*/
+	@ResultMap("com.dormitory.mapper.CampusCardMapper.campusCard")
 	CampusCard getCampusCard(Long studentId);
 
 }

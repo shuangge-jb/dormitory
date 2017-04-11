@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dormitory.dao.RepairRecordMapper">
+  <resultMap id="BaseResultMap" type="com.dormitory.entity.RepairRecord">
+    <id column="repair_record_id"  property="repairRecordId" />
+    <result column="dormitory_id"  property="dormitoryId" />
+    <result column="content"  property="content" />
+    <result column="state"  property="state" />
+    <result column="create_time"  property="createTime" />
+    <result column="repair_time"  property="repairTime" />
+  </resultMap>
+  
+</mapper>

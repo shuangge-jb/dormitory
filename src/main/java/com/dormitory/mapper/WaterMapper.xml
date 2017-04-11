@@ -1,13 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dormitory.mapper.WaterMapper">
+<mapper namespace="com.dormitory.dao.WaterMapper">
+  <resultMap id="BaseResultMap" type="com.dormitory.entity.Water">
+    <id column="dormitory_id" jdbcType="INTEGER" property="dormitoryId" />
+    <result column="prev_readout" jdbcType="BIGINT" property="prevReadout" />
+    <result column="prev_time" jdbcType="DATE" property="prevTime" />
+    <result column="this_readout" jdbcType="BIGINT" property="thisReadout" />
+    <result column="this_time" jdbcType="DATE" property="thisTime" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    dormitory_id, prev_readout, prev_time, this_readout, this_time, price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from water
+    where dormitory_id = #{dormitoryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from water
+    where dormitory_id = #{dormitoryId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dormitory.entity.Water">
+    insert into water (dormitory_id, prev_readout, prev_time, 
+      this_readout, this_time, price
+      )
+    values (#{dormitoryId,jdbcType=INTEGER}, #{prevReadout,jdbcType=BIGINT}, #{prevTime,jdbcType=DATE}, 
+      #{thisReadout,jdbcType=BIGINT}, #{thisTime,jdbcType=DATE}, #{price,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dormitory.entity.Water">
+    insert into water
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dormitoryId != null">
+        dormitory_id,
+      </if>
+      <if test="prevReadout != null">
+        prev_readout,
+      </if>
+      <if test="prevTime != null">
+        prev_time,
+      </if>
+      <if test="thisReadout != null">
+        this_readout,
+      </if>
+      <if test="thisTime != null">
+        this_time,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dormitoryId != null">
+        #{dormitoryId,jdbcType=INTEGER},
+      </if>
+      <if test="prevReadout != null">
+        #{prevReadout,jdbcType=BIGINT},
+      </if>
+      <if test="prevTime != null">
+        #{prevTime,jdbcType=DATE},
+      </if>
+      <if test="thisReadout != null">
+        #{thisReadout,jdbcType=BIGINT},
+      </if>
+      <if test="thisTime != null">
+        #{thisTime,jdbcType=DATE},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dormitory.entity.Water">
+    update water
+    <set>
+      <if test="prevReadout != null">
+        prev_readout = #{prevReadout,jdbcType=BIGINT},
+      </if>
+      <if test="prevTime != null">
+        prev_time = #{prevTime,jdbcType=DATE},
+      </if>
+      <if test="thisReadout != null">
+        this_readout = #{thisReadout,jdbcType=BIGINT},
+      </if>
+      <if test="thisTime != null">
+        this_time = #{thisTime,jdbcType=DATE},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where dormitory_id = #{dormitoryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dormitory.entity.Water">
+    update water
+    set prev_readout = #{prevReadout,jdbcType=BIGINT},
+      prev_time = #{prevTime,jdbcType=DATE},
+      this_readout = #{thisReadout,jdbcType=BIGINT},
+      this_time = #{thisTime,jdbcType=DATE},
+      price = #{price,jdbcType=DECIMAL}
+    where dormitory_id = #{dormitoryId,jdbcType=INTEGER}
+  </update>
   <resultMap id="water" type="com.dormitory.entity.Water">
     <id column="dormitory_id" jdbcType="INTEGER" property="dormitoryId" />
     <result column="prev_readout" jdbcType="BIGINT" property="prevReadout" />
      <result column="prev_time" jdbcType="DATE" property="prevTime" />
     <result column="this_readout" jdbcType="BIGINT" property="thisReadout" />
     <result column="this_time" jdbcType="DATE" property="thisTime" />
-    <result column="price"  property="price" />
+    <result column="price" property="price" />
   </resultMap>
   
 </mapper>
