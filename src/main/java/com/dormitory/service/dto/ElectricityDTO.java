@@ -3,13 +3,10 @@ package com.dormitory.service.dto;
 import com.dormitory.entity.Dormitory;
 import com.dormitory.entity.Electricity;
 
-public class ElectricityDTO {
+public class ElectricityDTO extends Electricity{
 	private String building;
 	private String room;
-	private Double restElectricity;
-	private Double sumElectricity;
-	private Double balance;
-
+	
 	public ElectricityDTO() {
 		super();
 	}
@@ -50,48 +47,6 @@ public class ElectricityDTO {
 		this.room = room;
 	}
 
-	/**
-	 * @return the restElectricity
-	 */
-	public Double getRestElectricity() {
-		return restElectricity;
-	}
-
-	/**
-	 * @param restElectricity the restElectricity to set
-	 */
-	public void setRestElectricity(Double restElectricity) {
-		this.restElectricity = restElectricity;
-	}
-
-	/**
-	 * @return the sumElectricity
-	 */
-	public Double getSumElectricity() {
-		return sumElectricity;
-	}
-
-	/**
-	 * @param sumElectricity the sumElectricity to set
-	 */
-	public void setSumElectricity(Double sumElectricity) {
-		this.sumElectricity = sumElectricity;
-	}
-
-	/**
-	 * @return the balance
-	 */
-	public Double getBalance() {
-		return balance;
-	}
-
-	/**
-	 * @param balance the balance to set
-	 */
-	public void setBalance(Double balance) {
-		this.balance = balance;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -103,5 +58,4 @@ public class ElectricityDTO {
 				+ ", restElectricity=" + restElectricity + ", sumElectricity="
 				+ sumElectricity + ", balance=" + balance + "]";
 	}
-
 }

@@ -3,11 +3,9 @@ package com.dormitory.service.dto;
 import com.dormitory.entity.Network;
 import com.dormitory.entity.Student;
 
-public class NetworkDTO {
-	private Long studentId;
+public class NetworkDTO extends Network{
 	private String name;
-	private String tariffPackage;
-	private Integer money;
+	
 
 	public NetworkDTO() {
 		super();
@@ -20,19 +18,6 @@ public class NetworkDTO {
 		this.money = network.getMoney();
 	}
 
-	/**
-	 * @return the studentId
-	 */
-	public Long getStudentId() {
-		return studentId;
-	}
-
-	/**
-	 * @param studentId the studentId to set
-	 */
-	public void setStudentId(Long studentId) {
-		this.studentId = studentId;
-	}
 
 	/**
 	 * @return the name
@@ -46,34 +31,6 @@ public class NetworkDTO {
 	 */
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	/**
-	 * @return the tariffPackage
-	 */
-	public String getTariffPackage() {
-		return tariffPackage;
-	}
-
-	/**
-	 * @param tariffPackage the tariffPackage to set
-	 */
-	public void setTariffPackage(String tariffPackage) {
-		this.tariffPackage = tariffPackage;
-	}
-
-	/**
-	 * @return the money
-	 */
-	public Integer getMoney() {
-		return money;
-	}
-
-	/**
-	 * @param money the money to set
-	 */
-	public void setMoney(Integer money) {
-		this.money = money;
 	}
 
 	/*
