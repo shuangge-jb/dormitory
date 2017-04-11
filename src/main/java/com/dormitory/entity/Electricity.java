@@ -14,11 +14,11 @@ import javax.persistence.Entity;
 public class Electricity {
 	protected Integer dormitoryId;
 
-	protected Double restElectricity;
+	protected BigDecimal restElectricity;
 
-	protected Double sumElectricity;
+	protected BigDecimal sumElectricity;
 
-	protected Double balance;
+	protected BigDecimal balance;
 
 	public Integer getDormitoryId() {
 		return dormitoryId;
@@ -28,27 +28,27 @@ public class Electricity {
 		this.dormitoryId = dormitoryId;
 	}
 
-	public Double getRestElectricity() {
+	public BigDecimal getRestElectricity() {
 		return restElectricity;
 	}
 
-	public void setRestElectricity(Double restElectricity) {
+	public void setRestElectricity(BigDecimal restElectricity) {
 		this.restElectricity = restElectricity;
 	}
 
-	public Double getSumElectricity() {
+	public BigDecimal getSumElectricity() {
 		return sumElectricity;
 	}
 
-	public void setSumElectricity(Double sumElectricity) {
+	public void setSumElectricity(BigDecimal sumElectricity) {
 		this.sumElectricity = sumElectricity;
 	}
 
-	public Double getBalance() {
+	public BigDecimal getBalance() {
 		return balance;
 	}
 
-	public void setBalance(Double balance) {
+	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 
