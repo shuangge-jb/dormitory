@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dormitory.dao.CampusCardMapper">
+  <resultMap id="campusCard" type="com.dormitory.entity.CampusCard">
+    <id column="campus_card_id" jdbcType="INTEGER" property="campusCardId" />
+    <result column="student_id" jdbcType="BIGINT" property="studentId" />
+    <result column="card_balance" jdbcType="DECIMAL" property="cardBalance" />
+    <result column="hotwater_balance" jdbcType="DECIMAL" property="hotwaterBalance" />
+  </resultMap>
+ 
+</mapper>
