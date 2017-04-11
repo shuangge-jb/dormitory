@@ -1,7 +1,5 @@
 package com.dormitory.service.dto;
 
-import java.util.Date;
-
 import com.dormitory.entity.Dormitory;
 import com.dormitory.entity.Water;
 
@@ -49,6 +47,20 @@ public class WaterDTO extends Water{
 	 */
 	public void setRoom(String room) {
 		this.room = room;
+	}
+
+	/**
+	 * @return the readout
+	 */
+	public Long getReadout() {
+		return readout;
+	}
+
+	/**
+	 * @param readout the readout to set
+	 */
+	public void setReadout(Long readout) {
+		this.readout = readout;
 	}
 
 	/*
