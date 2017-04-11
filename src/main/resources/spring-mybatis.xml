@@ -2,15 +2,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans  
                         http://www.springframework.org/schema/beans/spring-beans-4.1.xsd  
                         http://www.springframework.org/schema/context  
                         http://www.springframework.org/schema/context/spring-context-4.1.xsd  
                         http://www.springframework.org/schema/mvc  
-                        http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
-
-	<!-- <context:component-scan base-package="com.dormitory.entity" /> -->
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+                        http://mybatis.org/schema/mybatis-spring   
+        http://mybatis.org/schema/mybatis-spring.xsd">
 	<!-- 引入jdbc配置文件 -->
 	<!-- 配置数据库相关参数properties的属性 -->
 	<context:property-placeholder location="classpath:jdbc.properties" />
@@ -27,15 +27,15 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!-- 注入数据库连接池 -->
 		<property name="dataSource" ref="dataSource" />
-		<!-- 自动扫描mapping.xml文件 -->
-		<property name="mapperLocations" value="classpath:com/dormitory/mapping/*.xml"></property>
+		 <!-- 自动扫描mapper.xml文件 -->  
+        <property name="mapperLocations" value="classpath:com/dormitory/mapper/*.xml"></property>
 	</bean>
 
-	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+	<!-- DAO接口所在包名，Spring会自动查找其下的类,生成动态代理注入到Spring -->
 	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<!-- 注入sqlSessionFactory -->
+		<!-- 注入sqlSessionFactory(可选属性) -->
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
-		<!-- 扫描dao接口包 -->
+		<!-- 扫描dao接口包,必须属性 -->
 		<property name="basePackage" value="com.dormitory.dao" />
 	</bean>
 
