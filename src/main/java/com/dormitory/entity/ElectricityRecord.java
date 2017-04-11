@@ -1,10 +1,8 @@
 package com.dormitory.entity;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
-import java.math.BigDecimal;
-
-import javax.persistence.Entity;
 
 public class ElectricityRecord {
 	protected Integer electricityRecordId;
@@ -13,9 +11,9 @@ public class ElectricityRecord {
 
 	protected Integer money;
 
-	protected Date createTime;
+	protected Timestamp  createTime;
 
-	protected Date payTime;
+	protected Timestamp  payTime;
 
 	protected BigDecimal buyElectricity;
 
@@ -49,7 +47,7 @@ public class ElectricityRecord {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 
@@ -57,7 +55,7 @@ public class ElectricityRecord {
 		return payTime;
 	}
 
-	public void setPayTime(Date payTime) {
+	public void setPayTime(Timestamp payTime) {
 		this.payTime = payTime;
 	}
 
