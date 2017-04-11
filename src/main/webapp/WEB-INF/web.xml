@@ -28,7 +28,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/</url-pattern>
 	</filter-mapping>
 	<!-- 配置web.xml，使其具有springmvc特性，主要配置两处，一个是ContextLoaderListener，一个是DispatcherServlet -->
 	<!-- 配置ContextLoaderListener表示，该工程要以spring的方式启动。启动时会默认在/WEB-INF目录下查找applicationContext.xml 

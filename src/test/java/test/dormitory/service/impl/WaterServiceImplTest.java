@@ -21,12 +21,12 @@ public class WaterServiceImplTest {
 
 	@Test
 	public void testGetWater() {
-		Long studentId=201330610505L;
-		String building="C10";
-		String room="512";
+		Integer dormitoryId = 1;
+		String building = "C10";
+		String room = "512";
 		Long readout = 999L;
-		Double price=new Double(130);
-		WaterDTO waterDTO = waterService.getWater(studentId);
+		Double price = new Double(130);
+		WaterDTO waterDTO = waterService.getWater(dormitoryId);
 		assertNotNull(waterDTO);
 		assertEquals(building, waterDTO.getBuilding());
 		assertEquals(room, waterDTO.getRoom());
