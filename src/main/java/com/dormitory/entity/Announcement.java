@@ -1,9 +1,13 @@
 package com.dormitory.entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Announcement {
-    protected Integer announcementId;
+    
+	
+
+	protected Integer announcementId;
 
     protected String content;
 
