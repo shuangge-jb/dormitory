@@ -47,8 +47,8 @@ public class AnnouncementDAOTest {
 	@Test
 	public void testSaveAnnouncement() {
 		Announcement announcement = new Announcement();
-		announcement.setAnnouncementId(new Integer(announcementDAO
-				.getLastInsertId()));// existed
+		announcement.setAnnouncementId(announcementDAO
+				.getLastInsertId());// existed
 		announcement.setContent("通知");
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		announcement.setCreateTime(timestamp);
@@ -62,5 +62,6 @@ public class AnnouncementDAOTest {
 	public void testGetLastInsertId(){
 		System.out.println(announcementDAO.getLastInsertId());
 	}
+	
 
 }
