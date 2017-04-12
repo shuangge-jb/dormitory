@@ -2,6 +2,8 @@ package test.dormitory.service.impl;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -25,7 +27,7 @@ public class WaterServiceImplTest {
 		String building = "C10";
 		String room = "512";
 		Long readout = 999L;
-		Double price = new Double(130);
+		BigDecimal price = new BigDecimal("130.00");
 		WaterDTO waterDTO = waterService.getWater(dormitoryId);
 		assertNotNull(waterDTO);
 		assertEquals(building, waterDTO.getBuilding());
