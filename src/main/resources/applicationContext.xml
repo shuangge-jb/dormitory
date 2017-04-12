@@ -19,14 +19,20 @@
 
 
 	<!-- 配置事务管理器 -->
-	<bean id="txManager"
+	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource">
+		<!-- 引用spring-mybatis.xml的bean -->
 			<ref bean="dataSource" />
 		</property>
 	</bean>
 
 	<!-- 事务扫描开始(开启@Tranctional) -->
-	<tx:annotation-driven transaction-manager="txManager" />
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!-- 配置事务异常封装 -->
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	
 
 </beans>
