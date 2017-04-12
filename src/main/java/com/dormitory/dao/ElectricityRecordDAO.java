@@ -15,6 +15,7 @@ import com.dormitory.entity.ElectricityRecord;
 public interface ElectricityRecordDAO {
 	@Select("select * from electricity_record r "
 			+ " where r.dormitory_id=#{0}")
+	@ResultMap("com.dormitory.mapper.ElectricityRecordMapper.electricityRecord")
 	public List<ElectricityRecord> listElectricityRecord(Integer dormitoryId);
 
 }

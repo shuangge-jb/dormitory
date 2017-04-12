@@ -13,7 +13,7 @@ import com.dormitory.entity.RepairRecord;
 
 public interface RepairRecordDAO {
 	@Select(" select r.* from repair_record r order by create_time desc ")
-	//@ResultMap("com.dormitory.entity.RepairRecord.BaseResultMap")
-public List<RepairRecord> listRepairRecord();
-	
+	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")
+	public List<RepairRecord> listRepairRecord();
+
 }
