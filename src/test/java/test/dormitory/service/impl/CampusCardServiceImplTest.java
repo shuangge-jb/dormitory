@@ -2,7 +2,7 @@ package test.dormitory.service.impl;
 
 import static org.junit.Assert.*;
 
-
+import java.math.BigDecimal;
 
 import javax.annotation.Resource;
 
@@ -25,15 +25,16 @@ public class CampusCardServiceImplTest {
 	public void testGetCampusCard() {
 		Long studentId=201330610505L;
 		Integer campusCardId=1;
-		Double cardBalance=new Double("200.00");
-		Double hotwaterBalance=new Double("10.00");
+		BigDecimal cardBalance=new BigDecimal("200.00");
+		BigDecimal hotwaterBalance=new BigDecimal("10.00");
 		CampusCardDTO card=campusCardService.getCampusCard(studentId);
 		assertNotNull(card);
+		System.out.println(card);
 		assertEquals(campusCardId, card.getCampusCardId());
 		assertEquals(studentId, card.getStudentId());
 		assertEquals(cardBalance, card.getCardBalance());
 		assertEquals(hotwaterBalance, card.getHotwaterBalance());
-		System.out.println(card);
+		
 	}
 
 }
