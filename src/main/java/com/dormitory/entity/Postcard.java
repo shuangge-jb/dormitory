@@ -1,5 +1,6 @@
 package com.dormitory.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Postcard {
@@ -9,7 +10,7 @@ public class Postcard {
 
     protected Integer dormitoryId;
 
-    protected Date createTime;
+    protected Timestamp createTime;
 
     protected Integer state;
 
@@ -37,11 +38,11 @@ public class Postcard {
         this.dormitoryId = dormitoryId;
     }
 
-    public Date getCreateTime() {
+    public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
 
