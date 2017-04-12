@@ -118,7 +118,36 @@ public class AnnouncementServiceImplTest {
 	}
 	
 	@Test
-	public void testGetLastInsertId(){
-		System.out.println(announcementServiceImpl.getLastInsertId());
+	public void testUpdateAnnouncement(){
+		System.out.println("testUpdateAnnouncement:");
+		init();
+		Integer lastInsertId=announcementServiceImpl.getLastInsertId();
+		Announcement announcement = announcementServiceImpl.getAnnouncement(lastInsertId);
+		String content="content";
+		announcement.setContent(content);
+		Announcement newAnnouncement=announcementServiceImpl.updateAnnouncement(announcement);
+		assertNotNull(newAnnouncement);
+		System.out.println(newAnnouncement);
+		assertEquals(content, newAnnouncement.getContent());
 	}
+	@Test
+	public void testRemoveAnnouncement(){
+		System.out.println("testRemoveAnnouncement:");
+		init();
+		Integer lastInsertId=announcementServiceImpl.getLastInsertId();
+		Announcement newAnnouncement=announcementServiceImpl.removeAnnouncement(lastInsertId);
+		assertNotNull(newAnnouncement);
+		System.out.println(newAnnouncement);
+		assertEquals(new Integer(0),announcementServiceImpl.getAnnouncement(lastInsertId).getState());
+	}
+	@Test
+	public void testRemoveAnnouncementUnExisted(){
+		System.out.println("testRemoveAnnouncement:");
+		init();
+		Integer lastInsertId=announcementServiceImpl.getLastInsertId()+1;
+		Announcement newAnnouncement=announcementServiceImpl.removeAnnouncement(lastInsertId);
+		assertNull(newAnnouncement);
+		System.out.println(newAnnouncement);
+	}
+	
 }
