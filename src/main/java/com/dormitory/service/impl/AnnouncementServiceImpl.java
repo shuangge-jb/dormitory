@@ -27,6 +27,14 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		return announcementDAO.listAnnouncement(n);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.dormitory.service.AnnouncementService#getAnnouncement(java.lang.Integer)
+	 */
+	@Override
+	public Announcement getAnnouncement(Integer announcementId) {
+		return announcementDAO.getAnnouncement(announcementId);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -66,7 +74,8 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	@Override
 	@Transactional
 	public Announcement updateAnnouncement(Announcement announcement) {
-		return announcementDAO.updateAnnouncement(announcement);
+		announcementDAO.updateAnnouncement(announcement);
+		return announcement;
 	}
 
 	/*
@@ -79,7 +88,9 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	@Override
 	@Transactional
 	public Announcement removeAnnouncement(Integer announcementId) {
-		return announcementDAO.removeAnnouncement(announcementId);
+		Announcement announcement=announcementDAO.getAnnouncement(announcementId);
+		announcementDAO.removeAnnouncement(announcementId);
+		return announcement;
 	}
 
 }
