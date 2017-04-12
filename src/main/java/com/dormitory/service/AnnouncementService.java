@@ -31,6 +31,8 @@ public interface AnnouncementService {
 	 */
 	public Announcement updateAnnouncement(Announcement announcement);
 
+	public Announcement getAnnouncement(Integer announcementId);
+
 	/**
 	 * 删除
 	 * 
@@ -40,6 +42,6 @@ public interface AnnouncementService {
 	 * @date 2017-4-12
 	 */
 	public Announcement removeAnnouncement(Integer announcementId);
-	
+
 	public Integer getLastInsertId();
 }
