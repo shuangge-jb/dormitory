@@ -3,6 +3,7 @@ package com.dormitory.service.impl;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ private RepairRecordDAO repairRecordDAO;
 	public RepairRecord get(Integer repairRecordId) {
 		return repairRecordDAO.get(repairRecordId);
 	}
-
+@Transactional
 	@Override
 	public RepairRecord save(RepairRecord repairRecord) {
 		RepairRecord temp=repairRecordDAO.get(repairRecord.getRepairRecordId());
@@ -43,13 +44,13 @@ private RepairRecordDAO repairRecordDAO;
 		}
 		return repairRecord;
 	}
-
+@Transactional
 	@Override
 	public RepairRecord update(RepairRecord repairRecord) {
 		repairRecordDAO.update(repairRecord);
 		return repairRecord;
 	}
-
+@Transactional
 	@Override
 	public RepairRecord remove(RepairRecord repairRecord) {
 		repairRecordDAO.remove(repairRecord.getRepairRecordId());
