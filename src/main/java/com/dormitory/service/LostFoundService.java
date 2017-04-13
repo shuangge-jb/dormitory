@@ -26,7 +26,7 @@ public interface LostFoundService {
 	 * @param studentId
 	 * @return
 	 */
-	public List<LostFound> listByStudentId(Integer studentId);
+	public List<LostFound> listByStudentId(Long studentId);
 
 
 	/**
