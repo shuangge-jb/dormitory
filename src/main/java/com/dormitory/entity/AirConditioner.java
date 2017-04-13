@@ -1,7 +1,7 @@
 package com.dormitory.entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Time;
 
 public class AirConditioner {
 
@@ -11,7 +11,7 @@ public class AirConditioner {
 
     protected BigDecimal sumAmount;
 
-    protected Date restHours;
+    protected Time restHours;
 
 
     public Integer getDormitoryId() {
@@ -38,11 +38,11 @@ public class AirConditioner {
         this.sumAmount = sumAmount;
     }
 
-    public Date getRestHours() {
+    public Time getRestHours() {
         return restHours;
     }
 
-    public void setRestHours(Date restHours) {
+    public void setRestHours(Time restHours) {
         this.restHours = restHours;
     }
 
