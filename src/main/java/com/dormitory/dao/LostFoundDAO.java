@@ -3,6 +3,7 @@ package com.dormitory.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
@@ -32,6 +33,7 @@ public interface LostFoundDAO {
 
 	@Insert(" insert into lost_found(student_id,content,create_time,state)  "
 			+ " values(#{studentId},#{content},#{createTime},#{state}) ")
+	@Options(useGeneratedKeys = true, keyProperty = "lostFoundId")
 	public void save(LostFound lostFound);
 
 	@Update(" update lost_found " + " set content=#{content}, "
