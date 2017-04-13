@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dormitory.dao.AirConditionerMapper">
+  <resultMap id="airConditioner" type="com.dormitory.entity.AirConditioner">
+    <id column="dormitory_id" jdbcType="INTEGER" property="dormitoryId" />
+    <result column="rest_amount" jdbcType="DECIMAL" property="restAmount" />
+    <result column="sum_amount" jdbcType="DECIMAL" property="sumAmount" />
+    <result column="rest_hours" jdbcType="TIMESTAMP" property="restHours" />
+  </resultMap>
+  
+</mapper>
