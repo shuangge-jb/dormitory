@@ -3,10 +3,12 @@ package com.dormitory.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+
 import com.dormitory.entity.RepairRecord;
 
 public interface RepairRecordDAO {
@@ -19,6 +21,7 @@ public interface RepairRecordDAO {
 
 	@Insert(" insert into repair_record(dormitory_id,content,create_time,repair_time,state)  "
 			+ " values(#{dormitoryId},#{content},#{createTime},#{repairTime},#{state}) ")
+	@Options(useGeneratedKeys = true, keyProperty = "repairRecordId")
 	public void save(RepairRecord repairRecord);
 
 	@Update(" update repair_record  set dormitory_id=#{dormitoryId}, "
