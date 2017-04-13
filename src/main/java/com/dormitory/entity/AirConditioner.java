@@ -5,13 +5,13 @@ import java.util.Date;
 
 public class AirConditioner {
 
-    private Integer dormitoryId;
+    protected Integer dormitoryId;
 
-    private BigDecimal restAmount;
+    protected BigDecimal restAmount;
 
-    private BigDecimal sumAmount;
+    protected BigDecimal sumAmount;
 
-    private Date restHours;
+    protected Date restHours;
 
 
     public Integer getDormitoryId() {
