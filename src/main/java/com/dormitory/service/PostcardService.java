@@ -48,19 +48,19 @@ public interface PostcardService {
 	 * 
 	 * @param postcard
 	 */
-	public void savePostcard(Postcard postcard);
+	public Postcard savePostcard(Postcard postcard);
 
 	/**
 	 * 修改
 	 * 
 	 * @param postcard
 	 */
-	public void updatePostcard(Postcard postcard);
+	public Postcard updatePostcard(Postcard postcard);
 
 	/**
 	 * 删除
 	 * 
 	 * @param postcard
 	 */
-	public void removePostcard(Postcard postcard);
+	public Postcard removePostcard(Postcard postcard);
 }
