@@ -36,13 +36,13 @@ public interface LostFoundDAO {
 	@Options(useGeneratedKeys = true, keyProperty = "lostFoundId")
 	public void save(LostFound lostFound);
 
-	@Update(" update lost_found " + " set content=#{content}, "
+	@Update(" update lost_found  set student_id=#{studentId},content=#{content}, "
 			+ " create_time=#{createTime} "
 			+ " where lost_found_id=#{lostFoundId} ")
 	public void update(LostFound lostFound);
 
-	@Update(" update lost_found " + " set state=0 "
+	@Update(" update lost_found  set state=0 "
 			+ " where lost_found_id=#{lostFoundId} ")
-	public void remove(@Param("lostFoundId")Integer lostFoundId);
+	public void remove(@Param("lostFoundId") Integer lostFoundId);
 
 }
