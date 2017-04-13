@@ -41,6 +41,6 @@ public interface LostFoundDAO {
 
 	@Update(" update lost_found " + " set state=0 "
 			+ " where lost_found_id=#{lostFoundId} ")
-	public void remove(@Param("lostFoudnId")Integer lostFoudnId);
+	public void remove(@Param("lostFoundId")Integer lostFoundId);
 
 }
