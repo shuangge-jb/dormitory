@@ -3,6 +3,7 @@ package com.dormitory.service.impl;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
@@ -40,6 +41,7 @@ public class PostcardServiceImpl implements PostcardService {
 		return postcardDAO.getLastInsertId();
 	}
 
+	@Transactional
 	@Override
 	public Postcard savePostcard(Postcard postcard) {
 		Postcard temp = postcardDAO.getPostcard(postcard.getPostcardId());
@@ -51,12 +53,14 @@ public class PostcardServiceImpl implements PostcardService {
 		return postcard;
 	}
 
+	@Transactional
 	@Override
 	public Postcard updatePostcard(Postcard postcard) {
 		postcardDAO.updatePostcard(postcard);
 		return postcard;
 	}
 
+	@Transactional
 	@Override
 	public Postcard removePostcard(Postcard postcard) {
 		postcardDAO.removePostcard(postcard.getPostcardId());
