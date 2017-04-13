@@ -35,7 +35,7 @@ public interface PostcardDAO {
 	public void savePostcard(Postcard postcard);
 
 	@Update(" update postcard "
-			+ " set dormitory_id=#{dormitoryId}, "
+			+ " set student_id=#{studentId},dormitory_id=#{dormitoryId}, "
 			+ " create_time=#{createTime} "
 			+" where postcard_id=#{postcardId} ")
 	public void updatePostcard(Postcard postcard);
