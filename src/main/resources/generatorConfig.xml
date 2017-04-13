@@ -39,7 +39,7 @@
 		</sqlMapGenerator>
 		<!-- 接口生成配置,目标文件包和工程，注意maven工程结构目录下应该带上工程名和src/main/java -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.dormitory.mapper" targetProject="dormitory/src/main/java">
+			targetPackage="com.dormitory.dao" targetProject="dormitory/src/main/java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
@@ -118,7 +118,13 @@
 			selectByExampleQueryId="false">
 		</table> -->
 		
-		<table tableName="announcement" domainObjectName="Announcement"
+		<!-- <table tableName="announcement" domainObjectName="Announcement"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table> -->
+		
+		<table tableName="air_conditioner" domainObjectName="AirConditioner"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
