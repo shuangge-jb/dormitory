@@ -2,8 +2,6 @@ package com.dormitory.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.dormitory.entity.Announcement;
 
 public interface AnnouncementService {
