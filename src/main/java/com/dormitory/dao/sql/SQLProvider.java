@@ -7,9 +7,9 @@ public String listPostcard(Integer n){
 	String sql=new SQL(){{
 		SELECT("*");
 		FROM("postcard");
-		ORDER_BY("create_time desc");
+		ORDER_BY(" create_time desc ");
 	}}.toString();
-	sql+=("limit"+n);
+	sql+=(" limit "+n);
 	return sql;
 }
 }
