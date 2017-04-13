@@ -1,19 +1,31 @@
 package com.dormitory.dao;
 
-import java.util.Date;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.type.JdbcType;
-
+import org.apache.ibatis.annotations.Update;
 import com.dormitory.entity.RepairRecord;
 
 public interface RepairRecordDAO {
 	@Select(" select r.* from repair_record r order by create_time desc ")
 	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")
 	public List<RepairRecord> listRepairRecord();
+
+	@Insert(" insert into repair_record(dormitory_id,content,create_time,repair_time,state)  "
+			+ " values(#{dormitoryId},#{content},#{createTime},#{repairTime},#{state}) ")
+	public void save(RepairRecord repairRecord);
+
+	@Update(" update repair_record  set dormitory_id=#{dormitoryId}, "
+			+ " content=#{content},  create_time=#{createTime}, "
+			+ " repair_time=#{repairTime} "
+			+ " where repair_record_id=#{repairRecordId} ")
+	public void update(RepairRecord repairRecord);
+
+	@Update(" update repair_record " + " set state=0 "
+			+ " where repair_record_id=#{repairRecordId} ")
+	public void remove(@Param("repairRecordId") Integer repairRecordId);
 
 }
