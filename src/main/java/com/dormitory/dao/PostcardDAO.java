@@ -3,6 +3,7 @@ package com.dormitory.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
@@ -30,6 +31,7 @@ public interface PostcardDAO {
 
 	@Insert(" insert into postcard(student_id,dormitory_id,create_time,state) "
 			+ " values(#{studentId},#{dormitoryId},#{createTime},#{state}) ")
+	@Options(useGeneratedKeys = true, keyProperty = "postcardId")
 	public void savePostcard(Postcard postcard);
 
 	@Update(" update postcard "
