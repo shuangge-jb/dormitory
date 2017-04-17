@@ -3,6 +3,7 @@ package test.dormitory.service.impl;
 import static org.junit.Assert.*;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,12 +43,13 @@ public class StudentServiceImplTest {
 		assertEquals(password, student.getPassword());
 		System.out.println(student);
 	}
+	@Transactional
 	@Test
 	public void testUpdatePassword(){
 		System.out.println("testUpdatePassword");
 		Long studentId=201330610505L;
 		Student student=studentService.getStudent(studentId);
-		String password="123456";
+		String password="950824";
 		student.setPassword(password);
 		studentService.updatePassword(student);
 		Student newStudent=studentService.getStudent(studentId);
