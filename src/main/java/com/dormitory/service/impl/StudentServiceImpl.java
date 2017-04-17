@@ -1,6 +1,7 @@
 package com.dormitory.service.impl;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,13 @@ public class StudentServiceImpl implements StudentService {
 	 */
 	public void setStudentDAO(StudentDAO studentDAO) {
 		this.studentDAO = studentDAO;
+	}
+
+	@Transactional
+	@Override
+	public Student updatePassword(Student student) {
+		 studentDAO.updatePassword(student);
+		 return student;
 	}
 
 	
