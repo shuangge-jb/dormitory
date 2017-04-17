@@ -5,5 +5,5 @@ import com.dormitory.entity.Student;
 public interface StudentService {
 	public Student getStudent(Long studentId);
 	
-	Student updatePassword(Student student);
+	public Student updatePassword(Student student);
 }
