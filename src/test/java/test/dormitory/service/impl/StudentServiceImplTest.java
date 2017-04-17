@@ -19,6 +19,9 @@ public class StudentServiceImplTest {
 	@Resource
 	private StudentService studentService;
 
+	private void init(){
+		
+	}
 	@Test
 	public void testGetStudent() {
 		Long studentId=201330610505L;
@@ -38,6 +41,18 @@ public class StudentServiceImplTest {
 		assertEquals(email, student.getEmail());
 		assertEquals(password, student.getPassword());
 		System.out.println(student);
+	}
+	@Test
+	public void testUpdatePassword(){
+		System.out.println("testUpdatePassword");
+		Long studentId=201330610505L;
+		Student student=studentService.getStudent(studentId);
+		String password="123456";
+		student.setPassword(password);
+		studentService.updatePassword(student);
+		Student newStudent=studentService.getStudent(studentId);
+		assertNotNull(newStudent);
+		assertEquals(password, newStudent.getPassword());
 	}
 
 }
