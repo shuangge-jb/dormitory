@@ -26,7 +26,7 @@ public class AnnouncementDAOTest {
 	@Test
 	public void testGetAnnouncementExist() {
 		Announcement announcement = announcementDAO
-				.getAnnouncement(new Integer(1));
+				.get(new Integer(1));
 		assertNotNull(announcement);
 		System.out.println(announcement);
 	}
@@ -34,13 +34,13 @@ public class AnnouncementDAOTest {
 	@Test
 	public void testGetAnnouncementUnExist() {
 		Announcement announcement = announcementDAO
-				.getAnnouncement(new Integer(5));
+				.get(new Integer(5));
 		assertNull(announcement);
 	}
 
 	@Test
 	public void testGetAnnouncementIdNull() {
-		Announcement announcement = announcementDAO.getAnnouncement(null);
+		Announcement announcement = announcementDAO.get(null);
 		assertNull(announcement);
 	}
 
@@ -53,7 +53,7 @@ public class AnnouncementDAOTest {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		announcement.setCreateTime(timestamp);
 		announcement.setState(new Integer(1));
-		announcementDAO.saveAnnouncement(announcement);
+		announcementDAO.save(announcement);
 		Integer newid = announcementDAO.getLastInsertId();
 		System.out.println(newid);
 		assertEquals(newid, announcement.getAnnouncementId());
