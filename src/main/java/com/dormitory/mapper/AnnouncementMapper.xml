@@ -1,64 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 使用XML动态SQL需要关联DAO接口，所以namespace为dao接口的路径 -->
-<mapper namespace="com.dormitory.dao.AnnouncementDAO">
-	<resultMap id="BaseResultMap" type="com.dormitory.entity.Announcement">
+<mapper namespace="com.dormitory.mapper.AnnouncementMapper">
+	<resultMap id="announcement" type="com.dormitory.entity.Announcement">
 		<id column="announcement_id" jdbcType="INTEGER" property="announcementId" />
 		<result column="content" jdbcType="VARCHAR" property="content" />
 		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
 		<result column="state" jdbcType="INTEGER" property="state" />
 	</resultMap>
-	<sql id="Base_Column_List">
-		announcement_id, content, create_time, state
-	</sql>
-	<select id="listAnnouncement" resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from announcement
-		where state = 1
-		order by create_time desc
-		<if test="n != null">
-			limit #{n}
-		</if>
-	</select>
-	<select id="getAnnouncement" resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from announcement
-		where announcement_id=#{announcementId}
-	</select>
-	<select id="getLastInsertId" resultType="java.lang.Integer">
-		SELECT LAST_INSERT_ID() AS id
-	</select>
-	<delete id="removeAnnouncement" parameterType="java.lang.Integer">
-		update
-		announcement
-		set state=0
-		where announcement_id =
-		#{announcementId,jdbcType=INTEGER}
-	</delete>
-	<insert id="saveAnnouncement"  useGeneratedKeys="true" keyProperty="announcementId" parameterType="com.dormitory.entity.Announcement">
-		insert into announcement ( content,
-		create_time,
-		state)
-		values (
-		#{content,jdbcType=VARCHAR},
-		#{createTime,jdbcType=TIMESTAMP},
-		#{state,jdbcType=INTEGER})
-	</insert>
-
-	<!-- <update id="updateByPrimaryKeySelective" parameterType="com.dormitory.entity.Announcement"> 
-		update announcement <set> <if test="content != null"> content = #{content,jdbcType=VARCHAR}, 
-		</if> <if test="createTime != null"> create_time = #{createTime,jdbcType=TIMESTAMP}, 
-		</if> <if test="state != null"> state = #{state,jdbcType=INTEGER}, </if> 
-		</set> where announcement_id = #{announcementId,jdbcType=INTEGER} </update> -->
-	<update id="updateAnnouncement" parameterType="com.dormitory.entity.Announcement">
-		update
-		announcement
-		set content = #{content,jdbcType=VARCHAR},
-		create_time =
-		#{createTime,jdbcType=TIMESTAMP},
-		state = #{state,jdbcType=INTEGER}
-		where announcement_id = #{announcementId,jdbcType=INTEGER}
-	</update>
+	
 </mapper>
