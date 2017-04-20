@@ -20,12 +20,12 @@ public interface ArticleDAO {
 	@Select("select LAST_INSERT_ID()")
 	public Long getLastInsertId();
 
-	@Insert(" insert into article(dormitory_id,user_id,name,type,state,path) "
-			+ " values(#{dormitoryId},#{userId},#{name},#{type},#{state},#{path}) ")
+	@Insert(" insert into article(dormitory_id,student_id,name,type,state,path) "
+			+ " values(#{dormitoryId},#{studentId},#{name},#{type},#{state},#{path}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "articleId")
 	public void save(Article article);
 
-	@Update(" update article set dormitory_id=#{dormitory_id},user_id=#{user_id}, "
+	@Update(" update article set dormitory_id=#{dormitory_id},student_id=#{studentId}, "
 			+ " name=#{name},type=#{type},state=#{state},path=#{path} ")
 	public void update(Article article);
 
