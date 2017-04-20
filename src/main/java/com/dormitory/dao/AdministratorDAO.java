@@ -23,7 +23,8 @@ public interface AdministratorDAO {
 	@Options(useGeneratedKeys = true, keyProperty = "administratorId")
 	public void save(Administrator administrator);
 
-	@Update("update administrator set name=#{name},#{phoneNumber},#{email},#{password}")
+	@Update("update administrator set name=#{name},phone_number=#{phoneNumber}, "
+			+ " email=#{email},password=#{password}")
 	public void update(Administrator administrator);
 
 	@Delete("delete from administrator where administrator_id=#{administratorId}")
