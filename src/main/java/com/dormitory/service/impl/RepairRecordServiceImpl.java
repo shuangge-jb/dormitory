@@ -38,7 +38,7 @@ public class RepairRecordServiceImpl implements RepairRecordService {
 
 	@Transactional
 	@Override
-	public RepairRecord save(RepairRecord repairRecord) {
+	public RepairRecord saveOrUpdate(RepairRecord repairRecord) {
 		RepairRecord temp = repairRecordDAO.get(repairRecord
 				.getRepairRecordId());
 		if (temp == null) {
@@ -51,16 +51,14 @@ public class RepairRecordServiceImpl implements RepairRecordService {
 
 	@Transactional
 	@Override
-	public RepairRecord update(RepairRecord repairRecord) {
-		repairRecordDAO.update(repairRecord);
-		return repairRecord;
-	}
-
-	@Transactional
-	@Override
 	public RepairRecord remove(RepairRecord repairRecord) {
 		repairRecordDAO.remove(repairRecord.getRepairRecordId());
 		return repairRecord;
+	}
+
+	@Override
+	public Integer getLastInsertId() {
+		return repairRecordDAO.gerLastInsertId();
 	}
 
 }

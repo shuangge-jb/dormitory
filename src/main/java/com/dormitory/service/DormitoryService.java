@@ -9,6 +9,6 @@ import com.dormitory.entity.Dormitory;
  *
  */
 public interface DormitoryService {
-	public Dormitory getDormitory(Long studentId);
-	public Dormitory getDormitory(Integer dormitoryId);
+	public Dormitory get(Long studentId);
+	public Dormitory get(Integer dormitoryId);
 }

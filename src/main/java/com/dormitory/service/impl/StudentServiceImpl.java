@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dormitory.dao.StudentDAO;
 import com.dormitory.entity.Student;
+import com.dormitory.entity.User;
 import com.dormitory.service.StudentService;
 
 @Service
@@ -14,38 +15,42 @@ public class StudentServiceImpl implements StudentService {
 	@Resource
 	private StudentDAO studentDAO;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.dormitory.service.StudentService#getStudent(java.lang.Long)
-	 */
 	@Override
-	public Student getStudent(Long studentId) {
+	public Student get(Long studentId) {
 
-		return studentDAO.getStudent(studentId);
+		return studentDAO.get(studentId);
 	}
 
-	/**
-	 * @return the studentDAO
-	 */
 	public StudentDAO getStudentDAO() {
 		return studentDAO;
 	}
 
-	/**
-	 * @param studentDAO the studentDAO to set
-	 */
 	public void setStudentDAO(StudentDAO studentDAO) {
 		this.studentDAO = studentDAO;
 	}
 
+	
 	@Transactional
 	@Override
-	public Student updatePassword(Student student) {
-		 studentDAO.updatePassword(student);
-		 return student;
+	public Student saveOrUpdate(Student student) {
+		Student temp=studentDAO.get(student.getStudentId());
+		if(temp==null){
+			studentDAO.save(student);
+		}else{
+			studentDAO.update(student);
+		}
+		return null;
+	}
+	@Transactional
+	@Override
+	public Student remove(Student student) {
+		studentDAO.remove(student);
+		return student;
 	}
 
-	
+	@Override
+	public Long getLastInsertId() {
+		return studentDAO.getLastInsertId();
+	}
 
 }

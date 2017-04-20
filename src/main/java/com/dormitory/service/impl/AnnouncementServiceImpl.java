@@ -17,79 +17,44 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	private AnnouncementDAO announcementDAO;
 
 	@Override
-	public List<Announcement> listAnnouncement() {
+	public List<Announcement> list() {
 
-		return announcementDAO.listAnnouncement(null);
+		return announcementDAO.list(null);
 	}
 
 	@Override
-	public List<Announcement> listAnnouncementLimit(Integer n) {
-		return announcementDAO.listAnnouncement(n);
+	public List<Announcement> listLimit(Integer n) {
+		return announcementDAO.list(n);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.dormitory.service.AnnouncementService#getAnnouncement(java.lang.Integer)
-	 */
 	@Override
-	public Announcement getAnnouncement(Integer announcementId) {
-		return announcementDAO.getAnnouncement(announcementId);
+	public Announcement get(Integer announcementId) {
+		return announcementDAO.get(announcementId);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.dormitory.service.AnnouncementService#getLastInsertId()
-	 */
 	@Override
 	public Integer getLastInsertId() {
 		return announcementDAO.getLastInsertId();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.dormitory.service.AnnouncementService#saveAnnouncement(com.dormitory
-	 * .entity.Announcement)
-	 */
 	@Override
 	@Transactional
-	public Announcement saveAnnouncement(Announcement announcement) {
+	public Announcement saveOrUpdate(Announcement announcement) {
 		Integer oldAnnouncementId = announcement.getAnnouncementId();
-		Announcement temp = announcementDAO.getAnnouncement(oldAnnouncementId);
+		Announcement temp = announcementDAO.get(oldAnnouncementId);
 		if (temp == null) {
-			announcementDAO.saveAnnouncement(announcement);
+			announcementDAO.save(announcement);
+		}else{
+			announcementDAO.update(announcement);
 		}
 		return announcement;
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.dormitory.service.AnnouncementService#updateAnnouncement(com.dormitory
-	 * .entity.Announcement)
-	 */
 	@Override
 	@Transactional
-	public Announcement updateAnnouncement(Announcement announcement) {
-		announcementDAO.updateAnnouncement(announcement);
-		return announcement;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.dormitory.service.AnnouncementService#removeAnnouncement(java.lang
-	 * .Integer)
-	 */
-	@Override
-	@Transactional
-	public Announcement removeAnnouncement(Integer announcementId) {
-		Announcement announcement=announcementDAO.getAnnouncement(announcementId);
-		announcementDAO.removeAnnouncement(announcementId);
+	public Announcement remove(Announcement announcement) {
+		announcementDAO.remove(announcement.getAnnouncementId());
 		return announcement;
 	}
 

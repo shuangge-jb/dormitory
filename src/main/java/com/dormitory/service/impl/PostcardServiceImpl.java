@@ -17,23 +17,23 @@ public class PostcardServiceImpl implements PostcardService {
 	private PostcardDAO postcardDAO;
 
 	@Override
-	public List<Postcard> listPostcard() {
-		return postcardDAO.listPostcard(null);
+	public List<Postcard> list() {
+		return postcardDAO.list(null);
 	}
 
 	@Override
-	public List<Postcard> listPostcardLimit(Integer n) {
-		return postcardDAO.listPostcard(n);
+	public List<Postcard> listLimit(Integer n) {
+		return postcardDAO.list(n);
 	}
 
 	@Override
-	public List<Postcard> listPostcardByStudentId(Long studentId) {
-		return postcardDAO.listPostcardByStudentId(studentId);
+	public List<Postcard> listByStudentId(Long studentId) {
+		return postcardDAO.listByStudentId(studentId);
 	}
 
 	@Override
-	public Postcard getPostcard(Integer postcardId) {
-		return postcardDAO.getPostcard(postcardId);
+	public Postcard get(Integer postcardId) {
+		return postcardDAO.get(postcardId);
 	}
 
 	@Override
@@ -43,27 +43,20 @@ public class PostcardServiceImpl implements PostcardService {
 
 	@Transactional
 	@Override
-	public Postcard savePostcard(Postcard postcard) {
-		Postcard temp = postcardDAO.getPostcard(postcard.getPostcardId());
+	public Postcard saveOrUpdate(Postcard postcard) {
+		Postcard temp = postcardDAO.get(postcard.getPostcardId());
 		if (temp == null) {
-			postcardDAO.savePostcard(postcard);
+			postcardDAO.save(postcard);
 		} else {
-			postcardDAO.updatePostcard(postcard);
+			postcardDAO.update(postcard);
 		}
 		return postcard;
 	}
 
 	@Transactional
 	@Override
-	public Postcard updatePostcard(Postcard postcard) {
-		postcardDAO.updatePostcard(postcard);
-		return postcard;
-	}
-
-	@Transactional
-	@Override
-	public Postcard removePostcard(Postcard postcard) {
-		postcardDAO.removePostcard(postcard.getPostcardId());
+	public Postcard remove(Postcard postcard) {
+		postcardDAO.remove(postcard.getPostcardId());
 		return postcard;
 	}
 

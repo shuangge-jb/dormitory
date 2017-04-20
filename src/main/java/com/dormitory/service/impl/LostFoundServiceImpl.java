@@ -33,7 +33,7 @@ public class LostFoundServiceImpl implements LostFoundService {
 
 	@Transactional
 	@Override
-	public LostFound save(LostFound lostFound) {
+	public LostFound saveOrUpdate(LostFound lostFound) {
 		LostFound temp = lostFoundDAO.get(lostFound.getLostFoundId());
 		if (temp == null) {
 			lostFoundDAO.save(lostFound);
@@ -45,16 +45,19 @@ public class LostFoundServiceImpl implements LostFoundService {
 
 	@Transactional
 	@Override
-	public LostFound update(LostFound lostFound) {
-		lostFoundDAO.update(lostFound);
-		return lostFound;
-	}
-
-	@Transactional
-	@Override
 	public LostFound remove(LostFound lostFound) {
 		lostFoundDAO.remove(lostFound.getLostFoundId());
 		return lostFound;
+	}
+
+	@Override
+	public LostFound get(Integer lostFoundId) {
+		return lostFoundDAO.get(lostFoundId);
+	}
+
+	@Override
+	public Integer getLastInsertId() {
+		return lostFoundDAO.getLastInsertId();
 	}
 
 }

@@ -14,22 +14,22 @@ public class DormitoryServiceImpl implements DormitoryService {
 @Resource
 private DormitoryDAO dormitoryDAO;
 @Resource
-private StudentDAO studentDAO;
+private StudentDAO userDAO;
 	/* (non-Javadoc)
 	 * @see com.dormitory.service.DormitoryService#getDormitory(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Dormitory getDormitory(Long studentId) {
-		Student student=studentDAO.getStudent(studentId);
-		return getDormitory(student.getDormitoryId());
+	public Dormitory get(Long userId) {
+		Student user=userDAO.get(userId);
+		return get(user.getDormitoryId());
 	}
 	
 	/* (non-Javadoc)
 	 * @see com.dormitory.service.DormitoryService#getDormitory(java.lang.Integer)
 	 */
 	@Override
-	public Dormitory getDormitory(Integer dormitoryId) {
-		return dormitoryDAO.getDormitory(dormitoryId);
+	public Dormitory get(Integer dormitoryId) {
+		return dormitoryDAO.get(dormitoryId);
 	}
 
 	/**
