@@ -21,7 +21,15 @@ public class StudentServiceImplTest {
 	private StudentService studentService;
 
 	private void init(){
-		
+		Student student=new Student();
+		student.setStudentId(201330612345L);
+		student.setBedId(1);
+		student.setDormitoryId(1);
+		student.setEmail("13925094598@163.com");
+		student.setName("震惊");
+		student.setPassword("1234567890");
+		student.setPhoneNumber(13925023456L);
+		studentService.saveOrUpdate(student);
 	}
 	@Test
 	public void testGetStudent() {
@@ -31,8 +39,8 @@ public class StudentServiceImplTest {
 		String name="爽哥";
 		Long phoneNumber=13925094598L;
 		String email="562559243@qq.com";
-		String password="950824";
-		Student student=studentService.getStudent(studentId);
+		String password="123456";
+		Student student=studentService.get(studentId);
 		assertNotNull(student);
 		assertEquals(studentId, student.getStudentId());
 		assertEquals(dormitoryId, student.getDormitoryId());
@@ -45,14 +53,23 @@ public class StudentServiceImplTest {
 	}
 	@Transactional
 	@Test
-	public void testUpdatePassword(){
+	public void testSave(){
+		System.out.println("testSave");
+		init();
+		Student student=studentService.get(201330612345L);
+		System.out.println(student);
+		assertEquals("震惊", student.getName());
+	}
+	@Transactional
+	@Test
+	public void testUpdate(){
 		System.out.println("testUpdatePassword");
 		Long studentId=201330610505L;
-		Student student=studentService.getStudent(studentId);
+		Student student=studentService.get(studentId);
 		String password="950824";
 		student.setPassword(password);
-		studentService.updatePassword(student);
-		Student newStudent=studentService.getStudent(studentId);
+		studentService.saveOrUpdate(student);
+		Student newStudent=studentService.get(studentId);
 		assertNotNull(newStudent);
 		assertEquals(password, newStudent.getPassword());
 	}

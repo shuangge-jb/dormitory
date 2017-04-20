@@ -23,7 +23,7 @@ public class DormitoryServiceImplTest {
 		Long studentId=201330610505L;
 		String building="C10";
 		String room="512";
-		Dormitory dormitory = dormitoryService.getDormitory(studentId);
+		Dormitory dormitory = dormitoryService.get(studentId);
 		assertNotNull(dormitory);
 		assertEquals(new Integer(1), dormitory.getDormitoryId());
 		assertEquals(building, dormitory.getBuilding());
