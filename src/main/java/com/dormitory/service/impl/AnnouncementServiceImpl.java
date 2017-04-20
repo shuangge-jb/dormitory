@@ -19,12 +19,12 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	@Override
 	public List<Announcement> list() {
 
-		return announcementDAO.list(null);
+		return announcementDAO.list();
 	}
 
 	@Override
 	public List<Announcement> listLimit(Integer n) {
-		return announcementDAO.list(n);
+		return announcementDAO.listLimit(n);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	@Override
 	@Transactional
 	public Announcement remove(Announcement announcement) {
-		announcementDAO.remove(announcement.getAnnouncementId());
+		announcementDAO.remove(announcement);
 		return announcement;
 	}
 
