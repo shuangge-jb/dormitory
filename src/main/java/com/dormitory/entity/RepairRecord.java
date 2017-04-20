@@ -15,6 +15,8 @@ public class RepairRecord {
 
     protected Timestamp repairTime;
 
+    protected Long contactId;
+    
     public Integer getRepairRecordId() {
         return repairRecordId;
     }
@@ -63,7 +65,15 @@ public class RepairRecord {
         this.repairTime = repairTime;
     }
 
-    @Override
+    public Long getContactId() {
+		return contactId;
+	}
+
+	public void setContactId(Long contactId) {
+		this.contactId = contactId;
+	}
+
+	@Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
@@ -75,6 +85,7 @@ public class RepairRecord {
         sb.append(", state=").append(state);
         sb.append(", createTime=").append(createTime);
         sb.append(", repairTime=").append(repairTime);
+        sb.append(", contactId=").append(contactId);
         sb.append("]");
         return sb.toString();
     }
