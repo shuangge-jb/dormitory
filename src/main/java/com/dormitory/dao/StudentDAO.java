@@ -19,8 +19,8 @@ public interface StudentDAO {
 	@ResultMap("com.dormitory.mapper.StudentMapper.student")
 	void updatePassword(Student student);
 
-	@Insert(" insert into student(dormitory_id,bed_id,name,phone_number,email,password) "
-			+ " values(#{dormitoryId},#{bedId},#{name},#{phoneNumber},#{email},#{password}) ")
+	@Insert(" insert into student(student_id,dormitory_id,bed_id,name,phone_number,email,password) "
+			+ " values(#{studentId},#{dormitoryId},#{bedId},#{name},#{phoneNumber},#{email},#{password}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "studentId")
 	void save(Student student);
 
