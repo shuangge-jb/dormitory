@@ -1,12 +1,16 @@
 package com.dormitory.service.impl;
 
+import javax.annotation.Resource;
 import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
 
 import com.dormitory.dao.AdministratorDAO;
 import com.dormitory.entity.Administrator;
 import com.dormitory.service.AdministratorService;
-
+@Service
 public class AdministratorServiceImpl implements AdministratorService {
+	@Resource
 	private AdministratorDAO administratorDAO;
 
 	public AdministratorServiceImpl() {
