@@ -22,8 +22,10 @@ public interface AnnouncementDAO {
 	 */
 	@Select(" select * from announcement limit #{n}")
 	@ResultMap("com.dormitory.mapper.AnnouncementMapper.announcement")
-	public List<Announcement> list(@Param("n") Integer n);
-
+	public List<Announcement> listLimit(@Param("n") Integer n);
+	@Select(" select * from announcement ")
+	@ResultMap("com.dormitory.mapper.AnnouncementMapper.announcement")
+	public List<Announcement> list();
 	/**
 	 * 由主键查找对象
 	 * 
@@ -32,10 +34,11 @@ public interface AnnouncementDAO {
 	 */
 	@Select("select * from announcement where announcement_id=#{announcementId}")
 	@ResultMap("com.dormitory.mapper.AnnouncementMapper.announcement")
-	public Announcement get(
-			@Param("announcementId") Integer announcementId);
+	public Announcement get(@Param("announcementId") Integer announcementId);
+
 	/**
 	 * 返回最近插入的主键，无插入时返回0，必须在插入后调用
+	 * 
 	 * @return
 	 */
 	@Select("select LAST_INSERT_ID() ")
@@ -48,11 +51,9 @@ public interface AnnouncementDAO {
 	 * @author guo.junbao
 	 * @date 2017-4-12
 	 */
-	@Insert(" insert into announcement(announcement_id,content,create_time,state) "
-			+" values(#{announcementId},#{content},#{createTime},#{state}) ")
+	@Insert(" insert into announcement(content,create_time,state) " + " values(#{content},#{createTime},#{state}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "announcementId")
-	public void save(
-			 Announcement announcement);
+	public void save(Announcement announcement);
 
 	/**
 	 * 修改
@@ -62,8 +63,7 @@ public interface AnnouncementDAO {
 	 * @date 2017-4-12
 	 */
 	@Update(" update announcement set content=#{content} where announcement_id=#{announcementId} ")
-	public void update(
-			Announcement announcement);
+	public void update(Announcement announcement);
 
 	/**
 	 * 删除
@@ -73,7 +73,6 @@ public interface AnnouncementDAO {
 	 * @date 2017-4-12
 	 */
 	@Update(" update announcement set state=0 where announcement_id=#{announcementId} ")
-	public void remove(
-			@Param("announcementId") Integer announcementId);
+	public void remove(Announcement announcement);
 
 }
