@@ -8,7 +8,7 @@ public interface DormitoryDAO {
 
 	@Select("select * from dormitory where dormitory_id=#{0} ")
 	@ResultMap("com.dormitory.mapper.DormitoryMapper.dormitory")
-	Dormitory getDormitory(Integer dormitoryId);
+	Dormitory get(Integer dormitoryId);
 
 	
 }

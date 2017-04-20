@@ -16,32 +16,32 @@ import com.dormitory.entity.Postcard;
 public interface PostcardDAO {
 	@SelectProvider(type = SQLProvider.class, method = "listPostcard")
 	@ResultMap("com.dormitory.mapper.PostcardMapper.postcard")
-	public List<Postcard> listPostcard(Integer n);
+	public List<Postcard> list(Integer n);
 
 	@Select(" select * from postcard where student_id=#{studentId} order by create_time desc ")
 	@ResultMap("com.dormitory.mapper.PostcardMapper.postcard")
-	public List<Postcard> listPostcardByStudentId(
+	public List<Postcard> listByStudentId(
 			@Param("studentId") Long studentId);
 
 	@Select(" select * from postcard where postcard_id=#{postcardId} ")
 	@ResultMap("com.dormitory.mapper.PostcardMapper.postcard")
-	public Postcard getPostcard(@Param("postcardId") Integer postcardId);
+	public Postcard get(@Param("postcardId") Integer postcardId);
 	@Select(" select LAST_INSERT_ID() ")
 	public Integer getLastInsertId();
 
 	@Insert(" insert into postcard(student_id,dormitory_id,create_time,state) "
 			+ " values(#{studentId},#{dormitoryId},#{createTime},#{state}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "postcardId")
-	public void savePostcard(Postcard postcard);
+	public void save(Postcard postcard);
 
 	@Update(" update postcard "
 			+ " set student_id=#{studentId},dormitory_id=#{dormitoryId}, "
 			+ " create_time=#{createTime} "
 			+" where postcard_id=#{postcardId} ")
-	public void updatePostcard(Postcard postcard);
+	public void update(Postcard postcard);
 	@Update(" update postcard "
 			+" set state=0 "
 			+" where postcard_id=#{postcardId} ")
-	public void removePostcard(Integer postcardId);
+	public void remove(Integer postcardId);
 }
 
