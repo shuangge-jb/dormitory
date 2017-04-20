@@ -25,7 +25,7 @@ public interface ArticleDAO {
 	@Options(useGeneratedKeys = true, keyProperty = "articleId")
 	public void save(Article article);
 
-	@Update(" update article set dormitory_id=#{dormitory_id},student_id=#{studentId}, "
+	@Update(" update article set dormitory_id=#{dormitoryId},student_id=#{studentId}, "
 			+ " name=#{name},type=#{type},state=#{state},path=#{path} ")
 	public void update(Article article);
 
