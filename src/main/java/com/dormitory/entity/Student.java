@@ -10,13 +10,13 @@ public class Student extends User {
 	protected Long studentId;
 	@NotEmpty(message = "{student.dormitoryId.null}")
 	protected Integer dormitoryId;
-@Max(4)
-@Min(1)
-@NotEmpty(message = "{user.bedId.null}")
+	@Max(4)
+	@Min(1)
+	@NotEmpty(message = "{student.bedId.null}")
 	protected Integer bedId;
 
 	public Student() {
-		
+
 	}
 
 	public Long getStudentId() {
