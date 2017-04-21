@@ -1,10 +1,18 @@
 package com.dormitory.entity;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Student extends User {
+	@NotEmpty(message = "{student.studentId.null}")
 	protected Long studentId;
-
+	@NotEmpty(message = "{student.dormitoryId.null}")
 	protected Integer dormitoryId;
-
+@Max(4)
+@Min(1)
+@NotEmpty(message = "{user.bedId.null}")
 	protected Integer bedId;
 
 	public Student() {
