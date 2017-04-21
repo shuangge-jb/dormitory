@@ -1,9 +1,18 @@
 package com.dormitory.entity;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Article {
 	private Long articleId;
 	private Integer dormitoryId;
 	private Long studentId;
+	@NotEmpty(message = "${user.name.null}")
+	@Length(min = 5, max = 20, message = "{user.name.length.illegal}")
+	@Pattern(regexp = "[a-zA-Z]{5,20}", message = "{user.name.illegal}")
 	private String name;
 	private Integer type;
 	private Integer state;
