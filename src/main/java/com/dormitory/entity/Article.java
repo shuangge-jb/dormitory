@@ -10,9 +10,9 @@ public class Article {
 	private Long articleId;
 	private Integer dormitoryId;
 	private Long studentId;
-	@NotEmpty(message = "${user.name.null}")
-	@Length(min = 5, max = 20, message = "{user.name.length.illegal}")
-	@Pattern(regexp = "[a-zA-Z]{5,20}", message = "{user.name.illegal}")
+	@NotEmpty(message = "${article.name.null}")
+	@Length(min = 5, max = 20, message = "{article.name.length.illegal}")
+	@Pattern(regexp = "[a-zA-Z]{5,20}", message = "{article.name.illegal}")
 	private String name;
 	private Integer type;
 	private Integer state;
