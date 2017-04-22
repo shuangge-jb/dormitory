@@ -7,16 +7,16 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class Article {
-	private Long articleId;
-	private Integer dormitoryId;
-	private Long studentId;
+	protected Long articleId;
+	protected Integer dormitoryId;
+	protected Long studentId;
 	@NotEmpty(message = "${article.name.null}")
-	@Length(min = 5, max = 20, message = "{article.name.length.illegal}")
-	@Pattern(regexp = "[a-zA-Z]{5,20}", message = "{article.name.illegal}")
-	private String name;
-	private Integer type;
-	private Integer state;
-	private String path;
+	@Length(min = 1, max = 20, message = "{article.name.length.illegal}")
+	@Pattern(regexp = "^[\u4e00-\u9fa5_a-zA-Z0-9]+$", message = "{article.name.illegal}")
+	protected String name;
+	protected Integer type;
+	protected Integer state;
+	protected String path;
 
 	public Article() {
 		// TODO Auto-generated constructor stub
