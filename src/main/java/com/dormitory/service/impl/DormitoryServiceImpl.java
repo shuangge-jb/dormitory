@@ -44,6 +44,24 @@ private StudentDAO userDAO;
 	public void setDormitoryDAO(DormitoryDAO dormitoryDAO) {
 		this.dormitoryDAO = dormitoryDAO;
 	}
+
+	@Override
+	public Dormitory saveOrUpdate(Dormitory dormitory) {
+		Dormitory temp=dormitoryDAO.get(dormitory.getDormitoryId());
+		if(temp==null){
+			dormitoryDAO.save(dormitory);
+		}else{
+			dormitoryDAO.update(dormitory);
+		}
+		
+		return dormitory;
+	}
+
+	@Override
+	public Dormitory remove(Dormitory dormitory) {
+		dormitoryDAO.remove(dormitory);
+		return dormitory;
+	}
 	
 
 	
