@@ -9,25 +9,17 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import com.dormitory.validator.FileType;
-import com.dormitory.entity.Article;
 import com.dormitory.service.ArticleService;
 import com.dormitory.service.dto.ArticleDTO;
-import com.dormitory.validator.ArticleDTOValidator;
 
 @RequestMapping(value = "/article")
 @SessionAttributes({ "studentId", "administratorId", "dormitoryId" })
@@ -37,7 +29,7 @@ public class ArticleController {
 	private static final String ERROR_PAGE = "error";
 	private static final Logger LOGGER = LoggerFactory.getLogger(ArticleController.class);
 
-	@Autowired
+	@Resource
 	private ArticleService articleService;
 
 	/*@InitBinder   
@@ -46,12 +38,12 @@ public class ArticleController {
     } */
 	
 	@RequestMapping(value = "/saveArticle", method = RequestMethod.POST)
-	public String saveArticle(@ModelAttribute(value = "article") @Valid ArticleDTO articleDTO, BindingResult articldDTOResult,
+	public String saveArticle(@ModelAttribute(value = "article") @Valid ArticleDTO articleDTO, BindingResult articleDTOResult,
 			@RequestParam(value = "file", required = false)  MultipartFile file,HttpServletRequest request,
 			Model model) {
-		if (articldDTOResult.hasErrors()) {
+		if (articleDTOResult.hasErrors()) {
 			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("参数异常：result.hasErrors."+articldDTOResult);
+				LOGGER.debug("参数异常：result.hasErrors."+articleDTOResult);
 			}
 			return ERROR_PAGE;
 		}
