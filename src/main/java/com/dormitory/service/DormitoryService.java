@@ -8,7 +8,7 @@ import com.dormitory.entity.Dormitory;
  * @date 2017-3-29
  *
  */
-public interface DormitoryService extends SaveOrUpdateService<Dormitory>,RemoveService<Dormitory>{
+public interface DormitoryService {
 	public Dormitory get(Long studentId);
 	public Dormitory get(Integer dormitoryId);
 }
