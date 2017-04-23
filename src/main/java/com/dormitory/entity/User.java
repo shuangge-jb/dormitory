@@ -1,5 +1,7 @@
 package com.dormitory.entity;
 
+import java.security.Timestamp;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -24,6 +26,7 @@ public abstract class User {
 	@Pattern(regexp = "[a-zA-Z]{5,20}", message = "{user.password.illegal}")
 	protected String password;
 
+	protected Timestamp outDate;
 	public String getName() {
 		return name;
 	}
@@ -54,6 +57,14 @@ public abstract class User {
 
 	public void setPassword(String password) {
 		this.password = password == null ? null : password.trim();
+	}
+
+	public Timestamp getOutDate() {
+		return outDate;
+	}
+
+	public void setOutDate(Timestamp outDate) {
+		this.outDate = outDate;
 	}
 
 }
