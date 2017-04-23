@@ -1,5 +1,6 @@
 package com.dormitory.entity;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
 
