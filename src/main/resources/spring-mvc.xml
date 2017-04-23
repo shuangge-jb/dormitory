@@ -16,7 +16,12 @@
 	<context:component-scan base-package="com.dormitory.student.controller"></context:component-scan>
 	<context:component-scan base-package="com.dormitory.master.controller"></context:component-scan>
 
-<!-- <mvc:annotation-driven validator="validator" /> -->
+<mvc:annotation-driven validator="validator" >
+<mvc:message-converters>
+        <ref bean="stringHttpMessageConverter"/>
+        <ref bean="mappingJackson2HttpMessageConverter"/>
+    </mvc:message-converters>
+</mvc:annotation-driven>
 <!-- 静态资源访问 -->  
 
 <mvc:resources mapping="/js/**" location="/js/" />
@@ -45,7 +50,8 @@
 		lazy-init="false">
 		<property name="messageConverters">
 			<list>
-				<ref bean="mappingJackson2HttpMessageConverter" />
+				<!-- <ref bean="mappingJackson2HttpMessageConverter" />
+				 <ref bean="stringHttpMessageConverter"/> -->
 			</list>
 		</property>
 	</bean>
@@ -86,7 +92,16 @@
 			</list>
 		</property>
 	</bean>
-	
+	<bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+    <constructor-arg value="UTF-8" index="0"/>
+    <property name="supportedMediaTypes">
+        <list>
+            <value>text/plain;charset=UTF-8</value>
+            <value>text/html;charset=UTF-8</value>
+            <value>application/json;charset=UTF-8</value>
+        </list>
+    </property>
+</bean>
 	<!-- 支持上传文件 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
