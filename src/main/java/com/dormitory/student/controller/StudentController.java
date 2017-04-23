@@ -20,7 +20,6 @@ import com.dormitory.entity.Dormitory;
 import com.dormitory.entity.Student;
 import com.dormitory.service.DormitoryService;
 import com.dormitory.service.StudentService;
-import com.dormitory.service.dto.LoginDTO;
 import com.dormitory.service.dto.RegisterDTO;
 import com.dormitory.validator.ArticleDTOValidator;
 import com.dormitory.validator.RegisterDTOValidator;
@@ -91,13 +90,13 @@ public class StudentController {
 	}
 
 	@RequestMapping("/updatePassword")
-	public String updatePassword(@ModelAttribute(value = "student") LoginDTO loginDTO) {
+	public String updatePassword(@ModelAttribute(value = "student") Student student) {
 		return null;
 
 	}
 
 	@RequestMapping("/findPassword")
-	public String findPassword(@ModelAttribute(value = "student") LoginDTO loginDTO) {
+	public String findPassword(@ModelAttribute(value = "studentId") String studentId) {
 		return null;
 
 	}
