@@ -1,11 +1,23 @@
 package com.dormitory.entity;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class Dormitory {
+	@NotNull
 	protected Integer dormitoryId;
-
+	@NotNull(message = "doritory.building.null")
+	@NotEmpty
+	@NotBlank
+	@Pattern(regexp = "[cC][1-9]|[1][0-7]",message="dormitory.room.illegal")
 	protected String building;
-
+	@NotNull(message = "doritory.room.null")
+	@NotEmpty
+	@NotBlank
+	@Pattern(regexp = "[1-7][0-5][0-9]",message="dormitory.room.illegal")
 	protected String room;
 
 	public Integer getDormitoryId() {
@@ -45,5 +57,4 @@ public class Dormitory {
 		return sb.toString();
 	}
 
-	
 }
