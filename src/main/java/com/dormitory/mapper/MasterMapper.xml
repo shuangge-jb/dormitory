@@ -7,6 +7,7 @@
     <result column="phone_number" jdbcType="BIGINT" property="phoneNumber" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+   <result column="out_date" jdbcType="TIMESTAMP" property="outDate" />
   </resultMap>
  
 </mapper>
