@@ -22,7 +22,7 @@
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource">
-		<!-- 引用spring-mybatis.xml的bean -->
+			<!-- 引用spring-mybatis.xml的bean -->
 			<ref bean="dataSource" />
 		</property>
 	</bean>
@@ -32,7 +32,23 @@
 	<!-- 配置事务异常封装 -->
 	<bean id="persistenceExceptionTranslationPostProcessor"
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-
-	
+		
+	<!-- spring默认异常处理器 -->
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<!-- 定义默认的异常处理页面，当该异常类型的注册时使用 -->
+		<property name="defaultErrorView" value="error"></property>
+		<!-- 定义异常处理页面用来获取异常信息的变量名，默认名为exception -->
+		<property name="exceptionAttribute" value="ex"></property>
+		<!-- 定义需要特殊处理的异常，用类名或完全路径名作为key，异常以页名作为值 -->
+		<property name="exceptionMappings">
+			<props>
+				<!-- 创建自己所要自定义的异常类 -->
+				<!-- <prop key="com.core.exception.BusinessException">business_error</prop>
+				<prop key="com.core.exception.ParameterException">parameter_error</prop> -->
+				<!-- 还可以继续扩展对不同异常类型的处理 -->
+			</props>
+		</property>
+	</bean>
 
 </beans>
