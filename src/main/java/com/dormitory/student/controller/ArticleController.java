@@ -2,6 +2,7 @@ package com.dormitory.student.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -15,16 +16,20 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.dormitory.entity.Article;
 import com.dormitory.service.ArticleService;
 import com.dormitory.service.dto.ArticleDTO;
 import com.dormitory.validator.ArticleDTOValidator;
 
-@RequestMapping(value = "/student/article")
+@RequestMapping(value = "")
 @SessionAttributes({ "studentId", "administratorId", "dormitoryId" })
 @Controller
 public class ArticleController {
@@ -92,5 +97,12 @@ public class ArticleController {
 		}
 		System.out.println("文件路径" + modelUrl);
 		return "success";
+	}
+	@RequestMapping(value="{user}/listArticle",method=RequestMethod.GET)
+	public ModelAndView listArticle(@PathVariable(value="user")String viewName,@RequestParam(value="dormitoryId")Integer dormitoryId){
+		ModelAndView modelAndView=new ModelAndView("redirect:/"+viewName);
+		List<Article> list=articleService.listByDormitoryId(dormitoryId);
+		modelAndView.addObject("listArticle", list);
+		return modelAndView;
 	}
 }
