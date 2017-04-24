@@ -4,8 +4,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.dormitory.dao.BuildingDAO;
 import com.dormitory.dao.DormitoryDAO;
 import com.dormitory.dao.StudentDAO;
+import com.dormitory.dto.DormitoryDTO;
 import com.dormitory.entity.Dormitory;
 import com.dormitory.entity.Student;
 import com.dormitory.service.DormitoryService;
@@ -14,13 +16,15 @@ public class DormitoryServiceImpl implements DormitoryService {
 @Resource
 private DormitoryDAO dormitoryDAO;
 @Resource
-private StudentDAO userDAO;
+private BuildingDAO buildingDAO;
+@Resource
+private StudentDAO studentDAO;
 	/* (non-Javadoc)
 	 * @see com.dormitory.service.DormitoryService#getDormitory(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Dormitory get(Long userId) {
-		Student user=userDAO.get(userId);
+	public DormitoryDTO get(Long userId) {
+		Student user=studentDAO.get(userId);
 		return get(user.getDormitoryId());
 	}
 	
@@ -28,8 +32,12 @@ private StudentDAO userDAO;
 	 * @see com.dormitory.service.DormitoryService#getDormitory(java.lang.Integer)
 	 */
 	@Override
-	public Dormitory get(Integer dormitoryId) {
-		return dormitoryDAO.get(dormitoryId);
+	public DormitoryDTO get(Integer dormitoryId) {
+		Dormitory dormitory=dormitoryDAO.get(dormitoryId);
+		DormitoryDTO dormitoryDTO=new DormitoryDTO(dormitory);
+		String buildingName=buildingDAO.get(dormitory.getBuildingId()).getBuildngName();
+		dormitoryDTO.setBuildingName(buildingName);
+		return dormitoryDTO;
 	}
 
 	/**
