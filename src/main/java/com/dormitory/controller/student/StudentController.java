@@ -64,7 +64,7 @@ public class StudentController {
 	@RequestMapping(value = "/registerController", method = RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute(value = "register") @Valid StudentRegisterDTO register,
 			BindingResult result,Model model) {
-		ModelAndView modelAndView = new ModelAndView("redirect:/register");
+		ModelAndView modelAndView = new ModelAndView("redirect:/registerController");
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError().toString());
 			return modelAndView;

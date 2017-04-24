@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Building {
 	@NotNull
 	Integer buildingId;
-	@NotNull(message = "doritory.building.null")
+	@NotNull(message = "doritory.buildingName.null")
 	@NotEmpty
 	@NotBlank
 	@Pattern(regexp = "[cC][1-9]|[1][0-7]", message = "dormitory.room.illegal")

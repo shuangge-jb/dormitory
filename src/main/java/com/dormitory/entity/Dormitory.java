@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class Dormitory {
-	@NotNull
+	//@NotNull
 	protected Integer dormitoryId;
 	@NotNull
 	protected Integer buildingId;

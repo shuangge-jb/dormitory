@@ -9,11 +9,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Student extends User {
 	@NotNull(message = "{student.studentId.null}")
 	protected Long studentId;
-	@NotEmpty(message = "{student.dormitoryId.null}")
+	//@NotEmpty(message = "{student.dormitoryId.null}")
 	protected Integer dormitoryId;
 	@Max(4)
 	@Min(1)
-	@NotEmpty(message = "{student.bedId.null}")
+	//@NotEmpty(message = "{student.bedId.null}")
 	protected Integer bedId;
 
 	public Student() {
