@@ -12,9 +12,8 @@
 
 
 	<!-- 扫描controller层 -->
-	<context:component-scan base-package="com.dormitory.admin.controller"></context:component-scan>
-	<context:component-scan base-package="com.dormitory.student.controller"></context:component-scan>
-	<context:component-scan base-package="com.dormitory.master.controller"></context:component-scan>
+	<context:component-scan base-package="com.dormitory.controller"></context:component-scan>
+	
 
 <mvc:annotation-driven validator="validator" >
 <mvc:message-converters>
