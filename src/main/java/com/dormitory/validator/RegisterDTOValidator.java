@@ -5,8 +5,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.dormitory.service.dto.ArticleDTO;
-import com.dormitory.service.dto.RegisterDTO;
+import com.dormitory.dto.student.StudentRegisterDTO;
 
 public class RegisterDTOValidator implements Validator {
 
@@ -16,13 +15,13 @@ public class RegisterDTOValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return clazz.equals(RegisterDTO.class);
+		return clazz.equals(StudentRegisterDTO.class);
 	}
 
 	@Override
 	public void validate(Object obj, Errors errors) {
 		System.out.println("RegisterDTOValidator validate");
-		RegisterDTO dto = (RegisterDTO) obj;
+		StudentRegisterDTO dto = (StudentRegisterDTO) obj;
 		ValidationUtils.rejectIfEmpty(errors, "bedId", "student.bedId.null");
 		// Assert.isTrue(dto.getBedId() >= 1 && dto.getBedId() <= 4,
 		// "student.bedId.illegal");
@@ -31,9 +30,9 @@ public class RegisterDTOValidator implements Validator {
 		}
 		// Assert.isTrue(dto.getBuilding().matches("[cC][1-9]|[1][0-7]"),
 		// "{dormitory.building.illegal}");
-		if (!dto.getBuilding().matches("[cC][1-9]|[1][0-7]")) {
-			errors.rejectValue("building", "dormitory.building.illegal");
-		}
+//		if (!dto.getBuildingId().matches("[cC][1-9]|[1][0-7]")) {
+//			errors.rejectValue("building", "dormitory.building.illegal");
+//		}
 		// Assert.isTrue(dto.getRoom().matches("[1-7][0-5][0-9]"),
 		// "dormitory.room.illegal");
 		if (!dto.getRoom().matches("[1-7][0-5][0-9]")) {
