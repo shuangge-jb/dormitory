@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.dormitory.admin.controller.AdminController;
+import com.dormitory.controller.admin.AdminController;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
