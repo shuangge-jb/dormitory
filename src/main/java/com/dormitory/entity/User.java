@@ -1,6 +1,8 @@
 package com.dormitory.entity;
 
-import java.security.Timestamp;
+
+
+import java.sql.Timestamp;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -27,6 +29,8 @@ public abstract class User {
 	protected String password;
 
 	protected Timestamp outDate;
+	
+	protected String validateCode;
 	public String getName() {
 		return name;
 	}
@@ -65,6 +69,14 @@ public abstract class User {
 
 	public void setOutDate(Timestamp outDate) {
 		this.outDate = outDate;
+	}
+
+	public String getValidateCode() {
+		return validateCode;
+	}
+
+	public void setValidateCode(String validateCode) {
+		this.validateCode = validateCode;
 	}
 
 }
