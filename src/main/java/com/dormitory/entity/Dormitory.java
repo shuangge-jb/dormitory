@@ -9,17 +9,24 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Dormitory {
 	@NotNull
 	protected Integer dormitoryId;
-	@NotNull(message = "doritory.building.null")
-	@NotEmpty
-	@NotBlank
-	@Pattern(regexp = "[cC][1-9]|[1][0-7]",message="dormitory.room.illegal")
-	protected String building;
+	@NotNull
+	protected Integer buildingId;
 	@NotNull(message = "doritory.room.null")
 	@NotEmpty
 	@NotBlank
 	@Pattern(regexp = "[1-7][0-5][0-9]",message="dormitory.room.illegal")
 	protected String room;
 
+	public Dormitory() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Dormitory(Dormitory dormitory) {
+		super();
+		this.buildingId=dormitory.buildingId;
+		this.dormitoryId=dormitory.dormitoryId;
+		this.room=dormitory.room;
+	}
 	public Integer getDormitoryId() {
 		return dormitoryId;
 	}
@@ -28,12 +35,14 @@ public class Dormitory {
 		this.dormitoryId = dormitoryId;
 	}
 
-	public String getBuilding() {
-		return building;
+	
+
+	public Integer getBuildingId() {
+		return buildingId;
 	}
 
-	public void setBuilding(String building) {
-		this.building = building == null ? null : building.trim();
+	public void setBuildingId(Integer buildingId) {
+		this.buildingId = buildingId;
 	}
 
 	public String getRoom() {
@@ -51,7 +60,7 @@ public class Dormitory {
 		sb.append(" [");
 		sb.append("Hash = ").append(hashCode());
 		sb.append(", dormitoryId=").append(dormitoryId);
-		sb.append(", building=").append(building);
+		sb.append(", buildingId=").append(buildingId);
 		sb.append(", room=").append(room);
 		sb.append("]");
 		return sb.toString();
