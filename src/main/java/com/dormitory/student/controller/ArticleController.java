@@ -40,10 +40,10 @@ public class ArticleController {
 	@Resource
 	private ArticleService articleService;
 
-	@InitBinder   
+	/*@InitBinder   
     protected   void  initBinder(WebDataBinder binder){  
         binder.setValidator(new  ArticleDTOValidator());  
-    } 
+    } */
 	
 	@RequestMapping(value = "/saveArticle", method = RequestMethod.POST)
 	public String saveArticle(@ModelAttribute(value = "article") @Valid ArticleDTO articleDTO, BindingResult articleDTOResult,
