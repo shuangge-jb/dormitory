@@ -17,10 +17,10 @@ public interface DormitoryDAO {
 	@ResultMap("com.dormitory.mapper.DormitoryMapper.dormitory")
 	Dormitory get(Integer dormitoryId);
 
-	@Insert(" insert into dormitory(building,room) values(#{building},#{room}) ")
+	@Insert(" insert into dormitory(building_id,room) values(#{buildingId},#{room}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "dormitoryId")
 	void save(Dormitory dormitory);
-	@Update(" update dormitory set building=#{building},room=#{room} where dormitory_id=#{dormitoryId} ")
+	@Update(" update dormitory set building_id=#{building},room=#{room} where dormitory_id=#{dormitoryId} ")
 	void update(Dormitory dormitory);
 	@Delete("delete from dormitory where dormitory_id=#{dormitoryId} ")
 	void remove(Dormitory dormitory);
