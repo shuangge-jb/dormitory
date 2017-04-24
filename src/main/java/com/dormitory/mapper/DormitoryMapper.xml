@@ -3,7 +3,7 @@
 <mapper namespace="com.dormitory.mapper.DormitoryMapper">
   <resultMap id="dormitory" type="com.dormitory.entity.Dormitory">
     <id column="dormitory_id" jdbcType="INTEGER" property="dormitoryId" />
-    <result column="building" jdbcType="VARCHAR" property="building" />
+    <result column="building_id" jdbcType="INTEGER" property="buildingId" />
     <result column="room" jdbcType="VARCHAR" property="room" />
   </resultMap>
   
