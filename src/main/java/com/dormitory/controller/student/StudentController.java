@@ -54,17 +54,16 @@ public class StudentController {
 
 	}
 
-	@InitBinder(value = "/registerController")
-	protected void initBinder(WebDataBinder binder) {
-		binder.setValidator(new RegisterDTOValidator());// 绑定自定义的校验器
-	}
-
-	
+	/*
+	 * @InitBinder(value = "/registerController") protected void
+	 * initBinder(WebDataBinder binder) { binder.setValidator(new
+	 * RegisterDTOValidator());// 绑定自定义的校验器 }
+	 */
 
 	@RequestMapping(value = "/registerController", method = RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute(value = "register") @Valid StudentRegisterDTO register,
-			BindingResult result,Model model) {
-		ModelAndView modelAndView = new ModelAndView("redirect:/registerController");
+			BindingResult result, Model model) {
+		ModelAndView modelAndView = new ModelAndView("/register");// 默认为跳转回注册页面
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError().toString());
 			return modelAndView;
@@ -72,26 +71,30 @@ public class StudentController {
 		if (!register.getPassword2().equals(register.getPassword())) {
 			return modelAndView;
 		}
-		modelAndView.setViewName("redirect:/student");
-
-		model.addAttribute("studentId", register.getStudentId());
-		model.addAttribute("dormitoryId", register.getDormitoryId());
-
 		System.out.println("acccept registerDTO:" + register);
-		// String page = studentService.saveOrUpdate(register);
+		String info = studentService.saveOrUpdate(register);
+		if (info.equals("已注册")) {
+			modelAndView.addObject("status", "已注册");
+		} else {
+			modelAndView.addObject("status", "success");
+			modelAndView.setViewName("redirect:/student");
+			Dormitory dormitory = dormitoryService.get(register.getStudentId());
+			model.addAttribute("studentId", register.getStudentId());
+			model.addAttribute("dormitoryId", dormitory.getDormitoryId());
+		}
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/loginController", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam(value = "id") Long studentId,
-			@RequestParam(value = "password") String password,Model model) {
+			@RequestParam(value = "password") String password, Model model) {
 		ModelAndView modelAndView = new ModelAndView("redirect:/login");
 		Student temp = studentService.get(studentId);
 		if (temp != null) {
 			if (password.trim().equals(temp.getPassword())) {
 				modelAndView.setViewName("redirect:/student");
 				model.addAttribute("studentId", studentId);
-				Dormitory dormitory=dormitoryService.get(studentId);
+				Dormitory dormitory = dormitoryService.get(studentId);
 				model.addAttribute("dormitoryId", dormitory.getDormitoryId());
 			}
 		}
@@ -117,7 +120,7 @@ public class StudentController {
 	}
 
 	@RequestMapping("/updatePassword")
-	public ModelAndView updatePassword(@RequestParam(value = "studentId") String studentId,Model model) {
+	public ModelAndView updatePassword(@RequestParam(value = "studentId") String studentId, Model model) {
 		Long id = Long.valueOf(studentId);
 		Student student = studentService.get(id);
 		ModelAndView modelAndView = new ModelAndView();
@@ -173,35 +176,35 @@ public class StudentController {
 	 * @author guo.junbao
 	 */
 	@RequestMapping(value = { "" }, method = RequestMethod.GET)
-	public ModelAndView listArticle(@RequestParam(value = "studentId") Long studentId,Model model) {
+	public ModelAndView listArticle(@RequestParam(value = "studentId") Long studentId, Model model) {
 		ModelAndView modelAndView = new ModelAndView("dormitory");
-		Dormitory dormitory=dormitoryService.get(studentId);
+		Dormitory dormitory = dormitoryService.get(studentId);
 		List<Article> list = articleService.listByDormitoryId(dormitory.getDormitoryId());
 		modelAndView.addObject("list", list);
-		
+
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/saveArticleController", method = RequestMethod.POST)
 	public ModelAndView saveArticle(@ModelAttribute(value = "article") @Valid Article article, BindingResult result,
-			@RequestParam(value = "file") MultipartFile file, HttpServletRequest request,
-			Model model) {
-		ModelAndView modelAndView=new ModelAndView(ERROR_PAGE);
+			@RequestParam(value = "file") MultipartFile file, HttpServletRequest request, Model model) {
+		ModelAndView modelAndView = new ModelAndView(ERROR_PAGE);
 		if (result.hasErrors()) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("参数异常：result.hasErrors." + result);
 			}
 			return modelAndView;
 		}
-		System.out.println("file:"+file);
-		if(file==null||file.isEmpty()){
+		System.out.println("file:" + file);
+		if (file == null || file.isEmpty()) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("文件为空：");
 			}
 			return modelAndView;
 		}
-		System.out.println("file name:"+file.getOriginalFilename()+" ends with obj:"+file.getOriginalFilename().endsWith(".obj"));
-		if (!(file.getOriginalFilename().endsWith(".obj") || file.getOriginalFilename().endsWith(".dae"))) {
+		System.out.println("file name:" + file.getOriginalFilename() + " ends with obj:"
+				+ file.getOriginalFilename().endsWith(".obj"));
+		if (!(file.getOriginalFilename().toLowerCase().endsWith(".obj") || file.getOriginalFilename().toLowerCase().endsWith(".dae"))) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("file参数异常：");
 			}
@@ -214,10 +217,10 @@ public class StudentController {
 		modelAndView.setViewName("redirect:/student");
 		return modelAndView;
 	}
-	
+
 	@RequestMapping("/logout")
-	public String logout(SessionStatus status){
-	  status.setComplete();
-	  return "redirect:/index.jsp";
+	public String logout(SessionStatus status) {
+		status.setComplete();
+		return "redirect:/index.jsp";
 	}
 }
