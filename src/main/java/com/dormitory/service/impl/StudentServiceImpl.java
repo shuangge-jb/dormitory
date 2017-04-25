@@ -7,9 +7,11 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.dormitory.dao.BuildingDAO;
 import com.dormitory.dao.DormitoryDAO;
 import com.dormitory.dao.StudentDAO;
 import com.dormitory.dto.student.StudentRegisterDTO;
+import com.dormitory.entity.Building;
 import com.dormitory.entity.Dormitory;
 import com.dormitory.entity.Student;
 import com.dormitory.entity.User;
@@ -20,7 +22,9 @@ public class StudentServiceImpl implements StudentService {
 	@Resource
 	private StudentDAO studentDAO;
 	@Resource
-	DormitoryDAO dormitoryDAO;
+	private DormitoryDAO dormitoryDAO;
+	@Resource
+	private BuildingDAO buildingDAO;
 
 	@Override
 	public Student get(Long studentId) {
@@ -37,20 +41,27 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	public String saveOrUpdate(StudentRegisterDTO registerDTO) {
-		Student student = (Student) registerDTO;
+		Student student = registerDTO.getStudent();
 		Student temp = studentDAO.get(student.getStudentId());
 		if (temp == null) {
-			Dormitory dormitory = registerDTO.getDormitory();
-			List<Dormitory> list = dormitoryDAO.getByBuildingAndRoom(dormitory);
-			if (list.isEmpty()) {
+			String buildingName = registerDTO.getBuildingName();
+			Building building = buildingDAO.getByBuildingName(buildingName.toUpperCase());
+			Integer buildingId = building.getBuildingId();
+			Dormitory dormitory = new Dormitory();
+			dormitory.setBuildingId(buildingId);
+			dormitory.setRoom(registerDTO.getRoom());
+			Dormitory result = dormitoryDAO.getByBuildingIdAndRoom(dormitory);
+			if (result == null) {
 				dormitoryDAO.save(dormitory);
-			} else {
-				studentDAO.save(student);
+				
 			}
-		}else{
+			student.setDormitoryId(dormitory.getDormitoryId());
+			studentDAO.save(student);
+
+		} else {
 			return "已注册";
 		}
-		return null;
+		return "success";
 
 	}
 
