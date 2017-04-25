@@ -24,7 +24,8 @@ public interface StudentDAO {
 	@Options(useGeneratedKeys = true, keyProperty = "studentId")
 	void save(Student student);
 
-	@Update(" update student set dormitory_id=#{dormitoryId},bed_id=#{bedId}, "
+	@Update(" update student set dormitory_id=#{dormitoryId},bed_id=#{bedId},"
+			+ " out_date=#{outDate},validate_code=#{validateCode}, "
 			+ " phone_number=#{phoneNumber},email=#{email},password=#{password} ")
 	void update(Student student);
 

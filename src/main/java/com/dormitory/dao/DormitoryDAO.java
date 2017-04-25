@@ -24,6 +24,7 @@ public interface DormitoryDAO {
 	void update(Dormitory dormitory);
 	@Delete("delete from dormitory where dormitory_id=#{dormitoryId} ")
 	void remove(Dormitory dormitory);
-	
-	List<Dormitory> getByBuildingAndRoom(Dormitory dormitory);
+	@Select("select * from dormitory where building_id=#{buildingId} and room=#{room} ")
+	@ResultMap("com.dormitory.mapper.DormitoryMapper.dormitory")
+	Dormitory getByBuildingIdAndRoom(Dormitory dormitory);
 }
