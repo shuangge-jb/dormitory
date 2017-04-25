@@ -7,13 +7,14 @@ import java.sql.Timestamp;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public abstract class User {
 	@NotEmpty(message = "{user.name.null}")
-	@Length(min = 5, max = 20, message = "{user.name.length.illegal}")
-	@Pattern(regexp = "[a-zA-Z]{5,20}", message = "{user.name.illegal}")
+	@Length(min = 2, max = 20, message = "{user.name.length.illegal}")
+	@Pattern(regexp = "[a-zA-Z\u4e00-\u9fa5]{2,20}", message = "{user.name.illegal}")
 	protected String name;
 	@NotNull(message = "{user.phoneNumber.null}")
 	//@Length(min = 11, max = 11, message = "{user.phoneNumber.length.illegal}")
@@ -21,16 +22,16 @@ public abstract class User {
 	protected Long phoneNumber;
 	@NotEmpty(message = "{user.email.null}")
 	@Length(min =5, max = 50, message = "{user.email.length.illegal}")
-	@Pattern(regexp = "^[A-Za-z0-9"+"\\u4e00-\\u9fa5]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$ ", message = "{user.email.illegal}")
+	@Email(message="{user.email.illegal}")
 	protected String email;
 	@NotEmpty(message = "{user.password.null}")
 	@Length(min = 5, max = 20, message = "{user.password.length.illegal}")
-	@Pattern(regexp = "[a-zA-Z]{5,20}", message = "{user.password.illegal}")
+	@Pattern(regexp = "[a-zA-Z0-9]{6,20}", message = "{user.password.illegal}")
 	protected String password;
 
-	protected Timestamp outDate;
+	protected Timestamp outDate=null;
 	
-	protected String validateCode;
+	protected String validateCode=null;
 	public String getName() {
 		return name;
 	}

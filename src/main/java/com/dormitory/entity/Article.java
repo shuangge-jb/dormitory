@@ -2,6 +2,7 @@ package com.dormitory.entity;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -9,7 +10,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class Article {
 	protected Long articleId;
+	@NotNull(message="${article.dormitoryId.null}")
 	protected Integer dormitoryId;
+	@NotNull(message="${article.studentId.null}")
 	protected Long studentId;
 	@NotEmpty(message = "${article.name.null}")
 	@Length(min = 1, max = 20, message = "{article.name.length.illegal}")

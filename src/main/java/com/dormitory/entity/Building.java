@@ -7,12 +7,12 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class Building {
-	@NotNull
+	//@NotNull
 	Integer buildingId;
-	@NotNull(message = "doritory.buildingName.null")
-	@NotEmpty
-	@NotBlank
-	@Pattern(regexp = "[cC][1-9]|[1][0-7]", message = "dormitory.room.illegal")
+//	@NotNull(message = "doritory.buildingName.null")
+//	@NotEmpty
+//	@NotBlank
+//	@Pattern(regexp = "[cC]([1][0-7]|[1-9])", message = "dormitory.room.illegal")
 	protected String buildingName;
 
 	public Building() {

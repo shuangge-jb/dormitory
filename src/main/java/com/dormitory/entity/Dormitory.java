@@ -9,10 +9,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Dormitory {
 	//@NotNull
 	protected Integer dormitoryId;
-	@NotNull
+	//@NotNull
 	protected Integer buildingId;
 	@NotNull(message = "doritory.room.null")
-	@NotEmpty
+	@NotEmpty(message="dormitory.room.empty")
 	@NotBlank
 	@Pattern(regexp = "[1-7][0-5][0-9]",message="dormitory.room.illegal")
 	protected String room;
