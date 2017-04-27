@@ -56,7 +56,7 @@ public class StudentServiceImplTest {
 	public void testSave(){
 		System.out.println("testSave");
 		init();
-		Student student=studentService.get(201330612345L);
+		Student student=studentService.get(201330612346L);
 		System.out.println(student);
 		assertEquals("震惊", student.getName());
 	}
