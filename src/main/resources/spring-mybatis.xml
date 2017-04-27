@@ -22,13 +22,12 @@
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
-
 	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!-- 注入数据库连接池 -->
 		<property name="dataSource" ref="dataSource" />
-		 <!-- 自动扫描mapper.xml文件 -->  
-        <property name="mapperLocations" value="classpath:com/dormitory/mapper/*.xml"></property>
+		<!-- 自动扫描mapper.xml文件 -->
+		<property name="mapperLocations" value="classpath:com/dormitory/mapper/*.xml"></property>
 	</bean>
 
 	<!-- DAO接口所在包名，Spring会自动查找其下的类,生成动态代理注入到Spring -->
@@ -38,6 +37,5 @@
 		<!-- 扫描dao接口包,必须属性 -->
 		<property name="basePackage" value="com.dormitory.dao" />
 	</bean>
-
 
 </beans>
