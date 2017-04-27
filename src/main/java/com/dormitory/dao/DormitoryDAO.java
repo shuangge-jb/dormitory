@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -26,5 +27,5 @@ public interface DormitoryDAO {
 	void remove(Dormitory dormitory);
 	@Select("select * from dormitory where building_id=#{buildingId} and room=#{room} ")
 	@ResultMap("com.dormitory.mapper.DormitoryMapper.dormitory")
-	Dormitory getByBuildingIdAndRoom(Dormitory dormitory);
+	Dormitory getByBuildingIdAndRoom(@Param(value="buildingId")Integer buildingId,@Param(value="room")String room);
 }
