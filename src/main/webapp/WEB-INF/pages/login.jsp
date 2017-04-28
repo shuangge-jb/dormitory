@@ -33,7 +33,7 @@ String path = request.getContextPath();
 		
 		}
 		body#login {
-			background: url(/dormitory/images/dormitoryBg.jpg) repeat-x scroll 0 0;
+			background: url(/dormitory/images/dormitorybg.jpg) repeat-x scroll 0 0;
 		}
 	.content {
     width:600px;
