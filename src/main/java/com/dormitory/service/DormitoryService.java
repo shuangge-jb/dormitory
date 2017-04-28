@@ -13,4 +13,6 @@ public interface DormitoryService {
 	public Dormitory get(Integer dormitoryId);
 	public Dormitory saveOrUpdate(Dormitory dormitory);
 	public Dormitory remove(Dormitory dormitory);
+	public Dormitory save(String buildingName,String room);
+	//public Dormitory getByBuildingNameAndRoom(String buildingName,String room);
 }

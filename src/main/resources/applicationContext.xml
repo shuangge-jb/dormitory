@@ -6,17 +6,19 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd 
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd 
-    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+    http://mybatis.org/schema/mybatis-spring   
+        http://mybatis.org/schema/mybatis-spring.xsd">
 
 	<!-- bean definitions here -->
+	<!-- <context:annotation-config /> -->
 	<!-- 读取mybatis配置 -->
 	<import resource="spring-mybatis.xml" />
-	<context:component-scan base-package="com.dormitory.service" />
-	<context:component-scan base-package="com.dormitory.service.impl" />
+	
 
 
-	<context:annotation-config /> <!-- 此行语句使得resource autowired 等四个注解可以使用 -->
-
+	<context:component-scan base-package="com.dormitory.service.impl">
+	</context:component-scan>
 
 	<!-- 配置事务管理器 -->
 	<bean id="transactionManager"
@@ -26,13 +28,30 @@
 			<ref bean="dataSource" />
 		</property>
 	</bean>
-
 	<!-- 事务扫描开始(开启@Tranctional) -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<!-- 配置事务异常封装 -->
 	<bean id="persistenceExceptionTranslationPostProcessor"
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-		
+
+	<!-- 一定要配置，否则无法开启事务 -->
+	<!-- 声明式容器事务管理 ,transaction-manager指定事务管理器为transactionManager -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="saveOrUpdate" propagation="REQUIRED" />
+			<tx:method name="remove" propagation="REQUIRED" />
+			<tx:method name="save" propagation="REQUIRED" />
+			<!--  -->
+			<tx:method name="*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config expose-proxy="true">
+		<!-- 对业务逻辑层实施事务 -->
+		<aop:pointcut id="txPointcut"
+			expression="execution(* com.dormitory.service.impl.*Impl.*(..))" />
+		<!-- Advisor定义，切入点和通知分别为txPointcut,txAdvice -->
+		<aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice" />
+	</aop:config>
 	<!-- spring默认异常处理器 -->
 	<bean
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
@@ -44,8 +63,8 @@
 		<property name="exceptionMappings">
 			<props>
 				<!-- 创建自己所要自定义的异常类 -->
-				<!-- <prop key="com.core.exception.BusinessException">business_error</prop>
-				<prop key="com.core.exception.ParameterException">parameter_error</prop> -->
+				<prop key="com.core.exception.BusinessException">business_error</prop>
+				<prop key="com.core.exception.ParameterException">parameter_error</prop>
 				<!-- 还可以继续扩展对不同异常类型的处理 -->
 			</props>
 		</property>

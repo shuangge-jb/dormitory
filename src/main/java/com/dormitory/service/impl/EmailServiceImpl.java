@@ -15,6 +15,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,6 @@ public class EmailServiceImpl implements EmailService {
 
 	@Resource
 	private StudentDAO studentDAO;
-	
 	@Override
 	public Map<String, String> sendEmail(Student student, String basePath) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -76,7 +76,7 @@ public class EmailServiceImpl implements EmailService {
 		return map;
 
 	}
-
+	
 	public Map<String,String> checkResetLink(String sid, Long id){
 		String msg = "";
 		Map<String,String> map=new HashMap<String,String>();

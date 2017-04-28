@@ -5,7 +5,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.dormitory.dto.student.StudentRegisterDTO;
+import com.dormitory.dto.student.StudentDTO;
 
 public class RegisterDTOValidator implements Validator {
 
@@ -15,13 +15,13 @@ public class RegisterDTOValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return clazz.equals(StudentRegisterDTO.class);
+		return clazz.equals(StudentDTO.class);
 	}
 
 	@Override
 	public void validate(Object obj, Errors errors) {
 		System.out.println("RegisterDTOValidator validate");
-		StudentRegisterDTO dto = (StudentRegisterDTO) obj;
+		StudentDTO dto = (StudentDTO) obj;
 		ValidationUtils.rejectIfEmpty(errors, "bedId", "student.bedId.null");
 		// Assert.isTrue(dto.getBedId() >= 1 && dto.getBedId() <= 4,
 		// "student.bedId.illegal");

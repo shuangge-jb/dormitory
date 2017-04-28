@@ -12,5 +12,5 @@ public interface ArticleService
 		extends GetService<Article,Long>,SaveOrUpdateService<Article>, 
 		 RemoveService<Article>,
 		ListByDormitoryIdService<Article>{
-public String saveArticle(Article article,MultipartFile file,String  url);
+
 }

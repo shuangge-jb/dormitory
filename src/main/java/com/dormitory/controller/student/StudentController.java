@@ -24,13 +24,14 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dormitory.dto.student.StudentRegisterDTO;
+import com.dormitory.dto.student.StudentDTO;
 import com.dormitory.entity.Article;
 import com.dormitory.entity.Dormitory;
 import com.dormitory.entity.Student;
 import com.dormitory.service.ArticleService;
 import com.dormitory.service.DormitoryService;
 import com.dormitory.service.EmailService;
+import com.dormitory.service.FileService;
 import com.dormitory.service.StudentService;
 import com.dormitory.validator.RegisterDTOValidator;
 
@@ -46,7 +47,10 @@ public class StudentController {
 	private EmailService emailService;
 	@Resource
 	private ArticleService articleService;
-	private static final String DIR = "/models/";
+	@Resource
+	private FileService fileService;
+	private static final String MODEL_DIR = "/models/";
+	private static final String IMG_DIR = "/images/";
 	private static final String ERROR_PAGE = "error";
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
 
@@ -54,16 +58,11 @@ public class StudentController {
 
 	}
 
-	/*
-	 * @InitBinder(value = "/registerController") protected void
-	 * initBinder(WebDataBinder binder) { binder.setValidator(new
-	 * RegisterDTOValidator());// 绑定自定义的校验器 }
-	 */
-
-	@RequestMapping(value = "/registerController", method = RequestMethod.POST)
-	public ModelAndView register(@ModelAttribute(value = "register") @Valid StudentRegisterDTO register,
-			BindingResult result, Model model) {
-		ModelAndView modelAndView = new ModelAndView("/register");// 默认为跳转回注册页面
+	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
+	public ModelAndView register(@ModelAttribute(value = "register") @Valid StudentDTO register,
+			BindingResult result, @RequestParam(value = "img") MultipartFile img, HttpServletRequest request,
+			Model model) {
+		ModelAndView modelAndView = new ModelAndView("../../jsp/register");// 默认为跳转回注册页面
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError().toString());
 			return modelAndView;
@@ -71,40 +70,76 @@ public class StudentController {
 		if (!register.getPassword2().equals(register.getPassword())) {
 			return modelAndView;
 		}
-		System.out.println("acccept registerDTO:" + register);
-		String info = studentService.saveOrUpdate(register);
-		if (info.equals("已注册")) {
-			modelAndView.addObject("status", "已注册");
-		} else {
-			modelAndView.addObject("status", "success");
-			modelAndView.setViewName("redirect:/student");
-			Dormitory dormitory = dormitoryService.get(register.getStudentId());
-			model.addAttribute("studentId", register.getStudentId());
-			model.addAttribute("dormitoryId", dormitory.getDormitoryId());
+		// 检查图片文件
+		System.out.println("img:" + img);
+		if (img == null || img.isEmpty()) {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("文件为空：");
+			}
+			return modelAndView;
 		}
+		System.out.println("img name:" + img.getOriginalFilename() + " ends with jpg:"
+				+ img.getOriginalFilename().endsWith(".jpg"));
+		if (!(img.getOriginalFilename().toLowerCase().endsWith(".jpg"))) {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("img参数异常：");
+			}
+			return modelAndView;
+		}
+
+		// 检查是否已注册
+		Student temp = studentService.get(register.getStudentId());
+		if (temp != null) {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("已注册");
+			}
+			modelAndView.addObject("status", "已注册");
+			return modelAndView;
+		}
+
+		System.out.println("acccept registerDTO:" + register);
+
+		// 保存宿舍信息(如果宿舍不存在，就添加进去，否则不添加)
+		Dormitory dormitory = dormitoryService.save(register.getBuildingName(), register.getRoom());
+
+		// 保存上传的模型
+		String path = request.getSession().getServletContext().getRealPath("/");
+		System.out.println("path:" + path);
+		String imgPath = request.getContextPath() + IMG_DIR + img.getOriginalFilename();
+		model.addAttribute("imgpath", imgPath);
+		fileService.saveFile(img, imgPath);
+		// 保存学生信息
+		Student student = register.getStudent();
+		student.setDormitoryId(dormitory.getDormitoryId());
+		student.setImgPath(imgPath);
+		studentService.saveOrUpdate(student);
+
+		// TODO
+		modelAndView.setViewName("dormitory");
+		
+		setSessionValue(model, dormitory.getDormitoryId(), student.getStudentId());
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/loginController", method = RequestMethod.POST)
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam(value = "id") Long studentId,
 			@RequestParam(value = "password") String password, Model model) {
-		ModelAndView modelAndView = new ModelAndView("redirect:/login");
+		ModelAndView modelAndView = new ModelAndView("../../jsp/login");// login不在WEB-INF/pages下，要访问父级目录
 		Student temp = studentService.get(studentId);
 		if (temp != null) {
 			if (password.trim().equals(temp.getPassword())) {
-				modelAndView.setViewName("redirect:/student");
-				model.addAttribute("studentId", studentId);
+				modelAndView.setViewName("dormitory");
 				Dormitory dormitory = dormitoryService.get(studentId);
-				model.addAttribute("dormitoryId", dormitory.getDormitoryId());
+				setSessionValue(model, dormitory.getDormitoryId(), studentId);
 			}
 		}
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/isStudentIdExisted", method = RequestMethod.GET)
+	@RequestMapping(value = "/isStudentIdExisted.do", method = RequestMethod.GET)
 	@ResponseBody
-	public String isStudentIdExisted(@RequestParam(value = "studentId") String studentId) {
-		Student student = studentService.get(Long.valueOf(studentId.trim()));
+	public String isStudentIdExisted(@RequestParam(value = "studentId") Long studentId) {
+		Student student = studentService.get(studentId);
 		return student != null ? "existed" : "unexisted";
 	}
 
@@ -119,31 +154,30 @@ public class StudentController {
 		return student.getPassword().equals(password.trim()) ? "correct" : "incorrect";
 	}
 
-	@RequestMapping("/updatePassword")
-	public ModelAndView updatePassword(@RequestParam(value = "studentId") String studentId, Model model) {
-		Long id = Long.valueOf(studentId);
-		Student student = studentService.get(id);
+	@RequestMapping("/updatePassword.do")
+	public ModelAndView updatePassword(@RequestParam(value = "studentId") Long studentId, Model model) {
+		Student student = studentService.get(studentId);
 		ModelAndView modelAndView = new ModelAndView();
 		if (student == null) {
 			modelAndView.setViewName("redirect:/error");
 		} else {
 			studentService.saveOrUpdate(student);
 			modelAndView.setViewName("redirect:/student");
-			model.addAttribute("studentId", id);
-			Integer dormitoryId = dormitoryService.get(id).getDormitoryId();
+			model.addAttribute("studentId", studentId);
+			Integer dormitoryId = dormitoryService.get(studentId).getDormitoryId();
 			model.addAttribute("dormitoryId", dormitoryId);
 		}
 		return modelAndView;
 	}
 
-	@RequestMapping("/forgetPassword")
+	@RequestMapping("/forgetPassword.do")
 	public Map<String, String> forgetPassword(@RequestParam(value = "request") HttpServletRequest request,
-			@RequestParam(value = "studentId") String studentId) {
-		Long id = Long.valueOf(studentId.trim());
+			@RequestParam(value = "studentId") Long studentId) {
+		
 		String path = request.getContextPath();
 		String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
 				+ "/";
-		Student student = studentService.get(id);
+		Student student = studentService.get(studentId);
 		return emailService.sendEmail(student, basePath);
 	}
 
@@ -154,12 +188,12 @@ public class StudentController {
 	 * @param studentId
 	 * @return
 	 */
-	@RequestMapping(value = "/checkResetLink", method = RequestMethod.GET)
+	@RequestMapping(value = "/checkResetLink.do", method = RequestMethod.GET)
 	public ModelAndView checkResetLink(String sid, String studentId) {
 		ModelAndView model = new ModelAndView("redirect:/error");
 		Map<String, String> map = emailService.checkResetLink(sid, Long.valueOf(studentId.trim()));
 		if (map.get("status").equals("success")) {
-			model.setViewName("/updatePassword"); // 返回到修改密码的界面
+			model.setViewName("updatePassword"); // 返回到修改密码的界面
 			model.addObject("studentId", studentId);
 			return model;
 		} else {
@@ -175,7 +209,7 @@ public class StudentController {
 	 * @return
 	 * @author guo.junbao
 	 */
-	@RequestMapping(value = { "" }, method = RequestMethod.GET)
+	@RequestMapping(value = { ".do" }, method = RequestMethod.GET)
 	public ModelAndView listArticle(@RequestParam(value = "studentId") Long studentId, Model model) {
 		ModelAndView modelAndView = new ModelAndView("dormitory");
 		Dormitory dormitory = dormitoryService.get(studentId);
@@ -185,7 +219,7 @@ public class StudentController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/saveArticleController", method = RequestMethod.POST)
+	@RequestMapping(value = "/saveArticle.do", method = RequestMethod.POST)
 	public ModelAndView saveArticle(@ModelAttribute(value = "article") @Valid Article article, BindingResult result,
 			@RequestParam(value = "file") MultipartFile file, HttpServletRequest request, Model model) {
 		ModelAndView modelAndView = new ModelAndView(ERROR_PAGE);
@@ -204,23 +238,43 @@ public class StudentController {
 		}
 		System.out.println("file name:" + file.getOriginalFilename() + " ends with obj:"
 				+ file.getOriginalFilename().endsWith(".obj"));
-		if (!(file.getOriginalFilename().toLowerCase().endsWith(".obj") || file.getOriginalFilename().toLowerCase().endsWith(".dae"))) {
+		if (!(file.getOriginalFilename().toLowerCase().endsWith(".obj")
+				|| file.getOriginalFilename().toLowerCase().endsWith(".dae"))) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("file参数异常：");
 			}
 			return modelAndView;
 		}
 		String path = request.getSession().getServletContext().getRealPath("/");
-		String filePath = request.getContextPath() + DIR + file.getOriginalFilename();
-		model.addAttribute("path", filePath);
-		articleService.saveArticle(article, file, filePath);
-		modelAndView.setViewName("redirect:/student");
+		System.out.println("path:" + path);
+		String filePath = request.getContextPath() + MODEL_DIR + file.getOriginalFilename();
+		model.addAttribute("filepath", filePath);
+		article.setPath(filePath);
+		// 保存物品对象
+		articleService.saveOrUpdate(article);
+		// 保存上传的模型
+		fileService.saveFile(file, filePath);
+		modelAndView.setViewName("/student");
 		return modelAndView;
 	}
 
-	@RequestMapping("/logout")
+	@RequestMapping("/logout.do")
 	public String logout(SessionStatus status) {
 		status.setComplete();
 		return "redirect:/index.jsp";
+	}
+
+	@RequestMapping(value="/getPersonalInfo.do",method=RequestMethod.GET)
+	public ModelAndView getPersonalInfo(@RequestParam(value = "studentId")Long studentId ){
+		StudentDTO studentDTO=new StudentDTO();
+		Student student=studentService.get(studentId);
+		studentDTO.setStudent(student);
+		ModelAndView modelAndView=new ModelAndView("student");
+		modelAndView.addObject("student", studentDTO);
+		return modelAndView;
+	}
+	private void setSessionValue(Model model, Integer dormitoryId, Long studentId) {
+		model.addAttribute("studentId", studentId);
+		model.addAttribute("dormitoryId", dormitoryId);
 	}
 }

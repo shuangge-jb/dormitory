@@ -32,6 +32,7 @@ public abstract class User {
 	protected Timestamp outDate=null;
 	
 	protected String validateCode=null;
+	protected String  imgPath;
 	public String getName() {
 		return name;
 	}
@@ -78,6 +79,14 @@ public abstract class User {
 
 	public void setValidateCode(String validateCode) {
 		this.validateCode = validateCode;
+	}
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 
 }
