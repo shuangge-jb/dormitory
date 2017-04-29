@@ -28,8 +28,7 @@ String path = request.getContextPath();
                <div class="account-control">
                <button type="reset">重置</button>
                    <button type="submit">登陆</button>
-                   
-                   
+          
                </div>
                <p class="not-registered">还没有虚拟宿舍账号?<a>现在注册!</a></p>
            </form>

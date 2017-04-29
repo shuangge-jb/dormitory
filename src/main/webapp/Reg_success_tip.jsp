@@ -170,7 +170,8 @@ color:blue;
 	</ul>
 	</div>
 	</div>
-	<jsp:include page="foot.jsp"></jsp:include>
+	
 	</div>
+	<jsp:include page="foot.jsp"></jsp:include>
 </body>
 </html>

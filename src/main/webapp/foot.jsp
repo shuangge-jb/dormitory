@@ -8,27 +8,35 @@ String path = request.getContextPath();
   <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
 	<style type="text/css">
-	.footer-content{height:35px;width:100%;line-height: 30px;padding-top:15px;}
+	body{
+	 margin:0px auto;
+	}
+	.foot{
+	background: #F6F6F6;
+	text-align:center;
+	line-height:30px;
+	padding-top:20px;
+	}
+	.footer-content{
+	 width:100%;
+	}
     .top_h5{
-      font-size:18px;
-      line-height:33px;
+      font-size:16px;
+      margin-left:3px;
       color:#006DB3;
-      margin-left:420px;
      }
 
 	</style>
 	
-  </head>
-  
+  </head> 
   <body >
+  <div class="foot" >
   <div class="footer-content">
-		<div style="float:left;margin-left:380px;">
-           <img src="images/scut.jpg" width="30px" height="32px" 
+          <img src="images/scut.jpg" width="32px" height="30spx" style="vertical-align:middle;"
            >
-         </div>
-        <div class="top_h5" >
+        <span class="top_h5" >
                  华南理工大学虚拟宿舍
-        </div>
+        </span>
         <div>     
    </div> 
 		</div>
@@ -39,7 +47,7 @@ String path = request.getContextPath();
      <li style="list-style:none;text-align:center;color:#929699;line-height:25px;font-size:12px;" > 
                  粤ICP备12059770号   &nbsp; 粤公网安备 44010402000394号
      </li> 
-   </ul> 
-		</div>
+   </ul>
+   </div>
   </body>
 </html>
