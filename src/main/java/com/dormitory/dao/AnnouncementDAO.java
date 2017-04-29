@@ -21,13 +21,13 @@ public interface AnnouncementDAO {
 	 * @author guo.junbao
 	 * @date 2017-4-11
 	 */
-	@Select(" select * from announcement limit #{n}")
+	@Select(" select * from announcement  order by create_time desc limit #{n}")
 	@ResultMap("com.dormitory.mapper.AnnouncementMapper.announcement")
 	public List<Announcement> listLimit(@Param("n") Integer n);
 
-	@Select(" select * from announcement ")
+	@Select(" select * from announcement order by create_time desc limit (pageIndex-1)*pageSize,pageSize ")
 	@ResultMap("com.dormitory.mapper.AnnouncementMapper.announcement")
-	public List<Announcement> list();
+	public List<Announcement> list(@Param("pageIndex")Integer pageIndex,@Param("pageSize")Integer pageSize);
 
 	/**
 	 * 由主键查找对象

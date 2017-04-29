@@ -12,17 +12,17 @@ import org.apache.ibatis.annotations.Update;
 import com.dormitory.entity.RepairRecord;
 
 public interface RepairRecordDAO {
-	@Select(" select r.* from repair_record r order by r.create_time desc ")
+	@Select(" select r.* from repair_record r order by r.create_time desc limit (pageIndex-1)*pageSize,pageSize ")
 	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")
-	public List<RepairRecord> list();
+	public List<RepairRecord> list(@Param("pageIndex")Integer pageIndex,@Param("pageSize")Integer pageSize);
 
 	@Select(" select r.* from repair_record r order by r.create_time desc limit #{n} ")
 	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")
 	public List<RepairRecord> listLimit(@Param("n") Integer n);
 
-	@Select(" select r.* from repair_record r where r.dormitory_id=#{dormitoryId} order by r.create_time desc ")
+	@Select(" select r.* from repair_record r where r.dormitory_id=#{dormitoryId} order by r.create_time desc  limit (pageIndex-1)*pageSize,pageSize ")
 	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")
-	public List<RepairRecord> listByDormitoryId(@Param("dormitoryId") Integer dormitoryId);
+	public List<RepairRecord> listByDormitoryId(@Param("dormitoryId") Integer dormitoryId,@Param("pageIndex")Integer pageIndex,@Param("pageSize")Integer pageSize);
 
 	@Select(" select r.* from repair_record r where r.repair_record_id=#{repairRecordId} ")
 	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")

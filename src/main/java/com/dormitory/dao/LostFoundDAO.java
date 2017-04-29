@@ -12,17 +12,18 @@ import org.apache.ibatis.annotations.Update;
 import com.dormitory.entity.LostFound;
 
 public interface LostFoundDAO {
-	@Select(" select * from lost_found order by create_time desc ")
+	@Select(" select * from lost_found order by create_time desc limit (pageIndex-1)*pageSize,pageSize ")
 	@ResultMap("com.dormitory.mapper.LostFoundMapper.lostFound")
-	public List<LostFound> list();
+	public List<LostFound> list(Integer pageIndex, Integer pageSize);
 
 	@Select(" select * from lost_found order by create_time desc limit #{n}")
 	@ResultMap("com.dormitory.mapper.LostFoundMapper.lostFound")
 	public List<LostFound> listLimit(@Param("n") Integer n);
 
-	@Select(" select * from lost_found where student_id=#{studentId} order by create_time desc ")
+	@Select(" select * from lost_found where student_id=#{studentId} order by create_time desc limit (pageIndex-1)*pageSize,pageSize ")
 	@ResultMap("com.dormitory.mapper.LostFoundMapper.lostFound")
-	public List<LostFound> listByStudentId(@Param("studentId") Long studentId);
+	public List<LostFound> listByStudentId(@Param("studentId") Long studentId, @Param("pageIndex") Integer pageIndex,
+			@Param("pageSize") Integer pageSize);
 
 	@Select(" select * from lost_found where lost_found_id=#{lostFoundId} ")
 	@ResultMap("com.dormitory.mapper.LostFoundMapper.lostFound")
@@ -36,13 +37,11 @@ public interface LostFoundDAO {
 	@Options(useGeneratedKeys = true, keyProperty = "lostFoundId")
 	public void save(LostFound lostFound);
 
-	@Update(" update lost_found  set student_id=#{studentId},content=#{content}, "
-			+ " create_time=#{createTime} "
+	@Update(" update lost_found  set student_id=#{studentId},content=#{content}, " + " create_time=#{createTime} "
 			+ " where lost_found_id=#{lostFoundId} ")
 	public void update(LostFound lostFound);
 
-	@Update(" update lost_found  set state=0 "
-			+ " where lost_found_id=#{lostFoundId} ")
+	@Update(" update lost_found  set state=0 " + " where lost_found_id=#{lostFoundId} ")
 	public void remove(@Param("lostFoundId") Integer lostFoundId);
 
 }
