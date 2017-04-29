@@ -13,7 +13,7 @@ import com.dormitory.controller.AbstractRepairRecordController;
 import com.dormitory.entity.RepairRecord;
 
 @Controller
-@RequestMapping(value = "/master")
+@RequestMapping(value = "/admin")
 public class RepairRecordController extends AbstractRepairRecordController {
 	@RequestMapping(value = "saveOrUpdateRepairRecord.do", method = RequestMethod.POST)
 	public ModelAndView saveOrUpdateRepairRecord(
