@@ -1,11 +1,14 @@
 package com.dormitory.controller.student;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -59,9 +62,8 @@ public class StudentController {
 	}
 
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
-	public ModelAndView register(@ModelAttribute(value = "register") @Valid StudentDTO register,
-			BindingResult result, @RequestParam(value = "img") MultipartFile img, HttpServletRequest request,
-			Model model) {
+	public ModelAndView register(@ModelAttribute(value = "register") @Valid StudentDTO register, BindingResult result,
+			@RequestParam(value = "img") MultipartFile img, HttpServletRequest request, Model model) {
 		ModelAndView modelAndView = new ModelAndView("../../jsp/register");// 默认为跳转回注册页面
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError().toString());
@@ -102,21 +104,19 @@ public class StudentController {
 		// 保存宿舍信息(如果宿舍不存在，就添加进去，否则不添加)
 		Dormitory dormitory = dormitoryService.save(register.getBuildingName(), register.getRoom());
 
-		// 保存上传的模型
-		String path = request.getSession().getServletContext().getRealPath("/");
-		System.out.println("path:" + path);
-		String imgPath = request.getContextPath() + IMG_DIR + img.getOriginalFilename();
-		model.addAttribute("imgpath", imgPath);
-		fileService.saveFile(img, imgPath);
+		fileService.saveFile(request, IMG_DIR,img);
 		// 保存学生信息
 		Student student = register.getStudent();
 		student.setDormitoryId(dormitory.getDormitoryId());
-		student.setImgPath(imgPath);
+		String imgName=fileService.getFilePath(request, IMG_DIR, img);
+		System.out.println("--imgName:" + imgName);
+		student.setImgPath(imgName);
+		
 		studentService.saveOrUpdate(student);
 
 		// TODO
-		modelAndView.setViewName("dormitory");
-		
+		modelAndView.setViewName("redirect:listArticle.do");
+
 		setSessionValue(model, dormitory.getDormitoryId(), student.getStudentId());
 		return modelAndView;
 	}
@@ -128,7 +128,7 @@ public class StudentController {
 		Student temp = studentService.get(studentId);
 		if (temp != null) {
 			if (password.trim().equals(temp.getPassword())) {
-				modelAndView.setViewName("dormitory");
+				modelAndView.setViewName("redirect:listArticle.do");
 				Dormitory dormitory = dormitoryService.get(studentId);
 				setSessionValue(model, dormitory.getDormitoryId(), studentId);
 			}
@@ -143,7 +143,7 @@ public class StudentController {
 		return student != null ? "existed" : "unexisted";
 	}
 
-	@RequestMapping(value = "/isPasswordCorrect", method = RequestMethod.GET)
+	@RequestMapping(value = "/isPasswordCorrect.do", method = RequestMethod.GET)
 	@ResponseBody
 	public String isPasswordCorrect(@RequestParam(value = "studentId") String studentId,
 			@RequestParam(value = "password") String password) {
@@ -158,11 +158,12 @@ public class StudentController {
 	public ModelAndView updatePassword(@RequestParam(value = "studentId") Long studentId, Model model) {
 		Student student = studentService.get(studentId);
 		ModelAndView modelAndView = new ModelAndView();
+		
 		if (student == null) {
 			modelAndView.setViewName("redirect:/error");
 		} else {
 			studentService.saveOrUpdate(student);
-			modelAndView.setViewName("redirect:/student");
+			modelAndView.setViewName("redirect:listArticle.do");
 			model.addAttribute("studentId", studentId);
 			Integer dormitoryId = dormitoryService.get(studentId).getDormitoryId();
 			model.addAttribute("dormitoryId", dormitoryId);
@@ -173,7 +174,7 @@ public class StudentController {
 	@RequestMapping("/forgetPassword.do")
 	public Map<String, String> forgetPassword(@RequestParam(value = "request") HttpServletRequest request,
 			@RequestParam(value = "studentId") Long studentId) {
-		
+
 		String path = request.getContextPath();
 		String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
 				+ "/";
@@ -209,7 +210,7 @@ public class StudentController {
 	 * @return
 	 * @author guo.junbao
 	 */
-	@RequestMapping(value = { ".do" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "listArticle.do" }, method = RequestMethod.GET)
 	public ModelAndView listArticle(@RequestParam(value = "studentId") Long studentId, Model model) {
 		ModelAndView modelAndView = new ModelAndView("dormitory");
 		Dormitory dormitory = dormitoryService.get(studentId);
@@ -245,15 +246,14 @@ public class StudentController {
 			}
 			return modelAndView;
 		}
-		String path = request.getSession().getServletContext().getRealPath("/");
-		System.out.println("path:" + path);
-		String filePath = request.getContextPath() + MODEL_DIR + file.getOriginalFilename();
-		model.addAttribute("filepath", filePath);
-		article.setPath(filePath);
-		// 保存物品对象
-		articleService.saveOrUpdate(article);
+		//model.addAttribute("imgUrl", dirUrl+modelNameWithTimestamp);
 		// 保存上传的模型
-		fileService.saveFile(file, filePath);
+		fileService.saveFile(request,MODEL_DIR,file);
+		// 保存物品对象
+		String filePath=fileService.getFilePath(request, MODEL_DIR, file);
+		System.out.println("model path:"+filePath);
+		article.setPath(filePath);
+		articleService.saveOrUpdate(article);
 		modelAndView.setViewName("/student");
 		return modelAndView;
 	}
@@ -264,17 +264,24 @@ public class StudentController {
 		return "redirect:/index.jsp";
 	}
 
-	@RequestMapping(value="/getPersonalInfo.do",method=RequestMethod.GET)
-	public ModelAndView getPersonalInfo(@RequestParam(value = "studentId")Long studentId ){
-		StudentDTO studentDTO=new StudentDTO();
-		Student student=studentService.get(studentId);
+	@RequestMapping(value = "/getPersonalInfo.do", method = RequestMethod.GET)
+	public ModelAndView getPersonalInfo(@RequestParam(value = "studentId") Long studentId) {
+		StudentDTO studentDTO = new StudentDTO();
+		Student student = studentService.get(studentId);
+		if(student==null){
+			return new ModelAndView("../../jsp/login");
+		}
 		studentDTO.setStudent(student);
-		ModelAndView modelAndView=new ModelAndView("student");
+		ModelAndView modelAndView = new ModelAndView("student");
+		System.out.println("response studentDTO:"+studentDTO);
 		modelAndView.addObject("student", studentDTO);
 		return modelAndView;
 	}
+
 	private void setSessionValue(Model model, Integer dormitoryId, Long studentId) {
 		model.addAttribute("studentId", studentId);
 		model.addAttribute("dormitoryId", dormitoryId);
 	}
+
+	
 }
