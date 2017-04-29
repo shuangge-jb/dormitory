@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dormitory.controller.AbstractLostFoundController;
 import com.dormitory.entity.LostFound;
 
-@Controller
+@Controller("adminLostFoundController")
 @RequestMapping(value="/admin")
 public class LostFoundController extends AbstractLostFoundController{
 	@RequestMapping(value = "saveOrUpdateLostFound.do",method=RequestMethod.POST)

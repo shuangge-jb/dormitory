@@ -21,7 +21,7 @@ import com.dormitory.controller.student.StudentController;
 import com.dormitory.entity.Device;
 import com.dormitory.service.FileService;
 
-@Controller
+@Controller("adminDeviceController")
 @RequestMapping(value="/admin")
 public class DeviceController extends AbstractDeviceController{
 	@Resource

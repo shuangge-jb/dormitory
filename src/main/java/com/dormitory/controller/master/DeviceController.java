@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dormitory.controller.AbstractDeviceController;
 
-@Controller
+@Controller("masterDeviceController")
 @RequestMapping(value="/master")
 public class DeviceController extends AbstractDeviceController{
 

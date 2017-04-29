@@ -12,7 +12,7 @@ import com.dormitory.controller.AbstractLostFoundController;
 import com.dormitory.entity.LostFound;
 import com.dormitory.service.LostFoundService;
 
-@Controller
+@Controller("studentLostFoundController")
 public class LostFoundController  extends AbstractLostFoundController{
 	
 }
