@@ -12,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.dormitory.entity.Master;
-import com.dormitory.entity.Article;
+import com.dormitory.entity.Device;
 import com.dormitory.service.MasterService;
 
 @RunWith(SpringJUnit4ClassRunner.class)

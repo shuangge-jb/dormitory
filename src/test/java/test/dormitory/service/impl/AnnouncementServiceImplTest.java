@@ -34,7 +34,7 @@ public class AnnouncementServiceImplTest {
 			Announcement temp = new Announcement();
 			temp.setContent("通知" + (i + 1));
 			temp.setCreateTime(new Timestamp(System.currentTimeMillis()));
-			temp.setState(new Integer(1));
+			//temp.setState(new Integer(1));
 			announcementServiceImpl.saveOrUpdate(temp);
 		}
 	}
@@ -57,7 +57,7 @@ public class AnnouncementServiceImplTest {
 	public void testListAnnouncement() {
 		init();
 		System.out.println("testListAnnouncement:");
-		List<Announcement> list = announcementServiceImpl.list();
+		List<Announcement> list = announcementServiceImpl.list(1,1);
 		assertNotNull(list);
 		assertEquals(3, list.size());
 		for (Announcement item : list) {
@@ -73,7 +73,7 @@ public class AnnouncementServiceImplTest {
 		announcement.setContent("通知");
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		announcement.setCreateTime(timestamp);
-		announcement.setState(new Integer(1));
+		//announcement.setState(new Integer(1));
 		assertNull(null, announcement.getAnnouncementId());
 		Announcement result = announcementServiceImpl
 				.saveOrUpdate(announcement);
@@ -93,7 +93,7 @@ public class AnnouncementServiceImplTest {
 		announcement.setContent("通知");
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		announcement.setCreateTime(timestamp);
-		announcement.setState(new Integer(1));
+		//announcement.setState(new Integer(1));
 		Announcement result = announcementServiceImpl
 				.saveOrUpdate(announcement);
 		assertNotNull(result);
@@ -109,7 +109,7 @@ public class AnnouncementServiceImplTest {
 		announcement.setContent("通知4");
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		announcement.setCreateTime(timestamp);
-		announcement.setState(new Integer(1));
+		//announcement.setState(new Integer(1));
 		Announcement result = announcementServiceImpl
 				.saveOrUpdate(announcement);
 		System.out.println(result);
@@ -139,7 +139,7 @@ public class AnnouncementServiceImplTest {
 		Announcement newAnnouncement=announcementServiceImpl.remove(announcement);
 		assertNotNull(newAnnouncement);
 		System.out.println(newAnnouncement);
-		assertEquals(new Integer(0),announcementServiceImpl.get(lastInsertId).getState());
+		//assertEquals(new Integer(0),announcementServiceImpl.get(lastInsertId).getState());
 	}
 	@Test
 	public void testRemoveAnnouncementUnExisted(){
