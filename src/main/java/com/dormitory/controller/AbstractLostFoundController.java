@@ -48,7 +48,7 @@ public abstract class AbstractLostFoundController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("序列化Announcement对象时出错", e);
+				LOGGER.debug("序列化LostFound对象时出错", e);
 			}
 		}
 		return result;
