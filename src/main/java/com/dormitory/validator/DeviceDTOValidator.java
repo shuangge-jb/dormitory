@@ -7,9 +7,9 @@ import org.springframework.validation.Validator;
 
 import com.dormitory.dto.DeviceDTO;
 
-public class ArticleDTOValidator implements Validator {
+public class DeviceDTOValidator implements Validator {
 
-	public ArticleDTOValidator() {
+	public DeviceDTOValidator() {
 		
 	}
 

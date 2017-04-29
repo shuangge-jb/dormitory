@@ -12,17 +12,17 @@ import org.apache.ibatis.annotations.Update;
 import com.dormitory.entity.RepairRecord;
 
 public interface RepairRecordDAO {
-	@Select(" select r.* from repair_record r order by r.create_time desc ")
+	@Select(" select r.* from repair_record r order by r.create_time desc limit (pageIndex-1)*pageSize,pageSize ")
 	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")
-	public List<RepairRecord> list();
+	public List<RepairRecord> list(@Param("pageIndex")Integer pageIndex,@Param("pageSize")Integer pageSize);
 
 	@Select(" select r.* from repair_record r order by r.create_time desc limit #{n} ")
 	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")
 	public List<RepairRecord> listLimit(@Param("n") Integer n);
 
-	@Select(" select r.* from repair_record r where r.dormitory_id=#{dormitoryId} order by r.create_time desc ")
+	@Select(" select r.* from repair_record r where r.dormitory_id=#{dormitoryId} order by r.create_time desc  limit (pageIndex-1)*pageSize,pageSize ")
 	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")
-	public List<RepairRecord> listByDormitoryId(@Param("dormitoryId") Integer dormitoryId);
+	public List<RepairRecord> listByDormitoryId(@Param("dormitoryId") Integer dormitoryId,@Param("pageIndex")Integer pageIndex,@Param("pageSize")Integer pageSize);
 
 	@Select(" select r.* from repair_record r where r.repair_record_id=#{repairRecordId} ")
 	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")
@@ -31,13 +31,13 @@ public interface RepairRecordDAO {
 	@Select("select LAST_INSERT_ID()f")
 	public Integer gerLastInsertId();
 
-	@Insert(" insert into repair_record(dormitory_id,content,create_time,repair_time,state,contact_id)  "
-			+ " values(#{dormitoryId},#{content},#{createTime},#{repairTime},#{state},#{contactId}) ")
+	@Insert(" insert into repair_record(dormitory_id,device_name,content,price,state,create_time,repair_time,contact_id)  "
+			+ " values(#{dormitoryId},#{deviceName},#{content},#{price},#{state},#{createTime},#{repairTime},,#{contactId}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "repairRecordId")
 	public void save(RepairRecord repairRecord);
 
-	@Update(" update repair_record  set dormitory_id=#{dormitoryId}, "
-			+ " content=#{content},  create_time=#{createTime}, "
+	@Update(" update repair_record  set dormitory_id=#{dormitoryId}, device_name=#{deviceName}, "
+			+ " content=#{content},price=#{price}, create_time=#{createTime}, "
 			+ " repair_time=#{repairTime},contact_id=#{contactId} " + " where repair_record_id=#{repairRecordId} ")
 	public void update(RepairRecord repairRecord);
 

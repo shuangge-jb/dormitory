@@ -9,5 +9,5 @@ public interface ListByStudentIdService<T> {
 	 * @param studentId
 	 * @return
 	 */
-	public List<T> listByStudentId(Long studentId);
+	public List<T> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize);
 }

@@ -15,7 +15,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -56,7 +56,7 @@ public class EmailServiceImpl implements EmailService {
 			studentDAO.save(student);
 			long date = outDate.getTime() / 1000 * 1000; // 忽略毫秒数
 			String key = student.getName() + "$" + date + "$" + secretKey;
-			String digitalSignature = md5(key); // 数字签名
+			String digitalSignature = DigestUtils.md5Hex(key); // 数字签名
 			String resetPassHref = basePath + "student/checkResetLink?sid=" + digitalSignature + "&id="
 					+ student.getStudentId();
 			String emailContent = "请勿回复本邮件.点击下面的链接,重设密码<br/><a href=" + resetPassHref + " target='_BLANK'>点击我重新设置密码</a>"
@@ -104,7 +104,7 @@ public class EmailServiceImpl implements EmailService {
 			return map;
 		}
 		String key = student.getStudentId() + "$" + outDate.getTime() / 1000 * 1000 + "$" + student.getValidateCode(); // 数字签名
-		String digitalSignature = md5(key);
+		String digitalSignature = DigestUtils.md5Hex(key);
 		System.out.println(key + "\t" + digitalSignature);
 		if (!digitalSignature.equals(sid)) {
 			msg = "链接不正确,是否已经过期了?重新申请吧";
@@ -116,31 +116,7 @@ public class EmailServiceImpl implements EmailService {
 		map.put("status", "success");
 		return map;
 	}
-	private String md5(String input) {
-		String result=null;
-		try {
-			MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM);
-			byte[] inputByteArray = input.getBytes();
-			messageDigest.update(inputByteArray);
-			byte[] resultByteArray = messageDigest.digest();
-			result= byteArrayToHex(resultByteArray);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-			if (logger.isDebugEnabled()) {
-				logger.debug("NoSuchAlgorithm:" + ALGORITHM, e);
-			}
-		}
-		return result;
-	}
-
-	private String byteArrayToHex(byte[] data) {
-		StringBuilder result = new StringBuilder();
-		for (int i = 0; i < data.length; i++) {
-			String temp=Integer.toHexString((data[i] & 0xFF) | 0x100).toUpperCase().substring(1, 3);
-			result.append(temp);
-		}
-		return result.toString();
-	}
+	
 
 	private void sendMail(Student student,  String content) {
 		Properties props = new Properties(); // 参数配置

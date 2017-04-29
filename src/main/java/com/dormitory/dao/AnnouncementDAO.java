@@ -2,6 +2,7 @@ package com.dormitory.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
@@ -20,12 +21,14 @@ public interface AnnouncementDAO {
 	 * @author guo.junbao
 	 * @date 2017-4-11
 	 */
-	@Select(" select * from announcement limit #{n}")
+	@Select(" select * from announcement  order by create_time desc limit #{n}")
 	@ResultMap("com.dormitory.mapper.AnnouncementMapper.announcement")
 	public List<Announcement> listLimit(@Param("n") Integer n);
-	@Select(" select * from announcement ")
+
+	@Select(" select * from announcement order by create_time desc limit (pageIndex-1)*pageSize,pageSize ")
 	@ResultMap("com.dormitory.mapper.AnnouncementMapper.announcement")
-	public List<Announcement> list();
+	public List<Announcement> list(@Param("pageIndex")Integer pageIndex,@Param("pageSize")Integer pageSize);
+
 	/**
 	 * 由主键查找对象
 	 * 
@@ -51,7 +54,8 @@ public interface AnnouncementDAO {
 	 * @author guo.junbao
 	 * @date 2017-4-12
 	 */
-	@Insert(" insert into announcement(content,create_time,state) " + " values(#{content},#{createTime},#{state}) ")
+	@Insert(" insert into announcement(title,content,img_path,author_id,create_time,importance) "
+			+ " values(#{title},#{content},#{imgPath},#{authorId},#{createTime},#{importance}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "announcementId")
 	public void save(Announcement announcement);
 
@@ -62,7 +66,9 @@ public interface AnnouncementDAO {
 	 * @author guo.junbao
 	 * @date 2017-4-12
 	 */
-	@Update(" update announcement set content=#{content} where announcement_id=#{announcementId} ")
+	@Update(" update announcement set title=#{title},content=#{content}, "
+			+ " img_path=#{imgPath},author_id=#{authorId},importance=#{importance} "
+			+ " where announcement_id=#{announcementId} ")
 	public void update(Announcement announcement);
 
 	/**
@@ -72,7 +78,7 @@ public interface AnnouncementDAO {
 	 * @author guo.junbao
 	 * @date 2017-4-12
 	 */
-	@Update(" update announcement set state=0 where announcement_id=#{announcementId} ")
+	@Delete("delete from announcement where announcement_id=#{announcementId} ")
 	public void remove(Announcement announcement);
 
 }

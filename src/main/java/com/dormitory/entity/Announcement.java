@@ -3,60 +3,75 @@ package com.dormitory.entity;
 import java.sql.Timestamp;
 
 public class Announcement {
-    
-	
-
 	protected Integer announcementId;
+	protected String title;
+	protected String content;
+	protected String imgPath;
+	protected Integer authorId;
+	protected Timestamp createTime;
+	protected Integer importance;
 
-    protected String content;
+	public Integer getAnnouncementId() {
+		return announcementId;
+	}
 
-    protected Timestamp createTime;
+	public void setAnnouncementId(Integer announcementId) {
+		this.announcementId = announcementId;
+	}
 
-    protected Integer state;
+	public String getContent() {
+		return content;
+	}
 
-    public Integer getAnnouncementId() {
-        return announcementId;
-    }
+	public void setContent(String content) {
+		this.content = content == null ? null : content.trim();
+	}
 
-    public void setAnnouncementId(Integer announcementId) {
-        this.announcementId = announcementId;
-    }
+	public Timestamp getCreateTime() {
+		return createTime;
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
+	}
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public Timestamp getCreateTime() {
-        return createTime;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
-    }
+	public String getImgPath() {
+		return imgPath;
+	}
 
-    public Integer getState() {
-        return state;
-    }
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
 
-    public void setState(Integer state) {
-        this.state = state;
-    }
+	public Integer getAuthorId() {
+		return authorId;
+	}
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", announcementId=").append(announcementId);
-        sb.append(", content=").append(content);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", state=").append(state);
-        sb.append("]");
-        return sb.toString();
-    }
+	public void setAuthorId(Integer authorId) {
+		this.authorId = authorId;
+	}
+
+	public Integer getImportance() {
+		return importance;
+	}
+
+	public void setImportance(Integer importance) {
+		this.importance = importance;
+	}
+
+	@Override
+	public String toString() {
+		return "Announcement [announcementId=" + announcementId + ", title=" + title + ", content=" + content
+				+ ", imgPath=" + imgPath + ", authorId=" + authorId + ", createTime=" + createTime + ", importance="
+				+ importance + "]";
+	}
+
 }

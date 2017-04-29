@@ -13,18 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.dormitory.entity.Article;
-import com.dormitory.service.ArticleService;
+import com.dormitory.entity.Device;
+import com.dormitory.service.DeviceService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml", "classpath:spring-mybatis.xml" })
 
-public class ArticleServiceImplTest {
+public class DeviceServiceImplTest {
 	@Autowired
-	private ArticleService articleService;
+	private DeviceService articleService;
 
 	private void init() {
-		Article article = new Article();
+		Device article = new Device();
 		article.setDormitoryId(1);
 		article.setName("台灯");
 		article.setStudentId(201330610505L);
@@ -35,7 +35,7 @@ public class ArticleServiceImplTest {
 	public void testGet() {
 	System.out.println("testGet");
 		init();
-		Article article = articleService.get(articleService.getLastInsertId());
+		Device article = articleService.get(articleService.getLastInsertId());
 		System.out.println(article);
 		assertEquals("台灯", article.getName());
 	}
@@ -49,7 +49,7 @@ public class ArticleServiceImplTest {
 	@Test
 	public void testUpdate() {
 		init();
-		Article article = articleService.get(articleService.getLastInsertId());
+		Device article = articleService.get(articleService.getLastInsertId());
 		String newName="小台灯";
 		article.setName(newName);
 		articleService.saveOrUpdate(article);
@@ -58,16 +58,16 @@ public class ArticleServiceImplTest {
 	@Test
 	public void testRemove() {
 		init();
-		Article article = articleService.get(articleService.getLastInsertId());
+		Device article = articleService.get(articleService.getLastInsertId());
 		articleService.remove(article);
-		Article afterRemove=articleService.get(articleService.getLastInsertId());
+		Device afterRemove=articleService.get(articleService.getLastInsertId());
 		assertNull(afterRemove);
 	}
 	@Transactional
 	@Test
 	public void testListByDormitoryId() {
 		init();
-		List<Article> list=articleService.listByDormitoryId(1);
+		List<Device> list=articleService.listByDormitoryId(1);
 		assertEquals(1, list.size());
 	}
 

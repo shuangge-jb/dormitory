@@ -52,7 +52,7 @@ public class AnnouncementDAOTest {
 		announcement.setContent("通知");
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		announcement.setCreateTime(timestamp);
-		announcement.setState(new Integer(1));
+		//announcement.setState(new Integer(1));
 		announcementDAO.save(announcement);
 		Integer newid = announcementDAO.getLastInsertId();
 		System.out.println(newid);

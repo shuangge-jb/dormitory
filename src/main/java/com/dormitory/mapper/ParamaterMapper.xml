@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dormitory.mapper.ParamaterMapper">
+	<resultMap id="paramater" type="com.dormitory.entity.Paramater">
+		<id column="paramater_id" jdbcType="INTEGER" property="paramaterId" />
+		<result column="paramater_name" jdbcType="VARCHAR" property="paramaterName" />
+		<result column="interface_id" jdbcType="INTEGER" property="interfaceId" />
+	</resultMap>
+
+</mapper>

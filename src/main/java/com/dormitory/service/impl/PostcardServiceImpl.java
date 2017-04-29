@@ -17,18 +17,18 @@ public class PostcardServiceImpl implements PostcardService {
 	private PostcardDAO postcardDAO;
 
 	@Override
-	public List<Postcard> list() {
-		return postcardDAO.list(null);
+	public List<Postcard> list(Integer pageIndex,Integer pageSize) {
+		return postcardDAO.list(pageIndex,pageSize);
 	}
 
 	@Override
 	public List<Postcard> listLimit(Integer n) {
-		return postcardDAO.list(n);
+		return postcardDAO.listLimit(n);
 	}
 
 	@Override
-	public List<Postcard> listByStudentId(Long studentId) {
-		return postcardDAO.listByStudentId(studentId);
+	public List<Postcard> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize) {
+		return postcardDAO.listByStudentId(studentId,pageIndex,pageSize);
 	}
 
 	@Override
