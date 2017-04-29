@@ -17,9 +17,9 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	private AnnouncementDAO announcementDAO;
 
 	@Override
-	public List<Announcement> list() {
+	public List<Announcement> list(Integer pageIndex,Integer pageSize) {
 
-		return announcementDAO.list();
+		return announcementDAO.list(pageIndex,pageSize);
 	}
 
 	@Override

@@ -8,5 +8,5 @@ public interface ListService<T> {
 	 * 
 	 * @return
 	 */
-public List<T> list();
+public List<T> list(Integer pageIndex,Integer pageSize);
 }

@@ -17,8 +17,8 @@ public class LostFoundServiceImpl implements LostFoundService {
 	private LostFoundDAO lostFoundDAO;
 
 	@Override
-	public List<LostFound> list() {
-		return lostFoundDAO.list();
+	public List<LostFound> list(Integer pageIndex,Integer pageSize) {
+		return lostFoundDAO.list(pageIndex,pageSize);
 	}
 
 	@Override
@@ -27,8 +27,8 @@ public class LostFoundServiceImpl implements LostFoundService {
 	}
 
 	@Override
-	public List<LostFound> listByStudentId(Long studentId) {
-		return lostFoundDAO.listByStudentId(studentId);
+	public List<LostFound> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize) {
+		return lostFoundDAO.listByStudentId(studentId,pageIndex,pageSize);
 	}
 
 	@Transactional

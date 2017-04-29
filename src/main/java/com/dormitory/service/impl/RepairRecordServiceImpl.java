@@ -17,8 +17,8 @@ public class RepairRecordServiceImpl implements RepairRecordService {
 	private RepairRecordDAO repairRecordDAO;
 
 	@Override
-	public List<RepairRecord> list() {
-		return repairRecordDAO.list();
+	public List<RepairRecord> list(Integer pageIndex,Integer pageSize) {
+		return repairRecordDAO.list(pageIndex,pageSize);
 	}
 
 	@Override
@@ -27,8 +27,8 @@ public class RepairRecordServiceImpl implements RepairRecordService {
 	}
 
 	@Override
-	public List<RepairRecord> listByDormitoryId(Integer dormitoryId) {
-		return repairRecordDAO.listByDormitoryId(dormitoryId);
+	public List<RepairRecord> listByDormitoryId(Integer dormitoryId,Integer pageIndex,Integer pageSize) {
+		return repairRecordDAO.listByDormitoryId(dormitoryId,pageIndex,pageSize);
 	}
 
 	@Override
@@ -60,5 +60,7 @@ public class RepairRecordServiceImpl implements RepairRecordService {
 	public Integer getLastInsertId() {
 		return repairRecordDAO.gerLastInsertId();
 	}
+
+	
 
 }

@@ -20,7 +20,7 @@ import com.dormitory.service.FileService;
 public class FileServiceImpl implements FileService {
 	private static final String FILE_ERROR = "file upload error";
 	private static final String FILE_SUCCESS = "file upload success";
-	private static Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(DeviceServiceImpl.class);
 
 	@Override
 	public String saveFile(HttpServletRequest request, String directory, MultipartFile file) {
