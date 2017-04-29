@@ -5,7 +5,7 @@ import java.io.File;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.dormitory.dto.ArticleDTO;
+import com.dormitory.dto.DeviceDTO;
 
 public class ArticleDTOValidator implements Validator {
 
@@ -15,7 +15,7 @@ public class ArticleDTOValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return clazz.equals(ArticleDTO.class);
+		return clazz.equals(DeviceDTO.class);
 	}
 
 	@Override
