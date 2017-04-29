@@ -31,13 +31,13 @@ public interface RepairRecordDAO {
 	@Select("select LAST_INSERT_ID()f")
 	public Integer gerLastInsertId();
 
-	@Insert(" insert into repair_record(dormitory_id,content,create_time,repair_time,state,contact_id)  "
-			+ " values(#{dormitoryId},#{content},#{createTime},#{repairTime},#{state},#{contactId}) ")
+	@Insert(" insert into repair_record(dormitory_id,device_name,content,price,state,create_time,repair_time,contact_id)  "
+			+ " values(#{dormitoryId},#{deviceName},#{content},#{price},#{state},#{createTime},#{repairTime},,#{contactId}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "repairRecordId")
 	public void save(RepairRecord repairRecord);
 
-	@Update(" update repair_record  set dormitory_id=#{dormitoryId}, "
-			+ " content=#{content},  create_time=#{createTime}, "
+	@Update(" update repair_record  set dormitory_id=#{dormitoryId}, device_name=#{deviceName}, "
+			+ " content=#{content},price=#{price}, create_time=#{createTime}, "
 			+ " repair_time=#{repairTime},contact_id=#{contactId} " + " where repair_record_id=#{repairRecordId} ")
 	public void update(RepairRecord repairRecord);
 
