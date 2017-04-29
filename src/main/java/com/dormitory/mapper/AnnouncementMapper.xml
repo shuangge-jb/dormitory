@@ -4,9 +4,12 @@
 <mapper namespace="com.dormitory.mapper.AnnouncementMapper">
 	<resultMap id="announcement" type="com.dormitory.entity.Announcement">
 		<id column="announcement_id" jdbcType="INTEGER" property="announcementId" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
 		<result column="content" jdbcType="VARCHAR" property="content" />
+		<result column="img_path" jdbcType="VARCHAR" property="imgPath" />
+		<result column="author_id" jdbcType="INTEGER" property="authorId" />
 		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-		<result column="state" jdbcType="INTEGER" property="state" />
+		<result column="importance" jdbcType="INTEGER" property="importance" />
 	</resultMap>
 	
 </mapper>
