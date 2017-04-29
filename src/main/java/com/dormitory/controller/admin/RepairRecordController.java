@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dormitory.controller.AbstractRepairRecordController;
 import com.dormitory.entity.RepairRecord;
 
-@Controller
+@Controller("adminRepairRecordController")
 @RequestMapping(value = "/admin")
 public class RepairRecordController extends AbstractRepairRecordController {
 	@RequestMapping(value = "saveOrUpdateRepairRecord.do", method = RequestMethod.POST)

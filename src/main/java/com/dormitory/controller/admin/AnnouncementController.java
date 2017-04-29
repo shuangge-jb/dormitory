@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dormitory.controller.AbstractAnnouncementController;
 import com.dormitory.entity.Announcement;
 
-@Controller
+@Controller("adminAnnouncementController")
 @RequestMapping(value = "/admin")
 public class AnnouncementController extends AbstractAnnouncementController{
 	@RequestMapping(value = "/saveOrUpdateAnnouncement.do", method = RequestMethod.POST)

@@ -15,7 +15,7 @@ import com.dormitory.controller.AbstractLostFoundController;
 import com.dormitory.entity.LostFound;
 import com.dormitory.service.LostFoundService;
 
-@Controller
+@Controller("masterLostFoundController")
 @RequestMapping(value="/master")
 public class LostFoundController extends AbstractLostFoundController{
 	

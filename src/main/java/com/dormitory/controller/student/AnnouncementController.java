@@ -15,7 +15,7 @@ import com.dormitory.controller.AbstractAnnouncementController;
 import com.dormitory.entity.Announcement;
 import com.dormitory.service.AnnouncementService;
 
-@Controller
+@Controller("studentAnnouncementController")
 @RequestMapping(value = "/student")
 public class AnnouncementController extends AbstractAnnouncementController{
 	

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dormitory.service.RepairRecordService;
 
-@Controller
+@Controller("studentRepairRecordController")
 @RequestMapping(value="/student")
 public class RepairRecordController {
 

@@ -16,7 +16,7 @@ import com.dormitory.entity.Device;
 import com.dormitory.entity.Dormitory;
 import com.dormitory.service.DormitoryService;
 
-@Controller
+@Controller("studentDeviceController")
 @RequestMapping(value="/student")
 public class DeviceController extends AbstractDeviceController{
 	@Resource
