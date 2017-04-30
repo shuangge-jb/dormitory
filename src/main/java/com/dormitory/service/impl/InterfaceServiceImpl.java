@@ -1,5 +1,9 @@
 package com.dormitory.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -38,5 +42,15 @@ private InterfaceDAO interfaceDAO;
 		interfaceDAO.remove(item);
 		return item;
 	}
-
+	@Override
+	public Map<String,Object> listByDeviceId(Long deviceId,Integer pageIndex,Integer pageSize){
+		Map<String,Object> map=new HashMap<String,Object>(3);
+		List<Interface>list=interfaceDAO.listByDeviceId(deviceId,pageIndex,pageSize);
+		Integer total=interfaceDAO.getSize(deviceId);
+		boolean result=(list!=null);
+		map.put("data", list);
+		map.put("total", total);
+		map.put("result", result);
+		return map;
+	}
 }

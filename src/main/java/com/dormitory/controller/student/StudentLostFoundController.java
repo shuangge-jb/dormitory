@@ -8,11 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dormitory.controller.AbstractLostFoundController;
+import com.dormitory.controller.LostFoundController;
 import com.dormitory.entity.LostFound;
 import com.dormitory.service.LostFoundService;
 
 @Controller("studentLostFoundController")
-public class LostFoundController  extends AbstractLostFoundController{
+public class StudentLostFoundController  extends LostFoundController{
 	
 }

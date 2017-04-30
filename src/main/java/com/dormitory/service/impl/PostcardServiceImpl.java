@@ -1,6 +1,8 @@
 package com.dormitory.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
@@ -17,8 +19,10 @@ public class PostcardServiceImpl implements PostcardService {
 	private PostcardDAO postcardDAO;
 
 	@Override
-	public List<Postcard> list(Integer pageIndex,Integer pageSize) {
-		return postcardDAO.list(pageIndex,pageSize);
+	public Map<String,Object> list(Integer pageIndex,Integer pageSize) {
+		Map<String,Object> map=new HashMap<String,Object>(3);
+		List<Postcard> list=postcardDAO.list(pageIndex,pageSize);
+		return map;
 	}
 
 	@Override
@@ -27,8 +31,10 @@ public class PostcardServiceImpl implements PostcardService {
 	}
 
 	@Override
-	public List<Postcard> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize) {
-		return postcardDAO.listByStudentId(studentId,pageIndex,pageSize);
+	public Map<String,Object> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize) {
+		Map<String,Object> map=new HashMap<String,Object>(3);
+		postcardDAO.listByStudentId(studentId,pageIndex,pageSize);
+		return map;
 	}
 
 	@Override

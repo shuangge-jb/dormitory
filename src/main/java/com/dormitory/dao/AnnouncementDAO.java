@@ -27,7 +27,16 @@ public interface AnnouncementDAO {
 
 	@Select(" select * from announcement order by create_time desc limit (pageIndex-1)*pageSize,pageSize ")
 	@ResultMap("com.dormitory.mapper.AnnouncementMapper.announcement")
-	public List<Announcement> list(@Param("pageIndex")Integer pageIndex,@Param("pageSize")Integer pageSize);
+	public List<Announcement> list(@Param("pageIndex") Integer pageIndex, @Param("pageSize") Integer pageSize);
+
+	@Select(" select * from announcement where building_id=#{buildingId} order by create_time desc limit (pageIndex-1)*pageSize,pageSize ")
+	@ResultMap("com.dormitory.mapper.AnnouncementMapper.announcement")
+	public List<Announcement> listByBuildingId(@Param("buildingId")Integer buildingId,@Param("pageIndex") Integer pageIndex, @Param("pageSize") Integer pageSize);
+	@Select("select count(*) from announcement ")
+	public Integer getSize();
+	
+	@Select(" select count(*) from announcement where building_id=#{buildingId}")
+	public Integer getSize(@Param("buildingId")Integer buildingId);
 
 	/**
 	 * 由主键查找对象

@@ -1,24 +1,32 @@
 package com.dormitory.entity;
 
 public class Master extends User {
-	protected Integer administratorId;
+	protected Integer masterId;
+	protected Integer buildingId;
 
 	public Master() {
-		
+
 	}
 
-	public Integer getAdministratorId() {
-		return administratorId;
+	public Integer getMasterId() {
+		return masterId;
 	}
 
-	public void setAdministratorId(Integer administratorId) {
-		this.administratorId = administratorId;
+	public void setMasterId(Integer masterId) {
+		this.masterId = masterId;
+	}
+
+	public Integer getBuildingId() {
+		return buildingId;
+	}
+
+	public void setBuildingId(Integer buildingId) {
+		this.buildingId = buildingId;
 	}
 
 	@Override
 	public String toString() {
-		return "Administrator [administratorId=" + administratorId + ", name=" + name + ", phoneNumber=" + phoneNumber
-				+ ", email=" + email + ", password=" + password + "]";
+		return "Administrator [masterId=" + masterId + ", name=" + name + ", phoneNumber=" + phoneNumber + ", email="
+				+ email + ", password=" + password + "]";
 	}
-
 }

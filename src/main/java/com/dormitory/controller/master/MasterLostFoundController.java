@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dormitory.controller.AbstractLostFoundController;
+import com.dormitory.controller.LostFoundController;
 import com.dormitory.entity.LostFound;
 import com.dormitory.service.LostFoundService;
 
 @Controller("masterLostFoundController")
 @RequestMapping(value="/master")
-public class LostFoundController extends AbstractLostFoundController{
+public class MasterLostFoundController extends LostFoundController{
 	
 
 	@RequestMapping(value = "saveOrUpdateLostFound.do",method=RequestMethod.POST)

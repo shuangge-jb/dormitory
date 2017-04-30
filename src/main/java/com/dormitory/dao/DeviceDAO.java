@@ -32,7 +32,11 @@ public interface DeviceDAO {
 	@Delete("delete from device where device_id=#{deviceId}")
 	public void remove(Device device);
 
-	@Select(" select * from device where dormitory_id=#{dormitoryId}")
+	@Select(" select * from device where dormitory_id=#{dormitoryId} limit (pageIndex-1)*pageSize,pageSize")
 	@ResultMap("com.dormitory.mapper.DeviceMapper.device")
-	public List<Device> listByDormitoryId(@Param("dormitoryId") Integer dormitoryId);
+	public List<Device> listByDormitoryId(@Param("dormitoryId") Integer dormitoryId,
+			@Param("pageIndex") Integer pageIndex, @Param("pageSize") Integer pageSize);
+
+	@Select(" select count(*) from device where dormitory_id=#{dormitoryId}")
+	public Integer getSizeByDormitory(@Param("dormitoryId") Integer dormitoryId);
 }

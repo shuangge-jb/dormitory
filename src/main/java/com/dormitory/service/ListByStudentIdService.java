@@ -1,6 +1,7 @@
 package com.dormitory.service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ListByStudentIdService<T> {
 	/**
@@ -9,5 +10,5 @@ public interface ListByStudentIdService<T> {
 	 * @param studentId
 	 * @return
 	 */
-	public List<T> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize);
+	public Map<String,Object> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize);
 }

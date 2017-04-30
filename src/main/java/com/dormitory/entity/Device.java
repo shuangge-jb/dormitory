@@ -24,18 +24,15 @@ public class Device {
 		// TODO Auto-generated constructor stub
 	}
 
-	
 
 	public Long getDeviceId() {
 		return deviceId;
 	}
 
 
-
 	public void setDeviceId(Long deviceId) {
 		this.deviceId = deviceId;
 	}
-
 
 
 	public Integer getDormitoryId() {

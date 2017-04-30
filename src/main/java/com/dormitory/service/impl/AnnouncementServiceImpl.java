@@ -1,6 +1,8 @@
 package com.dormitory.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
@@ -17,9 +19,15 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	private AnnouncementDAO announcementDAO;
 
 	@Override
-	public List<Announcement> list(Integer pageIndex,Integer pageSize) {
-
-		return announcementDAO.list(pageIndex,pageSize);
+	public Map<String,Object> list(Integer pageIndex,Integer pageSize) {
+		List<Announcement>list=announcementDAO.list(pageIndex,pageSize);
+		Integer total=announcementDAO.getSize();
+		boolean result=(list!=null);
+		Map<String,Object> map=new HashMap<String,Object>(3);
+		map.put("data", list);
+		map.put("total", total);
+		map.put("result", result);
+		return map;
 	}
 
 	@Override
@@ -58,4 +66,16 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		return announcement;
 	}
 
+	@Override
+	public Map<String,Object> listByBuildingId(Integer buildingId,Integer pageIndex,Integer pageSize) {
+		List<Announcement>list=announcementDAO.listByBuildingId(buildingId, pageIndex, pageSize);
+		Integer total=announcementDAO.getSize();
+		boolean result=(list!=null);
+		Map<String,Object> map=new HashMap<String,Object>(3);
+		map.put("data", list);
+		map.put("total", total);
+		map.put("result", result);
+		return map;
+	}
+	
 }

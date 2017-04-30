@@ -1,9 +1,5 @@
-package com.dormitory.dto.student;
+package com.dormitory.dto.master;
 
-import java.io.File;
-
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -12,28 +8,19 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.dormitory.entity.Student;
+import com.dormitory.entity.Master;
 
-public class StudentDTO {
+public class MasterDTO {
 
-	@NotNull(message = "{student.studentId.null}")
-	protected Long studentId;
-
-	@Max(4)
-	@Min(1)
-	// @NotEmpty(message = "{student.bedId.null}")
-	protected Integer bedId;
-
+	@NotNull(message = "{master.masterId.null}")
+	protected Integer masterId;
 	@NotEmpty(message = "{user.name.null}")
 	@Length(min = 2, max = 20, message = "{user.name.length.illegal}")
 	@Pattern(regexp = "[a-zA-Z\u4e00-\u9fa5]{2,20}", message = "{user.name.illegal}")
 	protected String name;
-	@NotNull(message = "{user.phoneNumber.null}")
-	 @Length(min = 11, max = 11, message =
-	 "{user.phoneNumber.length.illegal}")
-	 @Pattern(regexp =
-	 "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$", message =
-	 "{user.phoneNumber.illegal}")
+	@NotNull(message = "{master.phoneNumber.null}")
+	@Length(min = 11, max = 11, message = "{user.phoneNumber.length.illegal}")
+	@Pattern(regexp = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$", message = "{master.phoneNumber.illegal}")
 	protected String phoneNumber;
 	@NotEmpty(message = "{user.email.null}")
 	@Length(min = 5, max = 50, message = "{user.email.length.illegal}")
@@ -48,11 +35,6 @@ public class StudentDTO {
 	@NotBlank
 	@Pattern(regexp = "[cC]([1][0-7]|[1-9])", message = "dormitory.buildingName.illegal")
 	protected String buildingName;
-	@NotNull(message = "doritory.room.null")
-	@NotEmpty
-	@NotBlank
-	@Pattern(regexp = "[1-7][0-5][0-9]", message = "dormitory.room.illegal")
-	protected String room;
 	@NotNull
 	@NotEmpty
 	@NotBlank
@@ -76,30 +58,6 @@ public class StudentDTO {
 		this.buildingName = buildingName;
 	}
 
-	public String getRoom() {
-		return room;
-	}
-
-	public void setRoom(String room) {
-		this.room = room;
-	}
-
-	public Long getStudentId() {
-		return studentId;
-	}
-
-	public void setStudentId(Long studentId) {
-		this.studentId = studentId;
-	}
-
-	public Integer getBedId() {
-		return bedId;
-	}
-
-	public void setBedId(Integer bedId) {
-		this.bedId = bedId;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -107,8 +65,6 @@ public class StudentDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	
 
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -134,7 +90,6 @@ public class StudentDTO {
 		this.password = password;
 	}
 
-	
 	public String getImgPath() {
 		return imgPath;
 	}
@@ -143,42 +98,42 @@ public class StudentDTO {
 		this.imgPath = imgPath;
 	}
 
-	public StudentDTO() {
-
+	public Integer getMasterId() {
+		return masterId;
 	}
 
-	/**
-	 * 创建student对象并返回，outDate和validateCode为null
-	 * 
-	 * @return
-	 */
-	public Student getStudent() {
-		Student student = new Student();
-		student.setStudentId(studentId);
-		student.setBedId(bedId);
-		student.setEmail(email);
-		student.setName(name);
-		student.setPassword(password);
-		student.setPhoneNumber(Long.valueOf(phoneNumber));
-		return student;
+	public void setMasterId(Integer masterId) {
+		this.masterId = masterId;
 	}
 
-	public void setStudent(Student student){
-		this.studentId=student.getStudentId();
-		this.bedId=student.getBedId();
-		this.email=student.getEmail();
-		this.name=student.getName();
-		this.password=student.getPassword();
-		this.phoneNumber=String.valueOf(student.getPhoneNumber());
-		this.imgPath=student.getImgPath();
+	public Master getMaster() {
+		Master master = new Master();
+		master.setEmail(email);
+		master.setImgPath(imgPath);
+		master.setMasterId(masterId);
+		master.setName(name);
+		master.setPassword(password);
+		master.setPhoneNumber(Long.valueOf(phoneNumber));
+		return master;
+	}
+
+	public void setMaster(Master master) {
+		this.email = master.getEmail();
+		this.masterId = master.getMasterId();
+		this.name = master.getName();
+		this.password = master.getPassword();
+		this.phoneNumber = String.valueOf(master.getPhoneNumber());
+	}
+
+	public MasterDTO() {
+
 	}
 
 	@Override
 	public String toString() {
-		return "StudentDTO [studentId=" + studentId + ", bedId=" + bedId + ", name=" + name + ", phoneNumber="
-				+ phoneNumber + ", email=" + email + ", password=" + password + ", buildingName=" + buildingName
-				+ ", room=" + room + ", password2=" + password2 + ", imgPath=" + imgPath + "]";
+		return "MasterDTO [masterId=" + masterId + ", name=" + name + ", phoneNumber=" + phoneNumber + ", email="
+				+ email + ", password=" + password + ", buildingName=" + buildingName + ", password2=" + password2
+				+ ", imgPath=" + imgPath + "]";
 	}
-	
 
 }

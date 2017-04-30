@@ -40,6 +40,13 @@ public interface RepairRecordDAO {
 			+ " content=#{content},price=#{price}, create_time=#{createTime}, "
 			+ " repair_time=#{repairTime},contact_id=#{contactId} " + " where repair_record_id=#{repairRecordId} ")
 	public void update(RepairRecord repairRecord);
+	
+	
+	@Select(" select count(*) from repair_record ")
+	public Integer getSize();
+	@Select(" select count(*) from repair_record where dormitory_id=#{dormitoryId}")
+	public Integer getSizeByDormitoryId(@Param("dormitoryId")Integer dormitoryId);
+	
 
 	@Update(" update repair_record " + " set state=0 " + " where repair_record_id=#{repairRecordId} ")
 	public void remove(@Param("repairRecordId") Integer repairRecordId);
