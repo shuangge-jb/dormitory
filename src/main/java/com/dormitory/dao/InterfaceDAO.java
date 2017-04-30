@@ -1,8 +1,11 @@
 package com.dormitory.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -27,4 +30,10 @@ public interface InterfaceDAO {
 
 	@Select("select LAST_INSERT_ID()")
 	Integer getLastInsertId();
+
+	@Select("select * from interface where device_id=#{deviceId} limit (pageIndex-1)*pageSize,pageSize ")
+	List<Interface> listByDeviceId(@Param("deviceId") Long deviceId, Integer pageIndex, Integer pageSize);
+
+	@Select("select count(*) from interface where device_id=#{deviceId} ")
+	Integer getSize(@Param("deviceId") Long deviceId);
 }

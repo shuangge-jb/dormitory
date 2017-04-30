@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dormitory.controller.AbstractRepairRecordController;
+import com.dormitory.controller.RepairRecordController;
 import com.dormitory.entity.RepairRecord;
 
 @Controller("adminRepairRecordController")
 @RequestMapping(value = "/admin")
-public class RepairRecordController extends AbstractRepairRecordController {
+public class AdminRepairRecordController extends RepairRecordController {
 	@RequestMapping(value = "saveOrUpdateRepairRecord.do", method = RequestMethod.POST)
 	public ModelAndView saveOrUpdateRepairRecord(
 			@ModelAttribute(value = "repairRecord") @Valid RepairRecord repairRecord, BindingResult result) {

@@ -2,6 +2,7 @@ package com.dormitory.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -19,7 +20,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
-public abstract class AbstractLostFoundController {
+public class LostFoundController {
 	@Resource
 	protected LostFoundService lostFoundService;
 	protected static final String ERROR_PAGE = "error";
@@ -29,14 +30,14 @@ public abstract class AbstractLostFoundController {
 	@RequestMapping(value = "listLostFound.do")
 	@ResponseBody
 	public String listLostFound(Integer pageIndex, Integer pageSize) {
-		List<LostFound> list = lostFoundService.list(pageIndex, pageSize);
-		return toJSON(list);
+		Map<String,Object> map = lostFoundService.list(pageIndex, pageSize);
+		return toJSON(map);
 	}
 	@RequestMapping(value = "listLostFoundByStudentId.do")
 	@ResponseBody
 	public String listLostFoundByStudentId(Long studentId,Integer pageIndex, Integer pageSize) {
-		List<LostFound> list = lostFoundService.listByStudentId(studentId,pageIndex, pageSize);
-		return toJSON(list);
+		Map<String,Object> map = lostFoundService.listByStudentId(studentId,pageIndex, pageSize);
+		return toJSON(map);
 	}
 	protected String toJSON(Object obj) {
 		ObjectMapper mapper = new ObjectMapper();

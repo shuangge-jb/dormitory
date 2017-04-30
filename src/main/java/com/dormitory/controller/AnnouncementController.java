@@ -22,28 +22,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
-public abstract class AbstractAnnouncementController {
+public class AnnouncementController {
 	@Resource
 	protected AnnouncementService announcementService;
 	protected static final String ERROR_PAGE = "error";
 	protected static final String OPERATE_SUCCESS = "操作成功";
 	protected static final String REMOVE_SUCCESS = "删除成功";
 	protected static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
-	@RequestMapping(value = "/listAnnouncement.do")
-	@ResponseBody
-	public String listAnnouncement(@RequestParam(value = "pageIndex") Integer pageIndex,
-			@RequestParam(value = "pageSize") Integer pageSize) {
-		List<Announcement> list = announcementService.list(pageIndex, pageSize);
-		
-		return toJSON(list);
-	}
-
-	@RequestMapping(value = "/listAnnouncementLimit.do")
-	@ResponseBody
-	public String listAnnouncementLimit(@RequestParam(value = "n") Integer n) {
-		List<Announcement> list = announcementService.listLimit(n);
-		return toJSON(list);
-	}
+	
 	protected String toJSON(Object obj) {
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

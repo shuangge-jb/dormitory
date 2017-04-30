@@ -3,14 +3,59 @@ package com.dormitory.service;
 import java.util.Map;
 
 public interface HTTPService {
-	/**
-	 * 发送请求，将返回的数据以JSON格式输出
-	 * 
-	 * @param url
-	 *            服务的url
-	 * @param paramater 参数名，参数值
-	 *            键值对
-	 * @return JSON格式的字符串
+
+	/** 
+	 * 发送 GET 请求（HTTP），不带输入数据 
+	 * @param url 
+	 * @return 
 	 */
-	String getData(String url, Map<String, String> paramater);
+	String doGet(String url);
+
+	/** 
+	 * 发送 GET 请求（HTTP），K-V形式 
+	 * @param url 
+	 * @param params 
+	 * @return 
+	 */
+	String doGet(String url, Map<String, Object> params);
+
+	/** 
+	 * 发送 POST 请求（HTTP），不带输入数据 
+	 * @param apiUrl 
+	 * @return 
+	 */
+	String doPost(String apiUrl);
+
+	/** 
+	 * 发送 POST 请求（HTTP），K-V形式 
+	 * @param apiUrl API接口URL 
+	 * @param params 参数map 
+	 * @return 
+	 */
+	String doPost(String apiUrl, Map<String, Object> params);
+
+	/** 
+	 * 发送 POST 请求（HTTP），JSON形式 
+	 * @param apiUrl 
+	 * @param json json对象 
+	 * @return 
+	 */
+	String doPost(String apiUrl, Object json);
+
+	/** 
+	 * 发送 SSL POST 请求（HTTPS），K-V形式 
+	 * @param apiUrl API接口URL 
+	 * @param params 参数map 
+	 * @return 
+	 */
+	String doPostSSL(String apiUrl, Map<String, Object> params);
+
+	/** 
+	 * 发送 SSL POST 请求（HTTPS），JSON形式 
+	 * @param apiUrl API接口URL 
+	 * @param json JSON对象 
+	 * @return 
+	 */
+	String doPostSSL(String apiUrl, Object json);
+
 }

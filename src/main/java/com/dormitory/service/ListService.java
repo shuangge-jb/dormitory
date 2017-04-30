@@ -1,6 +1,7 @@
 package com.dormitory.service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ListService<T> {
 	/**
@@ -8,5 +9,5 @@ public interface ListService<T> {
 	 * 
 	 * @return
 	 */
-public List<T> list(Integer pageIndex,Integer pageSize);
+public Map<String,Object> list(Integer pageIndex,Integer pageSize);
 }

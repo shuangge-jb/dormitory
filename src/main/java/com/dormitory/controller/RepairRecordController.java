@@ -2,6 +2,7 @@ package com.dormitory.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -22,19 +23,19 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
-public abstract class AbstractRepairRecordController {
+public class RepairRecordController {
 	@Resource
 	protected RepairRecordService repairRecordService;
 	protected static final String ERROR_PAGE = "error";
 	protected static final String OPERATE_SUCCESS = "操作成功";
 	protected static final String REMOVE_SUCCESS = "删除成功";
-	protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractRepairRecordController.class);
+	protected static final Logger LOGGER = LoggerFactory.getLogger(RepairRecordController.class);
 	@RequestMapping(value = "listRepairRecord.do")
 	@ResponseBody
 	public String listRepairRecord(@RequestParam(value = "pageIndex") Integer pageIndex,
 			@RequestParam(value = "pageSize") Integer pageSize) {
-		List<RepairRecord>list=repairRecordService.list(pageIndex, pageSize);
-		return toJSON(list);
+		Map<String,Object>map=repairRecordService.list(pageIndex, pageSize);
+		return toJSON(map);
 	}
 
 	@RequestMapping(value = "listRepairRecordLimit.do")
@@ -48,8 +49,8 @@ public abstract class AbstractRepairRecordController {
 	@ResponseBody
 	public String listRepairRecordByDormitoryId(@RequestParam(value = "dormitoryId") Integer dormitoryId,
 			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
-		List<RepairRecord>list=repairRecordService.listByDormitoryId(dormitoryId,pageIndex,pageSize);
-		return toJSON(list);
+		Map<String,Object>map=repairRecordService.listByDormitoryId(dormitoryId,pageIndex,pageSize);
+		return toJSON(map);
 	}
 	protected String toJSON(Object obj) {
 		ObjectMapper mapper = new ObjectMapper();

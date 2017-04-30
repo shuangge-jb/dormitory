@@ -1,6 +1,8 @@
 package com.dormitory.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
@@ -17,8 +19,15 @@ public class LostFoundServiceImpl implements LostFoundService {
 	private LostFoundDAO lostFoundDAO;
 
 	@Override
-	public List<LostFound> list(Integer pageIndex,Integer pageSize) {
-		return lostFoundDAO.list(pageIndex,pageSize);
+	public Map<String,Object> list(Integer pageIndex,Integer pageSize) {
+		Map<String,Object> map=new HashMap<String,Object>(3);
+		List<LostFound> list=lostFoundDAO.list(pageIndex,pageSize);
+		//Integer total=lostFoundDAO.getSize();
+		boolean result=(list!=null);
+		map.put("data", list);
+		//map.put("total", total);
+		map.put("result", result);
+		return map;
 	}
 
 	@Override
@@ -27,8 +36,15 @@ public class LostFoundServiceImpl implements LostFoundService {
 	}
 
 	@Override
-	public List<LostFound> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize) {
-		return lostFoundDAO.listByStudentId(studentId,pageIndex,pageSize);
+	public Map<String,Object> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize) {
+		Map<String,Object> map=new HashMap<String,Object>(3);
+		List<LostFound> list=lostFoundDAO.list(pageIndex,pageSize);
+		//Integer total=lostFoundDAO.getSize(studentId);
+		boolean result=(list!=null);
+		map.put("data", list);
+		//map.put("total", total);
+		map.put("result", result);
+		return map;
 	}
 
 	@Transactional

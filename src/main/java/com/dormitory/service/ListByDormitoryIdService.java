@@ -1,7 +1,8 @@
 package com.dormitory.service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ListByDormitoryIdService<T> {
-public List<T> listByDormitoryId(Integer dormitoryId,Integer pageIndex,Integer pageSize);
+public Map<String,Object> listByDormitoryId(Integer dormitoryId,Integer pageIndex,Integer pageSize);
 }

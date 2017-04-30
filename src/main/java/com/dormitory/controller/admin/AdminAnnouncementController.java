@@ -1,4 +1,4 @@
-package com.dormitory.controller.master;
+package com.dormitory.controller.admin;
 
 import javax.validation.Valid;
 
@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dormitory.controller.AbstractAnnouncementController;
+import com.dormitory.controller.AnnouncementController;
 import com.dormitory.entity.Announcement;
 
-@Controller("masterAnnouncementController")
-@RequestMapping(value = "/master")
-public class AnnouncementController extends AbstractAnnouncementController{
+@Controller("adminAnnouncementController")
+@RequestMapping(value = "/admin")
+public class AdminAnnouncementController extends AnnouncementController{
 	@RequestMapping(value = "/saveOrUpdateAnnouncement.do", method = RequestMethod.POST)
 	public ModelAndView saveOrUpdateAnnouncement(@ModelAttribute(value = "announcement")@Valid  Announcement announcement,BindingResult result) {
 		ModelAndView modelAndView = new ModelAndView("homePage");

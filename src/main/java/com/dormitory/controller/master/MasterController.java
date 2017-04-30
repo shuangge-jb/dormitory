@@ -129,7 +129,7 @@ public class MasterController {
 			modelAndView.setViewName("redirect:/error");
 		} else {
 			masterService.saveOrUpdate(master);
-			modelAndView.setViewName("redirect:listdevicedo");
+			modelAndView.setViewName("redirect:listDevice.do");
 			setSessionValue(model, master.getMasterId());
 			
 		}

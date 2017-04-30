@@ -1,5 +1,7 @@
 package com.dormitory.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
@@ -27,4 +29,10 @@ public interface ParamaterDAO {
 
 	@Select("select LAST_INSERT_ID()")
 	Integer getLastInsertId();
+
+	@Select(" select * from paramater where interface_id=#{interfaceId} limit (pageIndex-1)*pageSize,pageSize ")
+	List<Paramater> listByInterfaceId(@Param("interfaceId") Integer interfaceId, Integer pageIndex, Integer pageSize);
+
+	@Select("select count(*) from interface where interface_id=#{interfaceId}  ")
+	Integer getSize(@Param("interfaceId") Integer interfaceId);
 }

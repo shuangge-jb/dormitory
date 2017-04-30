@@ -11,7 +11,7 @@ import com.dormitory.service.MasterService;
 @Service
 public class MasterServiceImpl implements MasterService {
 	@Resource
-	private MasterDAO administratorDAO;
+	private MasterDAO masterDAO;
 
 	public MasterServiceImpl() {
 
@@ -19,31 +19,31 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public Master get(Integer id) {
-		return administratorDAO.get(id);
+		return masterDAO.get(id);
 	}
 
 	@Override
 	public Integer getLastInsertId() {
-		return administratorDAO.getLastInsertId();
+		return masterDAO.getLastInsertId();
 	}
 
 	@Transactional
 	@Override
-	public Master saveOrUpdate(Master administrator) {
-		Master temp = administratorDAO.get(administrator.getAdministratorId());
+	public Master saveOrUpdate(Master master) {
+		Master temp = masterDAO.get(master.getMasterId());
 		if (temp == null) {
-			administratorDAO.save(administrator);
+			masterDAO.save(master);
 		} else {
-			administratorDAO.update(administrator);
+			masterDAO.update(master);
 		}
-		return administrator;
+		return master;
 	}
 
 	@Transactional
 	@Override
-	public Master remove(Master administrator) {
-		administratorDAO.remove(administrator);
-		return administrator;
+	public Master remove(Master master) {
+		masterDAO.remove(master);
+		return master;
 	}
 
 }
