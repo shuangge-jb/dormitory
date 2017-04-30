@@ -56,21 +56,21 @@ public class DeviceServiceImpl implements DeviceService {
 		return device;
 	}
 
-	@Override
-	public Map<String,Object> listByDormitoryId(Integer dormitoryId, Integer pageIndex, Integer pageSize) {
-		Map<String,Object> map=new HashMap<String,Object>(3);
-		List<Device>list=deviceDAO.listByDormitoryId(dormitoryId,pageIndex,pageSize);
-		Integer total=deviceDAO.getSizeByDormitory(dormitoryId);
-		boolean result=(list!=null);
-		map.put("data", list);
-		map.put("total", total);
-		map.put("result", result);
-		return map;
-	}
+	
 
 	@Override
 	public Long getLastInsertId() {
 		return deviceDAO.getLastInsertId();
+	}
+
+	@Override
+	public List<Device> listDevice(Integer pageIndex,Integer pageSize) {
+		return deviceDAO.list(pageIndex, pageSize);
+	}
+
+	@Override
+	public Integer getSize() {
+		return deviceDAO.getSize();
 	}
 
 	

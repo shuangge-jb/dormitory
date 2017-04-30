@@ -35,10 +35,14 @@ public class StudentDeviceController extends DeviceController{
 	 */
 	@RequestMapping(value = { "listDevice.do" }, method = RequestMethod.GET)
 	@ResponseBody
-	public String listDevice(@RequestParam(value = "studentId") Long studentId,Integer pageIndex,Integer pageSize, Model model) {
+	public ModelAndView listDevice(@RequestParam(value = "studentId") Long studentId,Integer pageIndex,Integer pageSize, Model model) {
 		Dormitory dormitory = dormitoryService.get(studentId);
-		Map<String,Object>map = deviceService.listByDormitoryId(dormitory.getDormitoryId(),pageIndex,pageSize);
-		return toJSON(map);
+		List<Device>list = deviceService.listDevice(pageIndex,pageSize);
+		Integer total=deviceService.getSize();
+		ModelAndView modelAndView=new ModelAndView();
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		return modelAndView;
 	}
 	
 	

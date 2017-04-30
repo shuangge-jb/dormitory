@@ -22,10 +22,6 @@ public class DeviceDTO extends Device {
 		return file;
 	}
 
-	@Override
-	public String toString() {
-		return "ArticleDTO [file=" + file + ", deviceId=" + deviceId + ", dormitoryId=" + dormitoryId + ", studentId="
-				+ studentId + ", name=" + name + ", type=" + type + ", state=" + state + ", path=" + path + "]";
-	}
+	
 
 }

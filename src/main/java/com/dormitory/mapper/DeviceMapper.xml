@@ -3,12 +3,10 @@
 <mapper namespace="com.dormitory.mapper.DeviceMapper">
 	<resultMap id="device" type="com.dormitory.entity.Device">
 		<id column="device_id" jdbcType="BIGINT" property="deviceId" />
-		<result column="dormitory_id" jdbcType="INTEGER" property="dormitoryId" />
-		<result column="student_id" jdbcType="BIGINT" property="studentId" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
-		<result column="type" jdbcType="INTEGER" property="type" />
-		<result column="state" jdbcType="INTEGER" property="state" />
-		<result column="path" jdbcType="VARCHAR" property="path" />
+		<result column="img_path" jdbcType="VARCHAR" property="imgPath" />
+		<result column="description" jdbcType="VARCHAR" property="description" />
+		<result column="model_path" jdbcType="VARCHAR" property="modelPath" />
 	</resultMap>
 
 </mapper>

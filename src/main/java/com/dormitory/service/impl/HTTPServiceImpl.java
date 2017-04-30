@@ -22,6 +22,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;  
 import org.apache.http.message.BasicNameValuePair;  
 import org.apache.http.util.EntityUtils;
+import org.springframework.stereotype.Service;
 
 import com.dormitory.service.HTTPService;
 
@@ -48,6 +49,7 @@ import java.util.Map;
  * @date : 2015/7/21 
  * @see : TODO 
  */  
+@Service
 public class HTTPServiceImpl implements HTTPService{  
     private static PoolingHttpClientConnectionManager connMgr;  
     private static RequestConfig requestConfig;  

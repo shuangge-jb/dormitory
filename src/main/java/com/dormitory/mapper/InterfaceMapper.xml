@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dormitory.mapper.InterfaceMapper">
-  <resultMap id="interface" type="com.dormitory.entity.Interface">
-    <id column="interface_id" jdbcType="INTEGER" property="interfaceId" />
-    <result column="interface_name" jdbcType="VARCHAR" property="interfaceName" />
-    <result column="interface_url" jdbcType="VARCHAR" property="interfaceUrl" />
-  </resultMap>
-  
+	<resultMap id="interface" type="com.dormitory.entity.Interface">
+		<id column="interface_id" jdbcType="INTEGER" property="interfaceId" />
+		<result column="interface_name" jdbcType="VARCHAR" property="interfaceName" />
+		<result column="interface_url" jdbcType="VARCHAR" property="interfaceUrl" />
+		<result column="description" jdbcType="VARCHAR" property="description" />
+		<result column="source" jdbcType="VARCHAR" property="source" />
+		<result column="device_id" jdbcType="BIGINT" property="deviceId" />
+		<result column="method" jdbcType="VARCHAR" property="method" />
+	</resultMap>
+
 </mapper>
