@@ -6,7 +6,8 @@ String path = request.getContextPath();
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+	<link rel="stylesheet" href="<%=path%>/css/loginUser/pagination.css" type="text/css" />  
 	<script src="js/jquery-1.8.3.min.js"></script>
 	<script src="js/jquery.pagination.js"></script>
 	<script type="text/javascript">
@@ -23,6 +24,56 @@ String path = request.getContextPath();
 	        }
 	    }
 	}
+	</script>
+	<script type="text/javascript">
+	$(document).ready(function({
+		getAnnouncementDataList(0,null);
+	});
+	 
+	 var pageSize=10;
+	 var oage = 1;
+	 var initFlag = true;
+	 
+	  function getAnnouncementDataList(currentPage,jg){
+		  $.ajax({
+			 url:" ", 
+		     type:"post",
+		     dataType:'json',
+		     data:{
+		    	 pageIndex:currentPage+1,pageSize:pageSize
+		     },
+		     contentType : "application/x-www-form-urlencoded; charset=utf-8",
+		     success:function(data){
+		    	 if(data.result){
+		    		 if(data.announcementDataList!=null && data.announcementDataList!=""
+		    				 && data.totalPages!=undefined && data.totalPages>0){
+		    			 if(initFlag){
+		    				 $("#Pagination").pagination(
+		    						 data.totalPages,
+		    						 {
+                                         items_per_page : pageSize,
+                                         num_edge_entries : 1,
+                                         num_display_entries : 8,
+                                         callback : getAnnouncementDataList//回调函数
+                                     });
+		    				 initFlag = false;
+		    			 }
+		    			 $("#listData").html("");
+		    			 loadAnnouncementDataList(data.announcementDataList);
+		    		 }
+		    		 else{
+		    			 alert("公告信息为空");
+		    		 }
+		    	 }
+		    	 else{
+		    		 alert("公告信息为空"); 
+		    	 }
+		     }
+		  });
+	  }
+	 
+	)
+	
 	</script>
 	<style type="text/css">
 	* {
@@ -125,12 +176,11 @@ String path = request.getContextPath();
  #newAnnounceMent{
  color:#fff;text-decoration:none;background-color:#0074A6;height:50px;line-height:51px;line-height:54px\9;line-height:52px\0;border-bottom:0;
  }
-.new_notice_top{width:100%;background: #64b1cb;height:38px;line-height:38px;
+.new_notice_top{width:998px;background: #64b1cb;height:38px;line-height:38px;
    margin: 0 auto;}
-.new_notice_top_p{width: 138px;  text-align: center;font-size: 16px;color: #fff;}
-#new_notice{width:1000px;margin:0 auto;overflow:hidden;margin-bottom:35px;margin-top:20px;    padding-bottom: 70px;}
+.new_notice_top_p{width:138px;  text-align: center;font-size: 16px;color: #fff;}
 .new_notice_content{
-width:998px;
+width:998;
 overflow:hidden;border:1px solid #eaeef5;  
  margin: 0 auto; 
   padding-top: 20px;
@@ -140,12 +190,34 @@ overflow:hidden;border:1px solid #eaeef5;
   padding:24px 120px 0px 150px;
   }
    .register-tipForm{ 
+   width:100%;
    padding:0px 0px 50px 0px;
    border: 1px solid #D7D7D7;
    background:#fff;
-   height:250px;
    }
- 
+   .new_notice_content{
+   width:998px;
+   overflow:hidden;
+   border:1px solid #eaeef5;
+   margin: 0 auto; 
+   padding-top: 20px;
+   min-height:250px;
+   padding-bottom:10px;}
+   .new_notice_content ul li{
+   margin-left:8%;
+   color:#848484; 
+   display: inline-block;
+   font-size: 15px;
+   height: 34px;
+   text-align:left;
+   width:75%;
+   overflow: hidden;
+   }
+   .new_notice_content ul li .notice_date{
+   float:right;
+   maigin-right:8%;
+   }
+   
 	</style>
 	
   </head> 
@@ -162,6 +234,7 @@ overflow:hidden;border:1px solid #eaeef5;
          <ul>
          <li><a href="javascript:AddFavorite('虚拟宿舍','http://localhost:8080/dormitory/homePage.jsp/')">收藏</a></li>
          <li class="end"><a href="#">帮助</a></li>
+         
          </ul>
       </div>
    </div>
@@ -188,10 +261,25 @@ overflow:hidden;border:1px solid #eaeef5;
 </div>
 </div>
 <div class="register-tipMain">
-   <div class="register-tipForm">
+   
     <div class="new_notice_top">
    <p class="new_notice_top_p">最新公告</p>
-   </div>
+     </div>
+     <div class="new_notice_content">
+   <ul>
+   <li ><span >北京市肛肠医院(二龙路医院)暂停更新号源通知</span> 
+   <span class="notice_date">2017年04月19日</span></li>
+   <li ><span>111 </span><span class="notice_date">2017年04月19日</span></li>
+   <li ><span>北京市肛肠医院(二龙路医院)暂停更新号源通知</span> <span class="notice_date">2017年04月19日</span></li>
+   <li ><span>北京市肛肠医院(二龙路医院)暂停更新号源通知 </span><span class="notice_date">2017年04月19日</span></li>
+   <li ><span>北京市肛肠医院(二龙路医院)暂停更新号源通知</span> <span class="notice_date">2017年04月19日</span></li>
+   <li ><span>北京市肛肠医院(二龙路医院)暂停更新号源通知</span> <span class="notice_date">2017年04月19日</span></li>
+   <li ><span>北京市肛肠医院(二龙路医院)暂停更新号源通知 </span><span class="notice_date">2017年04月19日</span></li>
+   <li ><span>北京市肛肠医院(二龙路医院)暂停更新号源通知 </span><span class="notice_date">2017年04月19日</span></li>
+   <li ><span>北京市肛肠医院(二龙路医院)暂停更新号源通知 </span><span class="notice_date">2017年04月19日</span></li>
+   <li ><span>北京市肛肠医院(二龙路医院)暂停更新号源通知 </span><span class="notice_date">2017年04月19日</span></li>
+   </ul>
+   <div id="Pagination" class="pagination"></div>
    </div>
 </div>
  <jsp:include page="foot.jsp"></jsp:include>
