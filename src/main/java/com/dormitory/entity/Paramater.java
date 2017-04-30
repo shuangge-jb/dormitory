@@ -3,6 +3,8 @@ package com.dormitory.entity;
 public class Paramater {
 	protected Integer paramaterId;
 	protected String paramaterName;
+	protected String description;
+	protected String type;
 	protected Integer interfaceId;
 
 	public Paramater() {
@@ -33,10 +35,25 @@ public class Paramater {
 		this.interfaceId = interfaceId;
 	}
 
-	@Override
-	public String toString() {
-		return "Paramater [paramaterId=" + paramaterId + ", paramaterName=" + paramaterName + ", interfaceId="
-				+ interfaceId + "]";
+	public String getDescription() {
+		return description;
 	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	@Override
+	public String toString() {
+		return "Paramater [paramaterId=" + paramaterId + ", paramaterName=" + paramaterName + ", description="
+				+ description + ", type=" + type + ", interfaceId=" + interfaceId + "]";
+	}
 }

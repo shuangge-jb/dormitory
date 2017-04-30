@@ -13,6 +13,7 @@ import com.dormitory.entity.LostFound;
 import com.dormitory.service.LostFoundService;
 
 @Controller("studentLostFoundController")
+@RequestMapping(value="/student")
 public class StudentLostFoundController  extends LostFoundController{
 	
 }

@@ -4,7 +4,9 @@
 	<resultMap id="paramater" type="com.dormitory.entity.Paramater">
 		<id column="paramater_id" jdbcType="INTEGER" property="paramaterId" />
 		<result column="paramater_name" jdbcType="VARCHAR" property="paramaterName" />
+		<result column="description" jdbcType="VARCHAR" property="description" />
 		<result column="interface_id" jdbcType="INTEGER" property="interfaceId" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
 	</resultMap>
 
 </mapper>

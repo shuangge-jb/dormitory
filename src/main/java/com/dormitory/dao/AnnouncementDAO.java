@@ -36,7 +36,7 @@ public interface AnnouncementDAO {
 	public Integer getSize();
 	
 	@Select(" select count(*) from announcement where building_id=#{buildingId}")
-	public Integer getSize(@Param("buildingId")Integer buildingId);
+	public Integer getSizeByBuildingId(@Param("buildingId")Integer buildingId);
 
 	/**
 	 * 由主键查找对象
@@ -89,5 +89,7 @@ public interface AnnouncementDAO {
 	 */
 	@Delete("delete from announcement where announcement_id=#{announcementId} ")
 	public void remove(Announcement announcement);
+	
+	
 
 }

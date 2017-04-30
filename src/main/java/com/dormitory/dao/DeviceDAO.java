@@ -20,23 +20,22 @@ public interface DeviceDAO {
 	@Select("select LAST_INSERT_ID()")
 	public Long getLastInsertId();
 
-	@Insert(" insert into device(dormitory_id,student_id,name,type,state,path) "
-			+ " values(#{dormitoryId},#{studentId},#{name},#{type},#{state},#{path}) ")
+	@Insert(" insert into device(name,img_path,description,model_path) "
+			+ " values(#{name},#{imgPath},#{description},#{model_path}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "deviceId")
 	public void save(Device device);
 
-	@Update(" update device set dormitory_id=#{dormitoryId},student_id=#{studentId}, "
-			+ " name=#{name},type=#{type},state=#{state},path=#{path} ")
+	@Update(" update device set  "
+			+ " name=#{name},img_path=#{imgPath},description=#{description},model_path=#{modelPath} ")
 	public void update(Device device);
 
 	@Delete("delete from device where device_id=#{deviceId}")
 	public void remove(Device device);
 
-	@Select(" select * from device where dormitory_id=#{dormitoryId} limit (pageIndex-1)*pageSize,pageSize")
+	@Select("select * from device limit (pageIndex-1)*pageSize,pageSize")
 	@ResultMap("com.dormitory.mapper.DeviceMapper.device")
-	public List<Device> listByDormitoryId(@Param("dormitoryId") Integer dormitoryId,
-			@Param("pageIndex") Integer pageIndex, @Param("pageSize") Integer pageSize);
+	public List<Device> list(@Param("pageIndex") Integer pageIndex, @Param("pageSize") Integer pageSize);
 
-	@Select(" select count(*) from device where dormitory_id=#{dormitoryId}")
-	public Integer getSizeByDormitory(@Param("dormitoryId") Integer dormitoryId);
+	@Select("select count(*) from device limit ")
+	public Integer getSize();
 }

@@ -1,6 +1,5 @@
 package com.dormitory.entity;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -8,47 +7,24 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class Device {
 	protected Long deviceId;
-	@NotNull(message="${device.dormitoryId.null}")
-	protected Integer dormitoryId;
-	@NotNull(message="${device.studentId.null}")
-	protected Long studentId;
 	@NotEmpty(message = "${device.name.null}")
 	@Length(min = 1, max = 20, message = "{device.name.length.illegal}")
 	@Pattern(regexp = "^[\u4e00-\u9fa5_a-zA-Z0-9]+$", message = "{article.name.illegal}")
 	protected String name;
-	protected Integer type;
-	protected Integer state;
-	protected String path;
+	protected String imgPath;
+	protected String description;
+	protected String modelPath;
 
 	public Device() {
 		// TODO Auto-generated constructor stub
 	}
 
-
 	public Long getDeviceId() {
 		return deviceId;
 	}
 
-
 	public void setDeviceId(Long deviceId) {
 		this.deviceId = deviceId;
-	}
-
-
-	public Integer getDormitoryId() {
-		return dormitoryId;
-	}
-
-	public void setDormitoryId(Integer dormitoryId) {
-		this.dormitoryId = dormitoryId;
-	}
-
-	public Long getStudentId() {
-		return studentId;
-	}
-
-	public void setStudentId(Long studentId) {
-		this.studentId = studentId;
 	}
 
 	public String getName() {
@@ -59,34 +35,33 @@ public class Device {
 		this.name = name;
 	}
 
-	public Integer getType() {
-		return type;
+	public String getImgPath() {
+		return imgPath;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 
-	public Integer getState() {
-		return state;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setState(Integer state) {
-		this.state = state;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getPath() {
-		return path;
+	public String getModelPath() {
+		return modelPath;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
+	public void setModelPath(String modelPath) {
+		this.modelPath = modelPath;
 	}
 
 	@Override
 	public String toString() {
-		return "Article [deviceId=" + deviceId + ", dormitoryId=" + dormitoryId + ", studentId=" + studentId
-				+ ", name=" + name + ", type=" + type + ", state=" + state + ", path=" + path + "]";
+		return "Device [deviceId=" + deviceId + ", name=" + name + ", imgPath=" + imgPath + ", description="
+				+ description + ", modelPath=" + modelPath + "]";
 	}
-
 }

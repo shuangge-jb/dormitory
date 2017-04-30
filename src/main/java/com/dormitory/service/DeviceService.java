@@ -11,9 +11,10 @@ import com.dormitory.entity.Device;
 import com.dormitory.entity.Interface;
 
 public interface DeviceService
-		extends GetService<Device,Long>,ListByDormitoryIdService<Device>,SaveOrUpdateService<Device>, 
+		extends GetService<Device,Long>,SaveOrUpdateService<Device>, 
 		 RemoveService<Device>
 		{
-	
+	public List<Device> listDevice(Integer pageIndex,Integer pageSize);
+	public Integer getSize();
 	
 }

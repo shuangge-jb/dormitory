@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Update;
 import com.dormitory.entity.Interface;
 
 public interface InterfaceDAO {
-	@Insert(" insert into interface(interface_name,interface_url) values(#{interfaceName},#{interfaceUrl}) ")
+	@Insert(" insert into interface(interface_name,interface_url,description,source,deviceId,method) values(#{interfaceName},#{interfaceUrl}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "interfaceId")
 	void save(Interface item);
 

@@ -67,7 +67,7 @@ public class AdminDeviceController extends DeviceController {
 		// 保存物品对象
 		String filePath = fileService.getFilePath(request, MODEL_DIR, file);
 		System.out.println("model path:" + filePath);
-		device.setPath(filePath);
+		device.setModelPath(filePath);
 		deviceService.saveOrUpdate(device);
 		modelAndView.setViewName("/student");
 		return modelAndView;
