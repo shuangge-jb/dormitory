@@ -25,9 +25,7 @@ public class DeviceServiceImplTest {
 
 	private void init() {
 		Device article = new Device();
-		article.setDormitoryId(1);
 		article.setName("台灯");
-		article.setStudentId(201330610505L);
 		articleService.saveOrUpdate(article);
 	}
 	@Transactional
