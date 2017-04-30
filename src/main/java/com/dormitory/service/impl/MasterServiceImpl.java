@@ -1,5 +1,7 @@
 package com.dormitory.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
@@ -44,6 +46,22 @@ public class MasterServiceImpl implements MasterService {
 	public Master remove(Master master) {
 		masterDAO.remove(master);
 		return master;
+	}
+
+	@Override
+	public List<Master> list() {
+		
+		return masterDAO.list();
+	}
+
+	@Override
+	public List<Master> list(Integer pageIndex, Integer pageSize) {
+		return masterDAO.list(pageIndex, pageSize);
+	}
+
+	@Override
+	public Integer getSize() {
+		return masterDAO.getSize();
 	}
 
 }

@@ -43,14 +43,13 @@ private InterfaceDAO interfaceDAO;
 		return item;
 	}
 	@Override
-	public Map<String,Object> listByDeviceId(Long deviceId,Integer pageIndex,Integer pageSize){
-		Map<String,Object> map=new HashMap<String,Object>(3);
+	public List<Interface> listByDeviceId(Long deviceId,Integer pageIndex,Integer pageSize){
 		List<Interface>list=interfaceDAO.listByDeviceId(deviceId,pageIndex,pageSize);
-		Integer total=interfaceDAO.getSize(deviceId);
-		boolean result=(list!=null);
-		map.put("data", list);
-		map.put("total", total);
-		map.put("result", result);
-		return map;
+		return list;
+	}
+	
+	@Override
+	public  Integer getSizeByDeviceId(Long deviceId){
+		return interfaceDAO.getSizeByDeviceId(deviceId);
 	}
 }

@@ -18,17 +18,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	@Resource
 	private AnnouncementDAO announcementDAO;
 
-	@Override
-	public Map<String,Object> list(Integer pageIndex,Integer pageSize) {
-		List<Announcement>list=announcementDAO.list(pageIndex,pageSize);
-		Integer total=announcementDAO.getSize();
-		boolean result=(list!=null);
-		Map<String,Object> map=new HashMap<String,Object>(3);
-		map.put("data", list);
-		map.put("total", total);
-		map.put("result", result);
-		return map;
-	}
+	
 
 	@Override
 	public List<Announcement> listLimit(Integer n) {
@@ -65,17 +55,38 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		announcementDAO.remove(announcement);
 		return announcement;
 	}
+	@Override
+	public List<Announcement> list(Integer pageIndex,Integer pageSize) {
+		List<Announcement>list=announcementDAO.list(pageIndex,pageSize);
+		return list;
+	}
+	@Override
+	public List<Announcement> listByBuildingId(Integer buildingId,Integer pageIndex,Integer pageSize) {
+		List<Announcement>list=announcementDAO.listByBuildingId(buildingId, pageIndex, pageSize);
+		
+		return list;
+	}
+	//TODO
+	@Override
+	public List<Announcement> listByDormitoryId(Integer dormitoryId,Integer pageIndex, Integer pageSize){
+		return null;
+	}
+	
 
 	@Override
-	public Map<String,Object> listByBuildingId(Integer buildingId,Integer pageIndex,Integer pageSize) {
-		List<Announcement>list=announcementDAO.listByBuildingId(buildingId, pageIndex, pageSize);
-		Integer total=announcementDAO.getSize();
-		boolean result=(list!=null);
-		Map<String,Object> map=new HashMap<String,Object>(3);
-		map.put("data", list);
-		map.put("total", total);
-		map.put("result", result);
-		return map;
+	public Integer getSize() {
+		return announcementDAO.getSize();
+	}
+
+	@Override
+	public Integer getSizeByBuildingId(Integer buildingId) {
+		return announcementDAO.getSizeByBuildingId(buildingId);
+	}
+
+	@Override
+	public Integer getSizeByDormitoryId(Integer dormitoryId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

@@ -1,5 +1,7 @@
 package com.dormitory.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
@@ -29,4 +31,12 @@ public interface MasterDAO {
 
 	@Delete("delete from master where master=#{masterId}")
 	public void remove(Master master);
+	@Select("select * from master ")
+	@ResultMap("com.dormitory.mapper.MasterMapper.master")
+	public List<Master> list();
+	@Select("select * from master limit (pageIndex-1)*pageSize,pageSize")
+	@ResultMap("com.dormitory.mapper.MasterMapper.master")
+	public List<Master> list(@Param("pageIndex")Integer pageIndex,@Param("pageSize")Integer pageSize);
+	@Select("select count(*) from master ")
+	public Integer getSize();
 }

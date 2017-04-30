@@ -30,6 +30,7 @@ import com.dormitory.entity.Student;
 import com.dormitory.service.EmailService;
 import com.dormitory.service.FileService;
 import com.dormitory.service.MasterService;
+import com.dormitory.service.StudentService;
 
 @Controller
 @RequestMapping(value = "/master")
@@ -41,52 +42,12 @@ public class MasterController {
 	private EmailService emailService;
 	@Resource
 	private FileService fileService;
+	@Resource
+	private StudentService studentService;
 	private static final String IMG_DIR = "/images/";
+	private static final String ERROR_PAGE = "error";
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
-	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
-	public ModelAndView register(@ModelAttribute(value = "register") @Valid MasterDTO masterDTO, BindingResult result,
-			@RequestParam(value = "img") MultipartFile img, HttpServletRequest request, Model model) {
-		ModelAndView modelAndView = new ModelAndView("../../jsp/register");// 默认为跳转回注册页面
-		if (result.hasErrors()) {
-			System.out.println(result.getFieldError().toString());
-			return modelAndView;
-		}
-		if (!masterDTO.getPassword2().equals(masterDTO.getPassword())) {
-			return modelAndView;
-		}
-		// 检查图片文件
-		System.out.println("img:" + img);
-		if (img == null || img.isEmpty()) {
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("文件为空：");
-			}
-			return modelAndView;
-		}
-		System.out.println("img name:" + img.getOriginalFilename() + " ends with jpg:"
-				+ img.getOriginalFilename().endsWith(".jpg"));
-		if (!(img.getOriginalFilename().toLowerCase().endsWith(".jpg"))) {
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("img参数异常：");
-			}
-			return modelAndView;
-		}
-		// 检查是否已注册
-		Master temp = masterService.get(masterDTO.getMasterId());
-		if (temp != null) {
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("已注册");
-			}
-			modelAndView.addObject("status", "已注册");
-			return modelAndView;
-		}
-		System.out.println("acccept masterDTO:" + masterDTO);
-		
-		fileService.saveFile(request, IMG_DIR,img);
-		// 保存宿管信息
-		
-		return modelAndView;
-	}
-
+	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam(value = "id") Integer masterId,
 			@RequestParam(value = "password") String password, Model model) {
@@ -168,9 +129,6 @@ public class MasterController {
 		}
 	}
 
-	
-
-	
 
 	@RequestMapping("/logout.do")
 	public String logout(SessionStatus status) {
@@ -194,5 +152,23 @@ public class MasterController {
 
 	private void setSessionValue(Model model, Integer masterId) {
 		model.addAttribute("masterId", masterId);
+	}
+	
+	@RequestMapping(value = "/saveOrUpdateStudent.do")
+	public ModelAndView saveOrUpdateStudent(@ModelAttribute(value="student") @Valid Student student,BindingResult result){
+		ModelAndView modelAndView = new ModelAndView();
+		if(result.hasErrors()){
+			modelAndView.setViewName(ERROR_PAGE);
+			return modelAndView;
+		}
+		studentService.saveOrUpdate(student);
+		return modelAndView;
+	}
+	@RequestMapping(value="removeStudent.do",method=RequestMethod.POST)
+	public ModelAndView removeStudent(@RequestParam(value="studentId")Long studentId){
+		ModelAndView modelAndView = new ModelAndView();
+		Student student=studentService.get(studentId);
+		studentService.remove(student);
+		return modelAndView;
 	}
 }

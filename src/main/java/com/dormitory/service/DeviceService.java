@@ -14,7 +14,7 @@ public interface DeviceService
 		extends GetService<Device,Long>,SaveOrUpdateService<Device>, 
 		 RemoveService<Device>
 		{
-	public List<Device> listDevice(Integer pageIndex,Integer pageSize);
+	public List<Device> list(Integer pageIndex,Integer pageSize);
 	public Integer getSize();
 	
 }

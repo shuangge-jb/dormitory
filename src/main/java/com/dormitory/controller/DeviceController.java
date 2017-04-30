@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -20,6 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.student.StudentController;
+import com.dormitory.entity.Device;
+import com.dormitory.entity.Interface;
+import com.dormitory.entity.Paramater;
 import com.dormitory.service.DeviceService;
 import com.dormitory.service.HTTPService;
 import com.dormitory.service.InterfaceService;
@@ -43,20 +47,58 @@ public class DeviceController {
 	@Resource
 	protected HTTPService httpService;
 
+	@RequestMapping(value = "listDevice.do")
+	public ModelAndView listDevice(@RequestParam(value = "pageIndex") Integer pageIndex,
+			@RequestParam(value = "pageSize") Integer pageSize) {
+		List<Device> list = deviceService.list(pageIndex, pageSize);
+		Integer total = deviceService.getSize();
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		return modelAndView;
+	}
+
 	@RequestMapping(value = "listInterfaceByDeviceId.do")
-	@ResponseBody
-	public String listInterfaceByDeviceId(@RequestParam(value = "deviceId") Long deviceId, Integer pageIndex,
-			Integer pageSize) {
-		Map<String, Object> map = interfaceService.listByDeviceId(deviceId, pageIndex, pageSize);
-		return toJSON(map);
+	public ModelAndView listInterfaceByDeviceId(@RequestParam(value = "deviceId") Long deviceId,
+			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
+		List<Interface> list = interfaceService.listByDeviceId(deviceId, pageIndex, pageSize);
+		Integer total = interfaceService.getSizeByDeviceId(deviceId);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "listParamByInterfaceId.do")
+	public ModelAndView listParamByInterfaceId(@RequestParam(value = "interfaceId") Integer interfaceId,
+			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
+		List<Paramater> list = paramaterService.listByInterfaceId(interfaceId, pageIndex, pageSize);
+		Integer total = paramaterService.getSizeByInterfaceId(interfaceId);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "getDevice.do")
 	@ResponseBody
-	public String listParamByInterfaceId(@RequestParam(value = "interfaceId") Integer interfaceId, Integer pageIndex,
-			Integer pageSize) {
-		Map<String, Object> map = paramaterService.listByInterfaceId(interfaceId, pageIndex, pageSize);
-		return toJSON(map);
+	public String getDevice(@RequestParam(value = "deviceId") Long deviceId) {
+		Device device = deviceService.get(deviceId);
+		return toJSON(device);
+	}
+
+	@RequestMapping(value = "getInterface.do")
+	@ResponseBody
+	public String getInterface(@RequestParam(value = "interfaceId") Integer interfaceId) {
+		Interface face = interfaceService.get(interfaceId);
+		return toJSON(face);
+	}
+
+	@RequestMapping(value = "getParamater.do")
+	@ResponseBody
+	public String getParamater(@RequestParam(value = "paramaterId") Integer paramaterId) {
+		Paramater paramater = paramaterService.get(paramaterId);
+		return toJSON(paramater);
 	}
 
 	protected String toJSON(Object obj) {
@@ -75,37 +117,4 @@ public class DeviceController {
 		return result;
 	}
 
-	@RequestMapping(value = "invokeInterface.do", method = RequestMethod.POST)
-	@ResponseBody
-	public String invokeInterface(HttpServletRequest request) {
-		Map<String, String[]> map = request.getParameterMap();
-		Map<String,Object> paramater=new HashMap<String,Object>(map.size());
-		String url=null;
-		String method = null;
-		for(Iterator<Entry<String, String[]>> it=map.entrySet().iterator();it.hasNext();){
-			Entry<String, String[]> entry=it.next();
-			if(entry.getKey().equals("interfaceId")){
-				
-				continue;
-			}
-			if(entry.getKey().equals("interfaceUrl")){
-				url=entry.getValue()[0];
-				continue;
-			}
-			if(entry.getKey().equals("method")){
-				method=entry.getValue()[0];
-				continue;
-			}
-			paramater.put(entry.getKey(), entry.getValue()[0]);
-		}
-		
-		String result = null;
-		if (method.equals("GET")) {
-			result = httpService.doGet(url, paramater);
-		}
-		if (method.equals("POST")){
-			result = httpService.doPostSSL(url, paramater);
-		}
-		return result;
-	}
 }

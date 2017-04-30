@@ -1,10 +1,14 @@
 package com.dormitory.controller.student;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,25 +30,40 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class StudentDeviceController extends DeviceController{
 	@Resource
 	private DormitoryService dormitoryService;
-	/**
-	 * 查找所在宿舍的物品
-	 * 
-	 * @param dormitoryId
-	 * @return
-	 * @author guo.junbao
-	 */
-	@RequestMapping(value = { "listDevice.do" }, method = RequestMethod.GET)
-	@ResponseBody
-	public ModelAndView listDevice(@RequestParam(value = "studentId") Long studentId,Integer pageIndex,Integer pageSize, Model model) {
-		Dormitory dormitory = dormitoryService.get(studentId);
-		List<Device>list = deviceService.listDevice(pageIndex,pageSize);
-		Integer total=deviceService.getSize();
-		ModelAndView modelAndView=new ModelAndView();
-		modelAndView.addObject("data", list);
-		modelAndView.addObject("total", total);
-		return modelAndView;
-	}
 	
+	@RequestMapping(value = "invokeInterface.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String invokeInterface(HttpServletRequest request) {
+		Map<String, String[]> map = request.getParameterMap();
+		Map<String,Object> paramater=new HashMap<String,Object>(map.size());
+		String url=null;
+		String method = null;
+		for(Iterator<Entry<String, String[]>> it=map.entrySet().iterator();it.hasNext();){
+			Entry<String, String[]> entry=it.next();
+			if(entry.getKey().equals("interfaceId")){
+				
+				continue;
+			}
+			if(entry.getKey().equals("interfaceUrl")){
+				url=entry.getValue()[0];
+				continue;
+			}
+			if(entry.getKey().equals("method")){
+				method=entry.getValue()[0];
+				continue;
+			}
+			paramater.put(entry.getKey(), entry.getValue()[0]);
+		}
+		
+		String result = null;
+		if (method.equals("GET")) {
+			result = httpService.doGet(url, paramater);
+		}
+		if (method.equals("POST")){
+			result = httpService.doPostSSL(url, paramater);
+		}
+		return result;
+	}
 	
 	
 	protected String toJSON(Object obj) {

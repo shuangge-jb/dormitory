@@ -1,5 +1,6 @@
 package com.dormitory.controller.student;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,12 @@ public class StudentAnnouncementController extends AnnouncementController{
 	@ResponseBody
 	public String listAnnouncement(@RequestParam(value = "studentId")Long studentId,@RequestParam(value = "pageIndex") Integer pageIndex,
 			@RequestParam(value = "pageSize") Integer pageSize) {
-		Map<String,Object>map = announcementService.list(pageIndex, pageSize);
+		List<Announcement>list = announcementService.list(pageIndex, pageSize);
+		//TODO
+		Integer total=0;
+		Map<String,Object>map=new HashMap<String,Object>(3);
+		map.put("data", list);
+		map.put("total", total);
 		return toJSON(map);
 	}
 
@@ -32,7 +38,6 @@ public class StudentAnnouncementController extends AnnouncementController{
 	@ResponseBody
 	public String listAnnouncementLimit(@RequestParam(value = "n") Integer n) {
 		List<Announcement> list = announcementService.listLimit(n);
-		
 		return toJSON(list);
 	}
 

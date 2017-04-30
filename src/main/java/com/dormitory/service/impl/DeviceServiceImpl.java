@@ -64,7 +64,7 @@ public class DeviceServiceImpl implements DeviceService {
 	}
 
 	@Override
-	public List<Device> listDevice(Integer pageIndex,Integer pageSize) {
+	public List<Device> list(Integer pageIndex,Integer pageSize) {
 		return deviceDAO.list(pageIndex, pageSize);
 	}
 

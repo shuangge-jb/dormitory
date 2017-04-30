@@ -36,6 +36,6 @@ public interface DeviceDAO {
 	@ResultMap("com.dormitory.mapper.DeviceMapper.device")
 	public List<Device> list(@Param("pageIndex") Integer pageIndex, @Param("pageSize") Integer pageSize);
 
-	@Select("select count(*) from device limit ")
+	@Select("select count(*) from device ")
 	public Integer getSize();
 }

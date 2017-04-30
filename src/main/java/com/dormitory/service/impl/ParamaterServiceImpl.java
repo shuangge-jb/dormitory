@@ -45,15 +45,14 @@ public class ParamaterServiceImpl implements ParamaterService {
 	}
 
 	@Override
-	public Map<String, Object> listByInterfaceId(Integer interfaceId, Integer pageIndex, Integer pageSize) {
-		Map<String, Object> map = new HashMap<String, Object>(3);
+	public List<Paramater> listByInterfaceId(Integer interfaceId, Integer pageIndex, Integer pageSize) {
 		List<Paramater> list = paramaterDAO.listByInterfaceId(interfaceId, pageIndex, pageSize);
-		Integer total = paramaterDAO.getSize(interfaceId);
-		boolean result = (list != null);
-		map.put("data", list);
-		map.put("total", total);
-		map.put("result", result);
-		return map;
+		return list;
+	}
+
+	@Override
+	public Integer getSizeByInterfaceId(Integer interfaceId) {
+		return paramaterDAO.getSizeByInterfaceId(interfaceId);
 	}
 
 }
