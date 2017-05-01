@@ -76,4 +76,15 @@ public class PostcardServiceImpl implements PostcardService {
 		return postcardDAO.getSizeByStudentId(studentId);
 	}
 
+	@Override
+	public List<Postcard> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize) {
+		Integer start=(pageIndex-1)*pageSize;
+		return postcardDAO.listByBuildingId(buildingId, start, pageSize);
+	}
+
+	@Override
+	public Integer getSizeByBuildingId(Integer buildingId) {
+		return postcardDAO.getSizeByBuildingId(buildingId);
+	}
+
 }

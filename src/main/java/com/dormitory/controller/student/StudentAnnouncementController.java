@@ -39,9 +39,12 @@ public class StudentAnnouncementController extends AnnouncementController{
 		Integer buildingId=dormitory.getBuildingId();
 		List<Announcement>list = announcementService.listByBuildingId(buildingId,pageIndex, pageSize);
 		Integer total=announcementService.getSizeByBuildingId(buildingId);
+		Integer totalPage=getTotalPages(total, pageSize);
 		Map<String,Object>map=new HashMap<String,Object>(3);
 		map.put("data", list);
-		map.put("total", total);
+		map.put("totalPage", totalPage);
+		map.put("pageIndex", pageIndex);
+		map.put("pageSize", pageSize);
 		return toJSON(map);
 	}
 

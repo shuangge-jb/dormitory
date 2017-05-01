@@ -76,4 +76,16 @@ public class RepairRecordServiceImpl implements RepairRecordService {
 		return repairRecordDAO.getSizeByDormitoryId(dormitoryId);
 	}
 
+	@Override
+	public List<RepairRecord> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize) {
+		Integer start = (pageIndex - 1) * pageSize;
+		return repairRecordDAO.listByBuildingId(buildingId, start, pageSize);
+
+	}
+
+	@Override
+	public Integer getSizeByBuildingId(Integer buildingId) {
+		return repairRecordDAO.getSizeByBuildingId(buildingId);
+	}
+
 }

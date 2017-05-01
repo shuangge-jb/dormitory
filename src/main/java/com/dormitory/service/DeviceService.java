@@ -17,4 +17,5 @@ public interface DeviceService
 	public List<Device> list(Integer pageIndex,Integer pageSize);
 	public Long getSize();
 	
+	public List<Device> getByName(String deviceName);
 }

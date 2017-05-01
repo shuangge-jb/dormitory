@@ -13,4 +13,8 @@ public interface RepairRecordService extends GetService<RepairRecord, Integer>, 
 	List<RepairRecord> listByDormitoryId(Integer dormitoryId, Integer pageIndex, Integer pageSize);
 
 	Integer getSizeByDormitoryId(Integer dormitoryId);
+	
+	List<RepairRecord> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize);
+
+	Integer getSizeByBuildingId(Integer buildingId);
 }

@@ -13,4 +13,8 @@ public interface PostcardService extends GetService<Postcard, Integer>, ListLimi
 	List<Postcard> listByStudentId(Long studentId, Integer pageIndex, Integer pageSize);
 
 	Integer getSizeByStudentId(Long studentId);
+	
+	List<Postcard> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize);
+	
+	Integer getSizeByBuildingId(Integer buildingId);
 }

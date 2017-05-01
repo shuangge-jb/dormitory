@@ -13,4 +13,8 @@ public interface LostFoundService extends GetService<LostFound, Integer>, ListLi
 	List<LostFound> listByStudentId(Long studentId, Integer pageIndex, Integer pageSize);
 
 	Integer getSizeByStudentId(Long studentId);
+	
+	List<LostFound> listByBuildingId(Integer buildingId,Integer pageIndex, Integer pageSize);
+	
+	Integer getSizeByBuildingId(Integer buildingId);
 }

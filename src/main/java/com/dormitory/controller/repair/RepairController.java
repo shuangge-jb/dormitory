@@ -49,10 +49,10 @@ public class RepairController {
 	public String listRepairRecord(Integer pageIndex,Integer pageSize){
 		List<RepairRecord> list=repairRecordService.list(pageIndex, pageSize);
 		Integer total = repairRecordService.getSize();
-		Integer count=getTotalPages(total, pageSize);
+		Integer totalPage=getTotalPages(total, pageSize);
 		Map<String,Object> map=new HashMap<String,Object>(5);
 		map.put("data", list);
-		map.put("totalPage", count);
+		map.put("totalPage", totalPage);
 		map.put("pageIndex", pageIndex);
 		map.put("pageSize", pageSize);
 		return toJSON(map);

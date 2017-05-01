@@ -38,6 +38,8 @@ public class DeviceController {
 	protected static final String ERROR_PAGE = "error";
 	protected static final String OPERATE_SUCCESS = "操作成功";
 	protected static final String REMOVE_SUCCESS = "删除成功";
+	protected static final String ERROR_INPUT="输入的参数有误";
+	protected static final String ERROR_PAGE_SIZE="页大小不能为0";
 	protected static final Logger LOGGER = LoggerFactory.getLogger(DeviceController.class);
 	@Resource
 	protected DeviceService deviceService;
@@ -57,10 +59,11 @@ public class DeviceController {
 		modelAndView.addObject("data", list);
 		if(pageSize==null||pageSize==0){
 			modelAndView.setViewName(ERROR_PAGE);
+			modelAndView.addObject("status", ERROR_PAGE_SIZE);
 			return modelAndView;
 		}
-		Long count=getTotalPages(total, pageSize);
-		modelAndView.addObject("totalPage",count);
+		Long totalPage=getTotalPages(total, pageSize);
+		modelAndView.addObject("totalPage",totalPage);
 		modelAndView.addObject("pageIndex", pageIndex);
 		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;
@@ -83,11 +86,12 @@ public class DeviceController {
 		ModelAndView modelAndView = new ModelAndView();
 		if(pageSize==null||pageSize==0){
 			modelAndView.setViewName(ERROR_PAGE);
+			modelAndView.addObject("status", ERROR_PAGE_SIZE);
 			return modelAndView;
 		}
-		Integer count=getTotalPages(total, pageSize);
+		Integer totalPage=getTotalPages(total, pageSize);
 		modelAndView.addObject("data", list);
-		modelAndView.addObject("totalPage",count);
+		modelAndView.addObject("totalPage",totalPage);
 		modelAndView.addObject("pageIndex", pageIndex);
 		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;
@@ -101,11 +105,12 @@ public class DeviceController {
 		ModelAndView modelAndView = new ModelAndView();
 		if(pageSize==null||pageSize==0){
 			modelAndView.setViewName(ERROR_PAGE);
+			modelAndView.addObject("status", ERROR_PAGE_SIZE);
 			return modelAndView;
 		}
-		Integer count=getTotalPages(total, pageSize);
+		Integer totalPage=getTotalPages(total, pageSize);
 		modelAndView.addObject("data", list);
-		modelAndView.addObject("totalPage",count);
+		modelAndView.addObject("totalPage",totalPage);
 		modelAndView.addObject("pageIndex", pageIndex);
 		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;

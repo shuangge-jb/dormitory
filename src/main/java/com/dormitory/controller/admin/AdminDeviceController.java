@@ -1,13 +1,11 @@
 package com.dormitory.controller.admin;
 
-import java.util.Map;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,18 +13,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.DeviceController;
-import com.dormitory.controller.student.StudentController;
 import com.dormitory.entity.Device;
 import com.dormitory.entity.Interface;
 import com.dormitory.entity.Paramater;
 import com.dormitory.service.FileService;
-import com.dormitory.service.InterfaceService;
-import com.dormitory.service.ParamaterService;
 
 @Controller("adminDeviceController")
 @RequestMapping(value = "/admin")
@@ -42,6 +36,15 @@ public class AdminDeviceController extends DeviceController {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("参数异常：result.hasErrors." + result);
 			}
+			modelAndView.addObject("status", "输入的参数有误");
+			return modelAndView;
+		}
+		List<Device> temp=deviceService.getByName(device.getName());
+		if(temp!=null){
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("该设备已存在." + result);
+			}
+			modelAndView.addObject("status", "该设备已存在.");
 			return modelAndView;
 		}
 		for (int i = 0; i < file.length; i++) {
@@ -54,6 +57,7 @@ public class AdminDeviceController extends DeviceController {
 				if (LOGGER.isDebugEnabled()) {
 					LOGGER.debug("file参数异常：");
 				}
+				modelAndView.addObject("status", "文件类型错误");
 				return modelAndView;
 			}
 			if (file[i].getOriginalFilename().toLowerCase().endsWith(".jpg")) {

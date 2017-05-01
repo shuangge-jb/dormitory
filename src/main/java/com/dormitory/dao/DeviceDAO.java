@@ -16,6 +16,9 @@ public interface DeviceDAO {
 	@Select("select * from deivce where device_id=#{deviceId} ")
 	@ResultMap("com.dormitory.mapper.DeviceMapper.device")
 	public Device get(@Param("deviceId") Long deviceId);
+	@Select("select * from deivce where name=#{deviceName} ")
+	@ResultMap("com.dormitory.mapper.DeviceMapper.device")
+	public List<Device> getByName(@Param("deviceName")String deviceName); 
 
 	@Select("select LAST_INSERT_ID()")
 	public Long getLastInsertId();

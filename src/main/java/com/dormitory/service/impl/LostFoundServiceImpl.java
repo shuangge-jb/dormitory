@@ -77,4 +77,15 @@ public class LostFoundServiceImpl implements LostFoundService {
 		return lostFoundDAO.getSizeByStudentId(studentId);
 	}
 
+	@Override
+	public List<LostFound> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize) {
+		Integer start=(pageIndex-1)*pageSize;
+		return lostFoundDAO.listByBuildingId(buildingId, start, pageSize);
+	}
+
+	@Override
+	public Integer getSizeByBuildingId(Integer buildingId) {
+		return lostFoundDAO.getSizeByBuildingId(buildingId);
+	}
+
 }

@@ -31,6 +31,16 @@ public interface RepairRecordDAO {
 	@Select(" select count(*) from repair_record where dormitory_id=#{dormitoryId}")
 	public Integer getSizeByDormitoryId(@Param("dormitoryId") Integer dormitoryId);
 
+	@Select(" select r.* from repair_record r join dormitory d on r.dormitory_id=d.dormitory_id "
+			+ " where d.building_id=#{buildingId} limit #{start},#{pageSize}")
+	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")
+	public List<RepairRecord> listByBuildingId(@Param("buildingId") Integer buildingId, @Param("start") Integer start,
+			@Param("pageSize") Integer pageSize);
+
+	@Select(" select count(r.*) from repair_record r join dormitory d on r.dormitory_id=d.dormitory_id "
+			+ " where d.building_id=#{buildingId} ")
+	public Integer getSizeByBuildingId(@Param("buildingId") Integer buildingId);
+
 	@Select(" select r.* from repair_record r where r.repair_record_id=#{repairRecordId} ")
 	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")
 	public RepairRecord get(@Param("repairRecordId") Integer repairRecordId);

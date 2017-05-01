@@ -30,9 +30,12 @@ public class StudentRepairRecordController extends RepairRecordController {
 			@RequestParam("pageIndex") Integer pageIndex, @RequestParam("pageSize") Integer pageSize) {
 		List<RepairRecord> list = repairRecordService.listByDormitoryId(dormitoryId, pageIndex, pageSize);
 		Integer total = repairRecordService.getSizeByDormitoryId(dormitoryId);
+		Integer totalPage=getTotalPages(total, pageSize);
 		Map<String, Object> map = new HashMap<String, Object>(2);
 		map.put("data", list);
-		map.put("total", total);
+		map.put("totalPage", totalPage);
+		map.put("pageIndex", pageIndex);
+		map.put("pageSize", pageSize);
 		return toJSON(map);
 	}
 	
