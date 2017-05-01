@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   style="font-size:15px;color:#333333;text-align:center;margin-left:5px;margin-top:10px;borderColor:#D7D7D7;"
    	cellspacing=0 border="1" width="98%;" cellPadding=1>
 							<tr bgcolor=#EBEBEB height=30>
-							<td>序号</td><td>设备名称</td><td>设备图像</td><td>医院热线</td><td>医院属性</td><td>操作</td>
+							<td>序号</td><td>设备名称</td><td>设备类型</td><td>设备图像</td><td>操作</td>
 							</tr>
        <c:forEach var="device" items="${data}" varStatus="status">
         <tr height=30>
