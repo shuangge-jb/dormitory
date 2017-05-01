@@ -44,6 +44,14 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  <servlet>
+    <servlet-name>adminHomePage</servlet-name>
+    <jsp-file>/WEB-INF/pages/adminMain.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>adminHomePage</servlet-name>
+    <url-pattern>/admin/login</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>dormitory</servlet-name>
     <url-pattern>*.do</url-pattern>

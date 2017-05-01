@@ -14,10 +14,10 @@ public class AdminController {
 	@Resource
 	private MasterService adminService;
 
-	@RequestMapping("/login")
+	@RequestMapping("/login.do")
 	public String login(@RequestParam(value = "name") String name, @RequestParam(value = "password") String password) {
 		if (name.equals("admin") && password.equals("admin")) {
-			return "redirect:/admin";
+			return "adminMain";
 		} else {
 			return "redirect:/login";
 		}
