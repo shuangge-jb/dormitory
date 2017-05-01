@@ -12,17 +12,24 @@ import org.apache.ibatis.annotations.Update;
 import com.dormitory.entity.RepairRecord;
 
 public interface RepairRecordDAO {
-	@Select(" select r.* from repair_record r order by r.create_time desc limit (pageIndex-1)*pageSize,pageSize ")
+	@Select(" select r.* from repair_record r order by r.create_time desc limit #{start},#{pageSize} ")
 	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")
-	public List<RepairRecord> list(@Param("pageIndex")Integer pageIndex,@Param("pageSize")Integer pageSize);
+	public List<RepairRecord> list(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
 
 	@Select(" select r.* from repair_record r order by r.create_time desc limit #{n} ")
 	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")
 	public List<RepairRecord> listLimit(@Param("n") Integer n);
 
-	@Select(" select r.* from repair_record r where r.dormitory_id=#{dormitoryId} order by r.create_time desc  limit (pageIndex-1)*pageSize,pageSize ")
+	@Select(" select count(*) from repair_record ")
+	public Integer getSize();
+
+	@Select(" select r.* from repair_record r where r.dormitory_id=#{dormitoryId} order by r.create_time desc  limit #{start},#{pageSize} ")
 	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")
-	public List<RepairRecord> listByDormitoryId(@Param("dormitoryId") Integer dormitoryId,@Param("pageIndex")Integer pageIndex,@Param("pageSize")Integer pageSize);
+	public List<RepairRecord> listByDormitoryId(@Param("dormitoryId") Integer dormitoryId,
+			@Param("start") Integer start, @Param("pageSize") Integer pageSize);
+
+	@Select(" select count(*) from repair_record where dormitory_id=#{dormitoryId}")
+	public Integer getSizeByDormitoryId(@Param("dormitoryId") Integer dormitoryId);
 
 	@Select(" select r.* from repair_record r where r.repair_record_id=#{repairRecordId} ")
 	@ResultMap("com.dormitory.mapper.RepairRecordMapper.repairRecord")
@@ -40,13 +47,6 @@ public interface RepairRecordDAO {
 			+ " content=#{content},price=#{price}, create_time=#{createTime}, "
 			+ " repair_time=#{repairTime},contact_id=#{contactId} " + " where repair_record_id=#{repairRecordId} ")
 	public void update(RepairRecord repairRecord);
-	
-	
-	@Select(" select count(*) from repair_record ")
-	public Integer getSize();
-	@Select(" select count(*) from repair_record where dormitory_id=#{dormitoryId}")
-	public Integer getSizeByDormitoryId(@Param("dormitoryId")Integer dormitoryId);
-	
 
 	@Update(" update repair_record " + " set state=0 " + " where repair_record_id=#{repairRecordId} ")
 	public void remove(@Param("repairRecordId") Integer repairRecordId);

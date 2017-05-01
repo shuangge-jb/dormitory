@@ -1,5 +1,6 @@
 package com.dormitory.controller.student;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,26 +16,36 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.AnnouncementController;
 import com.dormitory.entity.Announcement;
+import com.dormitory.entity.Dormitory;
+import com.dormitory.entity.Student;
 import com.dormitory.service.AnnouncementService;
+import com.dormitory.service.DormitoryService;
+import com.dormitory.service.StudentService;
 
 @Controller("studentAnnouncementController")
 @RequestMapping(value = "/student")
 public class StudentAnnouncementController extends AnnouncementController{
-	@RequestMapping(value = "/listAnnouncement.do")
+	@Resource
+	private StudentService studentService;
+	@Resource
+	private DormitoryService dormitoryService;
+	
+	@RequestMapping(value = "/listAnnouncementByStudentId.do")
 	@ResponseBody
-	public String listAnnouncement(@RequestParam(value = "studentId")Long studentId,@RequestParam(value = "pageIndex") Integer pageIndex,
+	public String listAnnouncementByStudentId(@RequestParam(value = "studentId")Long studentId,@RequestParam(value = "pageIndex") Integer pageIndex,
 			@RequestParam(value = "pageSize") Integer pageSize) {
-		Map<String,Object>map = announcementService.list(pageIndex, pageSize);
+		Student student=studentService.get(studentId);
+		Dormitory dormitory=dormitoryService.get(student.getDormitoryId());
+		Integer buildingId=dormitory.getBuildingId();
+		List<Announcement>list = announcementService.listByBuildingId(buildingId,pageIndex, pageSize);
+		Integer total=announcementService.getSizeByBuildingId(buildingId);
+		Map<String,Object>map=new HashMap<String,Object>(3);
+		map.put("data", list);
+		map.put("total", total);
 		return toJSON(map);
 	}
 
-	@RequestMapping(value = "/listAnnouncementLimit.do")
-	@ResponseBody
-	public String listAnnouncementLimit(@RequestParam(value = "n") Integer n) {
-		List<Announcement> list = announcementService.listLimit(n);
-		
-		return toJSON(list);
-	}
+	
 
 	
 }

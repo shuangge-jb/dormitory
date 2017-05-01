@@ -7,5 +7,6 @@ import com.dormitory.entity.Interface;
 
 public interface InterfaceService
 		extends GetService<Interface, Integer>, SaveOrUpdateService<Interface>, RemoveService<Interface> {
-	public Map<String,Object> listByDeviceId(Long deviceId,Integer pageIndex,Integer pageSize);
+	public List<Interface> listByDeviceId(Long deviceId,Integer pageIndex,Integer pageSize);
+	public Integer getSizeByDeviceId(Long deviceId);
 }

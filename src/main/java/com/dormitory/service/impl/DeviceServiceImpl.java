@@ -64,12 +64,13 @@ public class DeviceServiceImpl implements DeviceService {
 	}
 
 	@Override
-	public List<Device> listDevice(Integer pageIndex,Integer pageSize) {
-		return deviceDAO.list(pageIndex, pageSize);
+	public List<Device> list(Integer pageIndex,Integer pageSize) {
+		Integer start=(pageIndex-1)*pageSize;
+		return deviceDAO.list(start, pageSize);
 	}
 
 	@Override
-	public Integer getSize() {
+	public Long getSize() {
 		return deviceDAO.getSize();
 	}
 

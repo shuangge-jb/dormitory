@@ -19,15 +19,11 @@ public class LostFoundServiceImpl implements LostFoundService {
 	private LostFoundDAO lostFoundDAO;
 
 	@Override
-	public Map<String,Object> list(Integer pageIndex,Integer pageSize) {
-		Map<String,Object> map=new HashMap<String,Object>(3);
-		List<LostFound> list=lostFoundDAO.list(pageIndex,pageSize);
-		//Integer total=lostFoundDAO.getSize();
-		boolean result=(list!=null);
-		map.put("data", list);
-		//map.put("total", total);
-		map.put("result", result);
-		return map;
+	public List<LostFound> list(Integer pageIndex,Integer pageSize) {
+		Integer start=(pageIndex-1)*pageSize;
+		List<LostFound> list=lostFoundDAO.list(start,pageSize);
+		
+		return list;
 	}
 
 	@Override
@@ -36,15 +32,10 @@ public class LostFoundServiceImpl implements LostFoundService {
 	}
 
 	@Override
-	public Map<String,Object> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize) {
-		Map<String,Object> map=new HashMap<String,Object>(3);
-		List<LostFound> list=lostFoundDAO.list(pageIndex,pageSize);
-		//Integer total=lostFoundDAO.getSize(studentId);
-		boolean result=(list!=null);
-		map.put("data", list);
-		//map.put("total", total);
-		map.put("result", result);
-		return map;
+	public List<LostFound> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize) {
+		Integer start=(pageIndex-1)*pageSize;
+		List<LostFound> list=lostFoundDAO.list(start,pageSize);
+		return list;
 	}
 
 	@Transactional
@@ -74,6 +65,16 @@ public class LostFoundServiceImpl implements LostFoundService {
 	@Override
 	public Integer getLastInsertId() {
 		return lostFoundDAO.getLastInsertId();
+	}
+
+	@Override
+	public Integer getSize() {
+		return lostFoundDAO.getSize();
+	}
+
+	@Override
+	public Integer getSizeByStudentId(Long studentId) {
+		return lostFoundDAO.getSizeByStudentId(studentId);
 	}
 
 }

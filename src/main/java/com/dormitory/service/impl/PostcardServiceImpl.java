@@ -19,10 +19,10 @@ public class PostcardServiceImpl implements PostcardService {
 	private PostcardDAO postcardDAO;
 
 	@Override
-	public Map<String,Object> list(Integer pageIndex,Integer pageSize) {
-		Map<String,Object> map=new HashMap<String,Object>(3);
-		List<Postcard> list=postcardDAO.list(pageIndex,pageSize);
-		return map;
+	public List<Postcard> list(Integer pageIndex,Integer pageSize) {
+		Integer start=(pageIndex-1)*pageSize;
+		List<Postcard> list=postcardDAO.list(start,pageSize);
+		return list;
 	}
 
 	@Override
@@ -31,10 +31,10 @@ public class PostcardServiceImpl implements PostcardService {
 	}
 
 	@Override
-	public Map<String,Object> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize) {
-		Map<String,Object> map=new HashMap<String,Object>(3);
-		postcardDAO.listByStudentId(studentId,pageIndex,pageSize);
-		return map;
+	public List<Postcard> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize) {
+		Integer start=(pageIndex-1)*pageSize;
+		List<Postcard> list=postcardDAO.listByStudentId(studentId,start,pageSize);
+		return list;
 	}
 
 	@Override
@@ -64,6 +64,16 @@ public class PostcardServiceImpl implements PostcardService {
 	public Postcard remove(Postcard postcard) {
 		postcardDAO.remove(postcard.getPostcardId());
 		return postcard;
+	}
+
+	@Override
+	public Integer getSize() {
+		return postcardDAO.getSize();
+	}
+
+	@Override
+	public Integer getSizeByStudentId(Long studentId) {
+		return postcardDAO.getSizeByStudentId(studentId);
 	}
 
 }

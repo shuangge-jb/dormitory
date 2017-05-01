@@ -18,13 +18,20 @@ public interface PostcardDAO {
 	@ResultMap("com.dormitory.mapper.PostcardMapper.postcard")
 	public List<Postcard> listLimit(@Param("n") Integer n);
 
-	@Select("select * from postcard order by create_time desc limit (pageIndex-1)*pageSize,pageSize ")
+	@Select("select * from postcard order by create_time desc limit #{start},#{pageSize} ")
 	@ResultMap("com.dormitory.mapper.PostcardMapper.postcard")
-	public List<Postcard> list(@Param("pageIndex") Integer pageIndex, @Param("pageSize") Integer pageSize);
+	public List<Postcard> list(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
 
-	@Select(" select * from postcard where student_id=#{studentId} order by create_time desc limit (pageIndex-1)*pageSize,pageSize ")
+	@Select("select count(*) from postcard ")
+	public Integer getSize();
+
+	@Select(" select * from postcard where student_id=#{studentId} order by create_time desc limit #{start},#{pageSize} ")
 	@ResultMap("com.dormitory.mapper.PostcardMapper.postcard")
-	public List<Postcard> listByStudentId(@Param("studentId") Long studentId,@Param("pageIndex") Integer pageIndex, @Param("pageSize") Integer pageSize);
+	public List<Postcard> listByStudentId(@Param("studentId") Long studentId, @Param("start") Integer start,
+			@Param("pageSize") Integer pageSize);
+
+	@Select(" select count(*) from postcard where student_id=#{studentId} ")
+	public Integer getSizeByStudentId(@Param("studentId")Long studentId);
 
 	@Select(" select * from postcard where postcard_id=#{postcardId} ")
 	@ResultMap("com.dormitory.mapper.PostcardMapper.postcard")
@@ -43,5 +50,5 @@ public interface PostcardDAO {
 	public void update(Postcard postcard);
 
 	@Update(" update postcard " + " set state=0 " + " where postcard_id=#{postcardId} ")
-	public void remove(Integer postcardId);
+	public void remove(@Param("postcardId")Integer postcardId);
 }

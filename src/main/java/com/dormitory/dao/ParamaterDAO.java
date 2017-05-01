@@ -30,9 +30,10 @@ public interface ParamaterDAO {
 	@Select("select LAST_INSERT_ID()")
 	Integer getLastInsertId();
 
-	@Select(" select * from paramater where interface_id=#{interfaceId} limit (pageIndex-1)*pageSize,pageSize ")
-	List<Paramater> listByInterfaceId(@Param("interfaceId") Integer interfaceId, Integer pageIndex, Integer pageSize);
+	@Select(" select * from paramater where interface_id=#{interfaceId} limit #{start},#{pageSize} ")
+	@ResultMap("com.dormitory.mapper.ParamaterMapper.paramater")
+	List<Paramater> listByInterfaceId(@Param("interfaceId") Integer interfaceId,@Param("start") Integer start,@Param("pageSize") Integer pageSize);
 
-	@Select("select count(*) from interface where interface_id=#{interfaceId}  ")
-	Integer getSize(@Param("interfaceId") Integer interfaceId);
+	@Select("select count(*) from paramater where interface_id=#{interfaceId}  ")
+	Integer getSizeByInterfaceId(@Param("interfaceId") Integer interfaceId);
 }

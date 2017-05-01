@@ -1,5 +1,7 @@
 package com.dormitory.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
@@ -23,10 +25,16 @@ public interface MasterDAO {
 	@Options(useGeneratedKeys = true, keyProperty = "masterId")
 	public void save(Master master);
 
-	@Update("update master set name=#{name},phone_number=#{phoneNumber}, "
-			+ " email=#{email},password=#{password}")
+	@Update("update master set name=#{name},phone_number=#{phoneNumber}, " + " email=#{email},password=#{password}")
 	public void update(Master master);
 
 	@Delete("delete from master where master=#{masterId}")
 	public void remove(Master master);
+
+	@Select("select * from master limit #{start},#{pageSize}")
+	@ResultMap("com.dormitory.mapper.MasterMapper.master")
+	public List<Master> list(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
+
+	@Select("select count(*) from master ")
+	public Integer getSize();
 }

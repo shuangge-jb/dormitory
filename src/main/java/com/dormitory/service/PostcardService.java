@@ -4,9 +4,13 @@ import java.util.List;
 
 import com.dormitory.entity.Postcard;
 
-public interface PostcardService
-		extends GetService<Postcard, Integer>, ListService<Postcard>, ListLimitService<Postcard>,
-		ListByStudentIdService<Postcard>, SaveOrUpdateService<Postcard>, RemoveService<Postcard> {
+public interface PostcardService extends GetService<Postcard, Integer>, ListLimitService<Postcard>,
+		SaveOrUpdateService<Postcard>, RemoveService<Postcard> {
+	List<Postcard> list(Integer pageIndex, Integer pageSize);
 
+	Integer getSize();
 
+	List<Postcard> listByStudentId(Long studentId, Integer pageIndex, Integer pageSize);
+
+	Integer getSizeByStudentId(Long studentId);
 }

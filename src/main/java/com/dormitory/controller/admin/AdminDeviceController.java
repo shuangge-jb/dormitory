@@ -36,7 +36,7 @@ public class AdminDeviceController extends DeviceController {
 
 	@RequestMapping(value = "/saveOrUpdateDevice.do", method = RequestMethod.POST)
 	public ModelAndView saveOrUpdateDevice(@ModelAttribute(value = "device") @Valid Device device, BindingResult result,
-			@RequestParam(value = "file") MultipartFile file, HttpServletRequest request, Model model) {
+			@RequestParam(value = "file") MultipartFile[] file, HttpServletRequest request, Model model) {
 		ModelAndView modelAndView = new ModelAndView(ERROR_PAGE);
 		if (result.hasErrors()) {
 			if (LOGGER.isDebugEnabled()) {
@@ -44,31 +44,34 @@ public class AdminDeviceController extends DeviceController {
 			}
 			return modelAndView;
 		}
-		System.out.println("file:" + file);
-		if (file == null || file.isEmpty()) {
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("文件为空：");
-			}
-			return modelAndView;
-		}
-		System.out.println("file name:" + file.getOriginalFilename() + " ends with obj:"
-				+ file.getOriginalFilename().endsWith(".obj"));
-		if (!(file.getOriginalFilename().toLowerCase().endsWith(".obj")
-				|| file.getOriginalFilename().toLowerCase().endsWith(".dae"))) {
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("file参数异常：");
-			}
-			return modelAndView;
-		}
+		for (int i = 0; i < file.length; i++) {
+			System.out.println("file:" + file[i]);
 
-		// model.addAttribute("imgUrl", dirUrl+modelNameWithTimestamp);
-		// 保存上传的模型
-		fileService.saveFile(request, MODEL_DIR, file);
-		// 保存物品对象
-		String filePath = fileService.getFilePath(request, MODEL_DIR, file);
-		System.out.println("model path:" + filePath);
-		device.setModelPath(filePath);
-		deviceService.saveOrUpdate(device);
+			System.out.println("file name:" + file[i].getOriginalFilename() + " ends with obj:"
+					+ file[i].getOriginalFilename().endsWith(".obj"));
+			if (!(file[i].getOriginalFilename().toLowerCase().endsWith(".obj")
+					|| file[i].getOriginalFilename().toLowerCase().endsWith(".dae"))) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("file参数异常：");
+				}
+				return modelAndView;
+			}
+			if (file[i].getOriginalFilename().toLowerCase().endsWith(".jpg")) {
+				fileService.saveFile(request, IMG_DIR, file[i]);
+				//保存图片对象
+				String imgPath = fileService.getFilePath(request, IMG_DIR, file[i]);
+				device.setImgPath(imgPath);
+			}
+			if (file[i].getOriginalFilename().toLowerCase().endsWith(".obj")
+					|| file[i].getOriginalFilename().toLowerCase().endsWith(".dae")) {
+				fileService.saveFile(request, MODEL_DIR, file[i]);
+				// 保存模型对象
+				String filePath = fileService.getFilePath(request, MODEL_DIR, file[i]);
+				System.out.println("model path:" + filePath);
+				device.setModelPath(filePath);
+			}
+			deviceService.saveOrUpdate(device);
+		}
 		modelAndView.setViewName("/student");
 		return modelAndView;
 	}
@@ -82,14 +85,15 @@ public class AdminDeviceController extends DeviceController {
 	}
 
 	@RequestMapping(value = "saveOrUpdateInterface.do", method = RequestMethod.POST)
-	public ModelAndView saveOrUpdateInterface(@RequestParam(value = "deviceId") Long deviceId,@ModelAttribute(value="inerface")@Valid Interface face,BindingResult result,Model model){
+	public ModelAndView saveOrUpdateInterface(@RequestParam(value = "deviceId") Long deviceId,
+			@ModelAttribute(value = "inerface") @Valid Interface face, BindingResult result, Model model) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(result.hasErrors()){
+		if (result.hasErrors()) {
 			modelAndView.setViewName(ERROR_PAGE);
 			return modelAndView;
 		}
-		Device temp=deviceService.get(deviceId);
-		if(temp==null){
+		Device temp = deviceService.get(deviceId);
+		if (temp == null) {
 			modelAndView.setViewName(ERROR_PAGE);
 			model.addAttribute("status", "设备不存在");
 			return modelAndView;
@@ -98,25 +102,25 @@ public class AdminDeviceController extends DeviceController {
 		modelAndView.setViewName("");
 		return modelAndView;
 	}
+
 	@RequestMapping(value = "removeInterface.do", method = RequestMethod.POST)
 	public ModelAndView removeInterface(@RequestParam(value = "interfaceId") Integer interfaceId) {
 		ModelAndView modelAndView = new ModelAndView();
-		Interface face=interfaceService.get(interfaceId);
+		Interface face = interfaceService.get(interfaceId);
 		interfaceService.remove(face);
 		return modelAndView;
 	}
-	
-	
-	
+
 	@RequestMapping(value = "saveOrUpdateParamater.do", method = RequestMethod.POST)
-	public ModelAndView saveOrUpdateParamater(@RequestParam(value = "interfaceId") Integer interfaceId,@ModelAttribute(value="paramater")@Valid Paramater paramater,BindingResult result,Model model){
+	public ModelAndView saveOrUpdateParamater(@RequestParam(value = "interfaceId") Integer interfaceId,
+			@ModelAttribute(value = "paramater") @Valid Paramater paramater, BindingResult result, Model model) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(result.hasErrors()){
+		if (result.hasErrors()) {
 			modelAndView.setViewName(ERROR_PAGE);
 			return modelAndView;
 		}
-		Paramater temp=paramaterService.get(interfaceId);
-		if(temp==null){
+		Paramater temp = paramaterService.get(interfaceId);
+		if (temp == null) {
 			modelAndView.setViewName(ERROR_PAGE);
 			model.addAttribute("status", "接口不存在");
 			return modelAndView;
@@ -125,10 +129,11 @@ public class AdminDeviceController extends DeviceController {
 		modelAndView.setViewName("");
 		return modelAndView;
 	}
+
 	@RequestMapping(value = "removeParamater.do", method = RequestMethod.POST)
 	public ModelAndView removeParamater(@RequestParam(value = "paramaterId") Integer paramaterId) {
 		ModelAndView modelAndView = new ModelAndView();
-		Paramater paramater=paramaterService.get(paramaterId);
+		Paramater paramater = paramaterService.get(paramaterId);
 		paramaterService.remove(paramater);
 		return modelAndView;
 	}

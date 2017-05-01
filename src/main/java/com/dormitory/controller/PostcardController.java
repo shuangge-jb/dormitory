@@ -1,9 +1,6 @@
 package com.dormitory.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -13,40 +10,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.student.StudentController;
-import com.dormitory.entity.LostFound;
-import com.dormitory.service.LostFoundService;
+import com.dormitory.entity.Postcard;
+import com.dormitory.service.PostcardService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
-public class LostFoundController {
+public class PostcardController {
 	@Resource
-	protected LostFoundService lostFoundService;
+	protected PostcardService postcardService;
 	protected static final String ERROR_PAGE = "error";
 	protected static final String OPERATE_SUCCESS = "操作成功";
 	protected static final String REMOVE_SUCCESS = "删除成功";
-	protected static final Logger LOGGER = LoggerFactory.getLogger(LostFoundController.class);
+	protected static final Logger LOGGER = LoggerFactory.getLogger(PostcardController.class);
 
-	@RequestMapping(value = "listLostFound.do")
+	@RequestMapping(value = "getPostcard.do")
 	@ResponseBody
-	public String listLostFound(@RequestParam(value = "pageIndex") Integer pageIndex,
-			@RequestParam(value = "pageSize") Integer pageSize) {
-		List<LostFound> list = lostFoundService.list(pageIndex, pageSize);
-		Integer total = lostFoundService.getSize();
-		Map<String, Object> map = new HashMap<String, Object>(3);
-		map.put("data", list);
-		map.put("total", total);
-		return toJSON(map);
-	}
-
-	@RequestMapping(value = "getLostFound.do")
-	@ResponseBody
-	public String getLostFound(@RequestParam(value = "lostFoundId") Integer lostFoundId) {
-		LostFound lost = lostFoundService.get(lostFoundId);
-		return toJSON(lost);
+	public String getPostcard(@RequestParam(value = "postcardId") Integer postcardId) {
+		Postcard card = postcardService.get(postcardId);
+		return toJSON(card);
 	}
 
 	protected String toJSON(Object obj) {

@@ -31,9 +31,10 @@ public interface InterfaceDAO {
 	@Select("select LAST_INSERT_ID()")
 	Integer getLastInsertId();
 
-	@Select("select * from interface where device_id=#{deviceId} limit (pageIndex-1)*pageSize,pageSize ")
-	List<Interface> listByDeviceId(@Param("deviceId") Long deviceId, Integer pageIndex, Integer pageSize);
+	@Select("select * from interface where device_id=#{deviceId} limit #{start},#{pageSize} ")
+	@ResultMap("com.dormitory.mapper.InterfaceMapper.interface")
+	List<Interface> listByDeviceId(@Param("deviceId") Long deviceId, @Param("start")Integer start,@Param("pageSize") Integer pageSize);
 
 	@Select("select count(*) from interface where device_id=#{deviceId} ")
-	Integer getSize(@Param("deviceId") Long deviceId);
+	Integer getSizeByDeviceId(@Param("deviceId") Long deviceId);
 }

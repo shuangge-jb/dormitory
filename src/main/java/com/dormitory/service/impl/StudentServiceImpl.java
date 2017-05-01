@@ -64,4 +64,15 @@ public class StudentServiceImpl implements StudentService {
 		return studentDAO.getLastInsertId();
 	}
 
+	@Override
+	public List<Student> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize) {
+		Integer start=(pageIndex-1)*pageSize;
+		return studentDAO.listByBuildingId(buildingId, start, pageSize);
+	}
+
+	@Override
+	public Integer getSizeByBuildingId(Integer buildingId) {
+		return studentDAO.getSizeByBuildingId();
+	}
+
 }

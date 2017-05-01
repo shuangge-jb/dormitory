@@ -12,11 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.RepairRecordController;
 import com.dormitory.entity.RepairRecord;
+import com.dormitory.service.MasterService;
 import com.dormitory.service.RepairRecordService;
 
 @Controller
 @RequestMapping(value="/master")
 public class MasterRepairRecordController extends RepairRecordController{
+	@Resource
+	private MasterService masterService;
 	@RequestMapping(value = "saveOrUpdateRepairRecord.do", method = RequestMethod.POST)
 	public ModelAndView saveOrUpdateRepairRecord(
 			@ModelAttribute(value = "repairRecord") @Valid RepairRecord repairRecord, BindingResult result) {
