@@ -52,7 +52,7 @@ String path = request.getContextPath();
 				</li>
 				<li>
 				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
-				    &nbsp;<a target="main" href="<%=path%>/adminHospitalAction.action" style="text-decoration:none;color:blue;">设备管理</a>	   			
+				    &nbsp;<a target="main" href="<%=path%>/listDevice.do?pageIndex=1&pageSize=10" style="text-decoration:none;color:blue;">设备管理</a>	   			
 				</li>
 				<li>
 				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
