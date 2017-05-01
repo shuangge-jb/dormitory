@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -8,7 +8,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    
     <title>My JSP 'index.jsp' starting page</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -19,8 +18,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
   </head>
-  
+  <a href="<%=path %>/jsp/login.jsp">login</a>
+  <a href="<%=path %>/jsp/register.jsp">register</a>
   <body>
     This is my JSP page. <br>
+    dormitoryId:${dormitoryId }
+	<br> studentId:${studentId }
+	<br>
+	图片：url:<a ><%=path%>/images/发票.jpg</a><img src="<%=path%>/images/1.jpg"/>
   </body>
 </html>

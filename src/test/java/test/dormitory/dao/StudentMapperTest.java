@@ -2,6 +2,8 @@ package test.dormitory.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import com.dormitory.entity.Student;
 "classpath:spring-mybatis.xml" })  
 public class StudentMapperTest{
 	@Autowired
-private StudentDAO userDAO;
+private StudentDAO studentDAO;
 	@Test
 	public void testInsert() {
 		fail("Not yet implemented");
@@ -28,7 +30,7 @@ private StudentDAO userDAO;
 
 	@Test
 	public void testSelectByPrimaryKey() {
-		Student student=userDAO.get(201330610505L);
+		Student student=studentDAO.get(201330610505L);
 		assertNotNull(student);
 		assertEquals("爽哥", student.getName());
 	}
@@ -42,5 +44,9 @@ private StudentDAO userDAO;
 	public void testUpdateByPrimaryKey() {
 		fail("Not yet implemented");
 	}
-
+	@Test
+	public void testListByBuildingId(){
+		List<Student> list=studentDAO.list(1, 1);
+		System.out.println("list size:"+list.size());
+	}
 }

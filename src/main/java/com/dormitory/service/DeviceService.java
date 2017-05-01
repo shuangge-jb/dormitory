@@ -15,6 +15,6 @@ public interface DeviceService
 		 RemoveService<Device>
 		{
 	public List<Device> list(Integer pageIndex,Integer pageSize);
-	public Integer getSize();
+	public Long getSize();
 	
 }

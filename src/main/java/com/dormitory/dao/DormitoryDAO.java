@@ -28,4 +28,6 @@ public interface DormitoryDAO {
 	@Select("select * from dormitory where building_id=#{buildingId} and room=#{room} ")
 	@ResultMap("com.dormitory.mapper.DormitoryMapper.dormitory")
 	Dormitory getByBuildingIdAndRoom(@Param(value="buildingId")Integer buildingId,@Param(value="room")String room);
+
+
 }

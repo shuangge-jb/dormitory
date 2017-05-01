@@ -12,5 +12,4 @@ public interface AnnouncementService extends GetService<Announcement, Integer>,
 	List<Announcement> listByDormitoryId(Integer dormitoryId,Integer pageIndex, Integer pageSize);
 	Integer getSize();
 	Integer getSizeByBuildingId(Integer buildingId);
-	Integer getSizeByDormitoryId(Integer dormitoryId);
 }

@@ -2,14 +2,24 @@ package com.dormitory.entity;
 
 import java.sql.Timestamp;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Announcement {
 	protected Integer announcementId;
 	protected String title;
+	@Size(max=255)
+	@NotEmpty
 	protected String content;
 	protected String imgPath;
+	@NotNull
 	protected Integer authorId;
+	@NotNull
 	protected Timestamp createTime;
 	protected Integer importance;
+	protected Integer buildingId;
 
 	public Integer getAnnouncementId() {
 		return announcementId;
@@ -67,11 +77,19 @@ public class Announcement {
 		this.importance = importance;
 	}
 
+	public Integer getBuildingId() {
+		return buildingId;
+	}
+
+	public void setBuildingId(Integer buildingId) {
+		this.buildingId = buildingId;
+	}
+
 	@Override
 	public String toString() {
 		return "Announcement [announcementId=" + announcementId + ", title=" + title + ", content=" + content
 				+ ", imgPath=" + imgPath + ", authorId=" + authorId + ", createTime=" + createTime + ", importance="
-				+ importance + "]";
+				+ importance + ", buildingId=" + buildingId + "]";
 	}
 
 }

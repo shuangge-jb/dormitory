@@ -50,13 +50,14 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public List<Master> list() {
-		
-		return masterDAO.list();
+		Integer total=masterDAO.getSize();
+		return list(0,total);
 	}
 
 	@Override
 	public List<Master> list(Integer pageIndex, Integer pageSize) {
-		return masterDAO.list(pageIndex, pageSize);
+		Integer start=(pageIndex-1)*pageSize;
+		return masterDAO.list(start, pageSize);
 	}
 
 	@Override

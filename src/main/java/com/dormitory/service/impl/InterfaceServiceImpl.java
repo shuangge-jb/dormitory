@@ -44,7 +44,8 @@ private InterfaceDAO interfaceDAO;
 	}
 	@Override
 	public List<Interface> listByDeviceId(Long deviceId,Integer pageIndex,Integer pageSize){
-		List<Interface>list=interfaceDAO.listByDeviceId(deviceId,pageIndex,pageSize);
+		Integer start=(pageIndex-1)*pageSize;
+		List<Interface>list=interfaceDAO.listByDeviceId(deviceId,start,pageSize);
 		return list;
 	}
 	

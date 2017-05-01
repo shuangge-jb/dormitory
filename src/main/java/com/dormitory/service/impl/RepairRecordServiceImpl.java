@@ -19,15 +19,10 @@ public class RepairRecordServiceImpl implements RepairRecordService {
 	private RepairRecordDAO repairRecordDAO;
 
 	@Override
-	public Map<String,Object> list(Integer pageIndex,Integer pageSize) {
-		Map<String,Object> map=new HashMap<String,Object>(3);
-		List<RepairRecord> list=repairRecordDAO.list(pageIndex,pageSize);
-		map.put("list", list);
-		Integer total=repairRecordDAO.getSize();
-		map.put("total", total);
-		boolean result=(list!=null);
-		map.put("result", result);
-		return map;
+	public List<RepairRecord> list(Integer pageIndex, Integer pageSize) {
+		Integer start = (pageIndex - 1) * pageSize;
+		List<RepairRecord> list = repairRecordDAO.list(start, pageSize);
+		return list;
 	}
 
 	@Override
@@ -36,15 +31,10 @@ public class RepairRecordServiceImpl implements RepairRecordService {
 	}
 
 	@Override
-	public Map<String,Object> listByDormitoryId(Integer dormitoryId,Integer pageIndex,Integer pageSize) {
-		Map<String,Object> map=new HashMap<String,Object>(3);
-		List<RepairRecord> list=repairRecordDAO.listByDormitoryId(dormitoryId,pageIndex,pageSize);
-		map.put("list", list);
-		Integer total=repairRecordDAO.getSizeByDormitoryId(dormitoryId);
-		map.put("total", total);
-		boolean result=(list!=null);
-		map.put("result", result);
-		return map;
+	public List<RepairRecord> listByDormitoryId(Integer dormitoryId, Integer pageIndex, Integer pageSize) {
+		Integer start = (pageIndex - 1) * pageSize;
+		List<RepairRecord> list = repairRecordDAO.listByDormitoryId(dormitoryId, start, pageSize);
+		return list;
 	}
 
 	@Override
@@ -55,8 +45,7 @@ public class RepairRecordServiceImpl implements RepairRecordService {
 	@Transactional
 	@Override
 	public RepairRecord saveOrUpdate(RepairRecord repairRecord) {
-		RepairRecord temp = repairRecordDAO.get(repairRecord
-				.getRepairRecordId());
+		RepairRecord temp = repairRecordDAO.get(repairRecord.getRepairRecordId());
 		if (temp == null) {
 			repairRecordDAO.save(repairRecord);
 		} else {
@@ -77,6 +66,14 @@ public class RepairRecordServiceImpl implements RepairRecordService {
 		return repairRecordDAO.gerLastInsertId();
 	}
 
-	
+	@Override
+	public Integer getSize() {
+		return repairRecordDAO.getSize();
+	}
+
+	@Override
+	public Integer getSizeByDormitoryId(Integer dormitoryId) {
+		return repairRecordDAO.getSizeByDormitoryId(dormitoryId);
+	}
 
 }

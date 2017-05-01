@@ -1,6 +1,7 @@
 package com.dormitory.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,18 +31,23 @@ public class RepairRecordController {
 	protected static final String OPERATE_SUCCESS = "操作成功";
 	protected static final String REMOVE_SUCCESS = "删除成功";
 	protected static final Logger LOGGER = LoggerFactory.getLogger(RepairRecordController.class);
+
 	@RequestMapping(value = "listRepairRecord.do")
 	@ResponseBody
 	public String listRepairRecord(@RequestParam(value = "pageIndex") Integer pageIndex,
 			@RequestParam(value = "pageSize") Integer pageSize) {
-		Map<String,Object>map=repairRecordService.list(pageIndex, pageSize);
+		List<RepairRecord> list = repairRecordService.list(pageIndex, pageSize);
+		Integer total = repairRecordService.getSize();
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		map.put("data", list);
+		map.put("total", total);
 		return toJSON(map);
 	}
 
 	@RequestMapping(value = "listRepairRecordLimit.do")
 	@ResponseBody
 	public String listRepairRecordLimit(@RequestParam(value = "n") Integer n) {
-		List<RepairRecord>list=repairRecordService.listLimit(n);
+		List<RepairRecord> list = repairRecordService.listLimit(n);
 		return toJSON(list);
 	}
 
@@ -49,12 +55,24 @@ public class RepairRecordController {
 	@ResponseBody
 	public String listRepairRecordByDormitoryId(@RequestParam(value = "dormitoryId") Integer dormitoryId,
 			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
-		Map<String,Object>map=repairRecordService.listByDormitoryId(dormitoryId,pageIndex,pageSize);
+		List<RepairRecord> list = repairRecordService.listByDormitoryId(dormitoryId, pageIndex, pageSize);
+		Integer total = repairRecordService.getSizeByDormitoryId(dormitoryId);
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		map.put("data", list);
+		map.put("total", total);
 		return toJSON(map);
 	}
+
+	@RequestMapping(value = "getRepiarRecord.do")
+	@ResponseBody
+	public String getRepiarRecord(@RequestParam(value = "repairRecordId") Integer repairRecordId) {
+		RepairRecord record = repairRecordService.get(repairRecordId);
+		return toJSON(record);
+	}
+
 	protected String toJSON(Object obj) {
 		ObjectMapper mapper = new ObjectMapper();
-		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		mapper.setDateFormat(format);
 		String result = null;
 		try {

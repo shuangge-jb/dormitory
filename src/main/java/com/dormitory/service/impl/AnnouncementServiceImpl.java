@@ -57,12 +57,14 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	}
 	@Override
 	public List<Announcement> list(Integer pageIndex,Integer pageSize) {
-		List<Announcement>list=announcementDAO.list(pageIndex,pageSize);
+		Integer start=(pageIndex-1)*pageSize;
+		List<Announcement>list=announcementDAO.list(start,pageSize);
 		return list;
 	}
 	@Override
 	public List<Announcement> listByBuildingId(Integer buildingId,Integer pageIndex,Integer pageSize) {
-		List<Announcement>list=announcementDAO.listByBuildingId(buildingId, pageIndex, pageSize);
+		Integer start=(pageIndex-1)*pageSize;
+		List<Announcement>list=announcementDAO.listByBuildingId(buildingId, start, pageSize);
 		
 		return list;
 	}
@@ -83,10 +85,4 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		return announcementDAO.getSizeByBuildingId(buildingId);
 	}
 
-	@Override
-	public Integer getSizeByDormitoryId(Integer dormitoryId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

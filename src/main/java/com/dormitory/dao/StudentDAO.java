@@ -1,8 +1,11 @@
 package com.dormitory.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -34,4 +37,21 @@ public interface StudentDAO {
 
 	@Select(" select LAST_INSERT_ID() ")
 	Long getLastInsertId();
+
+	@Select("select * from student limit #{start},#{pageSize}")
+	@ResultMap("com.dormitory.mapper.StudentMapper.student")
+	public List<Student> list(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
+
+	@Select("select count(*) from student ")
+	public Integer getSize();
+
+	@Select("select s.* from student s join dormitory d on s.dormitory_id=d.dormitory_id "
+			+ " where d.building_id=#{buildingId} limit #{start},#{pageSize}")
+	@ResultMap("com.dormitory.mapper.StudentMapper.student")
+	public List<Student> listByBuildingId(@Param("buildingId") Integer buildingId,
+			@Param("start") Integer start, @Param("pageSize") Integer pageSize);
+
+	@Select("select count(s.*) from student s join dormitory d on s.dormitory_id=d.dormitory_id "
+			+ " where d.building_id=#{buildingId} ")
+	public Integer getSizeByBuildingId();
 }

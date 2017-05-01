@@ -4,8 +4,13 @@ import java.util.List;
 
 import com.dormitory.entity.RepairRecord;
 
-public interface RepairRecordService extends GetService<RepairRecord,Integer>,ListService<RepairRecord>, ListLimitService<RepairRecord>,
-		ListByDormitoryIdService<RepairRecord>, SaveOrUpdateService<RepairRecord>, RemoveService<RepairRecord> {
+public interface RepairRecordService extends GetService<RepairRecord, Integer>, ListLimitService<RepairRecord>,
+		SaveOrUpdateService<RepairRecord>, RemoveService<RepairRecord> {
+	List<RepairRecord> list(Integer pageIndex, Integer pageSize);
 
+	Integer getSize();
 
+	List<RepairRecord> listByDormitoryId(Integer dormitoryId, Integer pageIndex, Integer pageSize);
+
+	Integer getSizeByDormitoryId(Integer dormitoryId);
 }

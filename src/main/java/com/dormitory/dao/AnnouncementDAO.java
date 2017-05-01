@@ -25,18 +25,24 @@ public interface AnnouncementDAO {
 	@ResultMap("com.dormitory.mapper.AnnouncementMapper.announcement")
 	public List<Announcement> listLimit(@Param("n") Integer n);
 
-	@Select(" select * from announcement order by create_time desc limit (pageIndex-1)*pageSize,pageSize ")
+	@Select(" select * from announcement order by create_time desc limit #{start},#{pageSize} ")
 	@ResultMap("com.dormitory.mapper.AnnouncementMapper.announcement")
-	public List<Announcement> list(@Param("pageIndex") Integer pageIndex, @Param("pageSize") Integer pageSize);
+	public List<Announcement> list(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
 
-	@Select(" select * from announcement where building_id=#{buildingId} order by create_time desc limit (pageIndex-1)*pageSize,pageSize ")
+	@Select(" select * from announcement where building_id=#{buildingId} order by create_time desc limit #{start},#{pageSize} ")
 	@ResultMap("com.dormitory.mapper.AnnouncementMapper.announcement")
-	public List<Announcement> listByBuildingId(@Param("buildingId")Integer buildingId,@Param("pageIndex") Integer pageIndex, @Param("pageSize") Integer pageSize);
+	public List<Announcement> listByBuildingId(@Param("buildingId") Integer buildingId,
+			@Param("start") Integer start, @Param("pageSize") Integer pageSize);
+
+	@Select(" select * from announcement where building_id=#{buildingId} order by create_time desc limit #{n}")
+	@ResultMap("com.dormitory.mapper.AnnouncementMapper.announcement")
+	public List<Announcement> listByBuildingIdLimit(@Param("buildingId") Integer buildingId, @Param("n") Integer n);
+
 	@Select("select count(*) from announcement ")
 	public Integer getSize();
-	
+
 	@Select(" select count(*) from announcement where building_id=#{buildingId}")
-	public Integer getSizeByBuildingId(@Param("buildingId")Integer buildingId);
+	public Integer getSizeByBuildingId(@Param("buildingId") Integer buildingId);
 
 	/**
 	 * 由主键查找对象
@@ -89,7 +95,5 @@ public interface AnnouncementDAO {
 	 */
 	@Delete("delete from announcement where announcement_id=#{announcementId} ")
 	public void remove(Announcement announcement);
-	
-	
 
 }

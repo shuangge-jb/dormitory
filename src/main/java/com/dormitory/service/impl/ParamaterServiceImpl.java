@@ -46,7 +46,8 @@ public class ParamaterServiceImpl implements ParamaterService {
 
 	@Override
 	public List<Paramater> listByInterfaceId(Integer interfaceId, Integer pageIndex, Integer pageSize) {
-		List<Paramater> list = paramaterDAO.listByInterfaceId(interfaceId, pageIndex, pageSize);
+		Integer start=(pageIndex-1)*pageSize;
+		List<Paramater> list = paramaterDAO.listByInterfaceId(interfaceId, start, pageSize);
 		return list;
 	}
 

@@ -32,10 +32,10 @@ public interface DeviceDAO {
 	@Delete("delete from device where device_id=#{deviceId}")
 	public void remove(Device device);
 
-	@Select("select * from device limit (pageIndex-1)*pageSize,pageSize")
+	@Select("select * from device limit #{start},#{pageSize}")
 	@ResultMap("com.dormitory.mapper.DeviceMapper.device")
-	public List<Device> list(@Param("pageIndex") Integer pageIndex, @Param("pageSize") Integer pageSize);
+	public List<Device> list(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
 
 	@Select("select count(*) from device ")
-	public Integer getSize();
+	public Long getSize();
 }

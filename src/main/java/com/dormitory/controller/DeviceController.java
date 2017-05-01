@@ -33,11 +33,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class DeviceController {
+	protected static final String IMG_DIR = "/images/";
 	protected static final String MODEL_DIR = "/models/";
 	protected static final String ERROR_PAGE = "error";
 	protected static final String OPERATE_SUCCESS = "操作成功";
 	protected static final String REMOVE_SUCCESS = "删除成功";
-	protected static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
+	protected static final Logger LOGGER = LoggerFactory.getLogger(DeviceController.class);
 	@Resource
 	protected DeviceService deviceService;
 	@Resource
@@ -46,18 +47,29 @@ public class DeviceController {
 	protected ParamaterService paramaterService;
 	@Resource
 	protected HTTPService httpService;
-
+	
 	@RequestMapping(value = "listDevice.do")
 	public ModelAndView listDevice(@RequestParam(value = "pageIndex") Integer pageIndex,
 			@RequestParam(value = "pageSize") Integer pageSize) {
 		List<Device> list = deviceService.list(pageIndex, pageSize);
-		Integer total = deviceService.getSize();
+		Long total = deviceService.getSize();
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("data", list);
-		modelAndView.addObject("total", total);
+		if(pageSize==null||pageSize==0){
+			modelAndView.setViewName(ERROR_PAGE);
+			return modelAndView;
+		}
+		Long count=getTotalPages(total, pageSize);
+		modelAndView.addObject("totalPage",count);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;
 	}
-
+	private long getTotalPages(Long count ,Integer pageSize){
+		long totalPages = 0;
+		totalPages = (count%pageSize==0)?(count/pageSize):(count/pageSize+1);
+		return totalPages;
+	}
 	@RequestMapping(value = "listInterfaceByDeviceId.do")
 	public ModelAndView listInterfaceByDeviceId(@RequestParam(value = "deviceId") Long deviceId,
 			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
@@ -116,5 +128,6 @@ public class DeviceController {
 		}
 		return result;
 	}
+	
 
 }

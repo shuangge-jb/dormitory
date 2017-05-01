@@ -25,18 +25,16 @@ public interface MasterDAO {
 	@Options(useGeneratedKeys = true, keyProperty = "masterId")
 	public void save(Master master);
 
-	@Update("update master set name=#{name},phone_number=#{phoneNumber}, "
-			+ " email=#{email},password=#{password}")
+	@Update("update master set name=#{name},phone_number=#{phoneNumber}, " + " email=#{email},password=#{password}")
 	public void update(Master master);
 
 	@Delete("delete from master where master=#{masterId}")
 	public void remove(Master master);
-	@Select("select * from master ")
+
+	@Select("select * from master limit #{start},#{pageSize}")
 	@ResultMap("com.dormitory.mapper.MasterMapper.master")
-	public List<Master> list();
-	@Select("select * from master limit (pageIndex-1)*pageSize,pageSize")
-	@ResultMap("com.dormitory.mapper.MasterMapper.master")
-	public List<Master> list(@Param("pageIndex")Integer pageIndex,@Param("pageSize")Integer pageSize);
+	public List<Master> list(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
+
 	@Select("select count(*) from master ")
 	public Integer getSize();
 }
