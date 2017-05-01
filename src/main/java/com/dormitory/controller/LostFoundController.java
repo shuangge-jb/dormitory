@@ -36,12 +36,19 @@ public class LostFoundController {
 			@RequestParam(value = "pageSize") Integer pageSize) {
 		List<LostFound> list = lostFoundService.list(pageIndex, pageSize);
 		Integer total = lostFoundService.getSize();
+		Integer count=getTotalPages(total, pageSize);
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		map.put("data", list);
-		map.put("total", total);
+		map.put("totalPage", count);
+		map.put("pageIndex", pageIndex);
+		map.put("pageSize", pageSize);
 		return toJSON(map);
 	}
-
+	private int getTotalPages(Integer count ,Integer pageSize){
+		int totalPages = 0;
+		totalPages = (count%pageSize==0)?(count/pageSize):(count/pageSize+1);
+		return totalPages;
+	}
 	@RequestMapping(value = "getLostFound.do")
 	@ResponseBody
 	public String getLostFound(@RequestParam(value = "lostFoundId") Integer lostFoundId) {

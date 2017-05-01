@@ -70,14 +70,26 @@ public class DeviceController {
 		totalPages = (count%pageSize==0)?(count/pageSize):(count/pageSize+1);
 		return totalPages;
 	}
+	private int getTotalPages(Integer count ,Integer pageSize){
+		int totalPages = 0;
+		totalPages = (count%pageSize==0)?(count/pageSize):(count/pageSize+1);
+		return totalPages;
+	}
 	@RequestMapping(value = "listInterfaceByDeviceId.do")
 	public ModelAndView listInterfaceByDeviceId(@RequestParam(value = "deviceId") Long deviceId,
 			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
 		List<Interface> list = interfaceService.listByDeviceId(deviceId, pageIndex, pageSize);
 		Integer total = interfaceService.getSizeByDeviceId(deviceId);
 		ModelAndView modelAndView = new ModelAndView();
+		if(pageSize==null||pageSize==0){
+			modelAndView.setViewName(ERROR_PAGE);
+			return modelAndView;
+		}
+		Integer count=getTotalPages(total, pageSize);
 		modelAndView.addObject("data", list);
-		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPage",count);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;
 	}
 
@@ -87,8 +99,15 @@ public class DeviceController {
 		List<Paramater> list = paramaterService.listByInterfaceId(interfaceId, pageIndex, pageSize);
 		Integer total = paramaterService.getSizeByInterfaceId(interfaceId);
 		ModelAndView modelAndView = new ModelAndView();
+		if(pageSize==null||pageSize==0){
+			modelAndView.setViewName(ERROR_PAGE);
+			return modelAndView;
+		}
+		Integer count=getTotalPages(total, pageSize);
 		modelAndView.addObject("data", list);
-		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPage",count);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;
 	}
 
@@ -123,7 +142,7 @@ public class DeviceController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("序列化Announcement对象时出错", e);
+				LOGGER.debug("序列化对象时出错", e);
 			}
 		}
 		return result;

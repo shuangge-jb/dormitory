@@ -6,27 +6,32 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.dormitory.validator.Register;
+import com.dormitory.validator.StudentRegister;
+
 public class Dormitory {
-	//@NotNull
+	
 	protected Integer dormitoryId;
-	//@NotNull
+	
 	protected Integer buildingId;
-	@NotNull(message = "doritory.room.null")
-	@NotEmpty(message="dormitory.room.empty")
-	@NotBlank
-	@Pattern(regexp = "[1-7][0-5][0-9]",message="dormitory.room.illegal")
+	@NotNull(message = "doritory.room.null", groups = { StudentRegister.class })
+	@NotEmpty(message = "dormitory.room.empty", groups = { StudentRegister.class })
+	@NotBlank(groups = { StudentRegister.class })
+	@Pattern(regexp = "[1-7][0-5][0-9]", message = "dormitory.room.illegal", groups = { StudentRegister.class })
 	protected String room;
 
 	public Dormitory() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	public Dormitory(Dormitory dormitory) {
 		super();
-		this.buildingId=dormitory.buildingId;
-		this.dormitoryId=dormitory.dormitoryId;
-		this.room=dormitory.room;
+		this.buildingId = dormitory.buildingId;
+		this.dormitoryId = dormitory.dormitoryId;
+		this.room = dormitory.room;
 	}
+
 	public Integer getDormitoryId() {
 		return dormitoryId;
 	}
@@ -34,8 +39,6 @@ public class Dormitory {
 	public void setDormitoryId(Integer dormitoryId) {
 		this.dormitoryId = dormitoryId;
 	}
-
-	
 
 	public Integer getBuildingId() {
 		return buildingId;

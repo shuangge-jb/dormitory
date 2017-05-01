@@ -44,7 +44,7 @@ public class AdminController {
 		if (name.equals("admin") && password.equals("admin")) {
 			return "adminMain";
 		} else {
-			return "redirect:/login";
+			return "redirect:../admin/login.jsp";
 		}
 
 	}

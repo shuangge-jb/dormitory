@@ -1,8 +1,12 @@
 package com.dormitory.dto;
 
+import javax.validation.constraints.NotNull;
+
 import com.dormitory.entity.Dormitory;
+import com.dormitory.validator.StudentRegister;
 
 public class DormitoryDTO extends Dormitory {
+	@NotNull(groups={StudentRegister.class})
 	protected String buildingName;
 
 	public DormitoryDTO() {

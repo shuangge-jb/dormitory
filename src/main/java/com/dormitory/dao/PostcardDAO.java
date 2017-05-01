@@ -31,7 +31,17 @@ public interface PostcardDAO {
 			@Param("pageSize") Integer pageSize);
 
 	@Select(" select count(*) from postcard where student_id=#{studentId} ")
-	public Integer getSizeByStudentId(@Param("studentId")Long studentId);
+	public Integer getSizeByStudentId(@Param("studentId") Long studentId);
+
+	@Select(" select c.* from postcard c join dormitory d on c.dormitory_id =d.dormitory_id "
+			+ " where d.building_id=#{buildingId} order by c.create_time desc limit #{start},#{pageSize} ")
+	@ResultMap("com.dormitory.mapper.PostcardMapper.postcard")
+	public List<Postcard> listByBuildingId(@Param("buildingId") Integer buildingId, @Param("start") Integer start,
+			@Param("pageSize") Integer pageSize);
+
+	@Select(" select count(c.*) from postcard c join dormitory d on c.dormitory_id =d.dormitory_id "
+			+ " where d.building_id=#{buildingId} ")
+	public Integer getSizeByBuildingId(@Param("buildingId") Integer buildingId);
 
 	@Select(" select * from postcard where postcard_id=#{postcardId} ")
 	@ResultMap("com.dormitory.mapper.PostcardMapper.postcard")
@@ -50,5 +60,5 @@ public interface PostcardDAO {
 	public void update(Postcard postcard);
 
 	@Update(" update postcard " + " set state=0 " + " where postcard_id=#{postcardId} ")
-	public void remove(@Param("postcardId")Integer postcardId);
+	public void remove(@Param("postcardId") Integer postcardId);
 }

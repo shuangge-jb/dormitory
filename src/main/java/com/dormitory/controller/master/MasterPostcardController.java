@@ -41,4 +41,6 @@ public class MasterPostcardController extends PostcardController {
 		postcardService.remove(postcard);
 		return modelAndView;
 	}
+	
+	
 }

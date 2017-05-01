@@ -27,10 +27,17 @@ public class StudentPostcardController extends PostcardController {
 			@RequestParam("pageSize") Integer pageSize) {
 		List<Postcard> list = postcardService.listByStudentId(studentId, pageIndex, pageSize);
 		Integer total = postcardService.getSizeByStudentId(studentId);
+		Integer count=getTotalPages(total, pageSize);
 		Map<String, Object> map = new HashMap<String, Object>(2);
 		map.put("data", list);
-		map.put("total", total);
+		map.put("totalPage", count);
+		map.put("pageIndex", pageIndex);
+		map.put("pageSize", pageSize);
 		return toJSON(map);
 	}
-	
+	private int getTotalPages(Integer count ,Integer pageSize){
+		int totalPages = 0;
+		totalPages = (count%pageSize==0)?(count/pageSize):(count/pageSize+1);
+		return totalPages;
+	}
 }

@@ -11,6 +11,7 @@ public class Device {
 	@Length(min = 1, max = 20, message = "{device.name.length.illegal}")
 	@Pattern(regexp = "^[\u4e00-\u9fa5_a-zA-Z0-9]+$", message = "{article.name.illegal}")
 	protected String name;
+	protected String type;
 	protected String imgPath;
 	protected String description;
 	protected String modelPath;
@@ -59,9 +60,18 @@ public class Device {
 		this.modelPath = modelPath;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	@Override
 	public String toString() {
-		return "Device [deviceId=" + deviceId + ", name=" + name + ", imgPath=" + imgPath + ", description="
-				+ description + ", modelPath=" + modelPath + "]";
+		return "Device [deviceId=" + deviceId + ", name=" + name + ", type=" + type + ", imgPath=" + imgPath
+				+ ", description=" + description + ", modelPath=" + modelPath + "]";
 	}
+
 }

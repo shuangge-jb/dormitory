@@ -1,7 +1,15 @@
 package com.dormitory.entity;
 
+import javax.validation.constraints.NotNull;
+
+import com.dormitory.validator.MasterLogin;
+import com.dormitory.validator.MasterRegister;
+import com.dormitory.validator.Register;
+
 public class Master extends User {
+	
 	protected Integer masterId;
+	
 	protected Integer buildingId;
 
 	public Master() {

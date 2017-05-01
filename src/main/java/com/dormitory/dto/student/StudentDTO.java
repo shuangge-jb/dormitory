@@ -13,49 +13,52 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.dormitory.entity.Student;
+import com.dormitory.validator.StudentLogin;
+import com.dormitory.validator.StudentRegister;
 
 public class StudentDTO {
 
-	@NotNull(message = "{student.studentId.null}")
+	@NotNull(message = "{student.studentId.null}",groups={StudentRegister.class,StudentLogin.class})
 	protected Long studentId;
 
 	@Max(4)
 	@Min(1)
 	// @NotEmpty(message = "{student.bedId.null}")
+	@NotNull(groups={StudentRegister.class})
 	protected Integer bedId;
 
-	@NotEmpty(message = "{user.name.null}")
-	@Length(min = 2, max = 20, message = "{user.name.length.illegal}")
-	@Pattern(regexp = "[a-zA-Z\u4e00-\u9fa5]{2,20}", message = "{user.name.illegal}")
+	@NotEmpty(message = "{user.name.null}",groups={StudentRegister.class})
+	@Length(min = 2, max = 20, message = "{user.name.length.illegal}",groups={StudentRegister.class})
+	@Pattern(regexp = "[a-zA-Z\u4e00-\u9fa5]{2,20}", message = "{user.name.illegal}",groups={StudentRegister.class})
 	protected String name;
 	@NotNull(message = "{user.phoneNumber.null}")
 	 @Length(min = 11, max = 11, message =
-	 "{user.phoneNumber.length.illegal}")
+	 "{user.phoneNumber.length.illegal}",groups={StudentRegister.class})
 	 @Pattern(regexp =
 	 "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$", message =
-	 "{user.phoneNumber.illegal}")
+	 "{user.phoneNumber.illegal}",groups={StudentRegister.class})
 	protected String phoneNumber;
-	@NotEmpty(message = "{user.email.null}")
-	@Length(min = 5, max = 50, message = "{user.email.length.illegal}")
-	@Email(message = "{user.email.illegal}")
+	@NotEmpty(message = "{user.email.null}",groups={StudentRegister.class})
+	@Length(min = 5, max = 50, message = "{user.email.length.illegal}",groups={StudentRegister.class})
+	@Email(message = "{user.email.illegal}",groups={StudentRegister.class})
 	protected String email;
-	@NotEmpty(message = "{user.password.null}")
-	@Length(min = 5, max = 20, message = "{user.password.length.illegal}")
-	@Pattern(regexp = "[a-zA-Z0-9]{6,20}", message = "{user.password.illegal}")
+	@NotEmpty(message = "{user.password.null}",groups={StudentRegister.class,StudentLogin.class})
+	@Length(min = 5, max = 20, message = "{user.password.length.illegal}",groups={StudentRegister.class,StudentLogin.class})
+	@Pattern(regexp = "[a-zA-Z0-9]{6,20}", message = "{user.password.illegal}",groups={StudentRegister.class,StudentLogin.class})
 	protected String password;
-	@NotNull(message = "doritory.buildingName.null")
-	@NotEmpty
-	@NotBlank
-	@Pattern(regexp = "[cC]([1][0-7]|[1-9])", message = "dormitory.buildingName.illegal")
+	@NotNull(message = "doritory.buildingName.null",groups={StudentRegister.class})
+	@NotEmpty(groups={StudentRegister.class})
+	@NotBlank(groups={StudentRegister.class})
+	@Pattern(regexp = "[cC]([1][0-7]|[1-9])", message = "dormitory.buildingName.illegal",groups={StudentRegister.class})
 	protected String buildingName;
-	@NotNull(message = "doritory.room.null")
-	@NotEmpty
-	@NotBlank
-	@Pattern(regexp = "[1-7][0-5][0-9]", message = "dormitory.room.illegal")
+	@NotNull(message = "doritory.room.null",groups={StudentRegister.class})
+	@NotEmpty(groups={StudentRegister.class})
+	@NotBlank(groups={StudentRegister.class})
+	@Pattern(regexp = "[1-7][0-5][0-9]", message = "dormitory.room.illegal",groups={StudentRegister.class})
 	protected String room;
-	@NotNull
-	@NotEmpty
-	@NotBlank
+	@NotNull(groups={StudentRegister.class})
+	@NotEmpty(groups={StudentRegister.class})
+	@NotBlank(groups={StudentRegister.class})
 	private String password2;
 
 	private String imgPath;
