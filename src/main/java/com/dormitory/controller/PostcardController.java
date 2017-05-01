@@ -44,6 +44,7 @@ public class PostcardController {
 		ModelAndView modelAndView = new ModelAndView();
 		if (result.hasErrors()) {
 			modelAndView.setViewName(ERROR_PAGE);
+			modelAndView.addObject("status", ERROR_INPUT);
 			return modelAndView;
 		}
 		postcardService.saveOrUpdate(postcard);
