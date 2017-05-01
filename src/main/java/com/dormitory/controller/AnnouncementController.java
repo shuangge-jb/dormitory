@@ -31,6 +31,8 @@ public class AnnouncementController {
 	protected static final String ERROR_PAGE = "error";
 	protected static final String OPERATE_SUCCESS = "操作成功";
 	protected static final String REMOVE_SUCCESS = "删除成功";
+	protected static final String ERROR_INPUT="输入的参数有误";
+	protected static final String ERROR_PAGE_SIZE="页大小不能为0";
 	protected static final Logger LOGGER = LoggerFactory.getLogger(AnnouncementController.class);
 
 	@RequestMapping(value = "listAnnouncement.do")
@@ -39,9 +41,12 @@ public class AnnouncementController {
 			@RequestParam("pageSize") Integer pageSize) {
 		List<Announcement> list = announcementService.list(pageIndex, pageSize);
 		Integer total = announcementService.getSize();
+		Integer totalPage=getTotalPages(total, pageSize);
 		Map<String, Object> map = new HashMap<String, Object>(2);
 		map.put("data", list);
-		map.put("total", total);
+		map.put("totalPage", totalPage);
+		map.put("pageIndex", pageIndex);
+		map.put("pageSize", pageSize);
 		return toJSON(map);
 	}
 	@RequestMapping(value = "/listAnnouncementLimit.do")
@@ -72,5 +77,9 @@ public class AnnouncementController {
 		}
 		return result;
 	}
-
+	protected int getTotalPages(Integer count ,Integer pageSize){
+		int totalPages = 0;
+		totalPages = (count%pageSize==0)?(count/pageSize):(count/pageSize+1);
+		return totalPages;
+	}
 }

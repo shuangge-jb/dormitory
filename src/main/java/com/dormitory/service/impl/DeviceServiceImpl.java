@@ -74,6 +74,11 @@ public class DeviceServiceImpl implements DeviceService {
 		return deviceDAO.getSize();
 	}
 
+	@Override
+	public List<Device> getByName(String deviceName) {
+		return deviceDAO.getByName(deviceName);
+	}
+
 	
 
 }

@@ -46,7 +46,7 @@ public class MasterController {
 	private StudentService studentService;
 	private static final String IMG_DIR = "/images/";
 	private static final String ERROR_PAGE = "error";
-	private static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MasterController.class);
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam(value = "id") Integer masterId,
@@ -154,7 +154,7 @@ public class MasterController {
 		model.addAttribute("masterId", masterId);
 	}
 	
-	@RequestMapping(value = "/saveOrUpdateStudent.do")
+	@RequestMapping(value = "/saveOrUpdateStudent.do",method=RequestMethod.POST)
 	public ModelAndView saveOrUpdateStudent(@ModelAttribute(value="student") @Valid Student student,BindingResult result){
 		ModelAndView modelAndView = new ModelAndView();
 		if(result.hasErrors()){

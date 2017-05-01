@@ -26,9 +26,13 @@ public class StudentLostFoundController  extends LostFoundController{
 	public String listLostFoundByStudentId(Long studentId,Integer pageIndex, Integer pageSize) {
 		List<LostFound> list = lostFoundService.listByStudentId(studentId,pageIndex, pageSize);
 		Integer total=lostFoundService.getSizeByStudentId(studentId);
+		Integer totalPage=getTotalPages(total, pageSize);
 		Map<String,Object> map=new HashMap<String,Object>(3);
 		map.put("data", list);
-		map.put("total", total);
+		map.put("totalPage", totalPage);
+		map.put("pageIndex", pageIndex);
+		map.put("pageSize", pageSize);
 		return toJSON(map);
 	}
+	
 }

@@ -11,13 +11,14 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dormitory.controller.student.StudentController;
 import com.dormitory.entity.RepairRecord;
 import com.dormitory.service.RepairRecordService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -38,9 +39,12 @@ public class RepairRecordController {
 			@RequestParam(value = "pageSize") Integer pageSize) {
 		List<RepairRecord> list = repairRecordService.list(pageIndex, pageSize);
 		Integer total = repairRecordService.getSize();
+		Integer totalPage=getTotalPages(total, pageSize);
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		map.put("data", list);
-		map.put("total", total);
+		map.put("totalPage", totalPage);
+		map.put("pageIndex", pageIndex);
+		map.put("pageSize", pageSize);
 		return toJSON(map);
 	}
 
@@ -51,17 +55,17 @@ public class RepairRecordController {
 		return toJSON(list);
 	}
 
-	@RequestMapping(value = "listRepairRecordByDormitoryId.do")
-	@ResponseBody
-	public String listRepairRecordByDormitoryId(@RequestParam(value = "dormitoryId") Integer dormitoryId,
-			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
-		List<RepairRecord> list = repairRecordService.listByDormitoryId(dormitoryId, pageIndex, pageSize);
-		Integer total = repairRecordService.getSizeByDormitoryId(dormitoryId);
-		Map<String, Object> map = new HashMap<String, Object>(3);
-		map.put("data", list);
-		map.put("total", total);
-		return toJSON(map);
-	}
+//	@RequestMapping(value = "listRepairRecordByDormitoryId.do")
+//	@ResponseBody
+//	public String listRepairRecordByDormitoryId(@RequestParam(value = "dormitoryId") Integer dormitoryId,
+//			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
+//		List<RepairRecord> list = repairRecordService.listByDormitoryId(dormitoryId, pageIndex, pageSize);
+//		Integer total = repairRecordService.getSizeByDormitoryId(dormitoryId);
+//		Map<String, Object> map = new HashMap<String, Object>(3);
+//		map.put("data", list);
+//		map.put("total", total);
+//		return toJSON(map);
+//	}
 
 	@RequestMapping(value = "getRepiarRecord.do")
 	@ResponseBody
@@ -70,6 +74,31 @@ public class RepairRecordController {
 		return toJSON(record);
 	}
 
+	@RequestMapping(value = "saveOrUpdateRepairRecord.do", method = RequestMethod.POST)
+	public ModelAndView saveOrUpdateRepairRecord(
+			@ModelAttribute(value = "repairRecord") @Valid RepairRecord repairRecord, BindingResult result) {
+		ModelAndView modelAndView = new ModelAndView("");
+		if (result.hasErrors()) {
+			modelAndView.setViewName(ERROR_PAGE);
+			return modelAndView;
+		}
+		repairRecordService.saveOrUpdate(repairRecord);
+		modelAndView.addObject("status", "成功");
+		return modelAndView;
+	}
+	@RequestMapping(value = "removeRepairRecord.do", method = RequestMethod.POST)
+	public ModelAndView removeRepairRecord(@ModelAttribute(value = "repairRecord") @Valid RepairRecord repairRecord,
+			BindingResult result) {
+		ModelAndView modelAndView = new ModelAndView("");
+		if (result.hasErrors()) {
+			modelAndView.setViewName(ERROR_PAGE);
+			return modelAndView;
+		}
+
+		repairRecordService.remove(repairRecord);
+		modelAndView.addObject("status", "删除成功");
+		return modelAndView;
+	}
 	protected String toJSON(Object obj) {
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -84,5 +113,10 @@ public class RepairRecordController {
 			}
 		}
 		return result;
+	}
+	protected int getTotalPages(Integer count ,Integer pageSize){
+		int totalPages = 0;
+		totalPages = (count%pageSize==0)?(count/pageSize):(count/pageSize+1);
+		return totalPages;
 	}
 }

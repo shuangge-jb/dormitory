@@ -31,6 +31,17 @@ public interface LostFoundDAO {
 	@Select(" select count(*) from lost_found where student_id=#{studentId} ")
 	public Integer getSizeByStudentId(@Param("studentId") Long studentId);
 
+	@Select("select l.* from lost_found l join student s on l.student_id=s.student_id "
+			+ " join dormitory d on d.dormitory_id=s.dormitory_id "
+			+ " where d.building_id=#{buildingId} limit #{start},#{pageSize} ")
+	@ResultMap("com.dormitory.mapper.LostFoundMapper.lostFound")
+	public List<LostFound> listByBuildingId(@Param("buildingId") Integer buildingId, @Param("start") Integer start,
+			@Param("pageSize") Integer pageSize);
+
+	@Select("select count(l.*) from lost_found l join student s on l.student_id=s.student_id "
+			+ " join dormitory d on d.dormitory_id=s.dormitory_id where d.building_id=#{buildingId} ")
+	public Integer getSizeByBuildingId(@Param("buildingId") Integer buildingId);
+
 	@Select(" select * from lost_found where lost_found_id=#{lostFoundId} ")
 	@ResultMap("com.dormitory.mapper.LostFoundMapper.lostFound")
 	public LostFound get(@Param("lostFoundId") Integer lostFoundId);

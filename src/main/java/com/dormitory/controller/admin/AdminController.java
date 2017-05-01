@@ -35,17 +35,34 @@ public class AdminController {
 	private AdminService adminService;
 	@Resource
 	private MasterService masterService;
-	@Resource 
+	@Resource
 	private StudentService studentService;
 	private static final String ERROR_PAGE = "error";
-	protected static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
+	protected static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
+
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(@RequestParam(value = "name") String name, @RequestParam(value = "password") String password) {
 		if (name.equals("admin") && password.equals("admin")) {
 			return "adminMain";
 		} else {
-			return "redirect:/login";
+			return "redirect:../admin/login.jsp";
 		}
+
+	}
+
+	@RequestMapping(value = "/listMaster.do")
+	@ResponseBody
+	public String listMaster(@RequestParam(value = "pageIndex") Integer pageIndex,
+			@RequestParam(value = "pageSize") Integer pageSize) {
+		List<Master> list = masterService.list(pageIndex, pageSize);
+		Integer total = masterService.getSize();
+		Integer totalPage = getTotalPages(total, pageSize);
+		Map<String, Object> map = new HashMap<String, Object>(4);
+		map.put("data", list);
+		map.put("totalPage", totalPage);
+		map.put("pageIndex", pageIndex);
+		map.put("pageSize", pageSize);
+		return toJSON(map);
 
 	}
 
@@ -68,27 +85,18 @@ public class AdminController {
 		masterService.remove(master);
 		return modelAndView;
 	}
-	@RequestMapping(value = "/listMaster.do")
-	@ResponseBody
-	public String listMaster(){
-		Map<String,Object> map=new HashMap<String,Object>(3);
-		List<Master> list=masterService.list();
-		Integer total=masterService.getSize();
-		map.put("data", list);
-		map.put("total", total);
-		return toJSON(map);
-	}
-	
-	@RequestMapping(value="removeStudent.do",method=RequestMethod.POST)
-	public ModelAndView removeStudent(@RequestParam(value="studentId")Long studentId){
+
+	@RequestMapping(value = "removeStudent.do", method = RequestMethod.POST)
+	public ModelAndView removeStudent(@RequestParam(value = "studentId") Long studentId) {
 		ModelAndView modelAndView = new ModelAndView();
-		Student student=studentService.get(studentId);
+		Student student = studentService.get(studentId);
 		studentService.remove(student);
 		return modelAndView;
 	}
+
 	protected String toJSON(Object obj) {
 		ObjectMapper mapper = new ObjectMapper();
-		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		mapper.setDateFormat(format);
 		String result = null;
 		try {
@@ -100,5 +108,11 @@ public class AdminController {
 			}
 		}
 		return result;
+	}
+
+	protected int getTotalPages(Integer count, Integer pageSize) {
+		int totalPages = 0;
+		totalPages = (count % pageSize == 0) ? (count / pageSize) : (count / pageSize + 1);
+		return totalPages;
 	}
 }

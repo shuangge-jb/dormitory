@@ -192,7 +192,7 @@ public class StudentController {
 		return "redirect:/index.jsp";
 	}
 
-	@RequestMapping(value = "/getPersonalInfo.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getPersonalInfo.do")
 	public ModelAndView getPersonalInfo(@RequestParam(value = "studentId") Long studentId) {
 		StudentDTO studentDTO = new StudentDTO();
 		Student student = studentService.get(studentId);

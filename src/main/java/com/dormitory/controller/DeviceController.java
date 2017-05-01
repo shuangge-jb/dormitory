@@ -38,6 +38,8 @@ public class DeviceController {
 	protected static final String ERROR_PAGE = "error";
 	protected static final String OPERATE_SUCCESS = "操作成功";
 	protected static final String REMOVE_SUCCESS = "删除成功";
+	protected static final String ERROR_INPUT="输入的参数有误";
+	protected static final String ERROR_PAGE_SIZE="页大小不能为0";
 	protected static final Logger LOGGER = LoggerFactory.getLogger(DeviceController.class);
 	@Resource
 	protected DeviceService deviceService;
@@ -57,10 +59,11 @@ public class DeviceController {
 		modelAndView.addObject("data", list);
 		if(pageSize==null||pageSize==0){
 			modelAndView.setViewName(ERROR_PAGE);
+			modelAndView.addObject("status", ERROR_PAGE_SIZE);
 			return modelAndView;
 		}
-		Long count=getTotalPages(total, pageSize);
-		modelAndView.addObject("totalPage",count);
+		Long totalPage=getTotalPages(total, pageSize);
+		modelAndView.addObject("totalPage",totalPage);
 		modelAndView.addObject("pageIndex", pageIndex);
 		modelAndView.addObject("pageSize", pageSize);
 		modelAndView.setViewName("deviceList/devicelist");
@@ -71,14 +74,27 @@ public class DeviceController {
 		totalPages = (count%pageSize==0)?(count/pageSize):(count/pageSize+1);
 		return totalPages;
 	}
+	private int getTotalPages(Integer count ,Integer pageSize){
+		int totalPages = 0;
+		totalPages = (count%pageSize==0)?(count/pageSize):(count/pageSize+1);
+		return totalPages;
+	}
 	@RequestMapping(value = "listInterfaceByDeviceId.do")
 	public ModelAndView listInterfaceByDeviceId(@RequestParam(value = "deviceId") Long deviceId,
 			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
 		List<Interface> list = interfaceService.listByDeviceId(deviceId, pageIndex, pageSize);
 		Integer total = interfaceService.getSizeByDeviceId(deviceId);
 		ModelAndView modelAndView = new ModelAndView();
+		if(pageSize==null||pageSize==0){
+			modelAndView.setViewName(ERROR_PAGE);
+			modelAndView.addObject("status", ERROR_PAGE_SIZE);
+			return modelAndView;
+		}
+		Integer totalPage=getTotalPages(total, pageSize);
 		modelAndView.addObject("data", list);
-		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPage",totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;
 	}
 
@@ -88,8 +104,16 @@ public class DeviceController {
 		List<Paramater> list = paramaterService.listByInterfaceId(interfaceId, pageIndex, pageSize);
 		Integer total = paramaterService.getSizeByInterfaceId(interfaceId);
 		ModelAndView modelAndView = new ModelAndView();
+		if(pageSize==null||pageSize==0){
+			modelAndView.setViewName(ERROR_PAGE);
+			modelAndView.addObject("status", ERROR_PAGE_SIZE);
+			return modelAndView;
+		}
+		Integer totalPage=getTotalPages(total, pageSize);
 		modelAndView.addObject("data", list);
-		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPage",totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;
 	}
 
@@ -124,7 +148,7 @@ public class DeviceController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("序列化Announcement对象时出错", e);
+				LOGGER.debug("序列化对象时出错", e);
 			}
 		}
 		return result;
