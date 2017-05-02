@@ -40,11 +40,13 @@ public class RepairRecordController {
 		List<RepairRecord> list = repairRecordService.list(pageIndex, pageSize);
 		Integer total = repairRecordService.getSize();
 		Integer totalPage=getTotalPages(total, pageSize);
-		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> map = new HashMap<String, Object>(6);
 		map.put("data", list);
-		map.put("totalPage", totalPage);
+		map.put("total", total);
+		map.put("totalPages", totalPage);
 		map.put("pageIndex", pageIndex);
 		map.put("pageSize", pageSize);
+		map.put("result", list!=null);
 		return toJSON(map);
 	}
 
@@ -115,6 +117,9 @@ public class RepairRecordController {
 		return result;
 	}
 	protected int getTotalPages(Integer count ,Integer pageSize){
+		if(pageSize==null){
+			pageSize=10;
+		}
 		int totalPages = 0;
 		totalPages = (count%pageSize==0)?(count/pageSize):(count/pageSize+1);
 		return totalPages;

@@ -53,27 +53,36 @@ public class DeviceController {
 	@RequestMapping(value = "listDevice.do")
 	public ModelAndView listDevice(@RequestParam(value = "pageIndex") Integer pageIndex,
 			@RequestParam(value = "pageSize") Integer pageSize) {
-		List<Device> list = deviceService.list(pageIndex, pageSize);
-		Long total = deviceService.getSize();
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("data", list);
-		if(pageSize==null||pageSize==0){
+		ModelAndView modelAndView = new ModelAndView("dormitory");
+		if(pageIndex==null||pageIndex<=0||pageSize==null||pageSize==0){
 			modelAndView.setViewName(ERROR_PAGE);
 			modelAndView.addObject("status", ERROR_PAGE_SIZE);
 			return modelAndView;
 		}
+		List<Device> list = deviceService.list(pageIndex, pageSize);
+		Long total = deviceService.getSize();
+		
 		Long totalPage=getTotalPages(total, pageSize);
-		modelAndView.addObject("totalPage",totalPage);
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total",total);
+		modelAndView.addObject("totalPages",totalPage);
 		modelAndView.addObject("pageIndex", pageIndex);
 		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.addObject("result", list!=null);
 		return modelAndView;
 	}
 	private long getTotalPages(Long count ,Integer pageSize){
+		if(pageSize==null){
+			pageSize=10;
+		}
 		long totalPages = 0;
 		totalPages = (count%pageSize==0)?(count/pageSize):(count/pageSize+1);
 		return totalPages;
 	}
 	private int getTotalPages(Integer count ,Integer pageSize){
+		if(pageSize==null){
+			pageSize=10;
+		}
 		int totalPages = 0;
 		totalPages = (count%pageSize==0)?(count/pageSize):(count/pageSize+1);
 		return totalPages;
@@ -81,38 +90,44 @@ public class DeviceController {
 	@RequestMapping(value = "listInterfaceByDeviceId.do")
 	public ModelAndView listInterfaceByDeviceId(@RequestParam(value = "deviceId") Long deviceId,
 			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
-		List<Interface> list = interfaceService.listByDeviceId(deviceId, pageIndex, pageSize);
-		Integer total = interfaceService.getSizeByDeviceId(deviceId);
-		ModelAndView modelAndView = new ModelAndView();
-		if(pageSize==null||pageSize==0){
+		ModelAndView modelAndView = new ModelAndView("dormitory");
+		if(pageIndex==null||pageIndex<=0||pageSize==null||pageSize==0){
 			modelAndView.setViewName(ERROR_PAGE);
 			modelAndView.addObject("status", ERROR_PAGE_SIZE);
 			return modelAndView;
 		}
+		List<Interface> list = interfaceService.listByDeviceId(deviceId, pageIndex, pageSize);
+		Integer total = interfaceService.getSizeByDeviceId(deviceId);
+		
 		Integer totalPage=getTotalPages(total, pageSize);
 		modelAndView.addObject("data", list);
-		modelAndView.addObject("totalPage",totalPage);
+		modelAndView.addObject("total",total);
+		modelAndView.addObject("totalPages",totalPage);
 		modelAndView.addObject("pageIndex", pageIndex);
 		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.addObject("result", list!=null);
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "listParamByInterfaceId.do")
 	public ModelAndView listParamByInterfaceId(@RequestParam(value = "interfaceId") Integer interfaceId,
 			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
-		List<Paramater> list = paramaterService.listByInterfaceId(interfaceId, pageIndex, pageSize);
-		Integer total = paramaterService.getSizeByInterfaceId(interfaceId);
 		ModelAndView modelAndView = new ModelAndView();
-		if(pageSize==null||pageSize==0){
+		if(pageIndex==null||pageIndex<=0||pageSize==null||pageSize==0){
 			modelAndView.setViewName(ERROR_PAGE);
 			modelAndView.addObject("status", ERROR_PAGE_SIZE);
 			return modelAndView;
 		}
+		List<Paramater> list = paramaterService.listByInterfaceId(interfaceId, pageIndex, pageSize);
+		Integer total = paramaterService.getSizeByInterfaceId(interfaceId);
+		
 		Integer totalPage=getTotalPages(total, pageSize);
 		modelAndView.addObject("data", list);
-		modelAndView.addObject("totalPage",totalPage);
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPages",totalPage);
 		modelAndView.addObject("pageIndex", pageIndex);
 		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.addObject("result", list!=null);
 		return modelAndView;
 	}
 

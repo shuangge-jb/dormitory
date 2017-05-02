@@ -1,18 +1,27 @@
 package com.dormitory.entity;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class Device {
 	protected Long deviceId;
 	@NotEmpty(message = "${device.name.null}")
+	@NotBlank
 	@Length(min = 1, max = 20, message = "{device.name.length.illegal}")
 	@Pattern(regexp = "^[\u4e00-\u9fa5_a-zA-Z0-9]+$", message = "{article.name.illegal}")
 	protected String name;
+	@NotNull
+	@NotEmpty
+	@NotBlank
 	protected String type;
 	protected String imgPath;
+	@NotNull
+	@NotEmpty
+	@NotBlank
 	protected String description;
 	protected String modelPath;
 

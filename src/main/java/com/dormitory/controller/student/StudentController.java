@@ -51,7 +51,7 @@ public class StudentController {
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute(value = "register") @Valid StudentDTO register, BindingResult result,
 			@RequestParam(value = "img") MultipartFile img, HttpServletRequest request, Model model) {
-		ModelAndView modelAndView = new ModelAndView("../../jsp/register");// 默认为跳转回注册页面
+		ModelAndView modelAndView = new ModelAndView("../../reg");// 默认为跳转回注册页面
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError().toString());
 			return modelAndView;
@@ -95,7 +95,7 @@ public class StudentController {
 		System.out.println("--imgName:" + imgName);
 		student.setImgPath(imgName);
 		studentService.saveOrUpdate(student);
-		modelAndView.setViewName("redirect:listdevicedo");
+		modelAndView.setViewName("listDevice.do");
 		setSessionValue(model, dormitory.getDormitoryId(), student.getStudentId());
 		return modelAndView;
 	}
@@ -107,7 +107,7 @@ public class StudentController {
 		Student temp = studentService.get(studentId);
 		if (temp != null) {
 			if (password.trim().equals(temp.getPassword())) {
-				modelAndView.setViewName("redirect:listdevice.do");
+				modelAndView.setViewName("listDevice.do");
 				Dormitory dormitory = dormitoryService.get(studentId);
 				setSessionValue(model, dormitory.getDormitoryId(), studentId);
 			}
@@ -142,7 +142,7 @@ public class StudentController {
 			modelAndView.setViewName("redirect:/error");
 		} else {
 			studentService.saveOrUpdate(student);
-			modelAndView.setViewName("redirect:listdevicedo");
+			modelAndView.setViewName("");
 			model.addAttribute("studentId", studentId);
 			Integer dormitoryId = dormitoryService.get(studentId).getDormitoryId();
 			model.addAttribute("dormitoryId", dormitoryId);
@@ -150,7 +150,7 @@ public class StudentController {
 		return modelAndView;
 	}
 
-	@RequestMapping("/forgetPassword.do")
+	@RequestMapping(value="/forgetPassword.do")
 	public Map<String, String> forgetPassword(@RequestParam(value = "request") HttpServletRequest request,
 			@RequestParam(value = "studentId") Long studentId) {
 
@@ -170,7 +170,7 @@ public class StudentController {
 	 */
 	@RequestMapping(value = "/checkResetLink.do", method = RequestMethod.GET)
 	public ModelAndView checkResetLink(String sid, String studentId) {
-		ModelAndView model = new ModelAndView("redirect:/error");
+		ModelAndView model = new ModelAndView("error");
 		Map<String, String> map = emailService.checkResetLink(sid, Long.valueOf(studentId.trim()));
 		if (map.get("status").equals("success")) {
 			model.setViewName("updatePassword"); // 返回到修改密码的界面
@@ -197,7 +197,7 @@ public class StudentController {
 		StudentDTO studentDTO = new StudentDTO();
 		Student student = studentService.get(studentId);
 		if(student==null){
-			return new ModelAndView("../../jsp/login");
+			return new ModelAndView("../../login");
 		}
 		studentDTO.setStudent(student);
 		ModelAndView modelAndView = new ModelAndView("student");

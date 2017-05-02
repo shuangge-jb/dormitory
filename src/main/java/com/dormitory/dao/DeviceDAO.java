@@ -13,23 +13,23 @@ import org.apache.ibatis.annotations.Update;
 import com.dormitory.entity.Device;
 
 public interface DeviceDAO {
-	@Select("select * from deivce where device_id=#{deviceId} ")
+	@Select("select * from device where device_id=#{deviceId} ")
 	@ResultMap("com.dormitory.mapper.DeviceMapper.device")
 	public Device get(@Param("deviceId") Long deviceId);
-	@Select("select * from deivce where name=#{deviceName} ")
+	@Select("select * from device where name=#{deviceName} ")
 	@ResultMap("com.dormitory.mapper.DeviceMapper.device")
 	public List<Device> getByName(@Param("deviceName")String deviceName); 
 
 	@Select("select LAST_INSERT_ID()")
 	public Long getLastInsertId();
 
-	@Insert(" insert into device(name,img_path,description,model_path) "
-			+ " values(#{name},#{imgPath},#{description},#{model_path}) ")
+	@Insert(" insert into device(name,type,img_path,description,model_path) "
+			+ " values(#{name},#{type},#{imgPath},#{description},#{modelPath}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "deviceId")
 	public void save(Device device);
 
 	@Update(" update device set  "
-			+ " name=#{name},img_path=#{imgPath},description=#{description},model_path=#{modelPath} ")
+			+ " name=#{name},type=#{type},img_path=#{imgPath},description=#{description},model_path=#{modelPath} ")
 	public void update(Device device);
 
 	@Delete("delete from device where device_id=#{deviceId}")

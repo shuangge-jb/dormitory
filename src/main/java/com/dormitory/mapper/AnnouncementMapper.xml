@@ -10,6 +10,7 @@
 		<result column="author_id" jdbcType="INTEGER" property="authorId" />
 		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
 		<result column="importance" jdbcType="INTEGER" property="importance" />
+		<result column="building_id" jdbcType="INTEGER" property="buildingId" />
 	</resultMap>
 	
 </mapper>

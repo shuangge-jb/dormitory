@@ -87,7 +87,7 @@ public class MasterController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		if (master == null) {
-			modelAndView.setViewName("redirect:/error");
+			modelAndView.setViewName(ERROR_PAGE);
 		} else {
 			masterService.saveOrUpdate(master);
 			modelAndView.setViewName("redirect:listDevice.do");
@@ -141,7 +141,7 @@ public class MasterController {
 		MasterDTO masterDTO = new MasterDTO();
 		Master master = masterService.get(masterId);
 		if(master==null){
-			return new ModelAndView("../../jsp/login");
+			return new ModelAndView("../../login");
 		}
 		masterDTO.setMaster(master);
 		ModelAndView modelAndView = new ModelAndView("master");
