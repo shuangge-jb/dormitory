@@ -42,7 +42,6 @@ public class StudentDeviceControllerTest {
 		// this.mockMvc = webAppContextSetup(this.wac).build();
 		mockMvc = MockMvcBuilders.standaloneSetup(studentDeviceController).build();
 	}
-
 	@Test
 	public void testInvokeInterface() {
 		try {
