@@ -11,7 +11,6 @@ String path = request.getContextPath();
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
 	<meta http-equiv="description" content="This is my page"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=8" />
-	
     <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>	 
     <style type="text/css">
         html
@@ -56,11 +55,11 @@ String path = request.getContextPath();
 				</li>
 				<li>
 				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
-				    &nbsp;<a target="main" href="<%=path %>/departmentManage.action" style="text-decoration:none;color:blue;">科室管理</a>   			
+				    &nbsp;<a target="main" href="<%=path %>/departmentManage.action" style="text-decoration:none;color:blue;">功能管理</a>   			
 				</li>
 				<li>
 				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
-				    &nbsp;<a target="main" href="<%=path %>/doctorManage.action" style="text-decoration:none;color:blue;">医生管理</a> 			
+				    &nbsp;<a target="main" href="<%=path %>/doctorManage.action" style="text-decoration:none;color:blue;">参数管理</a> 			
 				</li>	
             </ul>     
         </div>

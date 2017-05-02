@@ -117,7 +117,7 @@ String path = request.getContextPath();
   
   <body id="login">
 	<form action="<%=path%>/admin/login.do" id="loginForm" name="loginForm" method="post" onsubmit="return check1();">
-		<h3><img  src="<%=path %>/img/group.png" style="vertical-align:middle;height:20px;"/>&nbsp;挂号系统管理员登陆</h3>
+		<h3><img  src="<%=path %>/img/group.png" style="vertical-align:middle;height:20px;"/>&nbsp;虚拟宿舍管理员登陆</h3>
 		<table align="center" border="0" cellpadding="9" cellspacing="9">
 			<tr align='center'>
 				<td style="width: 50px;font-family: 微软雅黑;" align="left">

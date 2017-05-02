@@ -66,6 +66,7 @@ public class DeviceController {
 		modelAndView.addObject("totalPage",totalPage);
 		modelAndView.addObject("pageIndex", pageIndex);
 		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.addObject("totalCount",total);
 		modelAndView.setViewName("deviceList/devicelist");
 		return modelAndView;
 	}

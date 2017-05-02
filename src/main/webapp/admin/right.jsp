@@ -16,6 +16,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-      欢迎来到梨子挂号系统后台管理 <br>
+      欢迎来到虚拟宿舍后台管理 <br>
   </body>
 </html>
