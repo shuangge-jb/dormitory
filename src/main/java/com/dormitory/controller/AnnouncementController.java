@@ -43,10 +43,12 @@ public class AnnouncementController {
 		Integer total = announcementService.getSize();
 		Integer totalPage=getTotalPages(total, pageSize);
 		Map<String, Object> map = new HashMap<String, Object>(2);
-		map.put("data", list);
-		map.put("totalPage", totalPage);
+		map.put("announcementDataList", list);
+		map.put("total", total);
+		map.put("totalPages", totalPage);
 		map.put("pageIndex", pageIndex);
 		map.put("pageSize", pageSize);
+		map.put("result", list!=null);
 		return toJSON(map);
 	}
 	@RequestMapping(value = "/listAnnouncementLimit.do")
@@ -78,6 +80,9 @@ public class AnnouncementController {
 		return result;
 	}
 	protected int getTotalPages(Integer count ,Integer pageSize){
+		if(pageSize==null){
+			pageSize=10;
+		}
 		int totalPages = 0;
 		totalPages = (count%pageSize==0)?(count/pageSize):(count/pageSize+1);
 		return totalPages;

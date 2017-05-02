@@ -30,7 +30,8 @@ public class AdminDeviceController extends DeviceController {
 
 	@RequestMapping(value = "/saveOrUpdateDevice.do", method = RequestMethod.POST)
 	public ModelAndView saveOrUpdateDevice(@ModelAttribute(value = "device") @Valid Device device, BindingResult result,
-			@RequestParam(value = "file") MultipartFile[] file, HttpServletRequest request, Model model) {
+			@RequestParam(value = "img") MultipartFile img, @RequestParam(value = "model") MultipartFile modelFile,
+			HttpServletRequest request, Model model) {
 		ModelAndView modelAndView = new ModelAndView(ERROR_PAGE);
 		if (result.hasErrors()) {
 			if (LOGGER.isDebugEnabled()) {
@@ -39,50 +40,61 @@ public class AdminDeviceController extends DeviceController {
 			modelAndView.addObject("status", "输入的参数有误");
 			return modelAndView;
 		}
-		List<Device> temp=deviceService.getByName(device.getName());
-		if(temp!=null){
+		List<Device> temp = deviceService.getByName(device.getName());
+		if (temp.size() > 0) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("该设备已存在." + result);
 			}
 			modelAndView.addObject("status", "该设备已存在.");
 			return modelAndView;
 		}
-		for (int i = 0; i < file.length; i++) {
-			System.out.println("file:" + file[i]);
 
-			System.out.println("file name:" + file[i].getOriginalFilename() + " ends with obj:"
-					+ file[i].getOriginalFilename().endsWith(".obj"));
-			if (!(file[i].getOriginalFilename().toLowerCase().endsWith(".obj")
-					|| file[i].getOriginalFilename().toLowerCase().endsWith(".dae"))) {
+		if (img != null && img.getSize() > 0) {
+			System.out.println("file:" + img.getOriginalFilename());
+			String imgName = img.getOriginalFilename().toLowerCase();
+			System.out.println("img name:" + imgName + " ends with jpg:" + imgName.endsWith(".jpg"));
+
+			if (!(imgName.endsWith(".jpg"))) {
 				if (LOGGER.isDebugEnabled()) {
-					LOGGER.debug("file参数异常：");
+					LOGGER.debug("img文件类型异常：");
 				}
-				modelAndView.addObject("status", "文件类型错误");
+				modelAndView.addObject("status", "img文件类型错误");
 				return modelAndView;
 			}
-			if (file[i].getOriginalFilename().toLowerCase().endsWith(".jpg")) {
-				fileService.saveFile(request, IMG_DIR, file[i]);
-				//保存图片对象
-				String imgPath = fileService.getFilePath(request, IMG_DIR, file[i]);
-				device.setImgPath(imgPath);
-			}
-			if (file[i].getOriginalFilename().toLowerCase().endsWith(".obj")
-					|| file[i].getOriginalFilename().toLowerCase().endsWith(".dae")) {
-				fileService.saveFile(request, MODEL_DIR, file[i]);
-				// 保存模型对象
-				String filePath = fileService.getFilePath(request, MODEL_DIR, file[i]);
-				System.out.println("model path:" + filePath);
-				device.setModelPath(filePath);
-			}
-			deviceService.saveOrUpdate(device);
+			fileService.saveFile(request, IMG_DIR, img);
+			// 保存图片对象
+			String imgPath = fileService.getFilePath(request, IMG_DIR, img);
+			device.setImgPath(imgPath);
 		}
-		modelAndView.setViewName("/student");
+		if (modelFile != null && modelFile.getSize() > 0) {
+			System.out.println("file:" + modelFile.getOriginalFilename());
+			String modelName = modelFile.getOriginalFilename().toLowerCase();
+			System.out.println("model name:" + modelName + " ends with obj or dae:"
+					+ (modelName.endsWith(".obj") || modelName.endsWith(".dae")));
+
+			if (!(modelName.endsWith(".obj") || modelName.endsWith(".dae"))) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("model文件类型异常：");
+				}
+				modelAndView.addObject("status", "model文件类型错误");
+				return modelAndView;
+			}
+			fileService.saveFile(request, MODEL_DIR, modelFile);
+			// 保存模型对象
+			String filePath = fileService.getFilePath(request, MODEL_DIR, modelFile);
+			System.out.println("model path:" + filePath);
+			device.setModelPath(filePath);
+		}
+
+		deviceService.saveOrUpdate(device);
+
+		modelAndView.setViewName("dormitory");
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "removeDevice.do", method = RequestMethod.POST)
+	@RequestMapping(value = "removeDevice.do", method = RequestMethod.GET)
 	public ModelAndView removeDevice(@RequestParam(value = "deviceId") Long deviceId) {
-		ModelAndView modelAndView = new ModelAndView();
+		ModelAndView modelAndView = new ModelAndView("dormitory");
 		Device device = deviceService.get(deviceId);
 		deviceService.remove(device);
 		return modelAndView;
@@ -107,7 +119,7 @@ public class AdminDeviceController extends DeviceController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "removeInterface.do", method = RequestMethod.POST)
+	@RequestMapping(value = "removeInterface.do", method = RequestMethod.GET)
 	public ModelAndView removeInterface(@RequestParam(value = "interfaceId") Integer interfaceId) {
 		ModelAndView modelAndView = new ModelAndView();
 		Interface face = interfaceService.get(interfaceId);
