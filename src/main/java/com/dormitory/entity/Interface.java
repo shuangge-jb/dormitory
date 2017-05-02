@@ -1,11 +1,29 @@
 package com.dormitory.entity;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Interface {
 	protected Integer interfaceId;
+	@NotNull
+	@NotEmpty
+	@NotBlank
 	protected String interfaceName;
+	@NotNull
+	@NotEmpty
+	@NotBlank
 	protected String interfaceUrl;
+	@NotNull
+	@NotEmpty
+	@NotBlank
 	protected String description;
+	@NotNull
+	@NotEmpty
+	@NotBlank
 	protected String source;
+	@NotNull
 	protected Long deviceId;
 	protected String method;
 

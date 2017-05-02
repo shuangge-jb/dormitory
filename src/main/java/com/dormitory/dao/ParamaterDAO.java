@@ -13,7 +13,8 @@ import org.apache.ibatis.annotations.Update;
 import com.dormitory.entity.Paramater;
 
 public interface ParamaterDAO {
-	@Insert(" insert into paramater(paramater_name,interface_id) values(#{paramaterName},#{interfaceId}) ")
+	@Insert(" insert into paramater(paramater_name,description,type,interface_id) "
+			+ " values(#{paramaterName},#{description},#{type},#{interfaceId}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "paramaterId")
 	void save(Paramater item);
 
@@ -21,7 +22,8 @@ public interface ParamaterDAO {
 	@ResultMap("com.dormitory.mapper.ParamaterMapper.paramater")
 	Paramater get(@Param("paramaterId") Integer paramaterId);
 
-	@Update(" update paramater set paramater_name=#{paramaterName} where paramater_id=#{paramaterId} ")
+	@Update(" update paramater set paramater_name=#{paramaterName} ,"
+			+ "description=#{description},type=#{type},where paramater_id=#{paramaterId} ")
 	void update(Paramater item);
 
 	@Delete(" delete from paramater where paramater_id=#{paramaterId}")
@@ -32,7 +34,8 @@ public interface ParamaterDAO {
 
 	@Select(" select * from paramater where interface_id=#{interfaceId} limit #{start},#{pageSize} ")
 	@ResultMap("com.dormitory.mapper.ParamaterMapper.paramater")
-	List<Paramater> listByInterfaceId(@Param("interfaceId") Integer interfaceId,@Param("start") Integer start,@Param("pageSize") Integer pageSize);
+	List<Paramater> listByInterfaceId(@Param("interfaceId") Integer interfaceId, @Param("start") Integer start,
+			@Param("pageSize") Integer pageSize);
 
 	@Select("select count(*) from paramater where interface_id=#{interfaceId}  ")
 	Integer getSizeByInterfaceId(@Param("interfaceId") Integer interfaceId);

@@ -22,6 +22,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;  
 import org.apache.http.message.BasicNameValuePair;  
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.dormitory.service.HTTPService;
@@ -54,7 +56,7 @@ public class HTTPServiceImpl implements HTTPService{
     private static PoolingHttpClientConnectionManager connMgr;  
     private static RequestConfig requestConfig;  
     private static final int MAX_TIMEOUT = 7000;  
-  
+  private static Logger logger=LoggerFactory.getLogger(HTTPServiceImpl.class);
     static {  
         // 设置连接池  
         connMgr = new PoolingHttpClientConnectionManager();  
@@ -115,6 +117,9 @@ public class HTTPServiceImpl implements HTTPService{
             }  
         } catch (IOException e) {  
             e.printStackTrace();  
+            if(logger.isDebugEnabled()){
+            	logger.debug("生成结果时异常", e);
+            }
         }  
         return result;  
     }  

@@ -344,7 +344,7 @@
 <body >
     <jsp:include page="head.jsp"></jsp:include>	
 		<div class="register-main">
-		<form action="" method="post" 
+		<form action="<%=path %>/student/register.do" method="post" 
 		enctype="multipart/form-data" onsubmit="return validate();">
 		<div class="register-form">
 			<h3 class="content-hd"><b>注册信息</b><label class="c_orange">(*为必填项)</label></h3>
