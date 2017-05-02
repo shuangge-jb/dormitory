@@ -107,13 +107,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td><a
                href="<%=path%>/listDevice.do?pageIndex=${pageIndex-1}&pageSize=10">上一页</a></td>
 	</c:if>
-	 <c:if test="${pageIndex != totalPage}">
+	 <c:if test="${pageIndex != totalPages}">
 				<td><a
 					href="<%=path%>/listDevice.do?pageIndex=${pageIndex+1}&pageSize=10">下一页</a></td>
 				<td><a
 					href="<%=path%>/listDevice.do?pageIndex=${totalPages}&pageSize=10">最后一页</a></td>
 		</c:if>
-	  <c:if test="${pageIndex == totalPage}">
+	  <c:if test="${pageIndex == totalPages}">
 			<td>下一页&nbsp;&nbsp;最后一页&nbsp;&nbsp;</td>
 	  </c:if>
            共${totalPage}页&nbsp;&nbsp;
