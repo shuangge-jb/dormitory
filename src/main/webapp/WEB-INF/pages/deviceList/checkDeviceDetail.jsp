@@ -14,28 +14,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 	<script type="text/javascript">
     function back(id){
-	   window.location.href ="<%=path%>/adminHospitalAction.action?pageIndex="+id;
+	   window.location.href ="<%=path%>/listDevice.do?pageIndex="+id+"&pageSize="+10;
     }
    </script>
+   <style>
+     .textAreaTxt{
+      outline:none;
+     border:1px solid #CCC;
+     -webkit-box-shadow:#DFDFDF 0 1px 2px 0 inset;
+     box-shadow:#DFDFDF 0 1px 2px 0 inset;
+     background:#fff;
+     border-radius:3px;
+     overflow:hidden;
+     margin-top:5px;
+     width:290px;
+     height:150px;
+     text-align:left;
+     color:#EF972B;
+     font-size:15px;
+     }
+     .back_button{
+   font-weight:bolder;
+   font-size:13px;
+   border:3px solid #0090DB;
+   background:#0090DB;
+   color:#FFEDF1; 
+   font-color:#fff;
+   margin-top:8px;
+   }
+   .back_button:hover{
+   color:#fff;
+   text-decoration:none;
+   background-color:#0074A6;
+   }
+     </style>
   </head>
-  
   <body>
-     <div style="margin-top:10px;margin-left:5px;">
-           <font color=#65C0EE size=5><s:property value="hospital.name"/></font><br>
-           <font color=#818181 size=3>医院级别：</font> 
-           <font color=#EF972B size=3><s:property value="hospital.rank"/></font><br>
-           <font color=#818181 size=3>医院热线：</font> 
-           <font color=#EF972B size=3><s:property value="hospital.telephone"/></font><br>
-           <font color=#818181 size=3>医院性质：</font> 
-           <font color=#EF972B size=3><s:property value="hospital.property"/></font><br>
-           <font color=#818181 size=3>医院地址：</font> 
-           <font color=#EF972B size=3><s:property value="hospital.address"/></font><br>
-           <font color=#818181 size=3>医院简介：</font> 
-           <font color=#EF972B size=3><s:property value="hospital.brief"/></font>
+     <div style="margin-top:10px;margin-left:15px;float:left;">
+           <font color=#65C0EE size=5>${device.name}</font><br>
+           <font color=#818181 size=3>设备名称：</font> 
+           <font color=#EF972B size=3>${device.name}</font><br>
+           <font color=#818181 size=3>设备类型：</font> 
+           <font color=#EF972B size=3>${device.type}</font><br>
+           <font color=#818181 size=3>设备功能描述：</font> <br>
+           <textArea  id="deviceBrief"
+					name="brief" 
+					class="textAreaTxt">  ${device.description}</textArea><br>
+		  <input type="button" value="返回" onclick="back(${pageIndex})" 
+        class="back_button"  /> 
       </div>
-      <input type="button" value="返回" onclick="back(<s:property value="pageIndex"/>)"
-         style="background:#F7B52C;width:50;height:30;margin-left:5px;margin-top:10px;font-weight:bolder;font-size:15px;border:3px solid #0090DB;height:30px;width:100;position:absolute;background:#0090DB;color:#FFEDF1;" onMouseOver="this.style.backgroundColor='#EF972B';"
-				onMouseOut="this.style.backgroundColor ='#0090DB';" />
-     
   </body>
 </html>

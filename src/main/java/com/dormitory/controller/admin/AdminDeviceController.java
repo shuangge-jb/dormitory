@@ -38,6 +38,7 @@ public class AdminDeviceController extends DeviceController {
 				LOGGER.debug("参数异常：result.hasErrors." + result);
 			}
 			modelAndView.addObject("status", "输入的参数有误");
+			modelAndView.setViewName("deviceList/addDevice");
 			return modelAndView;
 		}
 		List<Device> temp = deviceService.getByName(device.getName());
@@ -46,6 +47,7 @@ public class AdminDeviceController extends DeviceController {
 				LOGGER.debug("该设备已存在." + result);
 			}
 			modelAndView.addObject("status", "该设备已存在.");
+			modelAndView.setViewName("deviceList/addDevice");
 			return modelAndView;
 		}
 
@@ -59,6 +61,7 @@ public class AdminDeviceController extends DeviceController {
 					LOGGER.debug("img文件类型异常：");
 				}
 				modelAndView.addObject("status", "img文件类型错误");
+				modelAndView.setViewName("deviceList/addDevice");
 				return modelAndView;
 			}
 			fileService.saveFile(request, IMG_DIR, img);
@@ -77,6 +80,7 @@ public class AdminDeviceController extends DeviceController {
 					LOGGER.debug("model文件类型异常：");
 				}
 				modelAndView.addObject("status", "model文件类型错误");
+				modelAndView.setViewName("deviceList/addDevice");
 				return modelAndView;
 			}
 			fileService.saveFile(request, MODEL_DIR, modelFile);
@@ -87,8 +91,8 @@ public class AdminDeviceController extends DeviceController {
 		}
 
 		deviceService.saveOrUpdate(device);
-
-		modelAndView.setViewName("dormitory");
+		modelAndView.addObject("status", "上传设备成功");
+		modelAndView.setViewName("deviceList/addDevice");
 		return modelAndView;
 	}
 
@@ -151,6 +155,12 @@ public class AdminDeviceController extends DeviceController {
 		ModelAndView modelAndView = new ModelAndView();
 		Paramater paramater = paramaterService.get(paramaterId);
 		paramaterService.remove(paramater);
+		return modelAndView;
+	}
+	@RequestMapping(value="addDevicePage.do",method =  RequestMethod.GET)
+	public ModelAndView forwardAddDevicePage(){
+		ModelAndView modelAndView =  new ModelAndView();
+		modelAndView.setViewName("deviceList/addDevice");
 		return modelAndView;
 	}
 }

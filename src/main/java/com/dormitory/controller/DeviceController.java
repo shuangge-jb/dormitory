@@ -134,10 +134,11 @@ public class DeviceController {
 	}
 
 	@RequestMapping(value = "getDevice.do")
-	public ModelAndView getDevice(@RequestParam(value = "deviceId") Long deviceId) {
+	public ModelAndView getDevice(@RequestParam(value = "deviceId") Long deviceId,@RequestParam(value = "pageIndex") Integer pageIndex) {
 		ModelAndView modelAndView = new ModelAndView();
 		Device device = deviceService.get(deviceId);
 		modelAndView.addObject("device",device);
+		modelAndView.addObject("pageIndex",pageIndex);
 		modelAndView.setViewName("deviceList/checkDeviceDetail");
 		return modelAndView;
 	}

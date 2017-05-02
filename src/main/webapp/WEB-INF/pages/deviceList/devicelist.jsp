@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    function pageForward(){
 	   var pageIndex = document.getElementById('pageIndex').value;
 	   var totalPage = document.getElementById('hiddenTotalPage').value;
-	
+	    alert(totalPage);
 	    if(!/^\+?[1-9][0-9]*$/.test(pageIndex)){
 	    	alert("请输入大于0的页数");
 	   }
@@ -34,12 +34,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        }
    }
    function deviceCheck(id){
-	   alert(id);
 	   var pageIndex = document.getElementById('hiddenPageIndex').value;
-	   window.location.href ="<%=path%>/getDevice.do?deviceId="+id;
+	   window.location.href ="<%=path%>/getDevice.do?deviceId="+id+"&pageIndex="+pageIndex;
    }
    function addDevice(){
-	   window.location.href ="<%=path%>/admin/device/addDevice.jsp";
+	   window.location.href ="<%=path%>/admin/addDevicePage.do";
    }
    function editHospital(id){
 	   var pageIndex = document.getElementById('hiddenPageIndex').value;
@@ -112,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td><a
 					href="<%=path%>/listDevice.do?pageIndex=${pageIndex+1}&pageSize=10">下一页</a></td>
 				<td><a
-					href="<%=path%>/listDevice.do?pageIndex=${totalPage}&pageSize=10">最后一页</a></td>
+					href="<%=path%>/listDevice.do?pageIndex=${totalPages}&pageSize=10">最后一页</a></td>
 		</c:if>
 	  <c:if test="${pageIndex == totalPage}">
 			<td>下一页&nbsp;&nbsp;最后一页&nbsp;&nbsp;</td>
@@ -127,6 +126,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       style="margin-left:5px;margin-top:10px;font-weight:bolder;font-size:15px;border:3px solid #0090DB;height:30px;width:100;position:absolute;background:#0090DB;color:#FFEDF1;"  onMouseOver="this.style.backgroundColor='#EF972B';"
 				onMouseOut="this.style.backgroundColor ='#0090DB';"/>
       <input type="hidden" id="hiddenPageIndex" value="${pageIndex}"/>
-      <input type="hidden" id="hiddenTotalPage" value="${totalPage}"/>
+      <input type="hidden" id="hiddenTotalPage" value="${totalPages}"/>
  </body>
  </html>
