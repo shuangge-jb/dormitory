@@ -33,9 +33,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            window.location.href="<%=path%>/deleteHospital.action?hospitalId="+id;
        }
    }
-   function hospitalCheck(id){
+   function deviceCheck(id){
+	   alert(id);
 	   var pageIndex = document.getElementById('hiddenPageIndex').value;
-	   window.location.href ="<%=path%>/checkHospitalDetail.action?hospitalId="+id+"&pageIndex="+pageIndex;
+	   window.location.href ="<%=path%>/getDevice.do?deviceId="+id;
    }
    function addDevice(){
 	   window.location.href ="<%=path%>/admin/device/addDevice.jsp";

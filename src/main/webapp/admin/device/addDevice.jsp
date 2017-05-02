@@ -90,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<b>新增设备信息</b><font style="color:red">（*号为必填）</font>
 				&nbsp;<font style="color:red"><s:property value="addHospitalTip"/></font>
 			</div>
-            <form action="adminHospitalAddAction.action" name="form1" method="post" 
+            <form action="<%=path%>/admin/saveOrUpdateDevice.do" name="form1" method="post" 
             enctype="multipart/form-data" onsubmit="return verifyHospitalInfo();">
             <div style="margin-left:80px;margin-top:30px;">
 				<font color=red>*</font> 设备名称：<input type="text" id="hospitalName"
