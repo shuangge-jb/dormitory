@@ -26,11 +26,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   }
 	   
    }
-   function hospitalDel(id)
+   function deviceDel(id)
    {
        if(confirm('您确定删除该医院吗？'))
        {
-           window.location.href="<%=path%>/deleteHospital.action?hospitalId="+id;
+           window.location.href="<%=path%>/admin/removeDevice.do?deviceId="+id+"&pageIndex="+1+"&pageSize="+10;
        }
    }
    function deviceCheck(id){

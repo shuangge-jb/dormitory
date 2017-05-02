@@ -97,11 +97,11 @@ public class AdminDeviceController extends DeviceController {
 	}
 
 	@RequestMapping(value = "removeDevice.do", method = RequestMethod.GET)
-	public ModelAndView removeDevice(@RequestParam(value = "deviceId") Long deviceId) {
-		ModelAndView modelAndView = new ModelAndView("dormitory");
+	public String removeDevice(@RequestParam(value = "deviceId") Long deviceId,@RequestParam(value = "pageIndex") Integer pageIndex,
+			@RequestParam(value = "pageSize") Integer pageSize) {	
 		Device device = deviceService.get(deviceId);
 		deviceService.remove(device);
-		return modelAndView;
+		return "forward:/listDevice.do";
 	}
 
 	@RequestMapping(value = "saveOrUpdateInterface.do", method = RequestMethod.POST)
