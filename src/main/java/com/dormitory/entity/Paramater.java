@@ -1,10 +1,23 @@
 package com.dormitory.entity;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Paramater {
 	protected Integer paramaterId;
+	@NotNull
+	@NotEmpty
+	@NotBlank
 	protected String paramaterName;
+	@NotNull
+	@NotEmpty
+	@NotBlank
 	protected String description;
+	@NotNull
 	protected String type;
+	@NotNull
 	protected Integer interfaceId;
 
 	public Paramater() {

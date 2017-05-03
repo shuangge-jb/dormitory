@@ -69,8 +69,8 @@ public interface AnnouncementDAO {
 	 * @author guo.junbao
 	 * @date 2017-4-12
 	 */
-	@Insert(" insert into announcement(title,content,img_path,author_id,create_time,importance) "
-			+ " values(#{title},#{content},#{imgPath},#{authorId},#{createTime},#{importance}) ")
+	@Insert(" insert into announcement(title,content,img_path,author_id,building_id,create_time,importance) "
+			+ " values(#{title},#{content},#{imgPath},#{authorId},#{buildingId},#{createTime},#{importance}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "announcementId")
 	public void save(Announcement announcement);
 

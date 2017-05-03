@@ -15,19 +15,7 @@ import com.dormitory.entity.Announcement;
 @Controller("adminAnnouncementController")
 @RequestMapping(value = "/admin")
 public class AdminAnnouncementController extends AnnouncementController{
-	@RequestMapping(value = "/saveOrUpdateAnnouncement.do", method = RequestMethod.POST)
-	public ModelAndView saveOrUpdateAnnouncement(@ModelAttribute(value = "announcement")@Valid  Announcement announcement,BindingResult result) {
-		ModelAndView modelAndView = new ModelAndView("homePage");
-		if(result.hasErrors()){
-			modelAndView.setViewName(ERROR_PAGE);
-			return modelAndView;
-		}
-		announcementService.saveOrUpdate(announcement);
-		// TODO
-		modelAndView.setViewName("announcement");
-		modelAndView.addObject("status", OPERATE_SUCCESS);
-		return modelAndView;
-	}
+	
 	
 	@RequestMapping(value = "/removeAnnouncement.do", method = RequestMethod.POST)
 	public ModelAndView removeAnnouncement(@ModelAttribute(value = "announcement")@Valid  Announcement announcement,BindingResult result) {

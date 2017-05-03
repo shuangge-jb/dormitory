@@ -38,24 +38,25 @@ public class MasterAnnouncementController extends AnnouncementController {
 	@RequestMapping(value = "/saveOrUpdateAnnouncement.do", method = RequestMethod.POST)
 	public ModelAndView saveOrUpdateAnnouncement(
 			@ModelAttribute(value = "announcement") @Valid Announcement announcement, BindingResult result,
-			MultipartFile img, HttpServletRequest request, Model model) {
+			@RequestParam(value = "img") MultipartFile img, HttpServletRequest request, Model model) {
 		ModelAndView modelAndView = new ModelAndView("homePage");
 		if (result.hasErrors()) {
 			modelAndView.setViewName(ERROR_PAGE);
 			return modelAndView;
 		}
-
-		if (img.getOriginalFilename().toLowerCase().endsWith(".jpg")) {
-			modelAndView.setViewName(ERROR_PAGE);
-			modelAndView.addObject("status", "文件格式错误");
-			return modelAndView;
+		if (img != null && img.getSize() > 0) {
+			if (!img.getOriginalFilename().toLowerCase().endsWith(".jpg")) {
+				modelAndView.setViewName(ERROR_PAGE);
+				modelAndView.addObject("status", "文件格式错误");
+				return modelAndView;
+			}
+			fileService.saveFile(request, IMG_DIR, img);
+			String imgPath = fileService.getFilePath(request, IMG_DIR, img);
+			announcement.setImgPath(imgPath);
 		}
-		fileService.saveFile(request, IMG_DIR, img);
-		String imgPath = fileService.getFilePath(request, IMG_DIR, img);
-		announcement.setImgPath(imgPath);
-
 		Master master = masterService.get(announcement.getAuthorId());
 		announcement.setBuildingId(master.getBuildingId());
+		System.out.println("announcement:"+announcement);
 		announcementService.saveOrUpdate(announcement);
 		// TODO
 		modelAndView.setViewName("announcement");
@@ -64,13 +65,9 @@ public class MasterAnnouncementController extends AnnouncementController {
 	}
 
 	@RequestMapping(value = "/removeAnnouncement.do", method = RequestMethod.POST)
-	public ModelAndView removeAnnouncement(@ModelAttribute(value = "announcement") @Valid Announcement announcement,
-			BindingResult result) {
+	public ModelAndView removeAnnouncement(@RequestParam(value="announcementId")Integer announcementId) {
 		ModelAndView modelAndView = new ModelAndView("homePage");
-		if (result.hasErrors()) {
-			modelAndView.setViewName(ERROR_PAGE);
-			return modelAndView;
-		}
+		Announcement announcement=announcementService.get(announcementId);
 		announcementService.remove(announcement);
 		// TODO
 		modelAndView.setViewName("announcement");
@@ -86,14 +83,14 @@ public class MasterAnnouncementController extends AnnouncementController {
 		Integer buildingId = master.getBuildingId();
 		List<Announcement> list = announcementService.listByBuildingId(buildingId, pageIndex, pageSize);
 		Integer total = announcementService.getSizeByBuildingId(buildingId);
-		Integer totalPage=getTotalPages(total, pageSize);
+		Integer totalPage = getTotalPages(total, pageSize);
 		Map<String, Object> map = new HashMap<String, Object>(2);
 		map.put("data", list);
 		map.put("total", total);
 		map.put("totalPages", totalPage);
 		map.put("pageIndex", pageIndex);
 		map.put("pageSize", pageSize);
-		map.put("result", list!=null);
+		map.put("result", list != null);
 		return toJSON(map);
 	}
 }

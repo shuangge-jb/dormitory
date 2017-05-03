@@ -56,4 +56,9 @@ public class ParamaterServiceImpl implements ParamaterService {
 		return paramaterDAO.getSizeByInterfaceId(interfaceId);
 	}
 
+	@Override
+	public List<Paramater> listByParamName(Integer interfaceId, String paramName) {
+		return paramaterDAO.listByParamName(interfaceId, paramName);
+	}
+
 }

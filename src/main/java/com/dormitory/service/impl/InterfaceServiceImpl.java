@@ -53,4 +53,9 @@ private InterfaceDAO interfaceDAO;
 	public  Integer getSizeByDeviceId(Long deviceId){
 		return interfaceDAO.getSizeByDeviceId(deviceId);
 	}
+
+	@Override
+	public List<Interface> listByInterfaceName(Long deviceId,String interfaceName) {
+		return interfaceDAO.listByInterfaceName(deviceId,interfaceName);
+	}
 }

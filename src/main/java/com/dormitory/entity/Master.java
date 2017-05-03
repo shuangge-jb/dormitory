@@ -34,7 +34,10 @@ public class Master extends User {
 
 	@Override
 	public String toString() {
-		return "Administrator [masterId=" + masterId + ", name=" + name + ", phoneNumber=" + phoneNumber + ", email="
-				+ email + ", password=" + password + "]";
+		return "Master [masterId=" + masterId + ", buildingId=" + buildingId + ", name=" + name + ", phoneNumber="
+				+ phoneNumber + ", email=" + email + ", password=" + password + ", outDate=" + outDate
+				+ ", validateCode=" + validateCode + ", imgPath=" + imgPath + "]";
 	}
+
+	
 }

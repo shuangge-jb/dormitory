@@ -57,12 +57,12 @@
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>saveArticle</servlet-name>
-    <jsp-file>/WEB-INF/pages/saveArticle.jsp</jsp-file>
+    <servlet-name>saveDevice</servlet-name>
+    <jsp-file>/WEB-INF/pages/saveDevice.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-    <servlet-name>saveArticle</servlet-name>
-    <url-pattern>/student/saveArticle</url-pattern>
+    <servlet-name>saveDevice</servlet-name>
+    <url-pattern>/admin/saveDevice</url-pattern>
   </servlet-mapping>
   
   

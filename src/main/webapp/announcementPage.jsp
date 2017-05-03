@@ -26,7 +26,7 @@ String path = request.getContextPath();
 	}
 	</script>
 	<script type="text/javascript">
-	$(document).ready(function({
+	$(document).ready(function(){
 		getAnnouncementDataList(0,null);
 	});
 	 
@@ -36,15 +36,15 @@ String path = request.getContextPath();
 	 
 	  function getAnnouncementDataList(currentPage,jg){
 		  $.ajax({
-			 url:" ", 
-		     type:"post",
+			 url:"listAnnouncement.do", 
+		     type:"get",
 		     dataType:'json',
 		     data:{
 		    	 pageIndex:currentPage+1,pageSize:pageSize
 		     },
 		     contentType : "application/x-www-form-urlencoded; charset=utf-8",
 		     success:function(data){
-		    	 if(data.result){
+		    	 if(data.result==true){
 		    		 if(data.announcementDataList!=null && data.announcementDataList!=""
 		    				 && data.totalPages!=undefined && data.totalPages>0){
 		    			 if(initFlag){
@@ -72,7 +72,7 @@ String path = request.getContextPath();
 		  });
 	  }
 	 
-	)
+	
 	
 	</script>
 	<style type="text/css">

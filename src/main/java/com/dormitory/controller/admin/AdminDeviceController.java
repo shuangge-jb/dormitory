@@ -41,6 +41,9 @@ public class AdminDeviceController extends DeviceController {
 			modelAndView.setViewName("deviceList/addDevice");
 			return modelAndView;
 		}
+		device.setDescription(device.getDescription().trim());
+		device.setName(device.getName().trim());
+		device.setType(device.getType().trim());
 		List<Device> temp = deviceService.getByName(device.getName());
 		if (temp.size() > 0) {
 			if (LOGGER.isDebugEnabled()) {
@@ -184,18 +187,29 @@ public class AdminDeviceController extends DeviceController {
 	}
 
 	@RequestMapping(value = "saveOrUpdateInterface.do", method = RequestMethod.POST)
-	public ModelAndView saveOrUpdateInterface(@RequestParam(value = "deviceId") Long deviceId,
-			@ModelAttribute(value = "inerface") @Valid Interface face, BindingResult result, Model model) {
-		ModelAndView modelAndView = new ModelAndView();
+	public ModelAndView saveOrUpdateInterface(@ModelAttribute @Valid Interface face, BindingResult result,
+			Model model) {
+		ModelAndView modelAndView = new ModelAndView("dormitory");
 		if (result.hasErrors()) {
 			modelAndView.setViewName(ERROR_PAGE);
 			return modelAndView;
 		}
-		Device temp = deviceService.get(deviceId);
+		Device temp = deviceService.get(face.getDeviceId());
 		if (temp == null) {
 			modelAndView.setViewName(ERROR_PAGE);
 			model.addAttribute("status", "设备不存在");
 			return modelAndView;
+		}
+		List<Interface> interfaceTemp = interfaceService.listByInterfaceName(temp.getDeviceId(),
+				face.getInterfaceName());
+		if (interfaceTemp.size() > 0) {
+			modelAndView.setViewName(ERROR_PAGE);
+			model.addAttribute("status", "接口名重复");
+			return modelAndView;
+		}
+		String url = face.getInterfaceUrl();
+		if (!url.startsWith("http://")) {
+			face.setInterfaceUrl("http://" + url);
 		}
 		interfaceService.saveOrUpdate(face);
 		modelAndView.setViewName("");
@@ -204,24 +218,31 @@ public class AdminDeviceController extends DeviceController {
 
 	@RequestMapping(value = "removeInterface.do", method = RequestMethod.GET)
 	public ModelAndView removeInterface(@RequestParam(value = "interfaceId") Integer interfaceId) {
-		ModelAndView modelAndView = new ModelAndView();
+		ModelAndView modelAndView = new ModelAndView("");
 		Interface face = interfaceService.get(interfaceId);
 		interfaceService.remove(face);
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "saveOrUpdateParamater.do", method = RequestMethod.POST)
-	public ModelAndView saveOrUpdateParamater(@RequestParam(value = "interfaceId") Integer interfaceId,
-			@ModelAttribute(value = "paramater") @Valid Paramater paramater, BindingResult result, Model model) {
-		ModelAndView modelAndView = new ModelAndView();
+	public ModelAndView saveOrUpdateParamater(@ModelAttribute(value = "paramater") @Valid Paramater paramater,
+			BindingResult result, Model model) {
+		ModelAndView modelAndView = new ModelAndView("");
 		if (result.hasErrors()) {
 			modelAndView.setViewName(ERROR_PAGE);
 			return modelAndView;
 		}
-		Paramater temp = paramaterService.get(interfaceId);
+		Interface temp = interfaceService.get(paramater.getInterfaceId());
 		if (temp == null) {
 			modelAndView.setViewName(ERROR_PAGE);
 			model.addAttribute("status", "接口不存在");
+			return modelAndView;
+		}
+		List<Paramater> list = paramaterService.listByParamName(temp.getInterfaceId(), paramater.getParamaterName());
+		if (list.size() > 0) {
+			System.out.println("list!=null");
+			modelAndView.setViewName(ERROR_PAGE);
+			model.addAttribute("status", "参数名重复");
 			return modelAndView;
 		}
 		paramaterService.saveOrUpdate(paramater);
@@ -231,14 +252,15 @@ public class AdminDeviceController extends DeviceController {
 
 	@RequestMapping(value = "removeParamater.do", method = RequestMethod.POST)
 	public ModelAndView removeParamater(@RequestParam(value = "paramaterId") Integer paramaterId) {
-		ModelAndView modelAndView = new ModelAndView();
+		ModelAndView modelAndView = new ModelAndView("");
 		Paramater paramater = paramaterService.get(paramaterId);
 		paramaterService.remove(paramater);
 		return modelAndView;
 	}
-	@RequestMapping(value="addDevicePage.do",method =  RequestMethod.GET)
-	public ModelAndView forwardAddDevicePage(){
-		ModelAndView modelAndView =  new ModelAndView();
+
+	@RequestMapping(value = "addDevicePage.do", method = RequestMethod.GET)
+	public ModelAndView forwardAddDevicePage() {
+		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("deviceList/addDevice");
 		return modelAndView;
 	}
