@@ -1,7 +1,7 @@
 package test.dormitory.admin.controller;
 
 import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -41,8 +41,8 @@ public class AdminControllerTest {
 	@Test
 	public void testLogin() {
 		try {
-			mockMvc.perform(get("/admin/login").param("name", "admin").param("password", "admin"))
-			.andExpect(view().name("redirect:/admin")).andDo(print());
+			mockMvc.perform(post("/admin/login.do").param("name", "admin").param("password", "admin"))
+			.andExpect(view().name("adminMain")).andDo(print());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

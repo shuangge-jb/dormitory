@@ -1,10 +1,9 @@
-package test.dormitory.controller.student;
+package test.dormitory.controller;
 
 import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import javax.annotation.Resource;
 
@@ -16,23 +15,20 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.dormitory.controller.admin.AdminDeviceController;
-import com.dormitory.controller.student.StudentDeviceController;
+import com.dormitory.controller.AnnouncementController;
+import com.dormitory.controller.admin.AdminController;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = { "classpath:spring-mvc.xml", "classpath:applicationContext.xml",
 		"classpath:spring-mybatis.xml" })
-public class StudentDeviceControllerTest {
+public class AnnouncementControllerTest {
 	@Resource
-	private StudentDeviceController studentDeviceController;
+	private AnnouncementController announcementController;
 	@Resource
 	private WebApplicationContext wac;
 	private MockMvc mockMvc;
@@ -40,34 +36,43 @@ public class StudentDeviceControllerTest {
 	@Before
 	public void setup() throws Exception {
 		// this.mockMvc = webAppContextSetup(this.wac).build();
-		mockMvc = MockMvcBuilders.standaloneSetup(studentDeviceController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(announcementController).build();
 	}
+
 	@Test
-	public void testInvokeInterfaceUnExisted() {
+	public void testListAnnouncement() {
 		try {
-			ResultActions result = mockMvc
-					.perform(MockMvcRequestBuilders.post("/student/invokeInterface.do").param("interfaceId", "2")
-							.param("building", "C10").param("room", "510"))
-					.andExpect(status().isOk());
+			ResultActions result = mockMvc.perform(get("/listAnnouncement.do").param("pageIndex", "1")
+					.param("pageSize", "1").accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
+					.andDo(print());
 			String content = result.andReturn().getResponse().getContentAsString();
-			System.out.println("JSON return :" + content);
-			assertNotNull(content);
-			assertTrue(content.isEmpty());
-			assertTrue(content.equals(""));
+			System.out.println("return :" + content);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	@Test
-	public void testInvokeInterfaceDateTime() {
+	public void testListAnnouncementLimit() {
 		try {
-			ResultActions result = mockMvc
-					.perform(MockMvcRequestBuilders.post("/student/invokeInterface.do").param("interfaceId", "3")
-							.param("building", "c10").param("room", "512").param("createTime", "2017-1-1%200:0:0"))
-					.andExpect(status().isOk());
+			ResultActions result = mockMvc.perform(get("/listAnnouncementLimit.do").param("n", "1")
+					.accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
+					.andDo(print());
 			String content = result.andReturn().getResponse().getContentAsString();
-			System.out.println("JSON return :" + content);
-			assertNotNull(content);
+			System.out.println("return :" + content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testGetAnnouncement() {
+		try {
+			ResultActions result = mockMvc.perform(get("/getAnnouncement.do").param("announcementId", "1")
+					.accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
+					.andDo(print());
+			String content = result.andReturn().getResponse().getContentAsString();
+			System.out.println("return :" + content);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

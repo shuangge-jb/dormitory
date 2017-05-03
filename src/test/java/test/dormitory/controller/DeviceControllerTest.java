@@ -11,10 +11,13 @@ import javax.annotation.Resource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -41,8 +44,10 @@ public class DeviceControllerTest {
 	@Test
 	public void testListDevice() {
 		try {
-			mockMvc.perform(get("/listDevice.do").param("pageIndex", "1").param("pageSize", "1"))
-					.andExpect(status().isOk()).andExpect(view().name("dormitory")).andDo(print());
+			ResultActions result = mockMvc.perform(get("/listDevice.do").param("pageIndex", "1").param("pageSize", "1"))
+					.andExpect(status().isOk()).andDo(print());
+			String content = result.andReturn().getResponse().getContentAsString();
+			System.out.println("return :" + content);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,27 +55,58 @@ public class DeviceControllerTest {
 
 	@Test
 	public void testListInterfaceByDeviceId() {
-		fail("Not yet implemented");
+		try {
+			ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/listInterfaceByDeviceId.do")
+					.param("deviceId", "14").param("pageIndex", "1").param("pageSize", "1")).andExpect(status().isOk())
+					.andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testListParamByInterfaceId() {
-		fail("Not yet implemented");
+		try {
+			ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/listParamByInterfaceId.do")
+					.param("interfaceId", "2").param("pageIndex", "1").param("pageSize", "1"))
+					.andExpect(status().isOk()).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetDevice() {
-		fail("Not yet implemented");
+		try {
+			ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/getDevice.do").param("deviceId", "14"))
+					.andExpect(status().isOk()).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetInterface() {
-		fail("Not yet implemented");
+		try {
+			ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/getInterface.do")
+					.param("interfaceId", "2").accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
+					.andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetParamater() {
-		fail("Not yet implemented");
+		try {
+			ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/getParamater.do")
+					.param("paramaterId", "2").accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
+					.andDo(print());
+			String content = result.andReturn().getResponse().getContentAsString();
+			System.out.println("return :" + content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
