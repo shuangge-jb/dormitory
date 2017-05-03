@@ -25,7 +25,7 @@ public interface MasterDAO {
 	@Options(useGeneratedKeys = true, keyProperty = "masterId")
 	public void save(Master master);
 
-	@Update("update master set name=#{name},phone_number=#{phoneNumber}, " + " email=#{email},password=#{password}")
+	@Update("update master set name=#{name},phone_number=#{phoneNumber}, " + " email=#{email},password=#{password} where master_id=#{masterId}")
 	public void update(Master master);
 
 	@Delete("delete from master where master=#{masterId}")
