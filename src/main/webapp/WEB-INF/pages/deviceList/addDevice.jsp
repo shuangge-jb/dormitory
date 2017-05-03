@@ -39,6 +39,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	} 
     	return true;
     }
+    function keyPress() //textArea输入长度处理   
+    {  
+    	var description = document.getElementById("description").value;  
+        var len; //记录剩余字符串的长度   
+        if (description >=100) //textarea控件不能用maxlength属性，就通过这样显示输入字符数了   
+        {  
+            document.getElementById("description").value = description.substr(0, 100);  
+            len = 0;  
+        } else {  
+            len = 100 - description.length;  
+        }  
+        var show = "你还可以输入" + len + "个字";  
+        document.getElementById("miaoshu").innerText = show;   
+    }  
    </script>
    <style type="text/css">
    #shuoming {
@@ -107,7 +121,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<font color=red>*</font> 设备功能描述：<br>
 				<textArea 
 					name="description" id="description"
-					class="textAreaTxt" placeholder="描述清楚设备有哪些功能"></textArea>
+					class="textAreaTxt" placeholder="描述清楚设备有哪些功能"
+					onkeyup="keyPress()" onblur="keyPress()"></textArea>
+					<font color="gray" size=2><label id="miaoshu">&nbsp;你还可以输入100个字</label></font>
 			</div>
 			     <input type="submit" value="新增" style="margin-top:10px;margin-left:130px;font-weight:bolder;font-size:15px;border:3px solid #0090DB;height:30px;width:50;position:absolute;background:#0090DB;color:#FFEDF1;" 
 			     onMouseOver="this.style.backgroundColor='#EF972B';"

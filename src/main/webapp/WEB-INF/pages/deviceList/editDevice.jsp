@@ -14,6 +14,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 	<script src="<%=path%>/js/jquery-1.8.3.min.js"></script> 
 	<script type="text/javascript">
+	function keyPress() //textArea输入长度处理   
+		    {  
+				var description = document.getElementById("description").value;  
+		        var len; //记录剩余字符串的长度   
+		        if (description >=100) //textarea控件不能用maxlength属性，就通过这样显示输入字符数了   
+		        {  
+		            document.getElementById("description").value = description.substr(0, 100);  
+		            len = 0;  
+		        } else {  
+		            len = 100 - description.length;  
+		        }  
+		        var show = "你还可以输入" + len + "个字";  
+		        document.getElementById("miaoshu").innerText = show;   
+	 }
     function back(id){
     	 window.location.href ="<%=path%>/listDevice.do?pageIndex="+id+"&pageSize="+10;
     }
@@ -40,6 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	} 
     	return true;
     }
+     
     function save(){
     	if(!verifyDeviceInfo()){
     		return false;
@@ -81,8 +96,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            <input type="file" name="model"  id="model"
 					style="width:200px;height:25px;border-radius:5px;color:#EF972B;font-size:15px;" value="111" disabled="true"><br>
            <font color=#818181 size=4>设备功能描述：</font> <br>
-           <textArea    name="description" id="description" style="color:#EF972B;overflow-x:hidden;overflow-y:hidden;font-size:15px;width:290px;height:150px;border-radius:5px;"  disabled="true">${device.description}
-		   </textArea>
+           <textArea   name="description"  onkeyup="keyPress()" onblur="keyPress()"
+           id="description" style="color:#EF972B;overflow-x:hidden;overflow-y:hidden;font-size:15px;width:290px;height:150px;border-radius:5px;"  disabled="true">${device.description}</textArea>
+		   <font color="gray" size=2><label id="miaoshu">&nbsp;</label></font>
            <input type="hidden" name="deviceId" value="${device.deviceId}"/>
          <input type="hidden" name="pageIndex" value="${pageIndex}"/>
       </div>
@@ -99,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				onMouseOut="this.style.backgroundColor ='#0090DB';" />
 				</div>
 				</div>
-		<div id="headImg" style="margin-top:20px;margin-left:320px;">
+		<div id="headImg" style="margin-top:20px;margin-left:420px;">
           <img src="${device.imgPath}" width="100px" height="120px" alt="deviceImg"/>
        
     </div>
