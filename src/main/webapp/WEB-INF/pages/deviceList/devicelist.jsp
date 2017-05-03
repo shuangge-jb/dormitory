@@ -40,9 +40,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    function addDevice(){
 	   window.location.href ="<%=path%>/admin/addDevicePage.do";
    }
-   function editHospital(id){
+   function editDevice(id){
 	   var pageIndex = document.getElementById('hiddenPageIndex').value;
-	   window.location.href="<%=path%>/checkEditHospital.action?hospitalId="+id+"&pageIndex="+pageIndex;
+	   window.location.href="<%=path%>/admin/editDevicePage.do?deviceId="+id+"&pageIndex="+pageIndex;
    }
    </script>
    

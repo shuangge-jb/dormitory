@@ -59,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            <font color=#818181 size=3>设备功能描述：</font> <br>
            <textArea  id="deviceBrief"
 					name="brief" 
-					class="textAreaTxt">  ${device.description}</textArea><br>
+					class="textAreaTxt">${device.description}</textArea><br>
 		  <input type="button" value="返回" onclick="back(${pageIndex})" 
         class="back_button"  /> 
       </div>

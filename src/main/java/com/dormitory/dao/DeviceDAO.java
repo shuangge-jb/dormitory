@@ -29,7 +29,7 @@ public interface DeviceDAO {
 	public void save(Device device);
 
 	@Update(" update device set  "
-			+ " name=#{name},type=#{type},img_path=#{imgPath},description=#{description},model_path=#{modelPath} ")
+			+ " name=#{name},type=#{type},img_path=#{imgPath},description=#{description},model_path=#{modelPath} where device_id=#{deviceId}")
 	public void update(Device device);
 
 	@Delete("delete from device where device_id=#{deviceId}")

@@ -96,6 +96,85 @@ public class AdminDeviceController extends DeviceController {
 		return modelAndView;
 	}
 
+	@RequestMapping(value = "/updateDevice.do", method = RequestMethod.POST)
+	public ModelAndView updateDevice(@ModelAttribute(value = "device") @Valid Device device, BindingResult result,
+			@RequestParam(value = "img") MultipartFile img, @RequestParam(value = "model") MultipartFile modelFile,
+			HttpServletRequest request, Model model,@RequestParam(value = "pageIndex") Integer pageIndex) {
+		ModelAndView modelAndView = new ModelAndView(ERROR_PAGE);
+		modelAndView.addObject("pageIndex", pageIndex);
+		Device deviveTemp = deviceService.get(device.getDeviceId());
+		if (result.hasErrors()) {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("参数异常：result.hasErrors." + result);
+			}
+			modelAndView.addObject("status", "输入的参数有误");
+			modelAndView.addObject("device", deviveTemp);
+			modelAndView.setViewName("deviceList/editDevice");
+			return modelAndView;
+		}
+		List<Device> temp = deviceService.getByName(device.getName());
+		if (temp.size() > 1) {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("该设备已存在." + result);
+			}
+			modelAndView.addObject("status", "该设备已存在.");
+			modelAndView.addObject("device", deviveTemp);
+			modelAndView.setViewName("deviceList/editDevice");
+			return modelAndView;
+		}
+
+		if (img != null && img.getSize() > 0) {
+			System.out.println("file:" + img.getOriginalFilename());
+			String imgName = img.getOriginalFilename().toLowerCase();
+			System.out.println("img name:" + imgName + " ends with jpg:" + imgName.endsWith(".jpg"));
+
+			if (!(imgName.endsWith(".jpg"))) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("img文件类型异常：");
+				}
+				modelAndView.addObject("status", "img文件类型错误");
+				modelAndView.addObject("device", deviveTemp);
+				modelAndView.setViewName("deviceList/editDevice");
+				return modelAndView;
+			}
+			fileService.saveFile(request, IMG_DIR, img);
+			// 保存图片对象
+			String imgPath = fileService.getFilePath(request, IMG_DIR, img);
+			device.setImgPath(imgPath);
+		}else{
+			device.setImgPath(deviveTemp.getImgPath());
+		}
+		
+		if (modelFile != null && modelFile.getSize() > 0) {
+			System.out.println("file:" + modelFile.getOriginalFilename());
+			String modelName = modelFile.getOriginalFilename().toLowerCase();
+			System.out.println("model name:" + modelName + " ends with obj or dae:"
+					+ (modelName.endsWith(".obj") || modelName.endsWith(".dae")));
+
+			if (!(modelName.endsWith(".obj") || modelName.endsWith(".dae"))) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("model文件类型异常：");
+				}
+				modelAndView.addObject("status", "model文件类型错误");
+				modelAndView.addObject("device", deviveTemp);
+				modelAndView.setViewName("deviceList/editDevice");
+				return modelAndView;
+			}
+			fileService.saveFile(request, MODEL_DIR, modelFile);
+			// 保存模型对象
+			String filePath = fileService.getFilePath(request, MODEL_DIR, modelFile);
+			System.out.println("model path:" + filePath);
+			device.setModelPath(filePath);
+		}else{
+			device.setModelPath(deviveTemp.getModelPath());
+		}
+		deviceService.saveOrUpdate(device);
+		modelAndView.addObject("status", "更新成功");
+		deviveTemp = deviceService.get(device.getDeviceId());
+		modelAndView.addObject("device", deviveTemp);
+		modelAndView.setViewName("deviceList/editDevice");
+		return modelAndView;
+	}
 	@RequestMapping(value = "removeDevice.do", method = RequestMethod.GET)
 	public String removeDevice(@RequestParam(value = "deviceId") Long deviceId,@RequestParam(value = "pageIndex") Integer pageIndex,
 			@RequestParam(value = "pageSize") Integer pageSize) {	
@@ -161,6 +240,16 @@ public class AdminDeviceController extends DeviceController {
 	public ModelAndView forwardAddDevicePage(){
 		ModelAndView modelAndView =  new ModelAndView();
 		modelAndView.setViewName("deviceList/addDevice");
+		return modelAndView;
+	}
+	@RequestMapping(value="editDevicePage.do",method =  RequestMethod.GET)
+	public ModelAndView forwardEditDevicePage(@RequestParam(value = "deviceId") Long deviceId,
+			@RequestParam(value = "pageIndex") Integer pageIndex){
+		ModelAndView modelAndView =  new ModelAndView();
+		modelAndView.setViewName("deviceList/editDevice");
+		Device temp = deviceService.get(deviceId);
+		modelAndView.addObject("device",temp);
+		modelAndView.addObject("pageIndex",pageIndex);
 		return modelAndView;
 	}
 }
