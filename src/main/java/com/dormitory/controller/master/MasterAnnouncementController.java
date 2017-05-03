@@ -38,14 +38,14 @@ public class MasterAnnouncementController extends AnnouncementController {
 	@RequestMapping(value = "/saveOrUpdateAnnouncement.do", method = RequestMethod.POST)
 	public ModelAndView saveOrUpdateAnnouncement(
 			@ModelAttribute(value = "announcement") @Valid Announcement announcement, BindingResult result,
-			MultipartFile img, HttpServletRequest request, Model model) {
+			@RequestParam(value = "img")MultipartFile img, HttpServletRequest request, Model model) {
 		ModelAndView modelAndView = new ModelAndView("homePage");
 		if (result.hasErrors()) {
 			modelAndView.setViewName(ERROR_PAGE);
 			return modelAndView;
 		}
 
-		if (img.getOriginalFilename().toLowerCase().endsWith(".jpg")) {
+		if (!img.getOriginalFilename().toLowerCase().endsWith(".jpg")) {
 			modelAndView.setViewName(ERROR_PAGE);
 			modelAndView.addObject("status", "文件格式错误");
 			return modelAndView;
