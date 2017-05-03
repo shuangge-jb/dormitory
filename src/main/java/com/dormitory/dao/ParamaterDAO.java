@@ -39,4 +39,8 @@ public interface ParamaterDAO {
 
 	@Select("select count(*) from paramater where interface_id=#{interfaceId}  ")
 	Integer getSizeByInterfaceId(@Param("interfaceId") Integer interfaceId);
+
+	@Select(" select * from paramater where interface_id=#{interfaceId} and paramater_name=#{paramName} ")
+	@ResultMap("com.dormitory.mapper.ParamaterMapper.paramater")
+	List<Paramater> listByParamName(@Param("interfaceId") Integer interfaceId, @Param("paramName") String paramName);
 }

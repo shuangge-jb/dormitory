@@ -9,4 +9,5 @@ public interface InterfaceService
 		extends GetService<Interface, Integer>, SaveOrUpdateService<Interface>, RemoveService<Interface> {
 	public List<Interface> listByDeviceId(Long deviceId,Integer pageIndex,Integer pageSize);
 	public Integer getSizeByDeviceId(Long deviceId);
+	public List<Interface> listByInterfaceName(Long deviceId,String interfaceName);
 }

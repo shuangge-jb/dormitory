@@ -8,5 +8,8 @@ import com.dormitory.entity.Paramater;
 public interface ParamaterService
 		extends GetService<Paramater, Integer>, SaveOrUpdateService<Paramater>, RemoveService<Paramater> {
 	public List<Paramater> listByInterfaceId(Integer interfaceId, Integer pageIndex, Integer pageSize);
+
 	public Integer getSizeByInterfaceId(Integer interfaceId);
+
+	List<Paramater> listByParamName(Integer interfaceId, String paramName);
 }

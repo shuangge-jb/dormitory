@@ -20,7 +20,7 @@ public interface InterfaceDAO {
 
 	@Select(" select * from interface where interface_id=#{interfaceId} ")
 	@ResultMap("com.dormitory.mapper.InterfaceMapper.interface")
-	Interface get(@Param("interfaceId")Integer interfaceId);
+	Interface get(@Param("interfaceId") Integer interfaceId);
 
 	@Update(" update interface set interface_name=#{interfaceName}, "
 			+ " interface_url=#{interfaceUrl},description=#{description}, "
@@ -40,4 +40,8 @@ public interface InterfaceDAO {
 
 	@Select("select count(*) from interface where device_id=#{deviceId} ")
 	Integer getSizeByDeviceId(@Param("deviceId") Long deviceId);
+
+	@Select("select i.* from interface i where i.device_id =#{deviceId} and i.interface_name=#{interfaceName}")
+	@ResultMap("com.dormitory.mapper.InterfaceMapper.interface")
+	List<Interface> listByInterfaceName(@Param("deviceId") Long deviceId, @Param("interfaceName") String interfaceName);
 }
