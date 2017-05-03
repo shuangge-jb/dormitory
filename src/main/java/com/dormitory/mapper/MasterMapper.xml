@@ -9,6 +9,7 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
    <result column="out_date" jdbcType="TIMESTAMP" property="outDate" />
    <result column="validate_code" jdbcType="VARCHAR" property="validateCode" />
+   <result column="building_id" jdbcType="INTEGER" property="buildingId" />
   </resultMap>
  
 </mapper>
