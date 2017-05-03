@@ -23,7 +23,7 @@ public interface ParamaterDAO {
 	Paramater get(@Param("paramaterId") Integer paramaterId);
 
 	@Update(" update paramater set paramater_name=#{paramaterName} ,"
-			+ "description=#{description},type=#{type},where paramater_id=#{paramaterId} ")
+			+ "description=#{description},type=#{type} where paramater_id=#{paramaterId} ")
 	void update(Paramater item);
 
 	@Delete(" delete from paramater where paramater_id=#{paramaterId}")

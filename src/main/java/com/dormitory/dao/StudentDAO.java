@@ -29,7 +29,7 @@ public interface StudentDAO {
 
 	@Update(" update student set dormitory_id=#{dormitoryId},bed_id=#{bedId},"
 			+ " out_date=#{outDate},validate_code=#{validateCode}, img_path=#{imgPath},"
-			+ " phone_number=#{phoneNumber},email=#{email},password=#{password} ")
+			+ " phone_number=#{phoneNumber},email=#{email},password=#{password} where student_id=#{studentId}")
 	void update(Student student);
 
 	@Delete(" delete from student where student_id=#{studentId} ")
