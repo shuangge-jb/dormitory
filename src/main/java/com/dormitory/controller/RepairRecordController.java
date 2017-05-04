@@ -1,5 +1,6 @@
 package com.dormitory.controller;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -39,14 +40,14 @@ public class RepairRecordController {
 			@RequestParam(value = "pageSize") Integer pageSize) {
 		List<RepairRecord> list = repairRecordService.list(pageIndex, pageSize);
 		Integer total = repairRecordService.getSize();
-		Integer totalPage=getTotalPages(total, pageSize);
+		Integer totalPage = getTotalPages(total, pageSize);
 		Map<String, Object> map = new HashMap<String, Object>(6);
 		map.put("data", list);
 		map.put("total", total);
 		map.put("totalPages", totalPage);
 		map.put("pageIndex", pageIndex);
 		map.put("pageSize", pageSize);
-		map.put("result", list!=null);
+		map.put("result", list != null);
 		return toJSON(map);
 	}
 
@@ -57,50 +58,51 @@ public class RepairRecordController {
 		return toJSON(list);
 	}
 
-//	@RequestMapping(value = "listRepairRecordByDormitoryId.do")
-//	@ResponseBody
-//	public String listRepairRecordByDormitoryId(@RequestParam(value = "dormitoryId") Integer dormitoryId,
-//			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
-//		List<RepairRecord> list = repairRecordService.listByDormitoryId(dormitoryId, pageIndex, pageSize);
-//		Integer total = repairRecordService.getSizeByDormitoryId(dormitoryId);
-//		Map<String, Object> map = new HashMap<String, Object>(3);
-//		map.put("data", list);
-//		map.put("total", total);
-//		return toJSON(map);
-//	}
+	// @RequestMapping(value = "listRepairRecordByDormitoryId.do")
+	// @ResponseBody
+	// public String listRepairRecordByDormitoryId(@RequestParam(value =
+	// "dormitoryId") Integer dormitoryId,
+	// @RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value
+	// = "pageSize") Integer pageSize) {
+	// List<RepairRecord> list =
+	// repairRecordService.listByDormitoryId(dormitoryId, pageIndex, pageSize);
+	// Integer total = repairRecordService.getSizeByDormitoryId(dormitoryId);
+	// Map<String, Object> map = new HashMap<String, Object>(3);
+	// map.put("data", list);
+	// map.put("total", total);
+	// return toJSON(map);
+	// }
 
-	@RequestMapping(value = "getRepiarRecord.do")
+	@RequestMapping(value = "getRepairRecord.do")
 	@ResponseBody
 	public String getRepiarRecord(@RequestParam(value = "repairRecordId") Integer repairRecordId) {
 		RepairRecord record = repairRecordService.get(repairRecordId);
 		return toJSON(record);
 	}
 
-	@RequestMapping(value = "saveOrUpdateRepairRecord.do", method = RequestMethod.POST)
-	public ModelAndView saveOrUpdateRepairRecord(
-			@ModelAttribute(value = "repairRecord") @Valid RepairRecord repairRecord, BindingResult result) {
-		ModelAndView modelAndView = new ModelAndView("");
-		if (result.hasErrors()) {
-			modelAndView.setViewName(ERROR_PAGE);
-			return modelAndView;
-		}
-		repairRecordService.saveOrUpdate(repairRecord);
-		modelAndView.addObject("status", "成功");
-		return modelAndView;
-	}
-	@RequestMapping(value = "removeRepairRecord.do", method = RequestMethod.POST)
-	public ModelAndView removeRepairRecord(@ModelAttribute(value = "repairRecord") @Valid RepairRecord repairRecord,
+	@RequestMapping(value = "saveRepairRecord.do", method = RequestMethod.POST)
+	public ModelAndView saveRepairRecord(@ModelAttribute(value = "repairRecord") @Valid RepairRecord repairRecord,
 			BindingResult result) {
 		ModelAndView modelAndView = new ModelAndView("");
 		if (result.hasErrors()) {
 			modelAndView.setViewName(ERROR_PAGE);
 			return modelAndView;
 		}
+		repairRecord.setCreateTime(new Timestamp(System.currentTimeMillis()));
+		repairRecordService.saveOrUpdate(repairRecord);
+		modelAndView.addObject("status", "成功");
+		return modelAndView;
+	}
 
-		repairRecordService.remove(repairRecord);
+	@RequestMapping(value = "removeRepairRecord.do", method = RequestMethod.POST)
+	public ModelAndView removeRepairRecord(@RequestParam(value = "repairRecordId") Integer repairRecordId) {
+		ModelAndView modelAndView = new ModelAndView("");
+		RepairRecord record = repairRecordService.get(repairRecordId);
+		repairRecordService.remove(record);
 		modelAndView.addObject("status", "删除成功");
 		return modelAndView;
 	}
+
 	protected String toJSON(Object obj) {
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -116,12 +118,13 @@ public class RepairRecordController {
 		}
 		return result;
 	}
-	protected int getTotalPages(Integer count ,Integer pageSize){
-		if(pageSize==null){
-			pageSize=10;
+
+	protected int getTotalPages(Integer count, Integer pageSize) {
+		if (pageSize == null) {
+			pageSize = 10;
 		}
 		int totalPages = 0;
-		totalPages = (count%pageSize==0)?(count/pageSize):(count/pageSize+1);
+		totalPages = (count % pageSize == 0) ? (count / pageSize) : (count / pageSize + 1);
 		return totalPages;
 	}
 }
