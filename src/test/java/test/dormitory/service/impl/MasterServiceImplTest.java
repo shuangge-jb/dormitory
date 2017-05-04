@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.dormitory.entity.Master;
+import com.dormitory.dto.master.MasterDTO;
 import com.dormitory.entity.Device;
 import com.dormitory.service.MasterService;
 
@@ -24,7 +25,7 @@ public class MasterServiceImplTest {
 
 	private void init() {
 		System.out.println("init");
-		Master administrator = new Master();
+		MasterDTO administrator = new MasterDTO();
 		administrator.setEmail("1121162882@qq.com");
 		administrator.setName("楼管");
 		administrator.setPassword("123456");
@@ -45,7 +46,8 @@ public class MasterServiceImplTest {
 		System.out.println("testUpdate");
 		init();
 		Integer id=masterService.getLastInsertId();
-		Master administrator = masterService.get(id);
+		MasterDTO administrator =new MasterDTO();
+		administrator.setMaster(masterService.get(id));
 		String newName="新楼管";
 		administrator.setName(newName);
 		masterService.saveOrUpdate(administrator);

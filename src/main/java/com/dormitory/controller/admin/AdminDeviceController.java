@@ -299,4 +299,5 @@ public class AdminDeviceController extends DeviceController {
 		modelAndView.addObject("pageIndex", pageIndex);
 		return modelAndView;
 	}
+	
 }

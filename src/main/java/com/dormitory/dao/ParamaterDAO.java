@@ -13,8 +13,8 @@ import org.apache.ibatis.annotations.Update;
 import com.dormitory.entity.Paramater;
 
 public interface ParamaterDAO {
-	@Insert(" insert into paramater(paramater_name,description,type,interface_id) "
-			+ " values(#{paramaterName},#{description},#{type},#{interfaceId}) ")
+	@Insert(" insert into paramater(paramater_name,description,type,interface_id,device_id) "
+			+ " values(#{paramaterName},#{description},#{type},#{interfaceId},#{deviceId}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "paramaterId")
 	void save(Paramater item);
 
@@ -23,7 +23,8 @@ public interface ParamaterDAO {
 	Paramater get(@Param("paramaterId") Integer paramaterId);
 
 	@Update(" update paramater set paramater_name=#{paramaterName} ,"
-			+ "description=#{description},type=#{type},interface_id=#{interfaceId} where paramater_id=#{paramaterId} ")
+			+ "description=#{description},type=#{type},interface_id=#{interfaceId}, "
+			+ " device_id=#{deviceId} where paramater_id=#{paramaterId} ")
 	void update(Paramater item);
 
 	@Delete(" delete from paramater where paramater_id=#{paramaterId}")

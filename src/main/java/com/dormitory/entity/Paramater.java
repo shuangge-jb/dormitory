@@ -19,7 +19,8 @@ public class Paramater {
 	protected String type;
 	@NotNull
 	protected Integer interfaceId;
-
+	@NotNull
+	protected Long deviceId;
 	public Paramater() {
 		super();
 	}
@@ -62,6 +63,14 @@ public class Paramater {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Long getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(Long deviceId) {
+		this.deviceId = deviceId;
 	}
 
 	@Override

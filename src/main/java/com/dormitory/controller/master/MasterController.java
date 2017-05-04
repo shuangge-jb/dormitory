@@ -21,12 +21,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dormitory.controller.student.StudentController;
 import com.dormitory.dto.master.MasterDTO;
 import com.dormitory.dto.student.StudentDTO;
 import com.dormitory.entity.Dormitory;
 import com.dormitory.entity.Master;
 import com.dormitory.entity.Student;
+import com.dormitory.service.DormitoryService;
 import com.dormitory.service.EmailService;
 import com.dormitory.service.FileService;
 import com.dormitory.service.MasterService;
@@ -44,19 +44,20 @@ public class MasterController {
 	private FileService fileService;
 	@Resource
 	private StudentService studentService;
+	@Resource
+	private DormitoryService dormitoryService;
 	private static final String IMG_DIR = "/images/";
 	private static final String ERROR_PAGE = "error";
 	private static final Logger LOGGER = LoggerFactory.getLogger(MasterController.class);
 	
-	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/masterLogin.do", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam(value = "id") Integer masterId,
 			@RequestParam(value = "password") String password, Model model) {
 		ModelAndView modelAndView = new ModelAndView("../../jsp/login");// login不在WEB-INF/pages下，要访问父级目录
 		Master temp = masterService.get(masterId);
 		if (temp != null) {
 			if (password.trim().equals(temp.getPassword())) {
-				modelAndView.setViewName("redirect:listDevice.do");
-				
+				modelAndView.setViewName("");
 				setSessionValue(model, masterId);
 			}
 		}
@@ -81,16 +82,16 @@ public class MasterController {
 		return master.getPassword().equals(password.trim()) ? "correct" : "incorrect";
 	}
 
-	@RequestMapping("/updatePassword.do")
-	public ModelAndView updatePassword(@RequestParam(value = "masterId") Integer masterId, Model model) {
+	@RequestMapping("/updateMasterPassword.do")
+	public ModelAndView updatePassword(@RequestParam(value = "masterId") Integer masterId,@RequestParam(value="password")String password, Model model) {
 		Master master = masterService.get(masterId);
 		ModelAndView modelAndView = new ModelAndView();
-		
 		if (master == null) {
 			modelAndView.setViewName(ERROR_PAGE);
 		} else {
-			masterService.saveOrUpdate(master);
-			modelAndView.setViewName("redirect:listDevice.do");
+			master.setPassword(password);
+			masterService.updatePassword(master);
+			modelAndView.setViewName("");
 			setSessionValue(model, master.getMasterId());
 			
 		}
@@ -136,7 +137,7 @@ public class MasterController {
 		return "redirect:/index.jsp";
 	}
 
-	@RequestMapping(value = "/getPersonalInfo.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getMasterInfo.do", method = RequestMethod.GET)
 	public ModelAndView getPersonalInfo(@RequestParam(value = "masterId") Integer masterId) {
 		MasterDTO masterDTO = new MasterDTO();
 		Master master = masterService.get(masterId);
@@ -144,7 +145,7 @@ public class MasterController {
 			return new ModelAndView("../../login");
 		}
 		masterDTO.setMaster(master);
-		ModelAndView modelAndView = new ModelAndView("master");
+		ModelAndView modelAndView = new ModelAndView("");
 		System.out.println("response masterDTO:"+masterDTO);
 		modelAndView.addObject("master", masterDTO);
 		return modelAndView;
@@ -154,19 +155,85 @@ public class MasterController {
 		model.addAttribute("masterId", masterId);
 	}
 	
-	@RequestMapping(value = "/saveOrUpdateStudent.do",method=RequestMethod.POST)
-	public ModelAndView saveOrUpdateStudent(@ModelAttribute(value="student") @Valid Student student,BindingResult result){
-		ModelAndView modelAndView = new ModelAndView();
-		if(result.hasErrors()){
-			modelAndView.setViewName(ERROR_PAGE);
+	@RequestMapping(value = "/saveStudent.do", method = RequestMethod.POST)
+	public ModelAndView saveStudent(@ModelAttribute(value = "register") @Valid StudentDTO register, BindingResult result,
+			@RequestParam(value = "img") MultipartFile img, HttpServletRequest request, Model model) {
+		ModelAndView modelAndView = new ModelAndView("../../reg");// 默认为跳转回注册页面
+		if (result.hasErrors()) {
+			System.out.println(result.getFieldError().toString());
 			return modelAndView;
+		}
+		if (!register.getPassword2().equals(register.getPassword())) {
+			return modelAndView;
+		}
+		// 检查图片文件
+		System.out.println("img:" + img);
+		if (img == null || img.isEmpty()) {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("文件为空：");
+			}
+			return modelAndView;
+		}
+		System.out.println("img name:" + img.getOriginalFilename() + " ends with jpg:"
+				+ img.getOriginalFilename().endsWith(".jpg"));
+		if (!(img.getOriginalFilename().toLowerCase().endsWith(".jpg"))) {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("img参数异常：");
+			}
+			return modelAndView;
+		}
+		// 检查是否已注册
+		Student temp = studentService.get(register.getStudentId());
+		if (temp != null) {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("已注册");
+			}
+			modelAndView.addObject("status", "已注册");
+			return modelAndView;
+		}
+		System.out.println("acccept registerDTO:" + register);
+		// 保存宿舍信息(如果宿舍不存在，就添加进去，否则不添加)
+		Dormitory dormitory = dormitoryService.save(register.getBuildingName(), register.getRoom());
+		fileService.saveFile(request, IMG_DIR, img);
+		// 保存学生信息
+		Student student = register.getStudent();
+		student.setDormitoryId(dormitory.getDormitoryId());
+		String imgName = fileService.getFilePath(request, IMG_DIR, img);
+		System.out.println("--imgName:" + imgName);
+		student.setImgPath(imgName);
+		studentService.saveOrUpdate(student);
+		modelAndView.setViewName("");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/updateStudent.do", method = RequestMethod.POST)
+	public ModelAndView updateStudent(@RequestParam(value = "img") MultipartFile img, HttpServletRequest request,
+			@ModelAttribute(value = "studentDTO") @Valid StudentDTO studentDTO, BindingResult result) {
+		ModelAndView modelAndView = new ModelAndView("student");
+		if (result.hasErrors()) {
+			modelAndView.setViewName("");
+			return modelAndView;
+		}
+		Student student = studentDTO.getStudent();
+		Dormitory dormitory = dormitoryService.save(studentDTO.getBuildingName(), studentDTO.getRoom());
+		student.setDormitoryId(dormitory.getDormitoryId());
+		// 新上传照片时，保存照片，更改照片路径
+		if (img.getSize() > 0) {
+			fileService.saveFile(request, IMG_DIR, img);
+			String imgName = fileService.getFilePath(request, IMG_DIR, img);
+			System.out.println("--imgName:" + imgName);
+			student.setImgPath(imgName);
+		} else {
+			// 没有上传照片时，用旧的照片路径
+			Student old = studentService.get(studentDTO.getStudentId());
+			student.setImgPath(old.getImgPath());
 		}
 		studentService.saveOrUpdate(student);
 		return modelAndView;
 	}
 	@RequestMapping(value="removeStudent.do",method=RequestMethod.POST)
 	public ModelAndView removeStudent(@RequestParam(value="studentId")Long studentId){
-		ModelAndView modelAndView = new ModelAndView();
+		ModelAndView modelAndView = new ModelAndView("");
 		Student student=studentService.get(studentId);
 		studentService.remove(student);
 		return modelAndView;

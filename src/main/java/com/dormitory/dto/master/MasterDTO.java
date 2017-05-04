@@ -12,7 +12,6 @@ import com.dormitory.entity.Master;
 
 public class MasterDTO {
 
-	@NotNull(message = "{master.masterId.null}")
 	protected Integer masterId;
 	@NotEmpty(message = "{user.name.null}")
 	@Length(min = 2, max = 20, message = "{user.name.length.illegal}")
@@ -35,20 +34,8 @@ public class MasterDTO {
 	@NotBlank
 	@Pattern(regexp = "[cC]([1][0-7]|[1-9])", message = "dormitory.buildingName.illegal")
 	protected String buildingName;
-	@NotNull
-	@NotEmpty
-	@NotBlank
-	private String password2;
 
 	private String imgPath;
-
-	public String getPassword2() {
-		return password2;
-	}
-
-	public void setPassword2(String password2) {
-		this.password2 = password2;
-	}
 
 	public String getBuildingName() {
 		return buildingName;
@@ -114,6 +101,7 @@ public class MasterDTO {
 		master.setName(name);
 		master.setPassword(password);
 		master.setPhoneNumber(Long.valueOf(phoneNumber));
+		master.setMasterId(masterId);
 		return master;
 	}
 
@@ -123,6 +111,8 @@ public class MasterDTO {
 		this.name = master.getName();
 		this.password = master.getPassword();
 		this.phoneNumber = String.valueOf(master.getPhoneNumber());
+		this.masterId=master.getMasterId();
+		this.setImgPath(master.getImgPath());
 	}
 
 	public MasterDTO() {
@@ -132,8 +122,7 @@ public class MasterDTO {
 	@Override
 	public String toString() {
 		return "MasterDTO [masterId=" + masterId + ", name=" + name + ", phoneNumber=" + phoneNumber + ", email="
-				+ email + ", password=" + password + ", buildingName=" + buildingName + ", password2=" + password2
-				+ ", imgPath=" + imgPath + "]";
+				+ email + ", password=" + password + ", buildingName=" + buildingName + ", imgPath=" + imgPath + "]";
 	}
 
 }

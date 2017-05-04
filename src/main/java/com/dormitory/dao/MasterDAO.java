@@ -29,7 +29,7 @@ public interface MasterDAO {
 			+ " email=#{email},password=#{password},building_id=#{buildingId} where master_id=#{masterId}")
 	public void update(Master master);
 
-	@Delete("delete from master where master=#{masterId}")
+	@Delete("delete from master where master_id=#{masterId}")
 	public void remove(Master master);
 
 	@Select("select * from master limit #{start},#{pageSize}")
@@ -38,4 +38,7 @@ public interface MasterDAO {
 
 	@Select("select count(*) from master ")
 	public Integer getSize();
+
+	@Update(" update master set password=#{password} where master_id=#{masterId}")
+	public void updatePassword(Master master);
 }

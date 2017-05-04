@@ -51,21 +51,21 @@
 		<aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice" />
 	</aop:config>
 	<!-- spring默认异常处理器 -->
-	<bean
+	<!-- <bean
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<!-- 定义默认的异常处理页面，当该异常类型的注册时使用 -->
+		定义默认的异常处理页面，当该异常类型的注册时使用
 		<property name="defaultErrorView" value="error"></property>
-		<!-- 定义异常处理页面用来获取异常信息的变量名，默认名为exception -->
+		定义异常处理页面用来获取异常信息的变量名，默认名为exception
 		<property name="exceptionAttribute" value="ex"></property>
-		<!-- 定义需要特殊处理的异常，用类名或完全路径名作为key，异常以页名作为值 -->
+		定义需要特殊处理的异常，用类名或完全路径名作为key，异常以页名作为值
 		<property name="exceptionMappings">
 			<props>
-				<!-- 创建自己所要自定义的异常类 -->
+				创建自己所要自定义的异常类
 				<prop key="com.core.exception.BusinessException">business_error</prop>
 				<prop key="com.core.exception.ParameterException">parameter_error</prop>
-				<!-- 还可以继续扩展对不同异常类型的处理 -->
+				还可以继续扩展对不同异常类型的处理
 			</props>
 		</property>
-	</bean>
+	</bean> -->
 
 </beans>

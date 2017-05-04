@@ -1,5 +1,6 @@
 package com.dormitory.service;
 
+import com.dormitory.entity.Building;
 import com.dormitory.entity.Dormitory;
 
 /**
@@ -14,4 +15,6 @@ public interface DormitoryService {
 	public Dormitory saveOrUpdate(Dormitory dormitory);
 	public Dormitory remove(Dormitory dormitory);
 	public Dormitory save(String buildingName,String room);
+	
+	public Building getBuildingByDormitoryId(Integer dormitoryId);
 }

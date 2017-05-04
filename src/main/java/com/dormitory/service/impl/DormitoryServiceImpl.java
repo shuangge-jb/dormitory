@@ -107,4 +107,10 @@ public class DormitoryServiceImpl implements DormitoryService {
 		return dormitory;
 	}
 
+	@Override
+	public Building getBuildingByDormitoryId(Integer dormitoryId) {
+		Dormitory dormitory = dormitoryDAO.get(dormitoryId);
+		return buildingDAO.get(dormitory.getBuildingId());
+	}
+
 }
