@@ -73,6 +73,29 @@ public class DeviceController {
 		modelAndView.addObject("result", list!=null);
 		return modelAndView;
 	}
+	@RequestMapping(value = "listDeviceFunction.do")
+	public ModelAndView listDeviceFunction(@RequestParam(value = "pageIndex") Integer pageIndex,
+			@RequestParam(value = "pageSize") Integer pageSize) {
+		ModelAndView modelAndView = new ModelAndView("dormitory");
+		if(pageIndex==null||pageIndex<=0||pageSize==null||pageSize==0){
+			modelAndView.setViewName(ERROR_PAGE);
+			modelAndView.addObject("status", ERROR_PAGE_SIZE);
+			return modelAndView;
+		}
+		List<Device> list = deviceService.list(pageIndex, pageSize);
+		Long total = deviceService.getSize();
+		
+		Long totalPage=getTotalPages(total, pageSize);
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total",total);
+		modelAndView.addObject("totalPages",totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.addObject("totalCount",total);
+		modelAndView.setViewName("functionList/listDeviceFunction");
+		modelAndView.addObject("result", list!=null);
+		return modelAndView;
+	}
 	private long getTotalPages(Long count ,Integer pageSize){
 		if(pageSize==null){
 			pageSize=10;
@@ -91,7 +114,8 @@ public class DeviceController {
 	}
 	@RequestMapping(value = "listInterfaceByDeviceId.do")
 	public ModelAndView listInterfaceByDeviceId(@RequestParam(value = "deviceId") Long deviceId,
-			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
+			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize,
+			@RequestParam(value = "hiddenPageIndex") Integer hiddenPageIndex) {
 		ModelAndView modelAndView = new ModelAndView("dormitory");
 		if(pageIndex==null||pageIndex<=0||pageSize==null||pageSize==0){
 			modelAndView.setViewName(ERROR_PAGE);
@@ -100,14 +124,16 @@ public class DeviceController {
 		}
 		List<Interface> list = interfaceService.listByDeviceId(deviceId, pageIndex, pageSize);
 		Integer total = interfaceService.getSizeByDeviceId(deviceId);
-		
 		Integer totalPage=getTotalPages(total, pageSize);
+		modelAndView.setViewName("functionList/listFunction");
 		modelAndView.addObject("data", list);
 		modelAndView.addObject("total",total);
 		modelAndView.addObject("totalPages",totalPage);
 		modelAndView.addObject("pageIndex", pageIndex);
 		modelAndView.addObject("pageSize", pageSize);
 		modelAndView.addObject("result", list!=null);
+		modelAndView.addObject("hiddenPageIndex",hiddenPageIndex);
+		
 		return modelAndView;
 	}
 

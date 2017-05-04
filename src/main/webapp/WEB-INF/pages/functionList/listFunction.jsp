@@ -77,22 +77,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   style="font-size:15px;color:#333333;text-align:center;margin-left:15px;margin-top:10px;borderColor:#D7D7D7;"
    	cellspacing=0 border="1" width="96%;" cellPadding=1>
 							<tr bgcolor=#EBEBEB height=30>
-							<td>序号</td><td>设备名称</td><td>设备类型</td><td>设备图像</td><td>操作</td>
+							<td>序号</td><td>功能名称</td><td>设备类型</td><td>设备图像</td><td>操作</td>
 							</tr>
-       <c:forEach var="device" items="${data}" varStatus="status">
+       <c:forEach var="interface" items="${data}" varStatus="status">
         <tr height=30>
         <td>${status.index+1}</td>
-        <td>${ device.name}</td>
-        <td>${device.type}</td>
+        <td>${interface.interfaceName}</td>
+        <td>${interface.interfaceUrl}</td>
         <td><img id="img1" src="images/test/image1.jpg" width="30px" height="30px" data-action="zoom"></td>
-       
-           <td><input type="button" value="删除" class="crud_device"
-           onclick="deviceDel(${device.deviceId})" />
-           <input type="button" value="查看" class="crud_device"
-           onclick="deviceCheck(${device.deviceId})" />
-           <input type="button" value="修改" class="crud_device"
-           onclick="editDevice(${device.deviceId})" />
-           </td>
+        <td>
+           <input type="button" value="设备功能管理" class="crud_device"
+           onclick="deviceCheck(${interface.interfaceId})" >
+        </td>
          </tr>
      </c:forEach>
       </table>
@@ -116,15 +112,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  <c:if test="${pageIndex == totalPages}">
 			<td>下一页&nbsp;&nbsp;最后一页&nbsp;&nbsp;</td>
 	  </c:if>
-           共${totalPage}页&nbsp;&nbsp;
-           共${totalCount}条记录&nbsp;&nbsp;     
+           共${totalPages}页&nbsp;&nbsp;
+           共${total}条记录&nbsp;&nbsp;     
       <input type="text" name="pageIndex" id="pageIndex" style="width:25px;height:20px;"/>&nbsp;
       <input type="button" value="go" style="border-radius:2px;font-size:12px;background-color:#D7D7D7;" 
       onclick="pageForward();" >
       </div>
-      <input type="button" value="新增设备" onclick="addDevice()"
-      style="margin-left:15px;margin-top:10px;font-weight:bolder;font-size:15px;border:3px solid #0090DB;height:30px;width:100;position:absolute;background:#0090DB;color:#FFEDF1;"  onMouseOver="this.style.backgroundColor='#EF972B';"
-				onMouseOut="this.style.backgroundColor ='#0090DB';"/>
       <input type="hidden" id="hiddenPageIndex" value="${pageIndex}"/>
       <input type="hidden" id="hiddenTotalPage" value="${totalPages}"/>
  </body>

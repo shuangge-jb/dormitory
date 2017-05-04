@@ -22,27 +22,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   }
 	   else{
 		   var pageSize = 10;	  
-		   window.location.href="<%=path%>/listDevice.do?pageIndex="+pageIndex+"&pageSize="+pageSize;  
+		   window.location.href="<%=path%>/listDeviceFunction.do?pageIndex="+pageIndex+"&pageSize="+pageSize;  
 	   }
 	   
    }
-   function deviceDel(id)
-   {
-       if(confirm('您确定删除该医院吗？'))
-       {
-           window.location.href="<%=path%>/admin/removeDevice.do?deviceId="+id+"&pageIndex="+1+"&pageSize="+10;
-       }
-   }
-   function deviceCheck(id){
-	   var pageIndex = document.getElementById('hiddenPageIndex').value;
-	   window.location.href ="<%=path%>/getDevice.do?deviceId="+id+"&pageIndex="+pageIndex;
-   }
-   function addDevice(){
-	   window.location.href ="<%=path%>/admin/addDevicePage.do";
-   }
-   function editDevice(id){
-	   var pageIndex = document.getElementById('hiddenPageIndex').value;
-	   window.location.href="<%=path%>/admin/editDevicePage.do?deviceId="+id+"&pageIndex="+pageIndex;
+ 
+   function functionList(id){
+	   var hiddenPageIndex = document.getElementById('hiddenPageIndex').value;
+	   var pageIndex = 1;
+	   var pageSize = 10;
+	   window.location.href ="<%=path%>/listInterfaceByDeviceId.do?deviceId="+id+"&pageIndex="+pageIndex+"&pageSize="+pageSize+"&hiddenPageIndex="+hiddenPageIndex;
    }
    </script>
    
@@ -85,14 +74,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <td>${ device.name}</td>
         <td>${device.type}</td>
         <td><img id="img1" src="images/test/image1.jpg" width="30px" height="30px" data-action="zoom"></td>
-       
-           <td><input type="button" value="删除" class="crud_device"
-           onclick="deviceDel(${device.deviceId})" />
-           <input type="button" value="查看" class="crud_device"
-           onclick="deviceCheck(${device.deviceId})" />
-           <input type="button" value="修改" class="crud_device"
-           onclick="editDevice(${device.deviceId})" />
-           </td>
+        <td>
+           <input type="button" value="设备功能管理" class="crud_device"
+           onclick="functionList(${device.deviceId})" >
+        </td>
          </tr>
      </c:forEach>
       </table>
@@ -103,28 +88,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 </c:if>
 	 <c:if test="${pageIndex>1}">
 			<td><a
-				href="<%=path%>/listDevice.do?pageIndex=1&pageSize=10">首页</a></td>
+				href="<%=path%>/listDeviceFunction.do?pageIndex=1&pageSize=10">首页</a></td>
 			<td><a
-               href="<%=path%>/listDevice.do?pageIndex=${pageIndex-1}&pageSize=10">上一页</a></td>
+               href="<%=path%>/listDeviceFunction.do?pageIndex=${pageIndex-1}&pageSize=10">上一页</a></td>
 	</c:if>
 	 <c:if test="${pageIndex != totalPages}">
 				<td><a
-					href="<%=path%>/listDevice.do?pageIndex=${pageIndex+1}&pageSize=10">下一页</a></td>
+					href="<%=path%>/listDeviceFunction.do?pageIndex=${pageIndex+1}&pageSize=10">下一页</a></td>
 				<td><a
-					href="<%=path%>/listDevice.do?pageIndex=${totalPages}&pageSize=10">最后一页</a></td>
+					href="<%=path%>/listDeviceFunction.do?pageIndex=${totalPages}&pageSize=10">最后一页</a></td>
 		</c:if>
 	  <c:if test="${pageIndex == totalPages}">
 			<td>下一页&nbsp;&nbsp;最后一页&nbsp;&nbsp;</td>
 	  </c:if>
-           共${totalPage}页&nbsp;&nbsp;
-           共${totalCount}条记录&nbsp;&nbsp;     
+           共${totalPages}页&nbsp;&nbsp;
+           共${total}条记录&nbsp;&nbsp;     
       <input type="text" name="pageIndex" id="pageIndex" style="width:25px;height:20px;"/>&nbsp;
       <input type="button" value="go" style="border-radius:2px;font-size:12px;background-color:#D7D7D7;" 
       onclick="pageForward();" >
       </div>
-      <input type="button" value="新增设备" onclick="addDevice()"
-      style="margin-left:15px;margin-top:10px;font-weight:bolder;font-size:15px;border:3px solid #0090DB;height:30px;width:100;position:absolute;background:#0090DB;color:#FFEDF1;"  onMouseOver="this.style.backgroundColor='#EF972B';"
-				onMouseOut="this.style.backgroundColor ='#0090DB';"/>
       <input type="hidden" id="hiddenPageIndex" value="${pageIndex}"/>
       <input type="hidden" id="hiddenTotalPage" value="${totalPages}"/>
  </body>
