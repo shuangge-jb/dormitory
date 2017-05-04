@@ -102,7 +102,7 @@ public class AdminDeviceController extends DeviceController {
 	@RequestMapping(value = "/updateDevice.do", method = RequestMethod.POST)
 	public ModelAndView updateDevice(@ModelAttribute(value = "device") @Valid Device device, BindingResult result,
 			@RequestParam(value = "img") MultipartFile img, @RequestParam(value = "model") MultipartFile modelFile,
-			HttpServletRequest request, Model model,@RequestParam(value = "pageIndex") Integer pageIndex) {
+			HttpServletRequest request, Model model, @RequestParam(value = "pageIndex") Integer pageIndex) {
 		ModelAndView modelAndView = new ModelAndView(ERROR_PAGE);
 		modelAndView.addObject("pageIndex", pageIndex);
 		Device deviveTemp = deviceService.get(device.getDeviceId());
@@ -116,7 +116,7 @@ public class AdminDeviceController extends DeviceController {
 			return modelAndView;
 		}
 		List<Device> temp = deviceService.getByName(device.getName());
-		if (temp.size() > 1) {
+		if ((device.getName().equals(deviveTemp.getName()) == false) && temp.size() > 0) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("该设备已存在." + result);
 			}
@@ -144,10 +144,10 @@ public class AdminDeviceController extends DeviceController {
 			// 保存图片对象
 			String imgPath = fileService.getFilePath(request, IMG_DIR, img);
 			device.setImgPath(imgPath);
-		}else{
+		} else {
 			device.setImgPath(deviveTemp.getImgPath());
 		}
-		
+
 		if (modelFile != null && modelFile.getSize() > 0) {
 			System.out.println("file:" + modelFile.getOriginalFilename());
 			String modelName = modelFile.getOriginalFilename().toLowerCase();
@@ -168,19 +168,20 @@ public class AdminDeviceController extends DeviceController {
 			String filePath = fileService.getFilePath(request, MODEL_DIR, modelFile);
 			System.out.println("model path:" + filePath);
 			device.setModelPath(filePath);
-		}else{
+		} else {
 			device.setModelPath(deviveTemp.getModelPath());
 		}
 		deviceService.saveOrUpdate(device);
 		modelAndView.addObject("status", "更新成功");
 		deviveTemp = deviceService.get(device.getDeviceId());
-		modelAndView.addObject("device", deviveTemp);
+		modelAndView.addObject("device", device);
 		modelAndView.setViewName("deviceList/editDevice");
 		return modelAndView;
 	}
+
 	@RequestMapping(value = "removeDevice.do", method = RequestMethod.GET)
-	public String removeDevice(@RequestParam(value = "deviceId") Long deviceId,@RequestParam(value = "pageIndex") Integer pageIndex,
-			@RequestParam(value = "pageSize") Integer pageSize) {	
+	public String removeDevice(@RequestParam(value = "deviceId") Long deviceId,
+			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
 		Device device = deviceService.get(deviceId);
 		deviceService.remove(device);
 		return "forward:/listDevice.do";
@@ -202,10 +203,20 @@ public class AdminDeviceController extends DeviceController {
 		}
 		List<Interface> interfaceTemp = interfaceService.listByInterfaceName(temp.getDeviceId(),
 				face.getInterfaceName());
-		if (interfaceTemp.size() > 0) {
-			modelAndView.setViewName(ERROR_PAGE);
-			model.addAttribute("status", "接口名重复");
-			return modelAndView;
+		Interface oldFace = interfaceService.get(face.getInterfaceId());
+		// 插入时判断重复
+		if (oldFace == null) {
+			if (interfaceTemp.size() > 0) {
+				modelAndView.setViewName(ERROR_PAGE);
+				model.addAttribute("status", "接口名重复");
+				return modelAndView;
+			}
+		} else {// 更新时判断重复
+			if ((oldFace.getInterfaceName().equals(face.getInterfaceName()) == false) && interfaceTemp.size() > 0) {
+				modelAndView.setViewName(ERROR_PAGE);
+				model.addAttribute("status", "接口名重复");
+				return modelAndView;
+			}
 		}
 		String url = face.getInterfaceUrl();
 		if (!url.startsWith("http://")) {
@@ -233,18 +244,31 @@ public class AdminDeviceController extends DeviceController {
 			return modelAndView;
 		}
 		Interface temp = interfaceService.get(paramater.getInterfaceId());
+
 		if (temp == null) {
 			modelAndView.setViewName(ERROR_PAGE);
 			model.addAttribute("status", "接口不存在");
 			return modelAndView;
 		}
 		List<Paramater> list = paramaterService.listByParamName(temp.getInterfaceId(), paramater.getParamaterName());
-		if (list.size() > 0) {
-			System.out.println("list!=null");
-			modelAndView.setViewName(ERROR_PAGE);
-			model.addAttribute("status", "参数名重复");
-			return modelAndView;
+		Paramater oldParam = paramaterService.get(paramater.getInterfaceId());
+		//插入时判断重复
+		if (oldParam == null) {
+			if (list.size() > 0) {
+				System.out.println("list!=null");
+				modelAndView.setViewName(ERROR_PAGE);
+				model.addAttribute("status", "参数名重复");
+				return modelAndView;
+			}
+		} else {
+			//更新时判断重复
+			if ((oldParam.getParamaterName().equals(paramater.getParamaterName()) == false) && list.size() > 0) {
+				modelAndView.setViewName(ERROR_PAGE);
+				model.addAttribute("status", "参数名重复");
+				return modelAndView;
+			}
 		}
+
 		paramaterService.saveOrUpdate(paramater);
 		modelAndView.setViewName("");
 		return modelAndView;
@@ -264,14 +288,15 @@ public class AdminDeviceController extends DeviceController {
 		modelAndView.setViewName("deviceList/addDevice");
 		return modelAndView;
 	}
-	@RequestMapping(value="editDevicePage.do",method =  RequestMethod.GET)
+
+	@RequestMapping(value = "editDevicePage.do", method = RequestMethod.GET)
 	public ModelAndView forwardEditDevicePage(@RequestParam(value = "deviceId") Long deviceId,
-			@RequestParam(value = "pageIndex") Integer pageIndex){
-		ModelAndView modelAndView =  new ModelAndView();
+			@RequestParam(value = "pageIndex") Integer pageIndex) {
+		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("deviceList/editDevice");
 		Device temp = deviceService.get(deviceId);
-		modelAndView.addObject("device",temp);
-		modelAndView.addObject("pageIndex",pageIndex);
+		modelAndView.addObject("device", temp);
+		modelAndView.addObject("pageIndex", pageIndex);
 		return modelAndView;
 	}
 }

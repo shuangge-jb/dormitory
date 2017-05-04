@@ -35,8 +35,8 @@ public class MasterAnnouncementController extends AnnouncementController {
 	@Resource
 	private FileService fileService;
 
-	@RequestMapping(value = "/saveOrUpdateAnnouncement.do", method = RequestMethod.POST)
-	public ModelAndView saveOrUpdateAnnouncement(
+	@RequestMapping(value = "/saveAnnouncement.do", method = RequestMethod.POST)
+	public ModelAndView saveAnnouncement(
 			@ModelAttribute(value = "announcement") @Valid Announcement announcement, BindingResult result,
 			@RequestParam(value = "img") MultipartFile img, HttpServletRequest request, Model model) {
 		ModelAndView modelAndView = new ModelAndView("homePage");
@@ -64,6 +64,39 @@ public class MasterAnnouncementController extends AnnouncementController {
 		return modelAndView;
 	}
 
+	@RequestMapping(value = "/updateAnnouncement.do", method = RequestMethod.POST)
+	public ModelAndView updateAnnouncement(
+			@ModelAttribute(value = "announcement") @Valid Announcement announcement, BindingResult result,
+			@RequestParam(value = "img") MultipartFile img, HttpServletRequest request, Model model) {
+		ModelAndView modelAndView = new ModelAndView("homePage");
+		if (result.hasErrors()) {
+			modelAndView.setViewName(ERROR_PAGE);
+			return modelAndView;
+		}
+		if (img != null && img.getSize() > 0) {
+			if (!img.getOriginalFilename().toLowerCase().endsWith(".jpg")) {
+				modelAndView.setViewName(ERROR_PAGE);
+				modelAndView.addObject("status", "文件格式错误");
+				return modelAndView;
+			}
+			fileService.saveFile(request, IMG_DIR, img);
+			String imgPath = fileService.getFilePath(request, IMG_DIR, img);
+			announcement.setImgPath(imgPath);
+		}else{
+			Announcement temp=announcementService.get(announcement.getAnnouncementId());
+			announcement.setImgPath(temp.getImgPath());
+		}
+		Master master = masterService.get(announcement.getAuthorId());
+		announcement.setBuildingId(master.getBuildingId());
+		
+		System.out.println("announcement:"+announcement);
+		announcementService.saveOrUpdate(announcement);
+		// TODO
+		modelAndView.setViewName("");
+		modelAndView.addObject("status", OPERATE_SUCCESS);
+		modelAndView.addObject("announcement", announcement);
+		return modelAndView;
+	}
 	@RequestMapping(value = "/removeAnnouncement.do", method = RequestMethod.POST)
 	public ModelAndView removeAnnouncement(@RequestParam(value="announcementId")Integer announcementId) {
 		ModelAndView modelAndView = new ModelAndView("homePage");

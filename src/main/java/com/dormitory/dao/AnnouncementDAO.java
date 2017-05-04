@@ -81,8 +81,8 @@ public interface AnnouncementDAO {
 	 * @author guo.junbao
 	 * @date 2017-4-12
 	 */
-	@Update(" update announcement set title=#{title},content=#{content}, "
-			+ " img_path=#{imgPath},author_id=#{authorId},importance=#{importance} "
+	@Update(" update announcement set title=#{title},content=#{content},author_id=#{authorId},building_id=#{buildingId}, "
+			+ " img_path=#{imgPath},create_time=#{createTime},importance=#{importance} "
 			+ " where announcement_id=#{announcementId} ")
 	public void update(Announcement announcement);
 

@@ -1,10 +1,9 @@
-package test.dormitory.controller.student;
+package test.dormitory.controller.repair;
 
 import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import javax.annotation.Resource;
 
@@ -16,58 +15,63 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.dormitory.controller.admin.AdminDeviceController;
-import com.dormitory.controller.student.StudentDeviceController;
+import com.dormitory.controller.RepairRecordController;
+import com.dormitory.controller.repair.RepairController;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = { "classpath:spring-mvc.xml", "classpath:applicationContext.xml",
 		"classpath:spring-mybatis.xml" })
-public class StudentDeviceControllerTest {
+public class RepairControllerTest {
 	@Resource
-	private StudentDeviceController studentDeviceController;
+	private RepairController repairController;
 	@Resource
 	private WebApplicationContext wac;
 	private MockMvc mockMvc;
 
 	@Before
 	public void setup() throws Exception {
-		// this.mockMvc = webAppContextSetup(this.wac).build();
-		mockMvc = MockMvcBuilders.standaloneSetup(studentDeviceController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(repairController).build();
 	}
+
 	@Test
-	public void testInvokeInterfaceUnExisted() {
+	public void testLogin() {
 		try {
 			ResultActions result = mockMvc
-					.perform(MockMvcRequestBuilders.post("/student/invokeInterface.do").param("interfaceId", "2")
-							.param("building", "C10").param("room", "510"))
-					.andExpect(status().isOk());
+					.perform(post("/repair/repairLogin.do").param("name", "repair").param("password", "repair"))
+					.andExpect(status().isOk()).andDo(print());
 			String content = result.andReturn().getResponse().getContentAsString();
-			System.out.println("JSON return :" + content);
-			assertNotNull(content);
-			assertTrue(content.isEmpty());
-			assertTrue(content.equals(""));
+			System.out.println("return :" + content);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	@Test
-	public void testInvokeInterfaceDateTime() {
+	public void testListRepairRecord() {
+		try {
+			ResultActions result = mockMvc.perform(post("/repair/listRepairRecord.do").param("pageIndex", "1")
+					.param("pageSize", "1").accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
+					.andDo(print());
+			String content = result.andReturn().getResponse().getContentAsString();
+			System.out.println("return :" + content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testUpdateRepairRecord() {
 		try {
 			ResultActions result = mockMvc
-					.perform(MockMvcRequestBuilders.post("/student/invokeInterface.do").param("interfaceId", "3")
-							.param("building", "c10").param("room", "512").param("createTime", "2017-1-10:0:0"))
-					.andExpect(status().isOk());
+					.perform(post("/repair/updateRepairRecord.do").param("name", "repair").param("password", "repair"))
+					.andExpect(status().isOk()).andDo(print());
 			String content = result.andReturn().getResponse().getContentAsString();
-			System.out.println("JSON return :" + content);
-			assertNotNull(content);
+			System.out.println("return :" + content);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

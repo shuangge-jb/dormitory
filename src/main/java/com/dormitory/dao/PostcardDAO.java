@@ -55,10 +55,10 @@ public interface PostcardDAO {
 	@Options(useGeneratedKeys = true, keyProperty = "postcardId")
 	public void save(Postcard postcard);
 
-	@Update(" update postcard " + " set student_id=#{studentId},dormitory_id=#{dormitoryId}, "
-			+ " create_time=#{createTime} " + " where postcard_id=#{postcardId} ")
+	@Update(" update postcard set student_id=#{studentId},dormitory_id=#{dormitoryId}, "
+			+ " create_time=#{createTime},state=#{state} where postcard_id=#{postcardId} ")
 	public void update(Postcard postcard);
 
-	@Update(" update postcard " + " set state=0 " + " where postcard_id=#{postcardId} ")
+	@Update(" update postcard set state=0 where postcard_id=#{postcardId} ")
 	public void remove(@Param("postcardId") Integer postcardId);
 }

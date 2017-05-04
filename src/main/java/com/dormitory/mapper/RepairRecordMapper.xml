@@ -6,11 +6,11 @@
 		<result column="dormitory_id" jdbcType="INTEGER" property="dormitoryId" />
 		<result column="device_name" jdbcType="VARCHAR" property="deviceName" />
 		<result column="content" jdbcType="VARCHAR" property="content" />
-		<result column="price" jdbcType="VARCHAR" property="price" />
+		<result column="price" jdbcType="DECIMAL" property="price" />
 		<result column="state" jdbcType="INTEGER" property="state" />
 		<result column="create_time"  jdbcType="TIMESTAMP" property="createTime" />
 		<result column="repair_time"  jdbcType="TIMESTAMP" property="repairTime" />
-		<result column="contact_id" jdbcType="INTEGER" property="contactId" />
+		<result column="contact_id" jdbcType="BIGINT" property="contactId" />
 	</resultMap>
 
 </mapper>

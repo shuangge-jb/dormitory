@@ -24,7 +24,7 @@ public interface InterfaceDAO {
 
 	@Update(" update interface set interface_name=#{interfaceName}, "
 			+ " interface_url=#{interfaceUrl},description=#{description}, "
-			+ " source=#{source},method=#{method} where interface_id=#{interfaceId} ")
+			+ " source=#{source},method=#{method},device_id=#{deviceId} where interface_id=#{interfaceId} ")
 	void update(Interface item);
 
 	@Delete(" delete from interface where interface_id=#{interfaceId} ")

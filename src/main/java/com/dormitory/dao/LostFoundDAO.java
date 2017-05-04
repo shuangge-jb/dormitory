@@ -54,7 +54,7 @@ public interface LostFoundDAO {
 	@Options(useGeneratedKeys = true, keyProperty = "lostFoundId")
 	public void save(LostFound lostFound);
 
-	@Update(" update lost_found  set student_id=#{studentId},content=#{content}, " + " create_time=#{createTime} "
+	@Update(" update lost_found  set student_id=#{studentId},content=#{content},create_time=#{createTime} "
 			+ " where lost_found_id=#{lostFoundId} ")
 	public void update(LostFound lostFound);
 

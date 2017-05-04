@@ -20,12 +20,13 @@ public interface MasterDAO {
 	@Select("select LAST_INSERT_ID()")
 	public Integer getLastInsertId();
 
-	@Insert(" insert into master(name,phone_number,email,password) "
-			+ " values(#{name},#{phoneNumber},#{email},#{password})")
+	@Insert(" insert into master(name,phone_number,email,password,building_id) "
+			+ " values(#{name},#{phoneNumber},#{email},#{password},#{buildingId})")
 	@Options(useGeneratedKeys = true, keyProperty = "masterId")
 	public void save(Master master);
 
-	@Update("update master set name=#{name},phone_number=#{phoneNumber}, " + " email=#{email},password=#{password} where master_id=#{masterId}")
+	@Update("update master set name=#{name},phone_number=#{phoneNumber},"
+			+ " email=#{email},password=#{password},building_id=#{buildingId} where master_id=#{masterId}")
 	public void update(Master master);
 
 	@Delete("delete from master where master=#{masterId}")
