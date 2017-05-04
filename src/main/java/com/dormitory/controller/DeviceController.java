@@ -124,6 +124,7 @@ public class DeviceController {
 		}
 		List<Interface> list = interfaceService.listByDeviceId(deviceId, pageIndex, pageSize);
 		Integer total = interfaceService.getSizeByDeviceId(deviceId);
+		Device device = deviceService.get(deviceId);
 		Integer totalPage=getTotalPages(total, pageSize);
 		modelAndView.setViewName("functionList/listFunction");
 		modelAndView.addObject("data", list);
@@ -133,7 +134,7 @@ public class DeviceController {
 		modelAndView.addObject("pageSize", pageSize);
 		modelAndView.addObject("result", list!=null);
 		modelAndView.addObject("hiddenPageIndex",hiddenPageIndex);
-		
+		modelAndView.addObject("device",device);
 		return modelAndView;
 	}
 
@@ -169,12 +170,39 @@ public class DeviceController {
 		return modelAndView;
 	}
 
+   @RequestMapping(value = "forwardAddInterface.do")
+   public ModelAndView forwardEditFunction(@RequestParam(value = "deviceId") Long deviceId,
+		   @RequestParam(value = "pageIndex") Integer pageIndex,@RequestParam(value = "hiddenPageIndex") Integer  hiddenPageIndex){
+	   ModelAndView modelAndView = new ModelAndView();
+	   Device device = deviceService.get(deviceId);
+	   modelAndView.addObject("device",device);
+	   modelAndView.addObject("pageIndex",pageIndex);
+		modelAndView.addObject("backPageIndex",hiddenPageIndex);
+	   modelAndView.setViewName("functionList/addFunctionToDevice");
+	   return modelAndView;
+   }
+	
 	@RequestMapping(value = "getInterface.do")
-	@ResponseBody
-	public String getInterface(@RequestParam(value = "interfaceId") Integer interfaceId) {
+	public ModelAndView getInterface(@RequestParam(value = "interfaceId") Integer interfaceId,
+			@RequestParam(value = "pageIndex") Integer pageIndex,@RequestParam(value = "hiddenPageIndex") Integer  hiddenPageIndex) {
 		Interface face = interfaceService.get(interfaceId);
-		return toJSON(face);
+		ModelAndView modelAndView = new ModelAndView();
+		Device device = new Device();
+		if(face!=null){
+		 device = deviceService.get(face.getDeviceId());
+		}
+		else {
+		  modelAndView.setViewName(ERROR_PAGE);
+		}	
+		modelAndView.setViewName("functionList/checkFunctionDetail");
+		modelAndView.addObject("data",face);
+		modelAndView.addObject("pageIndex",pageIndex);
+		modelAndView.addObject("backPageIndex",hiddenPageIndex);
+		modelAndView.addObject("device",device);
+		return modelAndView;
 	}
+	
+	
 
 	@RequestMapping(value = "getParamater.do")
 	@ResponseBody

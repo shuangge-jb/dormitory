@@ -7,7 +7,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="<%=path%>/js/jquery-1.8.3.min.js"></script> 
 <script src="<%=path%>/js/zoom.js"></script> 
 <link rel="stylesheet" href="<%=path %>/css/zoom.css" media="all" />
-<link rel="stylesheet" href="<%=path %>/css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%=path %>/css/bootstrap.min.css" />  
+<script src="<%=path%>/js/jquery-2.1.4.min.js"></script> 
+<script src="<%=path%>/js/bootstrap.min.js"></script> 
 <link rel="stylesheet" href="css/buttons.css">
 <script type="text/javascript">
    function pageForward(){
@@ -26,6 +28,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   }
 	   
    }
+   function back(id){
+  	 window.location.href ="<%=path%>/listDeviceFunction.do?pageIndex="+id+"&pageSize="+10;
+  }
    function deviceDel(id)
    {
        if(confirm('您确定删除该医院吗？'))
@@ -33,12 +38,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            window.location.href="<%=path%>/admin/removeDevice.do?deviceId="+id+"&pageIndex="+1+"&pageSize="+10;
        }
    }
-   function deviceCheck(id){
+   function functionCheck(id){
 	   var pageIndex = document.getElementById('hiddenPageIndex').value;
-	   window.location.href ="<%=path%>/getDevice.do?deviceId="+id+"&pageIndex="+pageIndex;
+	   var hiddenPageIndex = document.getElementById('backhiddenPageIndex').value;
+	  
+	   window.location.href ="<%=path%>/getInterface.do?interfaceId="+id+"&pageIndex="+pageIndex+"&hiddenPageIndex="+hiddenPageIndex;
    }
-   function addDevice(){
-	   window.location.href ="<%=path%>/admin/addDevicePage.do";
+   function addFunction(deviceId){
+	   var pageIndex = document.getElementById('hiddenPageIndex').value;
+	   var hiddenPageIndex = document.getElementById('backhiddenPageIndex').value;  
+	   window.location.href ="<%=path%>/forwardAddInterface.do?deviceId="+deviceId+"&pageIndex="+pageIndex+"&hiddenPageIndex="+hiddenPageIndex;
    }
    function editDevice(id){
 	   var pageIndex = document.getElementById('hiddenPageIndex').value;
@@ -57,41 +66,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    }
    .crud_device{
    font-weight:bolder;
-   font-size:13px;
-   border:3px solid #0090DB;
-   background:#0090DB;
-   color:#FFEDF1; 
-   font-color:#fff;
+   font-size:14px;
+    background-color: #A5DE37;
+  border-color: #A5DE37;
+  color: #FFF;
+  border-radius:3px;
    }
    .crud_device:hover{
-   color:#fff;
-   text-decoration:none;
-   background-color:#0074A6;
+    background-color: #b9e563;
+    border-color: #b9e563;
+    color: #FFF;
    }
+   .crud_device:active
+   {
+    background-color: #a1d243;
+    border-color: #a1d243;
+    color: #8bc220;
+    }
    </style>
 </HTML>
   <head>
   </head>
   <body>
-  <table 
-  style="font-size:15px;color:#333333;text-align:center;margin-left:15px;margin-top:10px;borderColor:#D7D7D7;"
-   	cellspacing=0 border="1" width="96%;" cellPadding=1>
-							<tr bgcolor=#EBEBEB height=30>
-							<td>序号</td><td>功能名称</td><td>设备类型</td><td>设备图像</td><td>操作</td>
-							</tr>
-       <c:forEach var="interface" items="${data}" varStatus="status">
-        <tr height=30>
-        <td>${status.index+1}</td>
-        <td>${interface.interfaceName}</td>
-        <td>${interface.interfaceUrl}</td>
+ 
+      <table class="table table-bordered table-striped table-hover">
+	<caption>${device.name}的功能</caption>
+	<thead>
+		<tr>
+			<th>序号</th>
+			<th>功能名称</th>
+			<th>功能Url</th>
+			<th>来源</th>
+			<th>类型</th>
+			<th>设备图像</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+	<c:forEach var="function" items="${data}" varStatus="status">
+		<tr>
+			 <td>${status.index+1}</td>
+        <td>${function.interfaceName}</td>
+        <td>${function.interfaceUrl}</td>
+        <td>${function.source}</td>
+        <td>${function.method}</td>
         <td><img id="img1" src="images/test/image1.jpg" width="30px" height="30px" data-action="zoom"></td>
         <td>
-           <input type="button" value="设备功能管理" class="crud_device"
-           onclick="deviceCheck(${interface.interfaceId})" >
+           <input type="button" value="删除" class="crud_device"
+           onclick="deviceDel(${device.deviceId})" />
+           <input type="button" value="查看" class="crud_device"
+           onclick="functionCheck(${function.interfaceId})" />
+           <input type="button" value="修改" class="crud_device"
+           onclick="editDevice(${device.deviceId})" />
         </td>
-         </tr>
-     </c:forEach>
-      </table>
+		</tr>
+	  </c:forEach>	
+	</tbody>
+</table>
      <div id="page" style="text-align:center;margin-top:5px;">
            当前第${pageIndex}页&nbsp;&nbsp;
      <c:if test="${pageIndex==1}">
@@ -118,7 +149,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <input type="button" value="go" style="border-radius:2px;font-size:12px;background-color:#D7D7D7;" 
       onclick="pageForward();" >
       </div>
+       <input type="button" value="返回" onclick="back(${hiddenPageIndex})"
+         style="background:#F7B52C;height:30;margin-left:5px;margin-top:10px;font-weight:bolder;font-size:15px;border:3px solid #0090DB;height:30px;width:100;position:absolute;background:#0090DB;color:#FFEDF1;" onMouseOver="this.style.backgroundColor='#0074A6';"
+				onMouseOut="this.style.backgroundColor ='#0090DB';" />
+		<input type="button" value="新增功能" onclick="addFunction(${device.deviceId})"
+         style="background:#F7B52C;height:30;margin-left:105px;margin-top:10px;font-weight:bolder;font-size:15px;border:3px solid #0090DB;height:30px;width:100;position:absolute;background:#0090DB;color:#FFEDF1;" onMouseOver="this.style.backgroundColor='#0074A6';"
+				onMouseOut="this.style.backgroundColor ='#0090DB';" />
       <input type="hidden" id="hiddenPageIndex" value="${pageIndex}"/>
+      <input type="hidden" id="backhiddenPageIndex" value="${hiddenPageIndex}"/>
       <input type="hidden" id="hiddenTotalPage" value="${totalPages}"/>
  </body>
  </html>
