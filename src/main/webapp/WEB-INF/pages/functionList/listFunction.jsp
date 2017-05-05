@@ -49,9 +49,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   var hiddenPageIndex = document.getElementById('backhiddenPageIndex').value;  
 	   window.location.href ="<%=path%>/forwardAddInterface.do?deviceId="+deviceId+"&pageIndex="+pageIndex+"&hiddenPageIndex="+hiddenPageIndex;
    }
-   function editDevice(id){
+   function editDeviceFunction(id){
 	   var pageIndex = document.getElementById('hiddenPageIndex').value;
-	   window.location.href="<%=path%>/admin/editDevicePage.do?deviceId="+id+"&pageIndex="+pageIndex;
+	   var hiddenPageIndex = document.getElementById('backhiddenPageIndex').value; 
+	   window.location.href="<%=path%>/forwardEditInterface.do?interfaceId="+id+"&pageIndex="+pageIndex+"&hiddenPageIndex="+hiddenPageIndex;
    }
    </script>
    
@@ -117,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            <input type="button" value="查看" class="crud_device"
            onclick="functionCheck(${function.interfaceId})" />
            <input type="button" value="修改" class="crud_device"
-           onclick="editDevice(${device.deviceId})" />
+           onclick="editDeviceFunction(${function.interfaceId})" />
         </td>
 		</tr>
 	  </c:forEach>	

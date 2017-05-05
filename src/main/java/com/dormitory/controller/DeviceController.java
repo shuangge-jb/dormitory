@@ -202,7 +202,25 @@ public class DeviceController {
 		return modelAndView;
 	}
 	
-	
+	@RequestMapping(value = "forwardEditInterface.do")
+	public ModelAndView forwardEditInterface(@RequestParam(value = "interfaceId") Integer interfaceId,
+			@RequestParam(value = "pageIndex") Integer pageIndex,@RequestParam(value = "hiddenPageIndex") Integer  hiddenPageIndex) {
+		Interface face = interfaceService.get(interfaceId);
+		ModelAndView modelAndView = new ModelAndView();
+		Device device = new Device();
+		if(face!=null){
+		 device = deviceService.get(face.getDeviceId());
+		}
+		else {
+		  modelAndView.setViewName(ERROR_PAGE);
+		}	
+		modelAndView.setViewName("functionList/editDevicefunction");
+		modelAndView.addObject("data",face);
+		modelAndView.addObject("pageIndex",pageIndex);
+		modelAndView.addObject("backPageIndex",hiddenPageIndex);
+		modelAndView.addObject("device",device);
+		return modelAndView;
+	}
 
 	@RequestMapping(value = "getParamater.do")
 	@ResponseBody

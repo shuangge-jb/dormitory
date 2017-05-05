@@ -11,7 +11,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<script src="<%=path%>/js/jquery-1.8.3.min.js"></script> 
+	<script src="<%=path%>/js/jquery-1.8.3.min.js"></script>
+	<style>
+	.inputTxt{
+     outline:none;
+     border:1px solid #CCC;
+     padding:5px;
+     -webkit-box-shadow:#DFDFDF 0 1px 2px 0 inset;
+     box-shadow:#DFDFDF 0 1px 2px 0 inset;
+     width:200px;color:#666;height:28px;
+     background:#fff;
+     border-radius:3px;
+     line-height:28px;
+     overflow:hidden;}
+     .textAreaTxt{
+      outline:none;
+     border:1px solid #CCC;
+     -webkit-box-shadow:#DFDFDF 0 1px 2px 0 inset;
+     box-shadow:#DFDFDF 0 1px 2px 0 inset;
+     color:#666;
+     background:#fff;
+     border-radius:3px;
+     line-height:28px;
+     overflow:hidden;
+     margin-top:5px;
+     width:290px;
+     height:150px;
+     }
+	</style>
 	<script type="text/javascript">
 	function keyPress() //textArea输入长度处理   
 		    {  
@@ -74,29 +101,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div style="margin-left:15px;">
            <font color=#818181 size=4>设备名称：</font> 
              <input type="text"  value="${device.name}" id="name"
-					name="name" style="width:200px;height:25px;border-radius:5px;color:#65C0EE ;font-size:15px;" disabled="true"><br>
+					name="name" class="inputTxt" disabled="true"><br>
           <font color=#818181 size=4>图片路径：</font> 
           <input type="text" name="imgPath" id="imgPath"
-					style="width:200px;height:25px;border-radius:5px;color:#EF972B;font-size:15px;maigin-top:25px;" value="${device.imgPath}" disabled="true"><br>
+					class="inputTxt" value="${device.imgPath}" disabled="true"><br>
           <font color=#818181 size=4>更改图片：</font> 
-           <input type="file" name="img" id="img"
-					style="width:200px;height:25px;border-radius:5px;color:#EF972B;font-size:15px;maigin-top:25px;" value="${device.imgPath}" disabled="true"><br>
+           <input type="file" name="img" id="img" class="inputTxt"
+					 disabled="true"><br>
            <font color=#818181 size=4>模型路径：</font> 
           <input type="text" name="modelPath" id="modelPath"
-					style="width:200px;height:25px;border-radius:5px;color:#EF972B;font-size:15px;maigin-top:25px;" value="${device.modelPath}" disabled="true"><br>
+					class="inputTxt" value="${device.modelPath}" disabled="true"><br>
            <font color=#818181 size=4>更改设备：</font> 
            <select name="type" id="type"
-					style="width:200px;border-radius:5px;height:25px;color:#EF972B;font-size:15px;" disabled="true">
+					class="inputTxt" disabled="true">
 					<option value="个人私有" <c:if test="${device.type.equals('个人私有')}"> selected</c:if> >个人私有</option>
 					<option value="宿舍公有" <c:if test="${device.type.equals('宿舍公有')}"> selected</c:if> >宿舍共有</option>	
 				</select><br>
            <font color=#818181 size=4>设备模型：</font> 
             
            <input type="file" name="model"  id="model"
-					style="width:200px;height:25px;border-radius:5px;color:#EF972B;font-size:15px;" value="111" disabled="true"><br>
+					class="inputTxt" disabled="true"><br>
            <font color=#818181 size=4>设备功能描述：</font> <br>
            <textArea   name="description"  onkeyup="keyPress()" onblur="keyPress()"
-           id="description" style="color:#EF972B;overflow-x:hidden;overflow-y:hidden;font-size:15px;width:290px;height:150px;border-radius:5px;"  disabled="true">${device.description}</textArea>
+           id="description" class="textAreaTxt"  disabled="true">${device.description}</textArea>
 		   <font color="gray" size=2><label id="miaoshu">&nbsp;</label></font>
            <input type="hidden" name="deviceId" value="${device.deviceId}"/>
          <input type="hidden" name="pageIndex" value="${pageIndex}"/>
