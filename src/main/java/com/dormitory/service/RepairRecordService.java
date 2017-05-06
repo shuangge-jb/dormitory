@@ -5,7 +5,7 @@ import java.util.List;
 import com.dormitory.entity.RepairRecord;
 
 public interface RepairRecordService extends GetService<RepairRecord, Integer>, ListLimitService<RepairRecord>,
-		SaveOrUpdateService<RepairRecord>, RemoveService<RepairRecord> {
+		SaveOrUpdateService<RepairRecord> {
 	List<RepairRecord> list(Integer pageIndex, Integer pageSize);
 
 	Integer getSize();
@@ -17,4 +17,6 @@ public interface RepairRecordService extends GetService<RepairRecord, Integer>, 
 	List<RepairRecord> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize);
 
 	Integer getSizeByBuildingId(Integer buildingId);
+	
+	void remove(Integer repairRecordId);
 }

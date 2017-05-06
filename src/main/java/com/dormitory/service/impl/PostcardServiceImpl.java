@@ -61,9 +61,8 @@ public class PostcardServiceImpl implements PostcardService {
 
 	@Transactional
 	@Override
-	public Postcard remove(Postcard postcard) {
-		postcardDAO.remove(postcard.getPostcardId());
-		return postcard;
+	public void remove(Integer postcardId) {
+		postcardDAO.remove(postcardId);
 	}
 
 	@Override

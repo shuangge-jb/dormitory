@@ -2,7 +2,7 @@ package com.dormitory.service;
 
 import java.util.List;
 import java.util.Map;
-
+@Deprecated
 public interface ListByStudentIdService<T> {
 	/**
 	 * 找出该学生的所有遗失物品

@@ -61,7 +61,7 @@ public class MasterServiceImplTest {
 		init();
 		Integer id=masterService.getLastInsertId();
 		Master before = masterService.get(id);
-		masterService.remove(before);
+		masterService.remove(before.getMasterId());
 		Master after = masterService.get(id);
 		assertEquals(null, after);
 	}

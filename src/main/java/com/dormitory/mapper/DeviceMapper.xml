@@ -9,5 +9,8 @@
 		<result column="description" jdbcType="VARCHAR" property="description" />
 		<result column="model_path" jdbcType="VARCHAR" property="modelPath" />
 	</resultMap>
-
+	<resultMap id="listJSON" type="HashMap">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+	</resultMap>
 </mapper>

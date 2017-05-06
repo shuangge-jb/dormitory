@@ -234,8 +234,7 @@ public class MasterController {
 	@RequestMapping(value="removeStudent.do",method=RequestMethod.POST)
 	public ModelAndView removeStudent(@RequestParam(value="studentId")Long studentId){
 		ModelAndView modelAndView = new ModelAndView("");
-		Student student=studentService.get(studentId);
-		studentService.remove(student);
+		studentService.remove(studentId);
 		return modelAndView;
 	}
 }

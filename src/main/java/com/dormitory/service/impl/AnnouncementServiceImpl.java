@@ -52,7 +52,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	@Override
 	@Transactional
 	public Announcement remove(Announcement announcement) {
-		announcementDAO.remove(announcement);
+		announcementDAO.remove(announcement.getAnnouncementId());
 		return announcement;
 	}
 	@Override

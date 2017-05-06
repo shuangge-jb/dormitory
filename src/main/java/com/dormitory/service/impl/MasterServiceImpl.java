@@ -56,9 +56,8 @@ public class MasterServiceImpl implements MasterService {
 
 	@Transactional
 	@Override
-	public Master remove(Master master) {
-		masterDAO.remove(master);
-		return master;
+	public void remove(Integer masterId) {
+		masterDAO.remove(masterId);
 	}
 
 	@Override

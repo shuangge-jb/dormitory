@@ -9,6 +9,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 import com.dormitory.dao.DeviceDAO;
+import com.dormitory.dao.InterfaceDAO;
+import com.dormitory.dao.ParamaterDAO;
 import com.dormitory.entity.Device;
 import com.dormitory.service.DeviceService;
 import com.dormitory.service.HTTPService;
@@ -18,7 +20,9 @@ public class DeviceServiceImpl implements DeviceService {
 	@Resource
 	private DeviceDAO deviceDAO;
 	@Resource
-	private HTTPService httpService;
+	private InterfaceDAO interfaceDAO;
+	@Resource
+	private ParamaterDAO paramaterDAO;
 
 	public DeviceServiceImpl() {
 
@@ -49,14 +53,15 @@ public class DeviceServiceImpl implements DeviceService {
 		return device;
 	}
 
-	@Transactional
+	//@Transactional
 	@Override
 	public Device remove(Device device) {
-		deviceDAO.remove(device);
+		Long deviceId=device.getDeviceId();
+		deviceDAO.remove(deviceId);
+		interfaceDAO.removeByDeviceId(deviceId);//级联删除设备的所有功能
+		paramaterDAO.removeByDeviceId(deviceId);//级联删除设备所有功能的所有参数
 		return device;
 	}
-
-	
 
 	@Override
 	public Long getLastInsertId() {
@@ -64,8 +69,8 @@ public class DeviceServiceImpl implements DeviceService {
 	}
 
 	@Override
-	public List<Device> list(Integer pageIndex,Integer pageSize) {
-		Integer start=(pageIndex-1)*pageSize;
+	public List<Device> list(Integer pageIndex, Integer pageSize) {
+		Integer start = (pageIndex - 1) * pageSize;
 		return deviceDAO.list(start, pageSize);
 	}
 
@@ -79,6 +84,10 @@ public class DeviceServiceImpl implements DeviceService {
 		return deviceDAO.getByName(deviceName);
 	}
 
-	
+	@Override
+	public List<Map<String, String>> listJSON() {
+
+		return deviceDAO.listJSON();
+	}
 
 }

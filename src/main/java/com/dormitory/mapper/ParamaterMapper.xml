@@ -9,5 +9,19 @@
 		<result column="type" jdbcType="VARCHAR" property="type" />
 		<result column="device_id" jdbcType="BIGINT" property="deviceId" />
 	</resultMap>
+	<resultMap type="HashMap" id="listByInterfaceId">
+		<result column="paramater_id" property="id" />
+		<result column="paramater_name" property="name" />
+	</resultMap>
 
+	<resultMap id="paramaterDTO" type="com.dormitory.dto.ParamaterDTO">
+		<id column="paramater_id" jdbcType="INTEGER" property="paramaterId" />
+		<result column="paramater_name" jdbcType="VARCHAR" property="paramaterName" />
+		<result column="description" jdbcType="VARCHAR" property="description" />
+		<result column="interface_id" jdbcType="INTEGER" property="interfaceId" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+		<result column="device_id" jdbcType="BIGINT" property="deviceId" />
+		<result column="interface_name" jdbcType="VARCHAR" property="functionName" />
+		<result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+	</resultMap>
 </mapper>

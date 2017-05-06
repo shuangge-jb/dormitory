@@ -68,7 +68,7 @@ public class DeviceControllerTest {
 	public void testListParamByInterfaceId() {
 		try {
 			ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/listParamByInterfaceId.do")
-					.param("interfaceId", "2").param("pageIndex", "1").param("pageSize", "1"))
+					.param("deviceId", "14").param("interfaceId", "3").param("pageIndex", "1").param("pageSize", "10"))
 					.andExpect(status().isOk()).andDo(print());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -108,5 +108,39 @@ public class DeviceControllerTest {
 			e.printStackTrace();
 		}
 	}
-
+	@Test
+	public void testListDeviceJSON(){
+		try {
+			ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/listDeviceJSON.do")
+					.accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
+					.andDo(print());
+			String str=result.andReturn().getResponse().getContentAsString();
+			System.out.println("JSON result:"+str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void testlistFunctionByDeviceIdJSON(){
+		try {
+			ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/listFunctionByDeviceIdJSON.do")
+					.param("deviceId", "14").accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
+					.andDo(print());
+			String str=result.andReturn().getResponse().getContentAsString();
+			System.out.println("JSON result:"+str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void testListAllParam(){
+		try {
+			ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/listAllParam.do")
+					.param("pageIndex", "1").param("pageSize", "10")).andExpect(status().isOk())
+					.andDo(print());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

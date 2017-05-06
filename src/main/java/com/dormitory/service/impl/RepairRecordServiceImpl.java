@@ -56,9 +56,8 @@ public class RepairRecordServiceImpl implements RepairRecordService {
 
 	@Transactional
 	@Override
-	public RepairRecord remove(RepairRecord repairRecord) {
-		repairRecordDAO.remove(repairRecord.getRepairRecordId());
-		return repairRecord;
+	public void remove(Integer repairRecordId) {
+		repairRecordDAO.remove(repairRecordId);
 	}
 
 	@Override

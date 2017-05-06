@@ -54,8 +54,7 @@ public class PostcardController {
 	@RequestMapping(value = "removePostcard.do", method = RequestMethod.POST)
 	public ModelAndView removePostcard(@RequestParam(value = "postcardId") Integer postcardId) {
 		ModelAndView modelAndView = new ModelAndView();
-		Postcard postcard = postcardService.get(postcardId);
-		postcardService.remove(postcard);
+		postcardService.remove(postcardId);
 		return modelAndView;
 	}
 	protected String toJSON(Object obj) {

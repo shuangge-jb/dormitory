@@ -112,7 +112,7 @@ public class AdminDeviceController extends DeviceController {
 			}
 			modelAndView.addObject("status", "输入的参数有误");
 			modelAndView.addObject("device", deviveTemp);
-			modelAndView.setViewName("deviceList/editDevice");
+			modelAndView.setViewName("functionList/addFunctionToDevice");
 			return modelAndView;
 		}
 		List<Device> temp = deviceService.getByName(device.getName());
@@ -187,56 +187,171 @@ public class AdminDeviceController extends DeviceController {
 		return "forward:/listDevice.do";
 	}
 
-	@RequestMapping(value = "saveOrUpdateInterface.do", method = RequestMethod.POST)
-	public ModelAndView saveOrUpdateInterface(@ModelAttribute @Valid Interface face, BindingResult result,
-			Model model) {
+	@RequestMapping(value = "saveInterface.do", method = RequestMethod.POST)
+	public ModelAndView saveInterface(@ModelAttribute @Valid Interface face, BindingResult result, Model model,
+			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize,
+			@RequestParam(value = "backPageIndex") Integer backPageIndex) {
 		ModelAndView modelAndView = new ModelAndView("dormitory");
 		if (result.hasErrors()) {
-			modelAndView.setViewName(ERROR_PAGE);
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("saveInterface error:" + result.getFieldError().toString());
+			}
+			Device device=deviceService.get(face.getDeviceId());
+			modelAndView.setViewName("functionList/addFunctionToDevice");
+			modelAndView.addObject("status", "参数错误");
+			modelAndView.addObject("device", device);
+			modelAndView.addObject("data", face);
+			modelAndView.addObject("pageIndex", pageIndex);
+			modelAndView.addObject("pageSize", pageSize);
+			modelAndView.addObject("backPageIndex", backPageIndex);
 			return modelAndView;
 		}
 		Device temp = deviceService.get(face.getDeviceId());
 		if (temp == null) {
-			modelAndView.setViewName(ERROR_PAGE);
-			model.addAttribute("status", "设备不存在");
+			modelAndView.setViewName("functionList/addFunctionToDevice");
+			modelAndView.addObject("status", "设备不存在");
+			modelAndView.addObject("device", temp);
+			modelAndView.addObject("data", face);
+			modelAndView.addObject("pageIndex", pageIndex);
+			modelAndView.addObject("pageSize", pageSize);
+			modelAndView.addObject("backPageIndex", backPageIndex);
 			return modelAndView;
 		}
 		List<Interface> interfaceTemp = interfaceService.listByInterfaceName(temp.getDeviceId(),
 				face.getInterfaceName());
-		Interface oldFace = interfaceService.get(face.getInterfaceId());
 		// 插入时判断重复
-		if (oldFace == null) {
-			if (interfaceTemp.size() > 0) {
-				modelAndView.setViewName(ERROR_PAGE);
-				model.addAttribute("status", "接口名重复");
-				return modelAndView;
-			}
-		} else {// 更新时判断重复
-			if ((oldFace.getInterfaceName().equals(face.getInterfaceName()) == false) && interfaceTemp.size() > 0) {
-				modelAndView.setViewName(ERROR_PAGE);
-				model.addAttribute("status", "接口名重复");
-				return modelAndView;
-			}
+		if (interfaceTemp.size() > 0) {
+			modelAndView.setViewName("functionList/addFunctionToDevice");
+			modelAndView.addObject("status", "接口名重复");
+			modelAndView.addObject("device", temp);
+			modelAndView.addObject("data", face);
+			modelAndView.addObject("pageIndex", pageIndex);
+			modelAndView.addObject("pageSize", pageSize);
+			modelAndView.addObject("backPageIndex", backPageIndex);
+			return modelAndView;
 		}
 		String url = face.getInterfaceUrl();
 		if (!url.startsWith("http://")) {
 			face.setInterfaceUrl("http://" + url);
 		}
 		interfaceService.saveOrUpdate(face);
-		modelAndView.setViewName("");
+		Device device = deviceService.get(face.getDeviceId());
+		modelAndView.setViewName("functionList/addFunctionToDevice");
+		modelAndView.addObject("status", "新增成功");
+		modelAndView.addObject("device", device);
+		modelAndView.addObject("data", face);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.addObject("backPageIndex", backPageIndex);
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "updateInterface.do", method = RequestMethod.POST)
+	public ModelAndView updateInterface(@ModelAttribute @Valid Interface face, BindingResult result, Model model,
+			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize,
+			@RequestParam(value = "backPageIndex") Integer backPageIndex) {
+		ModelAndView modelAndView = new ModelAndView("dormitory");
+		Device oldDevice = deviceService.get(face.getDeviceId());
+		if (result.hasErrors()) {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("updateInterface error:" + result.getFieldError().toString());
+			}
+			modelAndView.setViewName("functionList/editDevicefunction");
+			modelAndView.addObject("status", "参数错误");
+			modelAndView.addObject("device", oldDevice);
+			modelAndView.addObject("data", face);
+			modelAndView.addObject("pageIndex", pageIndex);
+			modelAndView.addObject("pageSize", pageSize);
+			modelAndView.addObject("backPageIndex", backPageIndex);
+		}
+		
+		if (oldDevice == null) {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("updateInterface error:" + result.getFieldError().toString());
+			}
+			modelAndView.setViewName("functionList/editDevicefunction");
+			modelAndView.addObject("status", "设备不存在");
+			modelAndView.addObject("device", oldDevice);
+			modelAndView.addObject("data", face);
+			modelAndView.addObject("pageIndex", pageIndex);
+			modelAndView.addObject("pageSize", pageSize);
+			modelAndView.addObject("backPageIndex", backPageIndex);
+			return modelAndView;
+		}
+		List<Interface> interfaceTemp = interfaceService.listByInterfaceName(oldDevice.getDeviceId(),
+				face.getInterfaceName());
+		Interface oldFace = interfaceService.get(face.getInterfaceId());
+		// 更新时判断重复
+		if ((oldFace.getInterfaceName().equals(face.getInterfaceName()) == false) && interfaceTemp.size() > 0) {
+			modelAndView.setViewName("functionList/editDevicefunction");
+			modelAndView.addObject("status", "接口名重复");
+			modelAndView.addObject("device", oldDevice);
+			modelAndView.addObject("data", face);
+			modelAndView.addObject("pageIndex", pageIndex);
+			modelAndView.addObject("pageSize", pageSize);
+			modelAndView.addObject("backPageIndex", backPageIndex);
+			return modelAndView;
+		}
+		String url = face.getInterfaceUrl();
+		if (!url.startsWith("http://")) {
+			face.setInterfaceUrl("http://" + url);
+		}
+		interfaceService.saveOrUpdate(face);
+		
+		modelAndView.setViewName("functionList/editDevicefunction");
+		modelAndView.addObject("status", "修改成功");
+		modelAndView.addObject("device", oldDevice);
+		modelAndView.addObject("data", face);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.addObject("backPageIndex", backPageIndex);
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "removeInterface.do", method = RequestMethod.GET)
-	public ModelAndView removeInterface(@RequestParam(value = "interfaceId") Integer interfaceId) {
-		ModelAndView modelAndView = new ModelAndView("");
+	public String removeInterface(@RequestParam(value = "interfaceId") Integer interfaceId,
+			@RequestParam(value = "deviceId") Long deviceId, @RequestParam(value = "pageIndex") Integer pageIndex,
+			@RequestParam(value = "pageSize") Integer pageSize,
+			@RequestParam(value = "hiddenPageIndex") Integer hiddenPageIndex) {
 		Interface face = interfaceService.get(interfaceId);
 		interfaceService.remove(face);
+		return "forward:/listInterfaceByDeviceId.do?deviceId=" + deviceId + "&pageIndex=" + pageIndex + "&pageSize="
+				+ pageSize + "&hiddenPageIndex=" + hiddenPageIndex;
+	}
+
+	@RequestMapping(value = "saveParamater.do", method = RequestMethod.POST)
+	public ModelAndView saveParamater(@ModelAttribute(value = "paramater") @Valid Paramater paramater,
+			BindingResult result, Model model) {
+		ModelAndView modelAndView = new ModelAndView("");
+		if (result.hasErrors()) {
+			modelAndView.setViewName(ERROR_PAGE);
+			return modelAndView;
+		}
+		Interface temp = interfaceService.get(paramater.getInterfaceId());
+
+		if (temp == null) {
+			modelAndView.setViewName(ERROR_PAGE);
+			model.addAttribute("status", "接口不存在");
+			return modelAndView;
+		}
+		List<Paramater> list = paramaterService.listByParamName(temp.getInterfaceId(), paramater.getParamaterName());
+		// 插入时判断重复
+
+		if (list.size() > 0) {
+			System.out.println("list!=null");
+			modelAndView.setViewName(ERROR_PAGE);
+			model.addAttribute("status", "参数名重复");
+			return modelAndView;
+		}
+
+		paramaterService.saveOrUpdate(paramater);
+		modelAndView.setViewName("");
+		modelAndView.addObject("status", "新增成功");
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "saveOrUpdateParamater.do", method = RequestMethod.POST)
-	public ModelAndView saveOrUpdateParamater(@ModelAttribute(value = "paramater") @Valid Paramater paramater,
+	@RequestMapping(value = "updateParamater.do", method = RequestMethod.POST)
+	public ModelAndView updateParamater(@ModelAttribute(value = "paramater") @Valid Paramater paramater,
 			BindingResult result, Model model) {
 		ModelAndView modelAndView = new ModelAndView("");
 		if (result.hasErrors()) {
@@ -252,25 +367,15 @@ public class AdminDeviceController extends DeviceController {
 		}
 		List<Paramater> list = paramaterService.listByParamName(temp.getInterfaceId(), paramater.getParamaterName());
 		Paramater oldParam = paramaterService.get(paramater.getInterfaceId());
-		//插入时判断重复
-		if (oldParam == null) {
-			if (list.size() > 0) {
-				System.out.println("list!=null");
-				modelAndView.setViewName(ERROR_PAGE);
-				model.addAttribute("status", "参数名重复");
-				return modelAndView;
-			}
-		} else {
-			//更新时判断重复
-			if ((oldParam.getParamaterName().equals(paramater.getParamaterName()) == false) && list.size() > 0) {
-				modelAndView.setViewName(ERROR_PAGE);
-				model.addAttribute("status", "参数名重复");
-				return modelAndView;
-			}
+		// 更新时判断重复
+		if ((oldParam.getParamaterName().equals(paramater.getParamaterName()) == false) && list.size() > 0) {
+			modelAndView.setViewName(ERROR_PAGE);
+			model.addAttribute("status", "参数名重复");
+			return modelAndView;
 		}
-
 		paramaterService.saveOrUpdate(paramater);
 		modelAndView.setViewName("");
+		modelAndView.addObject("status", "修改成功");
 		return modelAndView;
 	}
 
@@ -299,5 +404,5 @@ public class AdminDeviceController extends DeviceController {
 		modelAndView.addObject("pageIndex", pageIndex);
 		return modelAndView;
 	}
-	
+
 }

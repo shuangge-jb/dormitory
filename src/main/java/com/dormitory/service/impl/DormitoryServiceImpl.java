@@ -82,7 +82,7 @@ public class DormitoryServiceImpl implements DormitoryService {
 	@Transactional
 	@Override
 	public Dormitory remove(Dormitory dormitory) {
-		dormitoryDAO.remove(dormitory);
+		dormitoryDAO.remove(dormitory.getDormitoryId());
 		return dormitory;
 	}
 

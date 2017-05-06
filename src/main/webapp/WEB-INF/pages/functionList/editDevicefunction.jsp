@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" errorPage="error"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 String path = request.getContextPath();
@@ -121,8 +121,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<h3 class="panel-title">修改${device.name}的功能</h3>
 		</div>
 		<div class="panel-body">
-		  <form action="#" name="form1" method="post" 
+		  <form action="<%=path %>/admin/updateInterface.do?pageIndex=${pageIndex}&pageSize=10&backPageIndex=${backPageIndex}" name="form1" method="post" 
              onsubmit="return save();">
+             <input type="hidden" name="interfaceId" value="${data.interfaceId }"/>
+             <input type="hidden" name="deviceId" value="${device.deviceId }"/>
             <div style="margin-left:80px;margin-top:30px;">
 				<font color=red>*</font> 功能名称：<input type="text" id="interfaceName"
 					name="interfaceName" class="inputTxt" value="${data.interfaceName}" disabled="true">
@@ -161,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						type="submit" value="保存" id="savebtn"
 						style="background: #F7B52C; width: 40; height: 30; margin-left: 174px;  font-weight: bolder; font-size: 15px; border: 3px solid #0090DB; height: 30px; width: 100; position: absolute; background: #0090DB; color: #FFEDF1;"
 						onMouseOver="this.style.backgroundColor='#EF972B';"
-						onMouseOut="this.style.backgroundColor ='#0090DB';"
+						onMouseOut="this.style.backgroundColor ='#0090DB';" 
 						disabled="true" /> <input type="button" value="返回"
 						onclick="back(${pageIndex},${device.deviceId},${backPageIndex})"
 						style="background: #F7B52C; width: 40; height: 30; margin-left: 274px;  font-weight: bolder; font-size: 15px; border: 3px solid #0090DB; height: 30px; width: 100; position: absolute; background: #0090DB; color: #FFEDF1;"

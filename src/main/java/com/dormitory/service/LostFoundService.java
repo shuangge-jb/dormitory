@@ -5,7 +5,7 @@ import java.util.List;
 import com.dormitory.entity.LostFound;
 
 public interface LostFoundService extends GetService<LostFound, Integer>, ListLimitService<LostFound>,
-		SaveOrUpdateService<LostFound>, RemoveService<LostFound> {
+		SaveOrUpdateService<LostFound> {
 	List<LostFound> list(Integer pageIndex, Integer pageSize);
 
 	Integer getSize();
@@ -17,4 +17,6 @@ public interface LostFoundService extends GetService<LostFound, Integer>, ListLi
 	List<LostFound> listByBuildingId(Integer buildingId,Integer pageIndex, Integer pageSize);
 	
 	Integer getSizeByBuildingId(Integer buildingId);
+	
+	void remove(Integer lostFoundId);
 }

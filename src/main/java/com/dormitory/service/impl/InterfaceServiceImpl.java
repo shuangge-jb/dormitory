@@ -1,6 +1,5 @@
 package com.dormitory.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,13 +8,15 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.dormitory.dao.InterfaceDAO;
+import com.dormitory.dao.ParamaterDAO;
 import com.dormitory.entity.Interface;
 import com.dormitory.service.InterfaceService;
 @Service
 public class InterfaceServiceImpl implements InterfaceService {
 @Resource
 private InterfaceDAO interfaceDAO;
-
+@Resource
+private ParamaterDAO paramaterDAO;
 	@Override
 	public Interface get(Integer interfaceId) {
 		return interfaceDAO.get(interfaceId);
@@ -38,9 +39,10 @@ private InterfaceDAO interfaceDAO;
 	}
 
 	@Override
-	public Interface remove(Interface item) {
-		interfaceDAO.remove(item);
-		return item;
+	public Interface remove(Interface function) {
+		interfaceDAO.remove(function.getInterfaceId());
+		paramaterDAO.removeByInterfaceId(function.getInterfaceId());//级联删除功能的所有参数
+		return function;
 	}
 	@Override
 	public List<Interface> listByDeviceId(Long deviceId,Integer pageIndex,Integer pageSize){
@@ -57,5 +59,10 @@ private InterfaceDAO interfaceDAO;
 	@Override
 	public List<Interface> listByInterfaceName(Long deviceId,String interfaceName) {
 		return interfaceDAO.listByInterfaceName(deviceId,interfaceName);
+	}
+
+	@Override
+	public List<Map<String, String>> listByDeviceIdJSON(Long deviceId) {
+		return interfaceDAO.listByDeviceIdJSON(deviceId);
 	}
 }

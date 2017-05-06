@@ -97,8 +97,7 @@ public class RepairRecordController {
 	@RequestMapping(value = "removeRepairRecord.do", method = RequestMethod.POST)
 	public ModelAndView removeRepairRecord(@RequestParam(value = "repairRecordId") Integer repairRecordId) {
 		ModelAndView modelAndView = new ModelAndView("");
-		RepairRecord record = repairRecordService.get(repairRecordId);
-		repairRecordService.remove(record);
+		repairRecordService.remove(repairRecordId);
 		modelAndView.addObject("status", "删除成功");
 		return modelAndView;
 	}

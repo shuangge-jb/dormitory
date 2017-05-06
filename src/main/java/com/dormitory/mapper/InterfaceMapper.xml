@@ -11,4 +11,9 @@
 		<result column="method" jdbcType="VARCHAR" property="method" />
 	</resultMap>
 
+	  <resultMap id="listByDeviceId" type="HashMap">
+		<result property="id" column="interface_id" />
+		<result property="name" column="interface_name" />
+	</resultMap>
+	
 </mapper>

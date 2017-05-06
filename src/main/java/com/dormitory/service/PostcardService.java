@@ -5,7 +5,7 @@ import java.util.List;
 import com.dormitory.entity.Postcard;
 
 public interface PostcardService extends GetService<Postcard, Integer>, ListLimitService<Postcard>,
-		SaveOrUpdateService<Postcard>, RemoveService<Postcard> {
+		SaveOrUpdateService<Postcard> {
 	List<Postcard> list(Integer pageIndex, Integer pageSize);
 
 	Integer getSize();
@@ -17,4 +17,6 @@ public interface PostcardService extends GetService<Postcard, Integer>, ListLimi
 	List<Postcard> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize);
 	
 	Integer getSizeByBuildingId(Integer buildingId);
+	
+	void remove(Integer postcardId);
 }

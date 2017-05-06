@@ -33,7 +33,7 @@ public interface StudentDAO {
 	void update(Student student);
 
 	@Delete(" delete from student where student_id=#{studentId} ")
-	void remove(Student student);
+	void remove(@Param("studentId")Long studentId);
 
 	@Select(" select LAST_INSERT_ID() ")
 	Long getLastInsertId();

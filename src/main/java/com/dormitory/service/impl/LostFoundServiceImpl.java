@@ -52,9 +52,8 @@ public class LostFoundServiceImpl implements LostFoundService {
 
 	@Transactional
 	@Override
-	public LostFound remove(LostFound lostFound) {
-		lostFoundDAO.remove(lostFound.getLostFoundId());
-		return lostFound;
+	public void remove(Integer lostFoundId) {
+		lostFoundDAO.remove(lostFoundId);
 	}
 
 	@Override

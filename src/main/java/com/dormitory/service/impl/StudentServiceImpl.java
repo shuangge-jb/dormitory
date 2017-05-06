@@ -54,9 +54,8 @@ public class StudentServiceImpl implements StudentService {
 
 	@Transactional
 	@Override
-	public Student remove(Student student) {
-		studentDAO.remove(student);
-		return student;
+	public void remove(Long studentId) {
+		studentDAO.remove(studentId);
 	}
 
 	@Override

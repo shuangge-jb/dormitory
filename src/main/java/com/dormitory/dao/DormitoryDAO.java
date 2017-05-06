@@ -24,7 +24,7 @@ public interface DormitoryDAO {
 	@Update(" update dormitory set building_id=#{building},room=#{room} where dormitory_id=#{dormitoryId} ")
 	void update(Dormitory dormitory);
 	@Delete("delete from dormitory where dormitory_id=#{dormitoryId} ")
-	void remove(Dormitory dormitory);
+	void remove(@Param("dormitoryId")Integer dormitoryId);
 	@Select("select * from dormitory where building_id=#{buildingId} and room=#{room} ")
 	@ResultMap("com.dormitory.mapper.DormitoryMapper.dormitory")
 	Dormitory getByBuildingIdAndRoom(@Param(value="buildingId")Integer buildingId,@Param(value="room")String room);

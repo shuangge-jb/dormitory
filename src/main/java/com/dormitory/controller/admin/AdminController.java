@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dormitory.controller.student.StudentController;
 import com.dormitory.dto.master.MasterDTO;
 import com.dormitory.entity.Master;
 import com.dormitory.entity.Student;
@@ -132,8 +131,7 @@ public class AdminController {
 	@RequestMapping(value = "/removeMaster.do", method = RequestMethod.POST)
 	public ModelAndView removeMaster(@RequestParam(value = "masterId") Integer masterId) {
 		ModelAndView modelAndView = new ModelAndView("");
-		Master master = masterService.get(masterId);
-		masterService.remove(master);
+		masterService.remove(masterId);
 		return modelAndView;
 	}
 
@@ -141,7 +139,7 @@ public class AdminController {
 	public ModelAndView removeStudent(@RequestParam(value = "studentId") Long studentId) {
 		ModelAndView modelAndView = new ModelAndView("");
 		Student student = studentService.get(studentId);
-		studentService.remove(student);
+		studentService.remove(student.getStudentId());
 		return modelAndView;
 	}
 

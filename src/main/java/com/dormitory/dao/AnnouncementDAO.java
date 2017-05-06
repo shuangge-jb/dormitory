@@ -94,6 +94,6 @@ public interface AnnouncementDAO {
 	 * @date 2017-4-12
 	 */
 	@Delete("delete from announcement where announcement_id=#{announcementId} ")
-	public void remove(Announcement announcement);
+	public void remove(@Param("announcementId")Integer announcementId);
 
 }

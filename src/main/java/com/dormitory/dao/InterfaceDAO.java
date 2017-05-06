@@ -1,15 +1,18 @@
 package com.dormitory.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.dormitory.entity.Device;
 import com.dormitory.entity.Interface;
 
 public interface InterfaceDAO {
@@ -28,7 +31,11 @@ public interface InterfaceDAO {
 	void update(Interface item);
 
 	@Delete(" delete from interface where interface_id=#{interfaceId} ")
-	void remove(Interface item);
+	void remove(@Param("interfaceId") Integer interfaceId);
+
+	
+	@Delete("delete from interface where device_id=#{deviceId}")
+	void removeByDeviceId(@Param("deviceId") Long deviceId);
 
 	@Select("select LAST_INSERT_ID()")
 	Integer getLastInsertId();
@@ -37,6 +44,10 @@ public interface InterfaceDAO {
 	@ResultMap("com.dormitory.mapper.InterfaceMapper.interface")
 	List<Interface> listByDeviceId(@Param("deviceId") Long deviceId, @Param("start") Integer start,
 			@Param("pageSize") Integer pageSize);
+
+	@Select("select interface_id,interface_name from interface where device_id=#{deviceId}")
+	@ResultMap("com.dormitory.mapper.InterfaceMapper.listByDeviceId")
+	List<Map<String, String>> listByDeviceIdJSON(@Param("deviceId") Long deviceId);
 
 	@Select("select count(*) from interface where device_id=#{deviceId} ")
 	Integer getSizeByDeviceId(@Param("deviceId") Long deviceId);

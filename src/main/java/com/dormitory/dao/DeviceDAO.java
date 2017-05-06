@@ -1,6 +1,7 @@
 package com.dormitory.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -16,9 +17,10 @@ public interface DeviceDAO {
 	@Select("select * from device where device_id=#{deviceId} ")
 	@ResultMap("com.dormitory.mapper.DeviceMapper.device")
 	public Device get(@Param("deviceId") Long deviceId);
+
 	@Select("select * from device where name=#{deviceName} ")
 	@ResultMap("com.dormitory.mapper.DeviceMapper.device")
-	public List<Device> getByName(@Param("deviceName")String deviceName); 
+	public List<Device> getByName(@Param("deviceName") String deviceName);
 
 	@Select("select LAST_INSERT_ID()")
 	public Long getLastInsertId();
@@ -33,7 +35,7 @@ public interface DeviceDAO {
 	public void update(Device device);
 
 	@Delete("delete from device where device_id=#{deviceId}")
-	public void remove(Device device);
+	public void remove(@Param("deviceId") Long deviceId);
 
 	@Select("select * from device limit #{start},#{pageSize}")
 	@ResultMap("com.dormitory.mapper.DeviceMapper.device")
@@ -41,4 +43,8 @@ public interface DeviceDAO {
 
 	@Select("select count(*) from device ")
 	public Long getSize();
+
+	@Select("select device_id as id,name from device ")
+	@ResultMap("com.dormitory.mapper.DeviceMapper.listJSON")
+	public List<Map<String, String>> listJSON();
 }

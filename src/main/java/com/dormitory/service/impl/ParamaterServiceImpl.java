@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.dormitory.dao.ParamaterDAO;
+import com.dormitory.dto.ParamaterDTO;
 import com.dormitory.entity.Paramater;
 import com.dormitory.service.ParamaterService;
 
@@ -45,9 +46,9 @@ public class ParamaterServiceImpl implements ParamaterService {
 	}
 
 	@Override
-	public List<Paramater> listByInterfaceId(Integer interfaceId, Integer pageIndex, Integer pageSize) {
+	public List<ParamaterDTO> listByInterfaceId(Integer interfaceId, Integer pageIndex, Integer pageSize) {
 		Integer start=(pageIndex-1)*pageSize;
-		List<Paramater> list = paramaterDAO.listByInterfaceId(interfaceId, start, pageSize);
+		List<ParamaterDTO> list = paramaterDAO.listByInterfaceId(interfaceId, start, pageSize);
 		return list;
 	}
 
@@ -60,5 +61,14 @@ public class ParamaterServiceImpl implements ParamaterService {
 	public List<Paramater> listByParamName(Integer interfaceId, String paramName) {
 		return paramaterDAO.listByParamName(interfaceId, paramName);
 	}
+
+	@Override
+	public List<ParamaterDTO> listAll(Integer pageIndex, Integer pageSize) {
+		Integer start=(pageIndex-1)*pageSize;
+		List<ParamaterDTO> list=paramaterDAO.listAll(start, pageSize);
+		return list;
+	}
+
+	
 
 }

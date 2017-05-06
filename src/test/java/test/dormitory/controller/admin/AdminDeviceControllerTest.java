@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.util.Date;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -55,11 +56,13 @@ public class AdminDeviceControllerTest {
 		}
 	}
 
+	@Transactional
 	@Test
 	public void testRemoveDevice() {
 		try {
-			mockMvc.perform(get("/admin/removeDevice.do").param("deviceId", "19")).andExpect(status().isOk())
-					.andExpect(view().name("dormitory")).andDo(print());
+			mockMvc.perform(get("/admin/removeDevice.do").param("deviceId", "23").param("pageIndex", "1")
+					.param("pageSize", "10")).andExpect(status().isOk())
+					.andExpect(view().name("forward:/listDevice.do")).andDo(print());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -89,11 +92,12 @@ public class AdminDeviceControllerTest {
 		}
 	}
 
+	@Transactional
 	@Test
 	public void testRemoveInterface() {
 		try {
-			mockMvc.perform(get("/admin/removeInterface.do").param("interfaceId", "1")).andExpect(status().isOk())
-					.andExpect(view().name("dormitory")).andDo(print());
+			mockMvc.perform(get("/admin/removeInterface.do").param("interfaceId", "5")).andExpect(status().isOk())
+					.andExpect(view().name("")).andDo(print());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -132,10 +136,11 @@ public class AdminDeviceControllerTest {
 		}
 	}
 
+	@Transactional
 	@Test
 	public void testRemoveParamater() {
 		try {
-			mockMvc.perform(post("/admin/removeParamater.do").param("paramaterId", "1")).andExpect(status().isOk())
+			mockMvc.perform(post("/admin/removeParamater.do").param("paramaterId", "10")).andExpect(status().isOk())
 					.andExpect(view().name("")).andDo(print());
 		} catch (Exception e) {
 			e.printStackTrace();

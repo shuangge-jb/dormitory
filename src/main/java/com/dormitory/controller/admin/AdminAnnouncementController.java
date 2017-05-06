@@ -1,12 +1,9 @@
 package com.dormitory.controller.admin;
 
-import javax.validation.Valid;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.AnnouncementController;
@@ -18,13 +15,11 @@ public class AdminAnnouncementController extends AnnouncementController{
 	
 	
 	@RequestMapping(value = "/removeAnnouncement.do", method = RequestMethod.POST)
-	public ModelAndView removeAnnouncement(@ModelAttribute(value = "announcement")@Valid  Announcement announcement,BindingResult result) {
+	public ModelAndView removeAnnouncement(@RequestParam(value = "announcement")  Integer announcementId) {
 		ModelAndView modelAndView = new ModelAndView("homePage");
+		Announcement announcement=announcementService.get(announcementId);
 		announcementService.remove(announcement);
-		if(result.hasErrors()){
-			modelAndView.setViewName(ERROR_PAGE);
-			return modelAndView;
-		}
+		
 		// TODO
 		modelAndView.setViewName("announcement");
 		modelAndView.addObject("status", REMOVE_SUCCESS);

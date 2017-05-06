@@ -56,9 +56,10 @@ public class DeviceServiceImplTest {
 	@Test
 	public void testRemove() {
 		init();
-		Device article = articleService.get(articleService.getLastInsertId());
-		articleService.remove(article);
-		Device afterRemove=articleService.get(articleService.getLastInsertId());
+		Device device = articleService.get(23L);
+		assertNotNull(device);
+		articleService.remove(device);
+		Device afterRemove=articleService.get(23L);
 		assertNull(afterRemove);
 	}
 	@Transactional

@@ -30,7 +30,7 @@ public interface MasterDAO {
 	public void update(Master master);
 
 	@Delete("delete from master where master_id=#{masterId}")
-	public void remove(Master master);
+	public void remove(@Param("masterId")Integer masterId);
 
 	@Select("select * from master limit #{start},#{pageSize}")
 	@ResultMap("com.dormitory.mapper.MasterMapper.master")

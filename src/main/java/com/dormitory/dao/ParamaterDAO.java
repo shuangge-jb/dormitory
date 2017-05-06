@@ -1,6 +1,7 @@
 package com.dormitory.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -10,6 +11,8 @@ import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.dormitory.dto.ParamaterDTO;
+import com.dormitory.entity.Interface;
 import com.dormitory.entity.Paramater;
 
 public interface ParamaterDAO {
@@ -30,12 +33,20 @@ public interface ParamaterDAO {
 	@Delete(" delete from paramater where paramater_id=#{paramaterId}")
 	void remove(@Param("paramaterId") Integer paramaterId);
 
+	@Delete("delete from paramater where interface_id=#{interfaceId}")
+	void removeByInterfaceId(@Param("interfaceId") Integer interfaceId);
+
+	@Delete("delete from paramater where device_id=#{deviceId}")
+	void removeByDeviceId(@Param("deviceId") Long deviceId);
+
 	@Select("select LAST_INSERT_ID()")
 	Integer getLastInsertId();
 
-	@Select(" select * from paramater where interface_id=#{interfaceId} limit #{start},#{pageSize} ")
-	@ResultMap("com.dormitory.mapper.ParamaterMapper.paramater")
-	List<Paramater> listByInterfaceId(@Param("interfaceId") Integer interfaceId, @Param("start") Integer start,
+	@Select("select p.*,i.interface_name,d.name as device_name "
+			+ " from paramater p join interface i on p.interface_id=i.interface_id join device d on p.device_id=d.device_id "
+			+ " where p.interface_id=#{interfaceId} limit #{start},#{pageSize} ")
+	@ResultMap("com.dormitory.mapper.ParamaterMapper.paramaterDTO")
+	List<ParamaterDTO> listByInterfaceId(@Param("interfaceId") Integer interfaceId, @Param("start") Integer start,
 			@Param("pageSize") Integer pageSize);
 
 	@Select("select count(*) from paramater where interface_id=#{interfaceId}  ")
@@ -44,4 +55,10 @@ public interface ParamaterDAO {
 	@Select(" select * from paramater where interface_id=#{interfaceId} and paramater_name=#{paramName} ")
 	@ResultMap("com.dormitory.mapper.ParamaterMapper.paramater")
 	List<Paramater> listByParamName(@Param("interfaceId") Integer interfaceId, @Param("paramName") String paramName);
+
+	@Select(" select p.*,i.interface_name,d.name as device_name "
+			+ " from paramater p join interface i on p.interface_id=i.interface_id join device d on p.device_id=d.device_id "
+			+ " limit #{start},#{pageSize} ")
+	@ResultMap("com.dormitory.mapper.ParamaterMapper.paramaterDTO")
+	List<ParamaterDTO> listAll(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
 }

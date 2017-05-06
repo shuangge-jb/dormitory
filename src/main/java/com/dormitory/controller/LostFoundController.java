@@ -65,14 +65,10 @@ public class LostFoundController {
 		return modelAndView;
 	}
 	@RequestMapping(value = "removeLostFound.do",method=RequestMethod.POST)
-	public ModelAndView removeLostFound(@ModelAttribute(value="lostFound")@Valid LostFound lostFound,BindingResult result){
+	public ModelAndView removeLostFound(@RequestParam(value="lostFound") Integer lostFoundId){
 		ModelAndView modelAndView = new ModelAndView("homePage");
-		if(result.hasErrors()){
-			modelAndView.setViewName(ERROR_PAGE);
-			modelAndView.addObject("status", ERROR_INPUT);
-			return modelAndView;
-		}
-		lostFoundService.saveOrUpdate(lostFound);
+		
+		lostFoundService.remove(lostFoundId);
 		modelAndView.addObject("status", REMOVE_SUCCESS);
 		return modelAndView;
 	}
