@@ -58,58 +58,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        var show = "你还可以输入" + len + "个字";  
 		        document.getElementById("miaoshu").innerText = show;   
 	 }
-	function back(pageIndex,deviceId,backPageId){
-	      var pageSize = 10;
-	      window.location.href ="<%=path%>/listInterfaceByDeviceId.do?deviceId="+deviceId+"&pageIndex="+pageIndex+"&pageSize="+pageSize+"&hiddenPageIndex="+backPageId;
-	    }
+	 function back(){
+          var pageSize = 5;
+          var pageIndex = 1;
+          window.location.href ="<%=path%>/forwardParametersList.do?pageIndex="+pageIndex+"&pageSize="+pageSize;
+       }
+	var flag=false;
     function edit(){
-    	 $('#interfaceName').attr("disabled",false);
-    	  $('#interfaceUrl').attr("disabled",false);
-    	  $('#source').attr("disabled",false);
-    	  $('#method').attr("disabled",false);
+    	 $('#paramaterName').attr("disabled",false);
+    	  $('#type').attr("disabled",false);
     	  $('#description').attr("disabled",false);
-    	  $('#savebtn').attr("disabled",false);
+    	  flag=true;
     }
-    function verifyInterfaceInfo(){
-    	if(document.form1.interfaceName.value==""){
+    function verifyParameterInfo(){
+    	if(!flag){
     		$('#myModal').modal('show');
-    		//alert("设备名称不能为空");
-    		$(".modal-body").text("功能名称不能为空！");
+    		$(".modal-body").text("先点击过编辑按钮，才能点击保存按钮！");
     		return false;
     	}
-    	else if(document.form1.interfaceUrl.value==""){
+    	if(document.form1.paramaterName.value==""){
     		$('#myModal').modal('show');
-    		$(".modal-body").text("功能URL不能为空！");
+    		$(".modal-body").text("参数名称不能为空！");
     		return false;
     	}
-    	else if(document.form1.source.value==""){
+    	else if(document.form1.type.value==""){
     		$('#myModal').modal('show');
-    		$(".modal-body").text("功能接口来源不能为空！");
+    		$(".modal-body").text("参数类型不能为空！");
     		return false;
     	}
-    	else if(document.form1.method.value==""){
-    		$('#myModal').modal('show');
-    		$(".modal-body").text("请选择post或get类型！");
-    		return false;
-    	} 
     	else if(document.getElementById('description').value==""){
     		$('#myModal').modal('show');
-    		$(".modal-body").text("功能描述不能为空！");
+    		$(".modal-body").text("参数描述不能为空！");
     		return false;
     	} 
     	return true;
     }
      
     function save(){
-    	if(!verifyInterfaceInfo()){
+    	if(!verifyParameterInfo()){
     		return false;
     	}
-      $('#interfaceName').attr("disabled",false);
-   	  $('#interfaceUrl').attr("disabled",false);
-   	  $('#source').attr("disabled",false);
-   	  $('#method').attr("disabled",false);
-   	  $('#description').attr("disabled",false);
-   	  $('#savebtn').attr("disabled",false);
+    	$('#paramaterName').attr("disabled",false);
+  	    $('#type').attr("disabled",false);
+  	    $('#description').attr("disabled",false);
   	  return true;
     }
    </script>
@@ -118,48 +109,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   <div class="panel panel-success">
 		<div class="panel-heading">
-			<h3 class="panel-title">修改${data.paramaterName}</h3>
+			<h3 class="panel-title">修改${data.paramaterName}参数页面</h3>
 		</div>
 		<div class="panel-body">
 		  <form action="#" name="form1" method="post" 
              onsubmit="return save();">
              <input type="hidden" name="interfaceId" value="${data.interfaceId }"/>
-             <input type="hidden" name="deviceId" value="${device.deviceId }"/>
+             <input type="hidden" name="deviceId" value="${data.deviceId }"/>
             <div style="margin-left:80px;margin-top:30px;">
-				<font color=red>*</font> 功能名称：<input type="text" id="interfaceName"
-					name="interfaceName" class="inputTxt" value="${data.interfaceName}" disabled="true">
-			</div>
-			<div style="margin-left:80px;margin-top:30px;">
-				<font color=red>*</font> 功能的url：<input type="text" id="interfaceUrl"
-					name="interfaceUrl" class="inputTxt" value="${data.interfaceUrl}" disabled="true">
-			</div>
-			<div style="margin-left:80px;margin-top:30px;">
-				<font color=red>*</font> 功能的来源：<input type="text" id="source"
-					name="source" class="inputTxt" value="${data.source}" disabled="true">
+				<font color=red>*</font>参数名称：<input type="text" id="paramaterName"
+					name="paramaterName" class="inputTxt" value="${data.paramaterName}" disabled="true">
 			</div>
 			<div style="margin-left: 80px; margin-top: 30px;">
-					<font color=red>*</font> 方法类型： <select name="method" id="method"
-						class="inputTxt" disabled="true">
-						<option value="post"
-							<c:if test="${data.method.equals('post')}"> selected</c:if>>post</option>
-						<option value="get"
-							<c:if test="${data.method.equals('get')}"> selected</c:if>>get</option>
-					</select>
+				<font color=red>*</font> 参数类型：<input type="text" id="type"
+					name="type" class="inputTxt" value="${data.paramaterName}" disabled="true">
 			</div>
-				<div style="margin-left:80px;margin-top:10px;">
-				<font color=red>*</font> 功能描述：<br>
-				<textArea 
-					name="description" id="description"
-					class="textAreaTxt" 
-					onkeyup="keyPress()" onblur="keyPress()" disabled="true">${data.description}</textArea>
-					<font color="gray" size=2><label id="miaoshu"></label></font>
+			<div style="margin-left: 80px; margin-top: 10px;">
+				<font color=red>*</font> 参数描述：<br>
+				<textArea name="description" id="description" class="textAreaTxt"
+					 onkeyup="keyPress()" onblur="keyPress()" disabled="true"></textArea>
+				<font color="gray" size=2><label id="miaoshu">&nbsp;你还可以输入100个字</label></font>
 			</div>
 			<span style="margin-left:79px;"><font color="red">${status}</font></span>
 
 	 <div class="button-group">
     <button type="button" class="button button-pill button-action" onclick="edit();">编辑</button>
     <button type="submit" class="button button-pill button-action" >保存</button>
-    <button type="button" class="button button-pill button-action" onclick="back(${pageIndex},${device.deviceId},${backPageIndex})">返回</button>
+    <button type="button" class="button button-pill button-action" onclick="back()">返回</button>
   </div>
 			</form>
 		</div>
