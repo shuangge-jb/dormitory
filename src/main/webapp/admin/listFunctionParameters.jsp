@@ -14,7 +14,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 $(document).ready(function(){  
 	   // 初始化内容
-    alert("1111");
+	  $("#deviceSelect").change(function(){	
+		 var id =$(this).children('option:selected').val();
+		  $.ajax({
+			   type:"post",
+			   url:'<%=path%>/listFunctionByDeviceIdJSON.do',
+			   data:{deviceId:id},
+			   dataType:"json",
+			   success:function(data){
+				   var interFunction= data;
+				   $("#functionSelect").empty(); 
+				   for(var key in interFunction){
+				   $("<option value='"+interFunction[key].id+"'>"+interFunction[key].name+"</option>").appendTo("#functionSelect"); 
+				   }
+				   }  
+		   
+		   })
+		   
+	  }) 
+	   $.ajax({
+		   type:"post",
+	       url:'<%=path%>/listDeviceJSON.do',
+	       dataType:"json",
+	       success:function(data){
+	    	 var device = data;
+	    	 for(var key in device){
+	    		 var id = device[key].id;
+	    		 
+	    		 $("<option value='"+device[key].id+"'>"+device[key].name+"</option>").appendTo("#deviceSelect"); 
+	    	 }
+	       }
+	       
+	   }) 
+ 
 });  
    function pageForward(){
 	   var pageIndex = document.getElementById('pageIndex').value;
@@ -88,14 +120,52 @@ $(document).ready(function(){
     border-color: #a1d243;
     color: #8bc220;
     }
+    .inputTxt{
+     outline:none;
+     border:1px solid #CCC;
+     padding:5px;
+     -webkit-box-shadow:#DFDFDF 0 1px 2px 0 inset;
+     box-shadow:#DFDFDF 0 1px 2px 0 inset;
+     width:200px;color:#666;height:28px;
+     background:#fff;
+     border-radius:3px;
+     line-height:28px;
+     overflow:hidden;}
+    .textAreaTxt{
+      outline:none;
+     border:1px solid #CCC;
+     -webkit-box-shadow:#DFDFDF 0 1px 2px 0 inset;
+     box-shadow:#DFDFDF 0 1px 2px 0 inset;
+     color:#666;
+     background:#fff;
+     border-radius:3px;
+     line-height:28px;
+     overflow:hidden;
+     margin-top:5px;
+     width:290px;
+     height:150px;
+     }
    </style>
 </HTML>
   <head>
   </head>
   <body>
- 
+  <form action="<%=path%>/listParamByInterfaceId.do" method="post">
+     筛选： <select name="deviceId" id="deviceSelect"
+					class="inputTxt" >	
+				</select>
+			<select name="interfaceId" id="functionSelect"
+					class="inputTxt" >	
+			</select>
+			<input type="hidden" name="pageIndex" value="1"/>
+			<input type="hidden" value="10" name="pageSize" />
+			<input type="submit" value="查询"/>
+  </form>
+  <c:forEach var="parameters" items="${data}" varStatus="status">
+     ${parameters.functionName}
+  </c:forEach>
       <table class="table table-bordered table-striped table-hover">
-	<caption>的功能</caption>
+	<caption>的功能1</caption>
 	<thead>
 		<tr>
 			<th>序号</th>

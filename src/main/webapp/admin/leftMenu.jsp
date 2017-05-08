@@ -59,7 +59,7 @@ String path = request.getContextPath();
 				</li>
 				<li>
 				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
-				    &nbsp;<a target="main" href="<%=path %>/admin/listFunctionParameters.jsp" style="text-decoration:none;color:blue;">参数管理</a> 			
+				    &nbsp;<a target="main" href="<%=path %>/forwardParametersList.do?pageIndex=1&pageSize=5" style="text-decoration:none;color:blue;">参数管理</a> 			
 				</li>	
             </ul>     
         </div>

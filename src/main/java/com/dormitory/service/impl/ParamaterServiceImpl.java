@@ -69,6 +69,11 @@ public class ParamaterServiceImpl implements ParamaterService {
 		return list;
 	}
 
+	@Override
+	public Integer getAllSize() {
+		return paramaterDAO.getAllSize();
+	}
+
 	
 
 }

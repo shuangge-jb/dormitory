@@ -61,4 +61,8 @@ public interface ParamaterDAO {
 			+ " limit #{start},#{pageSize} ")
 	@ResultMap("com.dormitory.mapper.ParamaterMapper.paramaterDTO")
 	List<ParamaterDTO> listAll(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
+	@Select(" select count(*)"
+			+ " from paramater p join interface i on p.interface_id=i.interface_id join device d on p.device_id=d.device_id "
+			)
+Integer getAllSize();
 }

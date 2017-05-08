@@ -1,5 +1,6 @@
 package com.dormitory.controller;
 
+import java.lang.reflect.Parameter;
 import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import com.dormitory.controller.student.StudentController;
 import com.dormitory.dto.ParamaterDTO;
@@ -155,38 +157,50 @@ public class DeviceController {
 	@ResponseBody
 	public String listFunctionByDeviceIdJSON(@RequestParam(value = "deviceId") Long deviceId) {
 		List<Map<String, String>> map = interfaceService.listByDeviceIdJSON(deviceId);
+		System.out.println(toJSON(map));
 		return toJSON(map);
 
 	}
-	@RequestMapping(value = "listAllParam.do")
+	@RequestMapping(value = "forwardParametersList.do")
 	public ModelAndView listAllParam(@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize){
-		ModelAndView modelAndView = new ModelAndView("");
+		ModelAndView modelAndView = new ModelAndView();
 		List<ParamaterDTO> list=paramaterService.listAll(pageIndex, pageSize);
-		modelAndView.addObject("data", list);
+		modelAndView.addObject("data", list);	
+		modelAndView.setViewName("parametersList/listFunctionParameters");
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		Integer total=paramaterService.getAllSize();
+		modelAndView.addObject("total", total);
+		int totalPages = getTotalPages(total, pageSize);
+		modelAndView.addObject("totalPages", totalPages);
 		return modelAndView;
+	
 	}
 	@RequestMapping(value = "listParamByInterfaceId.do")
-	public ModelAndView listParamByInterfaceId(@RequestParam(value = "deviceId") Long deviceId,
+	@ResponseBody
+	public String listParamByInterfaceId(@RequestParam(value = "deviceId") Long deviceId,
 			@RequestParam(value = "interfaceId") Integer interfaceId,
 			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
-		ModelAndView modelAndView = new ModelAndView();
+		String result=null;
 		if (pageIndex == null || pageIndex <= 0 || pageSize == null || pageSize == 0) {
-			modelAndView.setViewName(ERROR_PAGE);
-			modelAndView.addObject("status", ERROR_PAGE_SIZE);
-			return modelAndView;
+			return result;
 		}
 		List<ParamaterDTO> list = paramaterService.listByInterfaceId(interfaceId, pageIndex, pageSize);
 		Integer total = paramaterService.getSizeByInterfaceId(interfaceId);
 
 		Integer totalPage = getTotalPages(total, pageSize);
-		modelAndView.addObject("data", list);
-		modelAndView.addObject("total", total);
-		modelAndView.addObject("totalPages", totalPage);
-		modelAndView.addObject("pageIndex", pageIndex);
-		modelAndView.addObject("pageSize", pageSize);
-		modelAndView.addObject("result", list != null);
-		return modelAndView;
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("data", list);
+		map.put("total", total);
+		map.put("totalPages", totalPage);
+		map.put("pageIndex", pageIndex);
+		map.put("pageSize", pageSize);
+		map.put("result", list != null);
+		return toJSON(map);
 	}
+	
+
 
 	@RequestMapping(value = "getDevice.do")
 	public ModelAndView getDevice(@RequestParam(value = "deviceId") Long deviceId,
@@ -253,10 +267,21 @@ public class DeviceController {
 	}
 
 	@RequestMapping(value = "getParamater.do")
-	@ResponseBody
-	public String getParamater(@RequestParam(value = "paramaterId") Integer paramaterId) {
+	public ModelAndView getParamater(@RequestParam(value = "paramaterId") Integer paramaterId,@RequestParam(value = "pageIndex") Integer pageIndex) {
+		ModelAndView modelAndView = new ModelAndView();
 		Paramater paramater = paramaterService.get(paramaterId);
-		return toJSON(paramater);
+		Device device = new Device();
+		Interface face = new Interface();
+		if(paramater!=null){
+		device = deviceService.get(paramater.getDeviceId());
+		face =interfaceService.get(paramater.getInterfaceId());
+		}
+		modelAndView.addObject("data", paramater);
+		modelAndView.addObject("pageIndex",pageIndex);
+		modelAndView.addObject("device", device);
+		modelAndView.addObject("face", face);
+		modelAndView.setViewName("parametersList/checkParameterDetail");
+		return modelAndView;
 	}
 
 	protected String toJSON(Object obj) {
