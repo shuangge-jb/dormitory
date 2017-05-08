@@ -38,6 +38,8 @@
     		$(".modal-body").text("参数描述不能为空！");
     		return false;
     	} 
+    	 $('#interfaceId').attr("disabled",false);
+   	     $('#deviceId').attr("disabled",false);
     	return true;
     }
     function keyPress() //textArea输入长度处理   
@@ -115,11 +117,11 @@
 			</div>
 			<div style="margin-left: 80px; margin-top: 30px;">
 				<font color=red>*</font> 参数所属接口Id：<input type="text" name="interfaceId"
-					class="inputTxt"  value="${data.interfaceName}" disabled="true">
+				id="interfaceId" class="inputTxt"  value="${data.interfaceName}" disabled="true">
 			</div>
 			<div style="margin-left: 80px; margin-top: 30px;">
 				<font color=red>*</font> 参数所属设备：<input type="text" name="deviceId"
-					class="inputTxt"  value="${data.name}" disabled="true">
+				id="deviceId"	class="inputTxt"  value="${data.name}" disabled="true">
 			</div>
 			<div style="margin-left: 80px; margin-top: 10px;">
 				<font color=red>*</font> 参数描述：<br>
