@@ -115,7 +115,9 @@ $(document).ready(function(){
 		   
 });  
     function forwardEndPage(interfaceId ,deviceId,totalPages){
-    	alert("weiye"+totalPages);
+    	var pageSize=2;
+    	var pageIndex = totalPages;
+    	common(deviceId,interfaceId,pageSize,pageIndex);
     }
     function common(deviceId,interfaceId,pageSize,pageIndex){
     	 $.ajax({
@@ -175,14 +177,15 @@ $(document).ready(function(){
     	common(deviceId,interfaceId,pageSize,pageIndex);	
    }
     function  forwardHomePage(interfaceId ,deviceId){
-    	alert("interfaceId"+interfaceId);
-    	alert("deviceId"+deviceId);
+    	var pageIndex = 1;
+    	var pageSize = 2;
+    	common(deviceId,interfaceId,pageSize,pageIndex);
     }
     function  forwardPrePage(interfaceId ,deviceId,pageIndex){
-    	alert("上一页interfaceId"+interfaceId);
-    	alert("上一页deviceId"+pageIndex);
-    }
-    
+    	var pageIndex = parseInt(pageIndex)-parseInt(1);
+    	var pageSize=2;
+    	common(deviceId,interfaceId,pageSize,pageIndex);
+    } 
    function pageForward(){
 	   var pageIndex = document.getElementById('pageIndex').value;
 	   var totalPage = document.getElementById('hiddenTotalPage').value;
@@ -239,6 +242,9 @@ $(document).ready(function(){
    }
    .blue{
    color:blue;
+   }
+   .blue:hover{
+   color:#0090DB;
    }
    .crud_device{
    font-weight:bolder;
