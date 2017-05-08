@@ -196,7 +196,7 @@ public class AdminDeviceController extends DeviceController {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("saveInterface error:" + result.getFieldError().toString());
 			}
-			Device device=deviceService.get(face.getDeviceId());
+			Device device = deviceService.get(face.getDeviceId());
 			modelAndView.setViewName("functionList/addFunctionToDevice");
 			modelAndView.addObject("status", "参数错误");
 			modelAndView.addObject("device", device);
@@ -264,7 +264,7 @@ public class AdminDeviceController extends DeviceController {
 			modelAndView.addObject("pageSize", pageSize);
 			modelAndView.addObject("backPageIndex", backPageIndex);
 		}
-		
+
 		if (oldDevice == null) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("updateInterface error:" + result.getFieldError().toString());
@@ -297,7 +297,7 @@ public class AdminDeviceController extends DeviceController {
 			face.setInterfaceUrl("http://" + url);
 		}
 		interfaceService.saveOrUpdate(face);
-		
+
 		modelAndView.setViewName("functionList/editDevicefunction");
 		modelAndView.addObject("status", "修改成功");
 		modelAndView.addObject("device", oldDevice);
@@ -379,12 +379,12 @@ public class AdminDeviceController extends DeviceController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "removeParamater.do", method = RequestMethod.POST)
-	public ModelAndView removeParamater(@RequestParam(value = "paramaterId") Integer paramaterId) {
-		ModelAndView modelAndView = new ModelAndView("");
+	@RequestMapping(value = "removeParamater.do", method = RequestMethod.GET)
+	public String removeParamater(@RequestParam(value = "paramaterId") Integer paramaterId,
+			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
 		Paramater paramater = paramaterService.get(paramaterId);
 		paramaterService.remove(paramater);
-		return modelAndView;
+		return "forward:/forwardParametersList.do?pageIndex=" + pageIndex + "&pageSize=" + pageSize;
 	}
 
 	@RequestMapping(value = "addDevicePage.do", method = RequestMethod.GET)

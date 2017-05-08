@@ -130,7 +130,7 @@ public class DeviceController {
 			return modelAndView;
 		}
 		List<Interface> list = interfaceService.listByDeviceId(deviceId, pageIndex, pageSize);
-		System.out.println("device list:"+toJSON(list));
+		System.out.println("device list:" + toJSON(list));
 		Integer total = interfaceService.getSizeByDeviceId(deviceId);
 		Device device = deviceService.get(deviceId);
 		Integer totalPage = getTotalPages(total, pageSize);
@@ -161,27 +161,30 @@ public class DeviceController {
 		return toJSON(map);
 
 	}
+
 	@RequestMapping(value = "forwardParametersList.do")
-	public ModelAndView listAllParam(@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize){
+	public ModelAndView listAllParam(@RequestParam(value = "pageIndex") Integer pageIndex,
+			@RequestParam(value = "pageSize") Integer pageSize) {
 		ModelAndView modelAndView = new ModelAndView();
-		List<ParamaterDTO> list=paramaterService.listAll(pageIndex, pageSize);
-		modelAndView.addObject("data", list);	
+		List<ParamaterDTO> list = paramaterService.listAll(pageIndex, pageSize);
+		modelAndView.addObject("data", list);
 		modelAndView.setViewName("parametersList/listFunctionParameters");
 		modelAndView.addObject("pageIndex", pageIndex);
 		modelAndView.addObject("pageSize", pageSize);
-		Integer total=paramaterService.getAllSize();
+		Integer total = paramaterService.getAllSize();
 		modelAndView.addObject("total", total);
 		int totalPages = getTotalPages(total, pageSize);
 		modelAndView.addObject("totalPages", totalPages);
 		return modelAndView;
-	
+
 	}
+
 	@RequestMapping(value = "listParamByInterfaceId.do")
 	@ResponseBody
 	public String listParamByInterfaceId(@RequestParam(value = "deviceId") Long deviceId,
 			@RequestParam(value = "interfaceId") Integer interfaceId,
 			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
-		String result=null;
+		String result = null;
 		if (pageIndex == null || pageIndex <= 0 || pageSize == null || pageSize == 0) {
 			return result;
 		}
@@ -189,8 +192,8 @@ public class DeviceController {
 		Integer total = paramaterService.getSizeByInterfaceId(interfaceId);
 
 		Integer totalPage = getTotalPages(total, pageSize);
-		
-		Map<String, Object> map=new HashMap<String, Object>();
+
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("data", list);
 		map.put("total", total);
 		map.put("totalPages", totalPage);
@@ -199,8 +202,6 @@ public class DeviceController {
 		map.put("result", list != null);
 		return toJSON(map);
 	}
-	
-
 
 	@RequestMapping(value = "getDevice.do")
 	public ModelAndView getDevice(@RequestParam(value = "deviceId") Long deviceId,
@@ -267,20 +268,64 @@ public class DeviceController {
 	}
 
 	@RequestMapping(value = "getParamater.do")
-	public ModelAndView getParamater(@RequestParam(value = "paramaterId") Integer paramaterId,@RequestParam(value = "pageIndex") Integer pageIndex) {
+	public ModelAndView getParamater(@RequestParam(value = "paramaterId") Integer paramaterId,
+			@RequestParam(value = "pageIndex") Integer pageIndex) {
 		ModelAndView modelAndView = new ModelAndView();
 		Paramater paramater = paramaterService.get(paramaterId);
 		Device device = new Device();
 		Interface face = new Interface();
-		if(paramater!=null){
-		device = deviceService.get(paramater.getDeviceId());
-		face =interfaceService.get(paramater.getInterfaceId());
+		if (paramater != null) {
+			device = deviceService.get(paramater.getDeviceId());
+			face = interfaceService.get(paramater.getInterfaceId());
 		}
 		modelAndView.addObject("data", paramater);
-		modelAndView.addObject("pageIndex",pageIndex);
+		modelAndView.addObject("pageIndex", pageIndex);
 		modelAndView.addObject("device", device);
 		modelAndView.addObject("face", face);
 		modelAndView.setViewName("parametersList/checkParameterDetail");
+		return modelAndView;
+	}
+
+	/**
+	 * 跳转到增加参数页面
+	 * 
+	 * @param deviceId
+	 * @param functionId
+	 * @param pageIndex
+	 * @param pageSize
+	 * @return
+	 */
+	@RequestMapping(value = "forwordAddParam.do")
+	public ModelAndView forwordAddParam(@RequestParam("deviceId") Long deviceId,
+			@RequestParam("functionId") Integer functionId, @RequestParam("pageIndex") Integer pageIndex,
+			@RequestParam("pageSize") Integer pageSize) {
+		// TODO
+		ModelAndView modelAndView = new ModelAndView("parametersList/");
+		modelAndView.addObject("deviceId", deviceId);
+		modelAndView.addObject("functionId", functionId);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		return modelAndView;
+	}
+
+	/**
+	 * 跳转到修改参数页面
+	 * 
+	 * @param deviceId
+	 * @param functionId
+	 * @param paramaterId  参数id
+	 * @param pageIndex
+	 * @param pageSize
+	 * @return
+	 */
+	@RequestMapping(value = "forwordEditParam.do")
+	public ModelAndView forwordEditParam(@RequestParam("paramaterId") Integer paramId,
+			@RequestParam("pageIndex") Integer pageIndex, @RequestParam("pageSize") Integer pageSize) {
+		// TODO
+		ModelAndView modelAndView = new ModelAndView("parametersList/");
+		
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;
 	}
 
