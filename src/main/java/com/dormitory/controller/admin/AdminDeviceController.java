@@ -321,17 +321,29 @@ public class AdminDeviceController extends DeviceController {
 
 	@RequestMapping(value = "saveParamater.do", method = RequestMethod.POST)
 	public ModelAndView saveParamater(@ModelAttribute(value = "paramater") @Valid Paramater paramater,
-			BindingResult result, Model model) {
-		ModelAndView modelAndView = new ModelAndView("");
+			BindingResult result, Model model, @RequestParam(value = "pageIndex") Integer pageIndex,
+			@RequestParam(value = "pageSize") Integer pageSize) {
+		ModelAndView modelAndView = new ModelAndView("parametersList/addParametersToFunction");
+		System.out.println("save parameter:"+paramater);
 		if (result.hasErrors()) {
-			modelAndView.setViewName(ERROR_PAGE);
+			Device device = deviceService.get(paramater.getDeviceId());
+			Interface face = interfaceService.get(paramater.getInterfaceId());
+			modelAndView.addObject("status", "参数输入有误，请检查");
+			modelAndView.addObject("functionId", paramater.getInterfaceId());
+			modelAndView.addObject("functionName", face.getInterfaceName());
+			modelAndView.addObject("deviceName", device.getName());
+			modelAndView.addObject("deviceId", device.getDeviceId());
+			modelAndView.addObject("pageIndex", pageIndex);
+			modelAndView.addObject("pageSize", pageSize);
 			return modelAndView;
 		}
 		Interface temp = interfaceService.get(paramater.getInterfaceId());
 
 		if (temp == null) {
-			modelAndView.setViewName(ERROR_PAGE);
-			model.addAttribute("status", "接口不存在");
+			modelAndView.addObject("status", "接口不存在");
+			modelAndView.setViewName("parametersList/listFunctionParameters");// 返回参数列表页面
+			modelAndView.addObject("pageIndex", pageIndex);
+			modelAndView.addObject("pageSize", pageSize);
 			return modelAndView;
 		}
 		List<Paramater> list = paramaterService.listByParamName(temp.getInterfaceId(), paramater.getParamaterName());
@@ -339,43 +351,72 @@ public class AdminDeviceController extends DeviceController {
 
 		if (list.size() > 0) {
 			System.out.println("list!=null");
-			modelAndView.setViewName(ERROR_PAGE);
-			model.addAttribute("status", "参数名重复");
+			modelAndView.addObject("status", "参数名重复");
+			Device device = deviceService.get(paramater.getDeviceId());
+			Interface face = interfaceService.get(paramater.getInterfaceId());
+			modelAndView.addObject("functionId", face.getInterfaceId());
+			modelAndView.addObject("functionName", face.getInterfaceName());
+			modelAndView.addObject("deviceName", device.getName());
+			modelAndView.addObject("deviceId", device.getDeviceId());
+			modelAndView.addObject("pageIndex", pageIndex);
+			modelAndView.addObject("pageSize", pageSize);
 			return modelAndView;
 		}
 
 		paramaterService.saveOrUpdate(paramater);
-		modelAndView.setViewName("");
+		modelAndView.setViewName("parametersList/addParametersToFunction");
 		modelAndView.addObject("status", "新增成功");
+		Device device = deviceService.get(paramater.getDeviceId());
+		Interface face = interfaceService.get(paramater.getInterfaceId());
+		modelAndView.addObject("functionId", face.getInterfaceId());
+		modelAndView.addObject("functionName", face.getInterfaceName());
+		modelAndView.addObject("deviceName", device.getName());
+		modelAndView.addObject("deviceId", device.getDeviceId());
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "updateParamater.do", method = RequestMethod.POST)
 	public ModelAndView updateParamater(@ModelAttribute(value = "paramater") @Valid Paramater paramater,
-			BindingResult result, Model model) {
-		ModelAndView modelAndView = new ModelAndView("");
+			BindingResult result, Model model, @RequestParam(value = "pageIndex") Integer pageIndex,
+			@RequestParam(value = "pageSize") Integer pageSize) {
+		ModelAndView modelAndView = new ModelAndView("parametersList/editParameter");
+		System.out.println("parameter:" + paramater);
 		if (result.hasErrors()) {
-			modelAndView.setViewName(ERROR_PAGE);
+			modelAndView.addObject("status", "参数输入有误，请检查");
+			modelAndView.addObject("data", paramater);//把修改后的数据退回去
+			modelAndView.addObject("pageIndex", pageIndex);
+			modelAndView.addObject("pageSize", pageSize);
 			return modelAndView;
 		}
 		Interface temp = interfaceService.get(paramater.getInterfaceId());
 
 		if (temp == null) {
-			modelAndView.setViewName(ERROR_PAGE);
-			model.addAttribute("status", "接口不存在");
+			modelAndView.addObject("status", "接口不存在");
+			modelAndView.setViewName("parametersList/listFunctionParameters");
+			modelAndView.addObject("pageIndex", pageIndex);
+			modelAndView.addObject("pageSize", pageSize);
 			return modelAndView;
 		}
 		List<Paramater> list = paramaterService.listByParamName(temp.getInterfaceId(), paramater.getParamaterName());
-		Paramater oldParam = paramaterService.get(paramater.getInterfaceId());
+		Paramater oldParam = paramaterService.get(paramater.getParamaterId());
+		System.out.println("list size:" + list.size());
+		System.out.println("oldParm:" + oldParam);
 		// 更新时判断重复
 		if ((oldParam.getParamaterName().equals(paramater.getParamaterName()) == false) && list.size() > 0) {
-			modelAndView.setViewName(ERROR_PAGE);
-			model.addAttribute("status", "参数名重复");
+			modelAndView.addObject("status", "参数名重复");
+			modelAndView.addObject("data", paramater);
+			modelAndView.addObject("pageIndex", pageIndex);
+			modelAndView.addObject("pageSize", pageSize);
 			return modelAndView;
 		}
 		paramaterService.saveOrUpdate(paramater);
-		modelAndView.setViewName("");
+		modelAndView.setViewName("parametersList/editParameter");
 		modelAndView.addObject("status", "修改成功");
+		modelAndView.addObject("data", paramater);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;
 	}
 

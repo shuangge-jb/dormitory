@@ -1,22 +1,25 @@
-<%@ page contentType="text/html; charset=utf-8" language="java" errorPage="error.jsp" %>
+<%@ page contentType="text/html; charset=utf-8" language="java"
+	errorPage="error.jsp"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
-<script src="<%=path%>/js/jquery-1.8.3.min.js"></script> 
-<script src="<%=path%>/js/zoom.js"></script> 
-<link rel="stylesheet" href="<%=path %>/css/zoom.css" media="all" />
-<link rel="stylesheet" href="<%=path %>/css/bootstrap.min.css" />  
-<script src="<%=path%>/js/jquery-2.1.4.min.js"></script> 
-<script src="<%=path%>/js/bootstrap.min.js"></script> 
+<script src="<%=path%>/js/jquery-1.8.3.min.js"></script>
+<script src="<%=path%>/js/zoom.js"></script>
+<link rel="stylesheet" href="<%=path%>/css/zoom.css" media="all" />
+<link rel="stylesheet" href="<%=path%>/css/bootstrap.min.css" />
+<script src="<%=path%>/js/jquery-2.1.4.min.js"></script>
+<script src="<%=path%>/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="<%=path%>/css/buttons.css">
 <script type="text/javascript">
 $(document).ready(function(){  
-	   // 初始化内容
-	  var interfaceId;
-	  var deviceId;
+	   
 	  $("#deviceSelect").change(function(){	
+		// 初始化内容
+		  var interfaceId;
+		  var deviceId;
 		 var id =$(this).children('option:selected').val();
 		  $.ajax({
 			   type:"post",
@@ -57,8 +60,8 @@ $(document).ready(function(){
 		 else  if(interfaceId==null||interfaceId==""){
 			 $('#myModal').modal('show');
 			 $(".modal-body").text("该设备还没添加功能，请前往添加！");
-		 }
-		 else{
+		 }else{
+		
          $.ajax({
         	type:"post",
         	url:'<%=path%>/listParamByInterfaceId.do',
@@ -114,6 +117,7 @@ $(document).ready(function(){
 		   })
 		   
 });  
+
     function forwardEndPage(interfaceId ,deviceId,totalPages){
     	var pageSize=2;
     	var pageIndex = totalPages;
@@ -209,9 +213,11 @@ $(document).ready(function(){
    }
    function paramaterDel(id)
    {
-       if(confirm('您确定删除该医院吗？'))
+       if(confirm('您确定删除该参数吗？'))
        {
-          
+    	   var pageIndex = document.getElementById('hiddenPageIndex').value;
+    	   var pageSize=10;
+    	   window.location.href ="<%=path%>/admin/removeParamater.do?paramaterId="+id+"&pageIndex="+pageIndex+"&pageSize="+pageSize;
        }
    }
    function functionCheck(id){
@@ -220,183 +226,210 @@ $(document).ready(function(){
 	  
 	   window.location.href ="<%=path%>/getInterface.do?interfaceId="+id+"&pageIndex="+pageIndex+"&hiddenPageIndex="+hiddenPageIndex;
    }
-   function addFunction(deviceId){
+   function addParameter(){
+	   
+	   var deviceId=$('#deviceSelect option:selected').val();
+	   var interfaceId = $('#functionSelect option:selected').val();
+	   if(deviceId==null||deviceId==""){
+			 $('#myModal').modal('show');
+			 $(".modal-body").text("请选择设备！");
+		 }
+		 else  if(interfaceId==null||interfaceId==""){
+			 $('#myModal').modal('show');
+			 $(".modal-body").text("该设备还没添加功能，请前往添加！");
+		 }else{
 	   var pageIndex = document.getElementById('hiddenPageIndex').value;
-	   var hiddenPageIndex = document.getElementById('backhiddenPageIndex').value;  
-	   window.location.href ="<%=path%>/forwardAddInterface.do?deviceId="+deviceId+"&pageIndex="+pageIndex+"&hiddenPageIndex="+hiddenPageIndex;
+	   var pageSize=10;
+	   console.log("deviceId="+deviceId);
+	   console.log("functionId="+interfaceId);
+	   console.log("pageIndex="+pageIndex);
+	   console.log("pageSize="+pageSize);
+	   window.location.href ="<%=path%>/forwordAddParam.do?deviceId="+deviceId+"&functionId="+interfaceId+"&pageIndex="+pageIndex+"&pageSize="+pageSize;
+   console.log("forwordAddParam");
+		 }
    }
    function paramaterEdit(id){
-	   alert("修改"+id);
+	   //alert("修改"+id);
+	   var pageIndex = document.getElementById('hiddenPageIndex').value;
+	   var pageSize=10;
+	   window.location.href ="<%=path%>/forwordEditParam.do?paramaterId="+id+"&pageIndex="+pageIndex+"&pageSize="+pageSize;
    }
   
    </script>
-   <style type="text/css">
-  
-   a:hover{
-   color:#0090DB;
-   text-decoration:none;
-   }
-  a{
-    text-decoration:none;
-    color:blue;
-   }
-   .blue{
-   color:blue;
-   }
-   .blue:hover{
-   color:#0090DB;
-   }
-   .crud_device{
-   font-weight:bolder;
-   font-size:14px;
-   background-color: #A5DE37;
-  border-color: #A5DE37;
-  color: #FFF;
-  border-radius:3px;
-   }
-   .crud_device:hover{
-    background-color: #b9e563;
-    border-color: #b9e563;
-    color: #FFF;
-   }
-   .crud_device:active
-   {
-    background-color: #a1d243;
-    border-color: #a1d243;
-    color: #8bc220;
-    }
-    .inputTxt{
-     outline:none;
-     border:1px solid #CCC;
-     padding:5px;
-     -webkit-box-shadow:#DFDFDF 0 1px 2px 0 inset;
-     box-shadow:#DFDFDF 0 1px 2px 0 inset;
-     width:200px;color:#666;height:28px;
-     background:#fff;
-     border-radius:3px;
-     line-height:28px;
-     overflow:hidden;}
-    .textAreaTxt{
-      outline:none;
-     border:1px solid #CCC;
-     -webkit-box-shadow:#DFDFDF 0 1px 2px 0 inset;
-     box-shadow:#DFDFDF 0 1px 2px 0 inset;
-     color:#666;
-     background:#fff;
-     border-radius:3px;
-     line-height:28px;
-     overflow:hidden;
-     margin-top:5px;
-     width:290px;
-     height:150px;
-     }
-     #page{
-     text-align:center;
-     margin-top:5px;
-     }
-   </style>
+<style type="text/css">
+a:hover {
+	color: #0090DB;
+	text-decoration: none;
+}
+
+a {
+	text-decoration: none;
+	color: blue;
+}
+
+.blue {
+	color: blue;
+}
+
+.blue:hover {
+	color: #0090DB;
+}
+
+.crud_device {
+	font-weight: bolder;
+	font-size: 14px;
+	background-color: #A5DE37;
+	border-color: #A5DE37;
+	color: #FFF;
+	border-radius: 3px;
+}
+
+.crud_device:hover {
+	background-color: #b9e563;
+	border-color: #b9e563;
+	color: #FFF;
+}
+
+.crud_device:active {
+	background-color: #a1d243;
+	border-color: #a1d243;
+	color: #8bc220;
+}
+
+.inputTxt {
+	outline: none;
+	border: 1px solid #CCC;
+	padding: 5px;
+	-webkit-box-shadow: #DFDFDF 0 1px 2px 0 inset;
+	box-shadow: #DFDFDF 0 1px 2px 0 inset;
+	width: 200px;
+	color: #666;
+	height: 28px;
+	background: #fff;
+	border-radius: 3px;
+	line-height: 28px;
+	overflow: hidden;
+}
+
+.textAreaTxt {
+	outline: none;
+	border: 1px solid #CCC;
+	-webkit-box-shadow: #DFDFDF 0 1px 2px 0 inset;
+	box-shadow: #DFDFDF 0 1px 2px 0 inset;
+	color: #666;
+	background: #fff;
+	border-radius: 3px;
+	line-height: 28px;
+	overflow: hidden;
+	margin-top: 5px;
+	width: 290px;
+	height: 150px;
+}
+
+#page {
+	text-align: center;
+	margin-top: 5px;
+}
+</style>
 </HTML>
-  <head>
-  </head>
-  <body>
-  <div style="margin-top:3px;">
-  <form action="<%=path%>/listParamByInterfaceId.do" method="post">
-     筛选： 设备名称:<select name="deviceId" id="deviceSelect"
-					class="inputTxt" >	
-					<option value="" style="color: #b6b6b6" disabled selected>请选择设备名称</option>
-				</select>
-			&nbsp;&nbsp;接口名称:<select name="interfaceId" id="functionSelect"
-					class="inputTxt" >	
-					
-			</select>
-			<input type="hidden" name="pageIndex" value="${pageIndex}"/>
-			<input type="hidden" value="10" name="pageSize" />
-			&nbsp;&nbsp;<input type="button" id="query" value="查询" class="button button-primary button-rounded button-small"/>
-  </form>
-  </div>
-  <table class="table table-bordered table-striped table-hover" id="parametersTable">
-	<caption>参数列表</caption>
-	<thead>
-		<tr>
-			<th>序号</th>
-			<th>参数名称</th>
-			<th>参数类型</th>
-			<th>参数所属接口</th>
-			<th>参数所属设备</th>
-			<th>操作</th>
-		</tr>
-	</thead>
-	<tbody>
-  <c:forEach var="parameters" items="${data}" varStatus="status">
-     <tr>
-		<td>${status.index+1}</td>
-        <td>${parameters.paramaterName}</td>
-        <td>${parameters.type}</td>
-        <td>${parameters.functionName}</td>
-        <td>${parameters.deviceName}</td>
-        <td>
-           <input type="button" value="删除" class="crud_device"
-           onclick="deviceDel(${device.deviceId})" />
-           <input type="button" value="查看" class="crud_device"
-           onclick="paramaterQuery(${parameters.paramaterId},${pageIndex})" />
-           <input type="button" value="修改" class="crud_device"
-           onclick="editDeviceFunction(${function.interfaceId})" />
-        </td>
-		</tr>
-  </c:forEach>  
-	</tbody>
-</table>
-     <div id="page" >
-           当前第${pageIndex}页&nbsp;&nbsp;
-     <c:if test="${pageIndex==1}">
-				<td>首页&nbsp;&nbsp;上一页&nbsp;&nbsp;</td>
-	 </c:if>
-	 <c:if test="${pageIndex>1}">
+<head>
+</head>
+<body>
+	<div style="margin-top: 3px;">
+		<form action="<%=path%>/listParamByInterfaceId.do" method="post">
+			筛选： 设备名称:<select name="deviceId" id="deviceSelect" class="inputTxt">
+				<option value="" style="color: #b6b6b6" disabled selected>请选择设备名称</option>
+			</select> &nbsp;&nbsp;接口名称:<select name="interfaceId" id="functionSelect"
+				class="inputTxt">
+
+			</select> <input type="hidden" name="pageIndex" value="${pageIndex}" /> <input
+				type="hidden" value="10" name="pageSize" /> &nbsp;&nbsp;<input
+				type="button" id="query" value="查询"
+				class="button button-primary button-rounded button-small" />
+		</form>
+	</div>
+	<table class="table table-bordered table-striped table-hover"
+		id="parametersTable">
+		<caption>参数列表</caption>
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>参数名称</th>
+				<th>参数类型</th>
+				<th>参数所属接口</th>
+				<th>参数所属设备</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="parameters" items="${data}" varStatus="status">
+				<tr>
+					<td>${status.index+1}</td>
+					<td>${parameters.paramaterName}</td>
+					<td>${parameters.type}</td>
+					<td>${parameters.functionName}</td>
+					<td>${parameters.deviceName}</td>
+					<td><input type="button" value="删除" class="crud_device"
+						onclick="paramaterDel(${parameters.paramaterId})" /> <input
+						type="button" value="查看" class="crud_device"
+						onclick="paramaterQuery(${parameters.paramaterId},${pageIndex})" />
+						<input type="button" value="修改" class="crud_device"
+						onclick="paramaterEdit(${parameters.paramaterId})" /></td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	<div id="page">
+		当前第${pageIndex}页&nbsp;&nbsp;
+		<c:if test="${pageIndex==1}">
+			<td>首页&nbsp;&nbsp;上一页&nbsp;&nbsp;</td>
+		</c:if>
+		<c:if test="${pageIndex>1}">
 			<td><a
 				href="<%=path%>/forwardParametersList.do?pageIndex=1&pageSize=5">首页</a></td>
 			<td><a
-               href="<%=path%>/forwardParametersList.do?pageIndex=${pageIndex-1}&pageSize=5">上一页</a></td>
-	</c:if>
-	 <c:if test="${pageIndex != totalPages}">
-				<td><a
-					href="<%=path%>/forwardParametersList.do?pageIndex=${pageIndex+1}&pageSize=5">下一页</a></td>
-				<td><a
-					href="<%=path%>/forwardParametersList.do?pageIndex=${totalPages}&pageSize=5">最后一页</a></td>
+				href="<%=path%>/forwardParametersList.do?pageIndex=${pageIndex-1}&pageSize=5">上一页</a></td>
 		</c:if>
-	  <c:if test="${pageIndex == totalPages}">
+		<c:if test="${pageIndex != totalPages}">
+			<td><a
+				href="<%=path%>/forwardParametersList.do?pageIndex=${pageIndex+1}&pageSize=5">下一页</a></td>
+			<td><a
+				href="<%=path%>/forwardParametersList.do?pageIndex=${totalPages}&pageSize=5">最后一页</a></td>
+		</c:if>
+		<c:if test="${pageIndex == totalPages}">
 			<td>下一页&nbsp;&nbsp;最后一页&nbsp;&nbsp;</td>
-	  </c:if>
-           共${totalPages}页&nbsp;&nbsp;
-           共${total}条记录&nbsp;&nbsp;     
-      <input type="text" name="pageIndex" id="pageIndex" style="width:25px;height:20px;"/>&nbsp;
-      <input type="button" value="go" style="border-radius:2px;font-size:12px;background-color:#D7D7D7;" 
-      onclick="pageForward();" >
-      </div>
-      <input type="hidden" id="hiddenPageIndex" value="${pageIndex}"/>
-      <input type="hidden" id="backhiddenPageIndex" value="${hiddenPageIndex}"/>
-      <input type="hidden" id="hiddenTotalPage" value="${totalPages}"/>
-      <a onclick="back()" class="button button-glow button-rounded button-raised button-primary">新增功能</a>
-	 
-       <!-- 错误提示框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					&times;
-				</button>
-				<h4 class="modal-title" id="myModalLabel">
-					错误提示
-				</h4>
-			</div>
-			<div class="modal-body">
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">确定
-				</button>
+		</c:if>
+		共${totalPages}页&nbsp;&nbsp; 共${total}条记录&nbsp;&nbsp; <input
+			type="text" name="pageIndex" id="pageIndex"
+			style="width: 25px; height: 20px;" />&nbsp; <input type="button"
+			value="go"
+			style="border-radius: 2px; font-size: 12px; background-color: #D7D7D7;"
+			onclick="pageForward();">
+	</div>
+	<input type="hidden" id="hiddenPageIndex" value="${pageIndex}" />
+	<input type="hidden" id="backhiddenPageIndex"
+		value="${hiddenPageIndex}" />
+	<input type="hidden" id="hiddenTotalPage" value="${totalPages}" />
+	<a onclick="addParameter()"
+		class="button button-glow button-rounded button-raised button-primary">新增参数</a>
+
+	<!-- 错误提示框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">错误提示</h4>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">确定
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
- </body>
- </html>
+</body>
+</html>

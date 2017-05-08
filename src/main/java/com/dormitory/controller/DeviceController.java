@@ -299,9 +299,19 @@ public class DeviceController {
 	public ModelAndView forwordAddParam(@RequestParam("deviceId") Long deviceId,
 			@RequestParam("functionId") Integer functionId, @RequestParam("pageIndex") Integer pageIndex,
 			@RequestParam("pageSize") Integer pageSize) {
+		ModelAndView modelAndView = new ModelAndView("parametersList/listFunctionParameters");
+		if(deviceId==null||functionId==null){
+			return modelAndView;
+		}
+		Device device=deviceService.get(deviceId);
+		Interface function=interfaceService.get(functionId);
 		// TODO
-		ModelAndView modelAndView = new ModelAndView("parametersList/");
+		modelAndView.setViewName("parametersList/addParametersToFunction");
+		System.out.println("deviceId="+deviceId);
+		System.out.println("functionId="+functionId);
 		modelAndView.addObject("deviceId", deviceId);
+		modelAndView.addObject("deviceName", device.getName());
+		modelAndView.addObject("functionName", function.getInterfaceName());
 		modelAndView.addObject("functionId", functionId);
 		modelAndView.addObject("pageIndex", pageIndex);
 		modelAndView.addObject("pageSize", pageSize);
@@ -321,9 +331,16 @@ public class DeviceController {
 	@RequestMapping(value = "forwordEditParam.do")
 	public ModelAndView forwordEditParam(@RequestParam("paramaterId") Integer paramId,
 			@RequestParam("pageIndex") Integer pageIndex, @RequestParam("pageSize") Integer pageSize) {
-		// TODO
-		ModelAndView modelAndView = new ModelAndView("parametersList/");
-		
+		ModelAndView modelAndView = new ModelAndView("parametersList/listFunctionParameters");
+		if(paramId==null){
+			return modelAndView;
+		}
+		Paramater param=paramaterService.get(paramId);
+		if(param==null){
+			return modelAndView;
+		}
+		modelAndView.setViewName("parametersList/editParameter");
+		modelAndView.addObject("data", param);
 		modelAndView.addObject("pageIndex", pageIndex);
 		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;

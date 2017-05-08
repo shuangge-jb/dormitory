@@ -76,6 +76,8 @@ public class Paramater {
 	@Override
 	public String toString() {
 		return "Paramater [paramaterId=" + paramaterId + ", paramaterName=" + paramaterName + ", description="
-				+ description + ", type=" + type + ", interfaceId=" + interfaceId + "]";
+				+ description + ", type=" + type + ", interfaceId=" + interfaceId + ", deviceId=" + deviceId + "]";
 	}
+
+	
 }

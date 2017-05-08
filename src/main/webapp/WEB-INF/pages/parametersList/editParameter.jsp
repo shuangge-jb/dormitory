@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8" errorPage="error"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 String path = request.getContextPath();
@@ -44,6 +44,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      }
     </style>
 	<script type="text/javascript">
+	$(document).ready(function(){ 
+		$("#description").val("${data.description}");//为description的多行文本框赋值
+	});
 	function keyPress() //textArea输入长度处理   
 		    {  
 				var description = document.getElementById("description").value;  
@@ -112,8 +115,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<h3 class="panel-title">修改${data.paramaterName}参数页面</h3>
 		</div>
 		<div class="panel-body">
-		  <form action="#" name="form1" method="post" 
+		  <form action="<%=path %>/admin/updateParamater.do?pageIndex=${pageIndex}&pageSize=10" name="form1" method="post" 
              onsubmit="return save();">
+             <input type="hidden" name="paramaterId" value="${data.paramaterId}"/>
              <input type="hidden" name="interfaceId" value="${data.interfaceId }"/>
              <input type="hidden" name="deviceId" value="${data.deviceId }"/>
             <div style="margin-left:80px;margin-top:30px;">
@@ -122,7 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div style="margin-left: 80px; margin-top: 30px;">
 				<font color=red>*</font> 参数类型：<input type="text" id="type"
-					name="type" class="inputTxt" value="${data.paramaterName}" disabled="true">
+					name="type" class="inputTxt" value="${data.type}" disabled="true">
 			</div>
 			<div style="margin-left: 80px; margin-top: 10px;">
 				<font color=red>*</font> 参数描述：<br>

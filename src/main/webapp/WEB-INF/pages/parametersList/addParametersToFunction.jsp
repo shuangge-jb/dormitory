@@ -104,9 +104,15 @@
 			<b>新增${device.name}的${face.interfaceName}的功能信息</b><font style="color: red">（*号为必填）</font>
 			&nbsp;<font style="color: red">${status}</font>
 		</div>
-		<form action="#" name="form1" method="post"
+		<form action="<%=path %>/admin/saveParamater.do?pageIndex=${pageIndex}&pageSize=10" name="form1" method="post"
 			enctype="multipart/form-data"
 			onsubmit="return verifyParameterInfo();">
+			<div>
+			<input type="hidden" name="deviceId"
+				id="deviceId" value="${deviceId}"/>
+			<input type="hidden" name="interfaceId"
+				id="interfaceId" value="${functionId}"/>
+			</div>
 			<div style="margin-left: 80px; margin-top: 30px;">
 				<font color=red>*</font> 参数名称：<input type="text" id="paramaterName"
 					name="paramaterName" class="inputTxt" placeholder="如:userName">
@@ -116,12 +122,12 @@
 					name="type" class="inputTxt" placeholder="如:String/Integer">
 			</div>
 			<div style="margin-left: 80px; margin-top: 30px;">
-				<font color=red>*</font> 参数所属接口Id：<input type="text" name="interfaceId"
-				id="interfaceId" class="inputTxt"  value="${data.interfaceName}" disabled="true">
+				<font color=red>*</font> 参数所属接口名：<input type="text" name="interfaceName"
+				id="interfaceName" class="inputTxt"  value="${functionName}" disabled="true">
 			</div>
 			<div style="margin-left: 80px; margin-top: 30px;">
 				<font color=red>*</font> 参数所属设备：<input type="text" name="deviceId"
-				id="deviceId"	class="inputTxt"  value="${data.name}" disabled="true">
+				id="deviceId"	class="inputTxt"  value="${deviceName}" disabled="true">
 			</div>
 			<div style="margin-left: 80px; margin-top: 10px;">
 				<font color=red>*</font> 参数描述：<br>
