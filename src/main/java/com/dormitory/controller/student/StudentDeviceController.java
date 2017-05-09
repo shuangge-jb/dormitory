@@ -76,4 +76,69 @@ public class StudentDeviceController extends DeviceController {
 		System.out.println("result:"+result);
 		return result;
 	}
+	@RequestMapping(value = "listUserDevice.do")
+	public ModelAndView listUserDevice(@RequestParam(value = "pageIndex") Integer pageIndex,
+			@RequestParam(value = "pageSize") Integer pageSize) {
+		ModelAndView modelAndView = new ModelAndView("dormitory");
+		if (pageIndex == null || pageIndex <= 0 || pageSize == null || pageSize == 0) {
+			modelAndView.setViewName(ERROR_PAGE);
+			modelAndView.addObject("status", ERROR_PAGE_SIZE);
+			return modelAndView;
+		}
+		List<Device> list = deviceService.list(pageIndex, pageSize);
+		Long total = deviceService.getSize();
+
+		Long totalPage = getTotalPages(total, pageSize);
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPages", totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.addObject("totalCount", total);
+		modelAndView.setViewName("studentDevices/myDormitoryDevice");
+		modelAndView.addObject("result", list != null);
+		return modelAndView;
+	}
+	private long getTotalPages(Long count, Integer pageSize) {
+		if (pageSize == null) {
+			pageSize = 10;
+		}
+		long totalPages = 0;
+		totalPages = (count % pageSize == 0) ? (count / pageSize) : (count / pageSize + 1);
+		return totalPages;
+	}
+	private Integer getTotalPages(Integer count, Integer pageSize) {
+		if (pageSize == null) {
+			pageSize = 10;
+		}
+		int totalPages = 0;
+		totalPages = (count % pageSize == 0) ? (count / pageSize) : (count / pageSize + 1);
+		return totalPages;
+	}
+	@RequestMapping(value = "listUserInterfaceByDeviceId.do")
+	public ModelAndView listInterfaceByDeviceId(@RequestParam(value = "deviceId") Long deviceId,
+			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize
+			) {
+		ModelAndView modelAndView = new ModelAndView("dormitory");
+		if (pageIndex == null || pageIndex <= 0 || pageSize == null || pageSize == 0) {
+			modelAndView.setViewName(ERROR_PAGE);
+			modelAndView.addObject("status", ERROR_PAGE_SIZE);
+			return modelAndView;
+		}
+		List<Interface> list = interfaceService.listByDeviceId(deviceId, pageIndex, pageSize);
+		System.out.println("device list:" + toJSON(list));
+		Integer total = interfaceService.getSizeByDeviceId(deviceId);
+		Device device = deviceService.get(deviceId);
+		Integer totalPage = getTotalPages(total, pageSize);
+		modelAndView.setViewName("studentDevices/deviceFunction");
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPages", totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.addObject("result", list != null);
+		modelAndView.addObject("device", device);
+		return modelAndView;
+	}
+
 }

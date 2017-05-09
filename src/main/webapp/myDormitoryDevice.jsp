@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -119,7 +120,9 @@ String path = request.getContextPath();
 #nav a:hover{text-decoration:none;background:#0074A6;}
 #nav em{width:1px;display:block;height:25px;float:left;overflow:hidden;margin:13px 6px 0 6px;}
 #nav em{border-right:1px solid #009EE2;background:#0074A6;}
- 
+#myDormitoryDevice{
+ color:#fff;text-decoration:none;background-color:#0074A6;height:50px;line-height:51px;line-height:54px\9;line-height:52px\0;border-bottom:0;
+ } 
 	</style>
 	
   </head>
@@ -144,7 +147,7 @@ String path = request.getContextPath();
    </div>
    <div id="top">
    <div class="top_left">
-   <img src="images/scut_new_logo1.jpg" width="73px" height="75px">
+   <img src="<%=path%>/images/scut_new_logo1.jpg" width="73px" height="75px">
    <div class="top_h2">
         华南理工大学虚拟宿舍
    </div>
@@ -153,7 +156,8 @@ String path = request.getContextPath();
 		<div id="nav">
 			<div class="navc">
 <a href="http://www.mb5u.com/">首页</a><em></em>
-<a href="<%=path%>/student/listUserDevice.do?pageIndex=1&pageSize=6">我的设备</a>
+<a href="<%=path%>/student/listUserDevice.do?pageIndex=1&pageSize=8"
+   id="myDormitoryDevice">我的设备</a>
 <a href="http://www.mb5u.com/cmsmoban/">程序模板</a><em></em>
 <a href="http://www.mb5u.com/edu/">建站教程</a>
 <a href="http://www.mb5u.com/shipinjiaocheng/">视频教程</a><em></em>

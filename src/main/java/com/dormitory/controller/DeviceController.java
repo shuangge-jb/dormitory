@@ -76,6 +76,8 @@ public class DeviceController {
 		modelAndView.addObject("result", list != null);
 		return modelAndView;
 	}
+	
+	
 
 	@RequestMapping(value = "listDeviceFunction.do")
 	public ModelAndView listDeviceFunction(@RequestParam(value = "pageIndex") Integer pageIndex,
