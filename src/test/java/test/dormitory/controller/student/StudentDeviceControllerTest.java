@@ -72,5 +72,16 @@ public class StudentDeviceControllerTest {
 			e.printStackTrace();
 		}
 	}
-
+	@Test
+	public void testListFunctionByDeviceIdLike(){
+		try {
+			ResultActions result = mockMvc
+					.perform(MockMvcRequestBuilders.get("/student/listFunctionByDeviceIdLike.do").param("deviceId", "14")
+							.param("keyword", "电费").param("pageIndex", "1").param("pageSize", "10"))
+					.andExpect(status().isOk()).andDo(print());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -9,6 +9,7 @@
 		<result column="source" jdbcType="VARCHAR" property="source" />
 		<result column="device_id" jdbcType="BIGINT" property="deviceId" />
 		<result column="method" jdbcType="VARCHAR" property="method" />
+		<result column="state" jdbcType="INTEGER" property="state" />
 	</resultMap>
 
 	  <resultMap id="listByDeviceId" type="HashMap">

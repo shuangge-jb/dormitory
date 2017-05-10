@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,6 +78,7 @@ public class StudentDeviceController extends DeviceController {
 		System.out.println("result:"+result);
 		return result;
 	}
+
 	@RequestMapping(value = "listUserDevice.do")
 	public ModelAndView listUserDevice(@RequestParam(value = "pageIndex") Integer pageIndex,
 			@RequestParam(value = "pageSize") Integer pageSize) {
@@ -100,22 +102,62 @@ public class StudentDeviceController extends DeviceController {
 		modelAndView.addObject("result", list != null);
 		return modelAndView;
 	}
-	private long getTotalPages(Long count, Integer pageSize) {
-		if (pageSize == null) {
-			pageSize = 10;
-		}
-		long totalPages = 0;
-		totalPages = (count % pageSize == 0) ? (count / pageSize) : (count / pageSize + 1);
-		return totalPages;
+	
+
+	/**
+	 * 找出该设备所有可用的功能，给学生查看
+	 * @param deviceId
+	 * @param start
+	 * @param pageSize
+	 * @return
+	 */
+	@RequestMapping(value="listFunctionByDeviceIdValid.do")
+	public ModelAndView listFunctionByDeviceIdValid(@RequestParam(value="deviceId") Long deviceId, @RequestParam(value="pageIndex") Integer pageIndex,
+			@RequestParam(value="pageSize") Integer pageSize){
+		ModelAndView modelAndView=new ModelAndView("");
+		List<Interface> list = interfaceService.listByDeviceIdValid(deviceId, pageIndex, pageSize);
+		Integer total = interfaceService.getSizeByDeviceIdValid(deviceId);
+		Device device = deviceService.get(deviceId);
+		Integer totalPage = getTotalPages(total, pageSize);
+		//TODO
+		modelAndView.setViewName("functionList/listFunction");
+		modelAndView.addObject("device", device);
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPages", totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		return modelAndView;
 	}
-	private Integer getTotalPages(Integer count, Integer pageSize) {
-		if (pageSize == null) {
-			pageSize = 10;
-		}
-		int totalPages = 0;
-		totalPages = (count % pageSize == 0) ? (count / pageSize) : (count / pageSize + 1);
-		return totalPages;
+	/**
+	 * 模糊搜索出该设备的功能
+	 * @param deviceId
+	 * @param keyword
+	 * @param pageIndex
+	 * @param pageSize
+	 * @return
+	 */
+	@RequestMapping(value="listFunctionByDeviceIdLike.do")
+	public ModelAndView listFunctionByDeviceIdLike(@RequestParam(value="deviceId") Long deviceId,@RequestParam(value="keyword") String keyword, @RequestParam(value="pageIndex") Integer pageIndex,
+			@RequestParam(value="pageSize") Integer pageSize){
+		ModelAndView modelAndView=new ModelAndView("");
+		List<Interface> list = interfaceService.listLike(keyword, deviceId, pageIndex, pageSize);
+		Device device = deviceService.get(deviceId);
+		Integer total = interfaceService.getSizeLike(keyword,deviceId);
+		Integer totalPage = getTotalPages(total, pageSize);
+		//TODO
+		modelAndView.setViewName("functionList/listFunction");
+		modelAndView.addObject("device", device);
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPages", totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		return modelAndView;
 	}
+	
+	
+
 	@RequestMapping(value = "listUserInterfaceByDeviceId.do")
 	public ModelAndView listInterfaceByDeviceId(@RequestParam(value = "deviceId") Long deviceId,
 			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize
