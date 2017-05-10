@@ -249,9 +249,9 @@ $(document).ready(function(){
 				<c:forEach items="${data}" var="functionOfDevice" varStatus="b"> 
 				<div
 				style="height:40px;line-height:40px;border-bottom:#D7D7D7 1px dashed;">
-			    <a href="#"  style="text-decoration: none;color:#0093D0;" />
-			     <font
-					size=2>${functionOfDevice.interfaceName}</font></a>
+			    <a href="<%=path%>/student/forwardParam.do?interfaceId=${functionOfDevice.interfaceId}"  style="text-decoration: none;color:#0093D0;" >
+			     <font size=2>${functionOfDevice.interfaceName}</font>
+				  </a>
 			    </div>
 			</c:forEach>
 				<div

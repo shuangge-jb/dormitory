@@ -48,7 +48,11 @@ public interface ParamaterDAO {
 	@ResultMap("com.dormitory.mapper.ParamaterMapper.paramaterDTO")
 	List<ParamaterDTO> listByInterfaceId(@Param("interfaceId") Integer interfaceId, @Param("start") Integer start,
 			@Param("pageSize") Integer pageSize);
-
+	@Select("select p.*,i.interface_name,d.name as device_name "
+			+ " from paramater p join interface i on p.interface_id=i.interface_id join device d on p.device_id=d.device_id "
+			+ " where p.interface_id=#{interfaceId}")
+	@ResultMap("com.dormitory.mapper.ParamaterMapper.paramaterDTO")
+	List<ParamaterDTO> listByInterfaceIdAll(@Param("interfaceId") Integer interfaceId);
 	@Select("select count(*) from paramater where interface_id=#{interfaceId}  ")
 	Integer getSizeByInterfaceId(@Param("interfaceId") Integer interfaceId);
 

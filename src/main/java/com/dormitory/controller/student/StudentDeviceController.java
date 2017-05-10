@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.DeviceController;
+import com.dormitory.dto.ParamaterDTO;
 import com.dormitory.entity.Device;
 import com.dormitory.entity.Dormitory;
 import com.dormitory.entity.Interface;
@@ -140,5 +141,23 @@ public class StudentDeviceController extends DeviceController {
 		modelAndView.addObject("device", device);
 		return modelAndView;
 	}
-
+	@RequestMapping(value = "forwardParam.do")
+	public ModelAndView forwardParam(@RequestParam(value = "interfaceId") Integer interfaceId){
+		ModelAndView modelAndView = new ModelAndView();
+		Interface face = interfaceService.get(interfaceId);
+		modelAndView.addObject("face", face);
+		modelAndView.addObject("interfaceId", interfaceId);
+		modelAndView.setViewName("studentDevices/parameterDevice");
+		return modelAndView;
+		
+	}
+	@RequestMapping(value = "listUserParamByInterfaceId.do")
+	@ResponseBody
+	public String listParamByInterfaceIdUser(
+			@RequestParam(value = "interfaceId") Integer interfaceId
+		) {
+		List<ParamaterDTO> list = paramaterService.listByInterfaceIdAll(interfaceId);
+		
+		return toJSON(list);
+	}
 }

@@ -15,4 +15,6 @@ public interface ParamaterService
 	List<Paramater> listByParamName(Integer interfaceId, String paramName);
 	List<ParamaterDTO> listAll(Integer pageIndex, Integer pageSize);
 	Integer getAllSize();
+	
+	public List<ParamaterDTO> listByInterfaceIdAll(Integer interfaceId);
 }
