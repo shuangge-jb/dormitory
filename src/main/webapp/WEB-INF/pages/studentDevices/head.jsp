@@ -152,7 +152,7 @@ String path = request.getContextPath();
 	</div>
 		<div id="nav">
 			<div class="navc">
-<a href="http://www.mb5u.com/">首页</a><em></em>
+<a href="<%=path%>/homePage.jsp">首页</a><em></em>
 <a href="http://www.mb5u.com/wangyemoban/">网页模板</a>
 <a href="http://www.mb5u.com/cmsmoban/">程序模板</a><em></em>
 <a href="http://www.mb5u.com/edu/">建站教程</a>
