@@ -2,6 +2,7 @@
 <%
 String path = request.getContextPath();
 %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -125,32 +126,42 @@ String path = request.getContextPath();
   </head>
   
   <body >
-   <div id="header">
-     
-      <div id="loginRegister">
-               <div id="leftDistance"> 
-                                您好，欢迎来到虚拟宿舍！
-               <a href="#">登录</a>
-               <a href="#">注册</a>
-               </div> 
-               
-      </div>
-      <div id="quick-menu">
-         <ul>
-         <li><a href="javascript:AddFavorite('虚拟宿舍','http://localhost:8080/dormitory/homePage.jsp/')">收藏</a></li>
-         <li class="end"><a href="#">帮助</a></li>
-         </ul>
-      </div>
-   </div>
-   <div id="top">
+   <div id="header" >
+   
+		<div id="quick-menu">
+			<ul>
+				<li><a
+					href="javascript:AddFavorite('虚拟宿舍','http://localhost:8080/dormitory/homePage.jsp/')">收藏</a></li>
+				<li class="end"><a href="#">帮助</a></li>
+			</ul>
+		</div>
+		<c:choose>
+			<c:when test="${empty studentId }">
+				<div id="loginRegister">
+					<div id="leftDistance">
+						您好，欢迎来到虚拟宿舍！ <a href="<%=path %>/login.jsp">登录</a> <a href="<%=path %>/reg.jsp">注册</a>
+					</div>
+				</div>
+			</c:when>
+			<c:otherwise>
+			<div>
+				
+				欢迎你！<c:out value="${studentName}" />
+				<a href="/dormitory/student/logout.do" >安全退出</a>
+				</div>
+			</c:otherwise>
+		</c:choose>
+	</div>
+	
+   <!-- <div id="top">
    <div class="top_left">
    <img src="images/scut_new_logo1.jpg" width="73px" height="75px">
    <div class="top_h2">
         华南理工大学虚拟宿舍
    </div>
 	</div>
-	</div>
-		<div id="nav">
+	</div> -->
+		<%-- <div id="nav">
 			<div class="navc">
 <a href="<%=path%>/homePage.jsp">首页</a><em></em>
 <a href="http://www.mb5u.com/wangyemoban/">网页模板</a>
@@ -160,6 +171,6 @@ String path = request.getContextPath();
 <a href="http://www.mb5u.com/sucai/">图标素材</a>
 <a href="http://www.mb5u.com/zitixiazai/">字体下载</a><em></em>
 <a href="http://t.mb5u.com/">站长工具</a><a href="http://www.mb5u.com/ask/" target="_blank">最新公告</a>
-</div>
+</div> --%>
   </body>
 </html>

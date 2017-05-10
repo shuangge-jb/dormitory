@@ -61,7 +61,7 @@ public class FileServiceImpl implements FileService {
 	}
 
 	/**
-	 * 将文件名(不包括目录和文件类型)加上时间戳，再使用base64加密,后面加上文件类型
+	 * 将文件名(不包括目录和文件类型)加上时间戳，再使用base64加密,后面加上文件类型(小写)
 	 * 
 	 * @param file
 	 * @return
@@ -79,7 +79,9 @@ public class FileServiceImpl implements FileService {
 		// 文件名加上时间戳
 		String fimeNameWithTimestamp = fileName + "_" + timestamp;
 		// 加密后的文件名和文件类型,不含目录
-		return base64(fimeNameWithTimestamp) + fileType;
+		String encrypted=base64(fimeNameWithTimestamp);
+		String finalName=encrypted.replaceAll("/", "");
+		return finalName + fileType.toLowerCase();
 	}
 
 	/**

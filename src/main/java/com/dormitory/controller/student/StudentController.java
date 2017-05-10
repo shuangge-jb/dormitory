@@ -3,12 +3,14 @@ package com.dormitory.controller.student;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +33,7 @@ import com.dormitory.service.FileService;
 import com.dormitory.service.StudentService;
 import com.fasterxml.jackson.databind.deser.impl.ExternalTypeHandler.Builder;
 
-@SessionAttributes({ "studentId", "dormitoryId" })
+@SessionAttributes({ "studentId", "dormitoryId", "studentName" })
 @Controller
 @RequestMapping("/student")
 public class StudentController {
@@ -100,21 +102,21 @@ public class StudentController {
 		System.out.println("--imgName:" + imgName);
 		student.setImgPath(imgName);
 		studentService.saveOrUpdate(student);
-		modelAndView.setViewName("");
-		setSessionValue(model, dormitory.getDormitoryId(), student.getStudentId());
+		modelAndView.setViewName("../../homePage");
+		setSessionValue(model, dormitory.getDormitoryId(), student.getStudentId(), temp.getName());
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/studentLogin.do", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam(value = "id") Long studentId,
 			@RequestParam(value = "password") String password, Model model) {
-		ModelAndView modelAndView = new ModelAndView("../../jsp/login");// login不在WEB-INF/pages下，要访问父级目录
+		ModelAndView modelAndView = new ModelAndView("../../login");// login不在WEB-INF/pages下，要访问父级目录
 		Student temp = studentService.get(studentId);
 		if (temp != null) {
 			if (password.trim().equals(temp.getPassword())) {
-				modelAndView.setViewName("");
+				modelAndView.setViewName("../../homePage");
 				Dormitory dormitory = dormitoryService.get(studentId);
-				setSessionValue(model, dormitory.getDormitoryId(), studentId);
+				setSessionValue(model, dormitory.getDormitoryId(), studentId, temp.getName());
 			}
 		}
 		return modelAndView;
@@ -138,8 +140,9 @@ public class StudentController {
 		return student.getPassword().equals(password.trim()) ? "correct" : "incorrect";
 	}
 
-	@RequestMapping(value="/updatePassword.do",method=RequestMethod.POST)
-	public ModelAndView updatePassword(@RequestParam(value = "studentId") Long studentId,@RequestParam(value = "password") String password, Model model) {
+	@RequestMapping(value = "/updatePassword.do", method = RequestMethod.POST)
+	public ModelAndView updatePassword(@RequestParam(value = "studentId") Long studentId,
+			@RequestParam(value = "password") String password, Model model) {
 		Student student = studentService.get(studentId);
 		ModelAndView modelAndView = new ModelAndView();
 
@@ -188,10 +191,15 @@ public class StudentController {
 		}
 	}
 
-	@RequestMapping("/logout.do")
-	public String logout(SessionStatus status) {
+	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
+	public ModelAndView logout(ModelMap model, SessionStatus status, HttpSession session) {
+		session.removeAttribute("studentId");
+	    session.removeAttribute("dormitoryId");
+	    session.removeAttribute("studentName");
 		status.setComplete();
-		return "redirect:/index.jsp";
+		session.invalidate();
+		ModelAndView modelAndView = new ModelAndView("../../homePage");
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "/getStudentInfo.do")
@@ -202,8 +210,8 @@ public class StudentController {
 			return new ModelAndView("../../login");
 		}
 		studentDTO.setStudent(student);
-		Dormitory dormitory=dormitoryService.get(studentId);
-		Building building=buildingService.get(dormitory.getBuildingId());
+		Dormitory dormitory = dormitoryService.get(studentId);
+		Building building = buildingService.get(dormitory.getBuildingId());
 		studentDTO.setBuildingName(building.getBuildngName());
 		studentDTO.setRoom(dormitory.getRoom());
 		ModelAndView modelAndView = new ModelAndView("");
@@ -238,9 +246,10 @@ public class StudentController {
 		return modelAndView;
 	}
 
-	private void setSessionValue(Model model, Integer dormitoryId, Long studentId) {
+	private void setSessionValue(Model model, Integer dormitoryId, Long studentId, String studentName) {
 		model.addAttribute("studentId", studentId);
 		model.addAttribute("dormitoryId", dormitoryId);
+		model.addAttribute("studentName", studentName);
 	}
 
 }

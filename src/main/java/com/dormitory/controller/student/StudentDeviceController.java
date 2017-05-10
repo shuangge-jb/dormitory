@@ -171,10 +171,12 @@ public class StudentDeviceController extends DeviceController {
 	}
 
 	@RequestMapping(value = "listUserParamByInterfaceId.do")
-	@ResponseBody
-	public String listParamByInterfaceIdUser(@RequestParam(value = "interfaceId") Integer interfaceId) {
+	public ModelAndView listParamByInterfaceIdUser(@RequestParam(value = "interfaceId") Integer interfaceId) {
 		List<ParamaterDTO> list = paramaterService.listByInterfaceIdAll(interfaceId);
-
-		return toJSON(list);
+		//TODO
+		ModelAndView modelAndView = new ModelAndView("studentDevices/");
+		String result=toJSON(list);
+		modelAndView.addObject("data", result);
+		return modelAndView;
 	}
 }
