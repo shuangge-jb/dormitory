@@ -67,7 +67,7 @@ String path = request.getContextPath();
       }
       #loginRegister a{
       margin:0 5px;
-      text-
+      text-decoration:underline;
       }
       #quick-menu{float:right;}
       #quick-menu li{
@@ -120,7 +120,6 @@ String path = request.getContextPath();
 #nav a:hover{text-decoration:none;background:#0074A6;}
 #nav em{width:1px;display:block;height:25px;float:left;overflow:hidden;margin:13px 6px 0 6px;}
 #nav em{border-right:1px solid #009EE2;background:#0074A6;}
- 
 	</style>
 	
   </head>

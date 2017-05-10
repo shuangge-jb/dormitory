@@ -20,6 +20,7 @@ $(document).ready(function(){
     dataType:"json",
     data:{interfaceId:id},
     success:function(data){	
+    	alert(data);
     	for(var i=0;i<data.length;i++){
     	  var li;
  	      if(data[i].type=='string'||data[i].type=='integer'||data[i].type=='long'){
