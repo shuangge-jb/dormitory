@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 String path = request.getContextPath();
 %>
@@ -6,7 +7,8 @@ String path = request.getContextPath();
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+	<script src="js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript">
 	function AddFavorite(title, url) {
 	    try {
@@ -22,6 +24,11 @@ String path = request.getContextPath();
 	    }
 	}
 	</script>
+	<script type="text/javascript">
+	function backAnnouncementList(){
+		window.location.href ="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=1&pageSize=10";	
+	}
+	</script>
 	<style type="text/css">
 	* {
 			margin:0;
@@ -35,6 +42,7 @@ String path = request.getContextPath();
 			border:none;
 			font-size:12px;
 		}
+		
       #header{
            width:100%;
            margin-top:0;
@@ -119,28 +127,102 @@ String path = request.getContextPath();
 #nav a:hover{text-decoration:none;background:#0074A6;}
 #nav em{width:1px;display:block;height:25px;float:left;overflow:hidden;margin:13px 6px 0 6px;}
 #nav em{border-right:1px solid #009EE2;background:#0074A6;}
- #homePage{
+ #newAnnounceMent{
  color:#fff;text-decoration:none;background-color:#0074A6;height:50px;line-height:51px;line-height:54px\9;line-height:52px\0;border-bottom:0;
- } 
+ }
+.new_notice_top{width:998px;background: #64b1cb;height:38px;line-height:38px;
+   margin: 0 auto;}
+.new_notice_top_p{
+    width:138px; 
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    float:left;}
+    .back{
+    float:right;
+    padding-right:100px;
+    font-size: 16px;
+    color: #fff;
+    }
+    .back:hover{
+    color:#0074A6;
+    }
+.new_notice_content{
+width:998;
+overflow:hidden;border:1px solid #eaeef5; 
+ color:#848484; 
+ margin: 0 auto; 
+  padding-top: 20px;
+  background:#fff;}	
+  .new_notice_content h3{
+  font-size:25px;
+  text-align:center;
+ 
+  }
+   .new_notice_content p{
+
+  font-size:21px;
+   margin-top:10px;
+  }
+ .register-tipMain{
+  background: #F6F6F6;
+  padding:24px 120px 0px 150px;
+  }
+   .register-tipForm{ 
+   width:100%;
+   padding:0px 0px 50px 0px;
+   border: 1px solid #D7D7D7;
+   background:#fff;
+   }
+   .new_notice_content{
+   width:998px;
+   overflow:hidden;
+   border:1px solid #eaeef5;
+   margin: 0 auto; 
+   padding-top: 20px;
+   min-height:380px;
+   padding-bottom:10px;}
+   .new_notice_content ul li{
+   margin-left:8%;
+   color:#848484; 
+   display: inline-block;
+   font-size: 15px;
+   height: 34px;
+   text-align:left;
+   width:75%;
+   overflow: hidden;
+   }
+   .new_notice_content ul li .notice_date{
+   float:right;
+   maigin-right:8%;
+   }
+    #page a{
+   color:blue;
+   }
+   #page a:hover{
+   color:#0090CE;
+   }
+   .announcementTitle:hover{
+    color:#0090CE;
+   }
+   
 	</style>
 	
-  </head>
-  
+  </head> 
   <body >
-   <div id="header">
-     
+   <div id="header">   
       <div id="loginRegister">
                <div id="leftDistance"> 
                                 您好，欢迎来到虚拟宿舍！
                <a href="#">登录</a>
                <a href="#">注册</a>
-               </div> 
-               
+               </div>             
       </div>
       <div id="quick-menu">
          <ul>
          <li><a href="javascript:AddFavorite('虚拟宿舍','http://localhost:8080/dormitory/homePage.jsp/')">收藏</a></li>
          <li class="end"><a href="#">帮助</a></li>
+         
          </ul>
       </div>
    </div>
@@ -153,18 +235,32 @@ String path = request.getContextPath();
 	</div>
 	</div>
 		<div id="nav">
-			<div class="navc">
-<a href="<%=path%>/homePage.jsp" id="homePage">首页</a><em></em>
-<a href="<%=path%>/student/listUserDevice.do?pageIndex=1&pageSize=6">我的设备</a>
+<div class="navc">
+<a href="<%=path%>/homePage.jsp">首页</a><em></em>
+<a href="http://www.mb5u.com/wangyemoban/">网页模板</a>
 <a href="http://www.mb5u.com/cmsmoban/">程序模板</a><em></em>
 <a href="http://www.mb5u.com/edu/">建站教程</a>
 <a href="http://www.mb5u.com/shipinjiaocheng/">视频教程</a><em></em>
-				<a
-				href="http://www.mb5u.com/jscode/">网页特效</a>
+<a href="http://www.mb5u.com/jscode/">网页特效</a>
 <a href="http://www.mb5u.com/sucai/">图标素材</a>
 <a href="http://www.mb5u.com/zitixiazai/">字体下载</a><em></em>
-<a href="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=1&pageSize=10" >宿舍公告</a>
+<a href="http://t.mb5u.com/">站长工具</a>
+<a href="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=1&pageSize=10" id="newAnnounceMent">宿舍公告</a>
 </div>
 </div>
+<div class="register-tipMain">
+   
+    <div class="new_notice_top">
+   <p class="new_notice_top_p">公告明细</p>
+   <p class="back" onclick="backAnnouncementList()">返回公告列表</p>
+     </div>
+     <div class="new_notice_content">
+       <h3>${announcement.title}</h3>
+       <p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${announcement.content}&nbsp;(时间:${announcement.createTime})</p>
+	   <span style="float:right;font-size:21px;padding-right:20px;padding-top:10px;">宿舍楼:${announcement.buildingId}</span>
+	  </div>
+   </div>
+<jsp:include page="foot.jsp"></jsp:include>
   </body>
+  
 </html>

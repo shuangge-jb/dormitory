@@ -35,21 +35,21 @@ public class AnnouncementController {
 	protected static final String ERROR_PAGE_SIZE="页大小不能为0";
 	protected static final Logger LOGGER = LoggerFactory.getLogger(AnnouncementController.class);
 
-	@RequestMapping(value = "listAnnouncement.do")
-	@ResponseBody
-	public String listAnnouncement(@RequestParam("pageIndex") Integer pageIndex,
+	@RequestMapping(value = "listMyDormitoryAnnouncement.do")
+	public ModelAndView listAnnouncement(@RequestParam("pageIndex") Integer pageIndex,
 			@RequestParam("pageSize") Integer pageSize) {
+		ModelAndView modelAndView = new ModelAndView();
 		List<Announcement> list = announcementService.list(pageIndex, pageSize);
 		Integer total = announcementService.getSize();
 		Integer totalPage=getTotalPages(total, pageSize);
-		Map<String, Object> map = new HashMap<String, Object>(2);
-		map.put("announcementDataList", list);
-		map.put("total", total);
-		map.put("totalPages", totalPage);
-		map.put("pageIndex", pageIndex);
-		map.put("pageSize", pageSize);
-		map.put("result", list!=null);
-		return toJSON(map);
+		modelAndView.addObject("announcementDataList", list);
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPages", totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.addObject("result", list!=null);
+		modelAndView.setViewName("studentAnnoucment/announcementPage");
+		return modelAndView;
 	}
 	@RequestMapping(value = "/listAnnouncementLimit.do")
 	@ResponseBody
@@ -58,10 +58,12 @@ public class AnnouncementController {
 		return toJSON(list);
 	}
 	@RequestMapping(value = "getAnnouncement.do")
-	@ResponseBody
-	public String getAnnouncement(@RequestParam("announcementId") Integer announcementId) {
+	public ModelAndView getAnnouncement(@RequestParam("announcementId") Integer announcementId) {
+		ModelAndView modelAndView = new ModelAndView();
 		Announcement announcement = announcementService.get(announcementId);
-		return toJSON(announcement);
+		modelAndView.addObject("announcement", announcement);
+		modelAndView.setViewName("studentAnnoucment/announcementDetailPage");
+		return modelAndView;
 	}
 
 	protected String toJSON(Object obj) {
