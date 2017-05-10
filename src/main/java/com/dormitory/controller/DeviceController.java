@@ -1,28 +1,17 @@
 package com.dormitory.controller;
 
-import java.lang.reflect.Parameter;
 import java.text.SimpleDateFormat;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.ModelAndViewDefiningException;
-
-import com.dormitory.controller.student.StudentController;
 import com.dormitory.dto.ParamaterDTO;
 import com.dormitory.entity.Device;
 import com.dormitory.entity.Interface;
@@ -103,7 +92,7 @@ public class DeviceController {
 		return modelAndView;
 	}
 
-	private long getTotalPages(Long count, Integer pageSize) {
+	protected long getTotalPages(Long count, Integer pageSize) {
 		if (pageSize == null) {
 			pageSize = 10;
 		}
@@ -112,7 +101,7 @@ public class DeviceController {
 		return totalPages;
 	}
 
-	private int getTotalPages(Integer count, Integer pageSize) {
+	protected int getTotalPages(Integer count, Integer pageSize) {
 		if (pageSize == null) {
 			pageSize = 10;
 		}
@@ -120,7 +109,14 @@ public class DeviceController {
 		totalPages = (count % pageSize == 0) ? (count / pageSize) : (count / pageSize + 1);
 		return totalPages;
 	}
-
+/**
+ * 找出该设备所有功能，包括不可用的，给管理员查看
+ * @param deviceId
+ * @param pageIndex
+ * @param pageSize
+ * @param hiddenPageIndex
+ * @return
+ */
 	@RequestMapping(value = "listInterfaceByDeviceId.do")
 	public ModelAndView listInterfaceByDeviceId(@RequestParam(value = "deviceId") Long deviceId,
 			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize,

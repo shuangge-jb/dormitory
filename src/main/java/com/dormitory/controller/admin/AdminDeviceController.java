@@ -222,7 +222,7 @@ public class AdminDeviceController extends DeviceController {
 		// 插入时判断重复
 		if (interfaceTemp.size() > 0) {
 			modelAndView.setViewName("functionList/addFunctionToDevice");
-			modelAndView.addObject("status", "接口名重复");
+			modelAndView.addObject("status", "功能名重复");
 			modelAndView.addObject("device", temp);
 			modelAndView.addObject("data", face);
 			modelAndView.addObject("pageIndex", pageIndex);
@@ -446,4 +446,5 @@ public class AdminDeviceController extends DeviceController {
 		return modelAndView;
 	}
 
+	
 }

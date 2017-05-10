@@ -65,4 +65,27 @@ private ParamaterDAO paramaterDAO;
 	public List<Map<String, String>> listByDeviceIdJSON(Long deviceId) {
 		return interfaceDAO.listByDeviceIdJSON(deviceId);
 	}
+
+	@Override
+	public List<Interface> listLike(String keyword,Long deviceId, Integer pageIndex, Integer pageSize) {
+		Integer start=(pageIndex-1)*pageSize;
+		List<Interface>list=interfaceDAO.listLike(deviceId,keyword,start,pageSize);
+		return list;
+	}
+	@Override
+	public Integer getSizeLike(String keyword, Long deviceId) {
+		return interfaceDAO.getSizeLike(keyword, deviceId);
+	}
+	@Override
+	public List<Interface> listByDeviceIdValid(Long deviceId, Integer pageIndex, Integer pageSize) {
+		Integer start=(pageIndex-1)*pageSize;
+		return interfaceDAO.listByDeviceIdValid(deviceId, start, pageSize);
+	}
+
+	@Override
+	public Integer getSizeByDeviceIdValid(Long deviceId) {
+		return interfaceDAO.getSizeByDeviceIdValid(deviceId);
+	}
+
+	
 }

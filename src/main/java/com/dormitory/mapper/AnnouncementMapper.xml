@@ -12,5 +12,5 @@
 		<result column="importance" jdbcType="INTEGER" property="importance" />
 		<result column="building_id" jdbcType="INTEGER" property="buildingId" />
 	</resultMap>
-	
+
 </mapper>

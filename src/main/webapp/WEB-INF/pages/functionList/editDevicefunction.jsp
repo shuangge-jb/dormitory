@@ -69,6 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	  $('#method').attr("disabled",false);
     	  $('#description').attr("disabled",false);
     	  $('#savebtn').attr("disabled",false);
+    	  $('#state').attr("disabled",false);
     }
     function verifyInterfaceInfo(){
     	if(document.form1.interfaceName.value==""){
@@ -145,6 +146,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<option value="get"
 							<c:if test="${data.method.equals('get')}"> selected</c:if>>get</option>
 					</select>
+			</div>
+			<div style="margin-left: 80px; margin-top: 30px;">
+			<font color=red>*</font> 功能的状态：
+			<select  name="state" id="state"
+						class="inputTxt" disabled="true">
+			<option value="1"
+							<c:if test="${data.state==1}"> selected</c:if>>有效</option>
+						<option value="0"
+							<c:if test="${data.state==0}"> selected</c:if>>无效</option>
+			</select>
+			
 			</div>
 				<div style="margin-left:80px;margin-top:10px;">
 				<font color=red>*</font> 功能描述：<br>

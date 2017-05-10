@@ -27,6 +27,7 @@ public class Interface {
 	protected Long deviceId;
 	protected String method;
 
+	protected Integer state;
 	public Interface() {
 		super();
 	}
@@ -87,11 +88,20 @@ public class Interface {
 		this.method = method;
 	}
 
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
 	@Override
 	public String toString() {
 		return "Interface [interfaceId=" + interfaceId + ", interfaceName=" + interfaceName + ", interfaceUrl="
 				+ interfaceUrl + ", description=" + description + ", source=" + source + ", deviceId=" + deviceId
-				+ ", method=" + method + "]";
+				+ ", method=" + method + ", state=" + state + "]";
 	}
+
 
 }

@@ -47,4 +47,5 @@ public interface DeviceDAO {
 	@Select("select device_id as id,name from device ")
 	@ResultMap("com.dormitory.mapper.DeviceMapper.listJSON")
 	public List<Map<String, String>> listJSON();
+	
 }
