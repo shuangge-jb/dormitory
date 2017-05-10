@@ -247,7 +247,8 @@ a:link, a:visited, a:active {
 </style>
 </head>
 <body bgcolor="#FFFFFF">
-	<div id="header">
+<jsp:include page="head.jsp"></jsp:include>
+	<!-- <div id="header">
 		<div id="loginRegister">
 			<div id="leftDistance">
 				您好，欢迎来到虚拟宿舍！ <a href="#">登录</a> <a href="#">注册</a>
@@ -261,7 +262,7 @@ a:link, a:visited, a:active {
 				<li class="end"><a href="#">帮助</a></li>
 			</ul>
 		</div>
-	</div>
+	</div> -->
 	<div id="top">
 		<div class="top_left">
 			<img src="<%=path%>/images/scut_new_logo1.jpg" width="73px"

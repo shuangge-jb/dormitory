@@ -40,7 +40,7 @@ $(document).ready(function(){
     	$('.form-content').append(endLi);
     },
     error:function(data){
-    	alert(data);
+    	console.log(data);
     }
     
   })

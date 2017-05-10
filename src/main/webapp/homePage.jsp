@@ -124,31 +124,7 @@
 	</style>
 	
   </head>
-  
-  <body >
-   <div id="header">
-     
-      <div id="loginRegister">
-               <div id="leftDistance"> 
-                                您好，欢迎来到虚拟宿舍！
-               <a href="#">登录</a>
-               <a href="reg.jsp">注册</a>
-               </div> 
-               
-      </div>
-      <div id="quick-menu">
-         <ul>
-         <li><a href="javascript:AddFavorite('虚拟宿舍','http://localhost:8080/dormitory/homePage.jsp/')">收藏</a></li>
-         <li class="end"><a href="#">帮助</a></li>
-         </ul>
-      </div>
-   </div>
-   <div id="top">
-   <div class="top_left">
-   <img src="images/scut_new_logo1.jpg" width="73px" height="75px">
-   <div class="top_h2">
-        华南理工大学虚拟宿舍
-   </div>
+   
 </script>
 <style type="text/css">
 * {
