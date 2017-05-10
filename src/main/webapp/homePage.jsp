@@ -133,7 +133,7 @@ String path = request.getContextPath();
                <div id="leftDistance"> 
                                 您好，欢迎来到虚拟宿舍！
                <a href="#">登录</a>
-               <a href="#">注册</a>
+               <a href="reg.jsp">注册</a>
                </div> 
                
       </div>
