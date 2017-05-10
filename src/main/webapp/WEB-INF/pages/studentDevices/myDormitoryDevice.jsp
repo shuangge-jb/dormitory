@@ -228,7 +228,7 @@
 	<c:forEach items="${data}" var="device" varStatus="b">
 	   <div style="width:220px;margin-left:10px;margin-top:10px;float:left;box-shadow: rgb(214, 214, 214) 0px 0px 15px 0px;">
 		<a target="_blank" href="#">
-		<img alt="" src="<%=path %>/images/1.jpg" />
+		<img alt="" src="${device.imgPath }" />
 		<span class="info">
 		<h4>${device.name}</h4><br>
 		${device.description}

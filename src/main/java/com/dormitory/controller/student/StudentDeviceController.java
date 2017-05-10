@@ -45,9 +45,9 @@ public class StudentDeviceController extends DeviceController {
 	public String invokeInterface(HttpServletRequest request) {
 		Map<String, String[]> map = request.getParameterMap();
 		Map<String, Object> paramater = new HashMap<String, Object>(map.size());
-		String interfaceId=request.getParameter("interfaceId");
+		String interfaceId = request.getParameter("interfaceId");
 		Interface face = interfaceService.get(Integer.valueOf(interfaceId));
-		String url=face.getInterfaceUrl();
+		String url = face.getInterfaceUrl();
 		String method = face.getMethod().toUpperCase();
 		for (Iterator<Entry<String, String[]>> it = map.entrySet().iterator(); it.hasNext();) {
 			Entry<String, String[]> entry = it.next();
@@ -55,15 +55,15 @@ public class StudentDeviceController extends DeviceController {
 
 				continue;
 			}
-//			if (entry.getKey().equals("interfaceUrl")) {
-//				url = entry.getValue()[0];
-//				continue;
-//			}
-//			if (entry.getKey().equals("method")) {
-//				method = entry.getValue()[0];
-//				continue;
-//			}
-			System.out.println("key:"+entry.getKey()+" value:"+ entry.getValue()[0]);
+			// if (entry.getKey().equals("interfaceUrl")) {
+			// url = entry.getValue()[0];
+			// continue;
+			// }
+			// if (entry.getKey().equals("method")) {
+			// method = entry.getValue()[0];
+			// continue;
+			// }
+			System.out.println("key:" + entry.getKey() + " value:" + entry.getValue()[0]);
 			paramater.put(entry.getKey(), entry.getValue()[0]);
 		}
 
@@ -74,8 +74,8 @@ public class StudentDeviceController extends DeviceController {
 		if (method.equals("GET")) {
 			result = httpService.doGet(url, paramater);
 		}
-		
-		System.out.println("result:"+result);
+
+		System.out.println("result:" + result);
 		return result;
 	}
 
@@ -102,66 +102,41 @@ public class StudentDeviceController extends DeviceController {
 		modelAndView.addObject("result", list != null);
 		return modelAndView;
 	}
-	
+
 
 	/**
-	 * 找出该设备所有可用的功能，给学生查看
-	 * @param deviceId
-	 * @param start
-	 * @param pageSize
-	 * @return
-	 */
-	@RequestMapping(value="listFunctionByDeviceIdValid.do")
-	public ModelAndView listFunctionByDeviceIdValid(@RequestParam(value="deviceId") Long deviceId, @RequestParam(value="pageIndex") Integer pageIndex,
-			@RequestParam(value="pageSize") Integer pageSize){
-		ModelAndView modelAndView=new ModelAndView("");
-		List<Interface> list = interfaceService.listByDeviceIdValid(deviceId, pageIndex, pageSize);
-		Integer total = interfaceService.getSizeByDeviceIdValid(deviceId);
-		Device device = deviceService.get(deviceId);
-		Integer totalPage = getTotalPages(total, pageSize);
-		//TODO
-		modelAndView.setViewName("functionList/listFunction");
-		modelAndView.addObject("device", device);
-		modelAndView.addObject("data", list);
-		modelAndView.addObject("total", total);
-		modelAndView.addObject("totalPages", totalPage);
-		modelAndView.addObject("pageIndex", pageIndex);
-		modelAndView.addObject("pageSize", pageSize);
-		return modelAndView;
-	}
-	/**
 	 * 模糊搜索出该设备的功能
+	 * 
 	 * @param deviceId
 	 * @param keyword
 	 * @param pageIndex
 	 * @param pageSize
 	 * @return
 	 */
-	@RequestMapping(value="listFunctionByDeviceIdLike.do")
-	public ModelAndView listFunctionByDeviceIdLike(@RequestParam(value="deviceId") Long deviceId,@RequestParam(value="keyword") String keyword, @RequestParam(value="pageIndex") Integer pageIndex,
-			@RequestParam(value="pageSize") Integer pageSize){
-		ModelAndView modelAndView=new ModelAndView("");
-		List<Interface> list = interfaceService.listLike(keyword, deviceId, pageIndex, pageSize);
+	@RequestMapping(value = "listFunctionByDeviceIdLike.do")
+	public ModelAndView listFunctionByDeviceIdLike(@RequestParam(value = "deviceId") Long deviceId,
+			@RequestParam(value = "keyword") String keyword, @RequestParam(value = "pageIndex") Integer pageIndex,
+			@RequestParam(value = "pageSize") Integer pageSize) {
+		ModelAndView modelAndView = new ModelAndView("");
+		String newKeyword=keyword.trim();
+		List<Interface> list = interfaceService.listLike(newKeyword, deviceId, pageIndex, pageSize);
 		Device device = deviceService.get(deviceId);
-		Integer total = interfaceService.getSizeLike(keyword,deviceId);
+		Integer total = interfaceService.getSizeLike(newKeyword, deviceId);
 		Integer totalPage = getTotalPages(total, pageSize);
-		//TODO
-		modelAndView.setViewName("functionList/listFunction");
+		modelAndView.setViewName("studentDevices/deviceFunction");
 		modelAndView.addObject("device", device);
 		modelAndView.addObject("data", list);
+		modelAndView.addObject("keyword", keyword);
 		modelAndView.addObject("total", total);
 		modelAndView.addObject("totalPages", totalPage);
 		modelAndView.addObject("pageIndex", pageIndex);
 		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;
 	}
-	
-	
 
 	@RequestMapping(value = "listUserInterfaceByDeviceId.do")
 	public ModelAndView listInterfaceByDeviceId(@RequestParam(value = "deviceId") Long deviceId,
-			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize
-			) {
+			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
 		ModelAndView modelAndView = new ModelAndView("dormitory");
 		if (pageIndex == null || pageIndex <= 0 || pageSize == null || pageSize == 0) {
 			modelAndView.setViewName(ERROR_PAGE);
@@ -183,23 +158,23 @@ public class StudentDeviceController extends DeviceController {
 		modelAndView.addObject("device", device);
 		return modelAndView;
 	}
+
 	@RequestMapping(value = "forwardParam.do")
-	public ModelAndView forwardParam(@RequestParam(value = "interfaceId") Integer interfaceId){
+	public ModelAndView forwardParam(@RequestParam(value = "interfaceId") Integer interfaceId) {
 		ModelAndView modelAndView = new ModelAndView();
 		Interface face = interfaceService.get(interfaceId);
 		modelAndView.addObject("face", face);
 		modelAndView.addObject("interfaceId", interfaceId);
 		modelAndView.setViewName("studentDevices/parameterDevice");
 		return modelAndView;
-		
+
 	}
+
 	@RequestMapping(value = "listUserParamByInterfaceId.do")
 	@ResponseBody
-	public String listParamByInterfaceIdUser(
-			@RequestParam(value = "interfaceId") Integer interfaceId
-		) {
+	public String listParamByInterfaceIdUser(@RequestParam(value = "interfaceId") Integer interfaceId) {
 		List<ParamaterDTO> list = paramaterService.listByInterfaceIdAll(interfaceId);
-		
+
 		return toJSON(list);
 	}
 }
