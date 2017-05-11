@@ -244,10 +244,11 @@ String path = request.getContextPath();
   
   <body id="login">
 	 <div class="content">
-           <form action="<%=path%>/student/loginController" method="post" class="login-form">
+           <form action="<%=path%>/student/studentLogin.do" method="post" class="login-form">
                <div class="username">
                    <input type="text" name="id" placeholder="请输入学生账号" autocomplete="on" />
                    <span class="user-icon icon">u</span>
+                    <span id="usrNameTip" style="margin-left:5px;color:#929699;"></span>
                </div>
                <div class="password">
                    <input type="password" name="password" placeholder="请输入密码" />

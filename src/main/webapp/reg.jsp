@@ -342,6 +342,7 @@
 </head>
 <body>
 <body >
+<<<<<<< HEAD
     <jsp:include page="head.jsp"></jsp:include>
 	<div id="top">
 		<div class="top_left">
@@ -363,6 +364,10 @@
 				target="_blank">站长问答</a>
 		</div>
 	</div>
+=======
+    <jsp:include page="head.jsp"></jsp:include>	
+    
+>>>>>>> stage
 		<div class="register-main">
 		<form action="<%=path %>/student/register.do" method="post" 
 		enctype="multipart/form-data" onsubmit="return validate();">
