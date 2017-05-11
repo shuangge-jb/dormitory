@@ -115,7 +115,7 @@ String path = request.getContextPath();
       text-align:center;
       padding:0 11px 0 12px;
       _padding:0 11px 0 11px;
-      width:67px;
+      width:80px;
       height:50px;
       line-height:51px;
       line-height:54px\9;
@@ -164,24 +164,5 @@ String path = request.getContextPath();
 		</c:choose>
 	</div>
 	
-   <!-- <div id="top">
-   <div class="top_left">
-   <img src="images/scut_new_logo1.jpg" width="73px" height="75px">
-   <div class="top_h2">
-        华南理工大学虚拟宿舍
-   </div>
-	</div>
-	</div> -->
-		<%-- <div id="nav">
-			<div class="navc">
-<a href="<%=path%>/homePage.jsp">首页</a><em></em>
-<a href="http://www.mb5u.com/wangyemoban/">网页模板</a>
-<a href="http://www.mb5u.com/cmsmoban/">程序模板</a><em></em>
-<a href="http://www.mb5u.com/edu/">建站教程</a>
-<a href="http://www.mb5u.com/shipinjiaocheng/">视频教程</a><em></em>
-<a href="http://www.mb5u.com/sucai/">图标素材</a>
-<a href="http://www.mb5u.com/zitixiazai/">字体下载</a><em></em>
-<a href="http://t.mb5u.com/">站长工具</a><a href="http://www.mb5u.com/ask/" target="_blank">最新公告</a>
-</div> --%>
   </body>
 </html>

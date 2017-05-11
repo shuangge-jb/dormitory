@@ -102,7 +102,7 @@
       text-align:center;
       padding:0 11px 0 12px;
       _padding:0 11px 0 11px;
-      width:67px;
+      width:90px;
       height:50px;
       line-height:51px;
       line-height:54px\9;
@@ -237,55 +237,6 @@ a:link, a:visited, a:active {
 	display: block;
 }
 
-#nav a {
-	display: block;
-	text-align: center;
-	padding: 0 11px 0 12px;
-	_padding: 0 11px 0 11px;
-	width: 67px;
-	height: 50px;
-	line-height: 51px;
-	line-height: 54px\9;
-	line-height: 52px\0;
-	overflow: hidden;
-	float: left;
-	color: #fff;
-	font-size: 14px;
-	font-family: "Microsoft Yahei";
-	transition: all 0.1s ease-in;
-	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
-}
-
-#nav a.on, #nav a.on:hover {
-	color: #fff;
-	text-decoration: none;
-	background-color: #0074A6;
-	height: 50px;
-	line-height: 51px;
-	line-height: 54px\9;
-	line-height: 52px\0;
-	border-bottom: 0;
-}
-
-#nav a:hover {
-	text-decoration: none;
-	background: #0074A6;
-}
-
-#nav em {
-	width: 1px;
-	display: block;
-	height: 25px;
-	float: left;
-	overflow: hidden;
-	margin: 13px 6px 0 6px;
-}
-
-#nav em {
-	border-right: 1px solid #009EE2;
-	background: #0074A6;
-}
-
 #homePage {
 	color: #fff;
 	text-decoration: none;
@@ -309,19 +260,18 @@ a:link, a:visited, a:active {
 		</div>
 	</div>
 	<div id="nav">
-		<div class="navc">
-			<a href="<%=path%>/homePage.jsp" id="homePage">首页</a><em></em> <a
-				href="<%=path%>/student/listUserDevice.do?pageIndex=1&pageSize=6">我的设备</a>
-			<a href="http://www.mb5u.com/cmsmoban/">程序模板</a><em></em> <a
-				href="http://www.mb5u.com/edu/">建站教程</a> <a
-				href="http://www.mb5u.com/shipinjiaocheng/">视频教程</a><em></em> <a
-				href="http://www.mb5u.com/jscode/">网页特效</a> <a
-				href="http://www.mb5u.com/sucai/">图标素材</a> <a
-				href="http://www.mb5u.com/zitixiazai/">字体下载</a><em></em> <a
-				href="http://t.mb5u.com/">站长工具</a><a href="http://www.mb5u.com/ask/"
-				target="_blank">站长问答</a>
-		</div>
-	</div>
+			<div class="navc">
+<a href="<%=path%>/homePage.jsp" id="homePage">首页</a><em></em>
+<a href="<%=path%>/student/listUserDevice.do?pageIndex=1&pageSize=8"
+   id="myDormitoryDevice">我的设备</a><em></em>
+<a href="#">失物招领</a><em></em>
+<a href="#">我的报修</a><em></em>
+<a href="#">宿舍明信片</a><em></em>
+<a href="#">虚拟宿舍</a><em></em>
+<a href="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=1&pageSize=10">最新公告</a><em></em>
+<a href="#">使用指南</a>
+</div>
+</div>
 		
   </body>
 </body>

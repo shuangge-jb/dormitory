@@ -119,9 +119,6 @@ String path = request.getContextPath();
 #nav a:hover{text-decoration:none;background:#0074A6;}
 #nav em{width:1px;display:block;height:25px;float:left;overflow:hidden;margin:13px 6px 0 6px;}
 #nav em{border-right:1px solid #009EE2;background:#0074A6;}
-#myDormitoryDevice{
- color:#fff;text-decoration:none;background-color:#0074A6;height:50px;line-height:51px;line-height:54px\9;line-height:52px\0;border-bottom:0;
- } 
 	</style>
 	
   </head>
@@ -161,7 +158,7 @@ String path = request.getContextPath();
 <a href="#">我的报修</a><em></em>
 <a href="#">宿舍明信片</a><em></em>
 <a href="#">虚拟宿舍</a><em></em>
-<a href="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=1&pageSize=10">最新公告</a><em></em>
+<a href="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=1&pageSize=10" id="newAnnounceMent">最新公告</a><em></em>
 <a href="#">使用指南</a>
 </div>
 </div>
