@@ -95,7 +95,10 @@ overflow:hidden;border:1px solid #eaeef5;
 	
   </head> 
   <body >
+
 <jsp:include page="head.jsp"></jsp:include>
+
+   
 <div class="register-tipMain">
    
     <div class="new_notice_top">
