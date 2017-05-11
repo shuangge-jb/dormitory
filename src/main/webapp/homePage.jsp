@@ -273,6 +273,5 @@ a:link, a:visited, a:active {
 </div>
 </div>
 		
-  </body>
 </body>
 </html>

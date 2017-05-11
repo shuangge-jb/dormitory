@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -47,6 +48,19 @@ $(document).ready(function(){
 })
 </script>
 <style type="text/css">
+#userNameTip{
+        color:#6C6C6C;
+        float:left;
+        height:33px;
+        text-align:left;
+        width:500px;
+        font-size:12px;
+      }
+      #userNameTip a{
+      margin:0 5px;
+      text-decoration:underline;
+      font-size:12px;
+      }
   .register-main{
   background: #F6F6F6;
   padding:24px 120px 40px 150px;

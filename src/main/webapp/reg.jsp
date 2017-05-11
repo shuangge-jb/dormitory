@@ -342,7 +342,7 @@
 </head>
 <body>
 <body >
-    <jsp:include page="head.jsp"></jsp:include>
+   	<jsp:include page="head.jsp"></jsp:include>
 	<div id="top">
 		<div class="top_left">
 			<img src="/dormitory/images/scut_new_logo1.jpg" width="73px" height="75px">
@@ -350,19 +350,18 @@
 		</div>
 	</div>
 	<div id="nav">
-		<div class="navc">
-			<a href="<%=path%>/homePage.jsp" id="homePage">首页</a><em></em> <a
-				href="<%=path%>/student/listUserDevice.do?pageIndex=1&pageSize=6">我的设备</a>
-			<a href="http://www.mb5u.com/cmsmoban/">程序模板</a><em></em> <a
-				href="http://www.mb5u.com/edu/">建站教程</a> <a
-				href="http://www.mb5u.com/shipinjiaocheng/">视频教程</a><em></em> <a
-				href="http://www.mb5u.com/jscode/">网页特效</a> <a
-				href="http://www.mb5u.com/sucai/">图标素材</a> <a
-				href="http://www.mb5u.com/zitixiazai/">字体下载</a><em></em> <a
-				href="http://t.mb5u.com/">站长工具</a><a href="http://www.mb5u.com/ask/"
-				target="_blank">站长问答</a>
-		</div>
-	</div>
+			<div class="navc">
+<a href="<%=path%>/homePage.jsp" id="homePage">首页</a><em></em>
+<a href="<%=path%>/student/listUserDevice.do?pageIndex=1&pageSize=8"
+   id="myDormitoryDevice">我的设备</a><em></em>
+<a href="#">失物招领</a><em></em>
+<a href="#">我的报修</a><em></em>
+<a href="#">宿舍明信片</a><em></em>
+<a href="#">虚拟宿舍</a><em></em>
+<a href="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=1&pageSize=10">最新公告</a><em></em>
+<a href="#">使用指南</a>
+</div>
+</div>
 		<div class="register-main">
 		<form action="<%=path %>/student/register.do" method="post" 
 		enctype="multipart/form-data" onsubmit="return validate();">
