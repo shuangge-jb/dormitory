@@ -220,6 +220,7 @@
 <a href="http://www.mb5u.com/ask/" target="_blank">站长问答</a>
 </div>
 </div>
+    
     <div class="register-main">
     <div class="register-form">
     <h3 class="content-hd"><b>我的宿舍设备</b><label class="c_orange">(*每个设备有多个功能)</label></h3>
