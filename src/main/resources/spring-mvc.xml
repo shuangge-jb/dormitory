@@ -116,6 +116,16 @@
 			<value>UTF-8</value>
 		</property>
 	</bean>
+	
+	<mvc:interceptors>
+		<!-- 多个拦截器，顺序执行 -->
+				<!-- 登录拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/listMyDormitoryAnnouncement.do" />
+			
+			<bean class="com.dormitory.interceptor.StudentLoginInterceptor"></bean>
+		</mvc:interceptor>
+		</mvc:interceptors>
 </beans>
 
 
