@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.dormitory.dto.student.StudentDTO;
 import com.dormitory.entity.Building;
@@ -198,7 +199,10 @@ public class StudentController {
 	    session.removeAttribute("studentName");
 		status.setComplete();
 		session.invalidate();
-		ModelAndView modelAndView = new ModelAndView("../../homePage");
+		RedirectView redirect = new RedirectView("/dormitory/homePage.jsp");
+		redirect.setExposeModelAttributes(false);
+		ModelAndView modelAndView= new ModelAndView(redirect, null);
+		System.out.println("after logout.");
 		return modelAndView;
 	}
 
