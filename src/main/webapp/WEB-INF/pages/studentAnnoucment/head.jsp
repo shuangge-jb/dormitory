@@ -73,7 +73,7 @@ String path = request.getContextPath();
 <a href="<%=path%>/student/listUserDevice.do?pageIndex=1&pageSize=8"
    >我的设备</a>
 <a href="#">失物招领</a><em></em>
-<a href="#">我的报修</a><em></em>
+<a href="<%=path%>/repair/listRepairRecord.do?pageIndex=1&pageSize=2" id="repair">我的报修</a><em></em>
 <a href="#">宿舍明信片</a><em></em>
 <a href="#">虚拟宿舍</a><em></em>
 <a href="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=1&pageSize=10" id="announcement">最新公告</a><em></em>

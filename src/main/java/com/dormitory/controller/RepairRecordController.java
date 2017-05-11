@@ -79,6 +79,12 @@ public class RepairRecordController {
 		RepairRecord record = repairRecordService.get(repairRecordId);
 		return toJSON(record);
 	}
+	@RequestMapping(value="forwardApplyRepair.do")
+	public ModelAndView forwardApplyRecord(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("studentAnnoucment/applyRepair");
+		return modelAndView;
+	}
 
 	@RequestMapping(value = "saveRepairRecord.do", method = RequestMethod.POST)
 	public ModelAndView saveRepairRecord(@ModelAttribute(value = "repairRecord") @Valid RepairRecord repairRecord,

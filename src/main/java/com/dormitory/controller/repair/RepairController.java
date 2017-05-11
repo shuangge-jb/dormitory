@@ -43,19 +43,18 @@ public class RepairController {
 	}
 
 	@RequestMapping(value = "/listRepairRecord.do")
-	@ResponseBody
-	public String listRepairRecord(Integer pageIndex,Integer pageSize){
+	public ModelAndView listRepairRecord(Integer pageIndex,Integer pageSize){
 		List<RepairRecord> list=repairRecordService.list(pageIndex, pageSize);
 		Integer total = repairRecordService.getSize();
 		Integer totalPage=getTotalPages(total, pageSize);
-		Map<String,Object> map=new HashMap<String,Object>(5);
-		map.put("data", list);
-		map.put("total", total);
-		map.put("totalPages", totalPage);
-		map.put("pageIndex", pageIndex);
-		map.put("pageSize", pageSize);
-		map.put("result", list!=null);
-		return toJSON(map);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPages", totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.setViewName("studentAnnoucment/myRepair");
+		return modelAndView;
 	}
 	/**
 	 * 维修部改变维修记录的状态
