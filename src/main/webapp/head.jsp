@@ -154,15 +154,12 @@ String path = request.getContextPath();
 				</div>
 			</c:when>
 			<c:otherwise>
-<<<<<<< HEAD
+
 			<div id="userNameTip">
 			    <div class="leftDistance">
-				欢迎你！<c:out value="${studentName}" />
-=======
 			<div>
-				
 				欢迎你！<c:out value="${studentName}" />&nbsp;&nbsp;&nbsp;&nbsp;
->>>>>>> stage
+
 				<a href="/dormitory/student/logout.do" >安全退出</a>
 				</div>
 				</div>

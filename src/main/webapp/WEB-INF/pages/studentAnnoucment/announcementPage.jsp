@@ -95,48 +95,10 @@ overflow:hidden;border:1px solid #eaeef5;
 	
   </head> 
   <body >
-<<<<<<< HEAD
+
 <jsp:include page="head.jsp"></jsp:include>
-=======
-   <div id="header">   
-      <div id="loginRegister">
-               <div id="leftDistance"> 
-                                您好，欢迎来到虚拟宿舍！
-               <a href="<%=path%>/login.jsp">登录</a>
-               <a href="<%=path%>/reg.jsp">注册</a>
-               </div>             
-      </div>
-      <div id="quick-menu">
-         <ul>
-         <li><a href="javascript:AddFavorite('虚拟宿舍','http://localhost:8080/dormitory/homePage.jsp/')">收藏</a></li>
-         <li class="end"><a href="#">帮助</a></li>
-         
-         </ul>
-      </div>
-   </div>
-   <div id="top">
-   <div class="top_left">
-   <img src="images/scut_new_logo1.jpg" width="73px" height="75px">
-   <div class="top_h2">
-        华南理工大学虚拟宿舍
-   </div>
-	</div>
-	</div>
-		<div id="nav">
-<div class="navc">
-<a href="<%=path%>/homePage.jsp">首页</a><em></em>
-<a href="http://www.mb5u.com/wangyemoban/">网页模板</a>
-<a href="http://www.mb5u.com/cmsmoban/">程序模板</a><em></em>
-<a href="http://www.mb5u.com/edu/">建站教程</a>
-<a href="http://www.mb5u.com/shipinjiaocheng/">视频教程</a><em></em>
-<a href="http://www.mb5u.com/jscode/">网页特效</a>
-<a href="http://www.mb5u.com/sucai/">图标素材</a>
-<a href="http://www.mb5u.com/zitixiazai/">字体下载</a><em></em>
-<a href="http://t.mb5u.com/">站长工具</a>
-<a href="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=1&pageSize=10" id="newAnnounceMent">宿舍公告</a>
-</div>
-</div>
->>>>>>> stage
+
+   
 <div class="register-tipMain">
    
     <div class="new_notice_top">
