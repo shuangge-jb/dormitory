@@ -55,7 +55,7 @@ String path = request.getContextPath();
       color:#f60;
       text-decoration:underline;
       }
-      #leftDistance{
+      .leftDistance{
        margin-left:150px;    
       }  
       #loginRegister{
@@ -66,6 +66,17 @@ String path = request.getContextPath();
         width:500px;
       }
       #loginRegister a{
+      margin:0 5px;
+      text-decoration:underline;
+      }
+      #userNameTip{
+        color:#6C6C6C;
+        float:left;
+        height:33px;
+        text-align:left;
+        width:500px;
+      }
+      #userNameTip a{
       margin:0 5px;
       text-decoration:underline;
       }
@@ -137,16 +148,17 @@ String path = request.getContextPath();
 		<c:choose>
 			<c:when test="${empty studentId }">
 				<div id="loginRegister">
-					<div id="leftDistance">
+					<div class="leftDistance">
 						您好，欢迎来到虚拟宿舍！ <a href="<%=path %>/login.jsp">登录</a> <a href="<%=path %>/reg.jsp">注册</a>
 					</div>
 				</div>
 			</c:when>
 			<c:otherwise>
-			<div>
-				
+			<div id="userNameTip">
+			    <div class="leftDistance">
 				欢迎你！<c:out value="${studentName}" />
 				<a href="/dormitory/student/logout.do" >安全退出</a>
+				</div>
 				</div>
 			</c:otherwise>
 		</c:choose>
