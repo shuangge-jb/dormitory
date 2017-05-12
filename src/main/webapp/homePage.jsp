@@ -338,7 +338,7 @@ a:link, a:visited, a:active {
 				id="myDormitoryDevice">我的设备</a><em></em> <a href="#">失物招领</a><em></em>
 			<a href="<%=path%>/repair/listRepairRecord.do?pageIndex=1&pageSize=2">我的报修</a><em></em>
 			<a href="#">宿舍明信片</a><em></em> <a href="#">虚拟宿舍</a><em></em> <a
-				href="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=1&pageSize=10">最新公告</a><em></em>
+				href="<%=path%>/listMyDormitoryAnnouncement.do?studentId=${studentId }&pageIndex=1&pageSize=10">最新公告</a><em></em>
 			<a href="#">使用指南</a>
 		</div>
 	</div>

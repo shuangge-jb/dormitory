@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
+String backUrl=request.getParameter("backurl");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -243,6 +244,7 @@ String path = request.getContextPath();
   </head>
   
   <body id="login">
+  
 	 <div class="content">
            <form action="<%=path%>/student/studentLogin.do" method="post" class="login-form">
                <div class="username">
@@ -254,6 +256,7 @@ String path = request.getContextPath();
                    <input type="password" name="password" placeholder="请输入密码" />
                    <span class="password-icon icon">p</span>
                </div>
+               <input type="hidden" name="backurl" value="${RequestParameters.backurl}"/>
                <div class="account-control">
                <button type="reset">重置</button>
                    <button type="submit">登陆</button>
@@ -261,6 +264,7 @@ String path = request.getContextPath();
                    
                </div>
                <p class="not-registered">还没有虚拟宿舍账号?<a>现在注册!</a></p>
+               
            </form>
 	   </div>
   </body>

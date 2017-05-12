@@ -1,5 +1,10 @@
 package com.dormitory.interceptor;
 
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -31,10 +36,11 @@ public class StudentLoginInterceptor implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response,
 			Object handler, ModelAndView mv) throws Exception {
 		if(backUrl!=null&&(backUrl.isEmpty()==false)){
-			StringBuffer loginUrl=request.getRequestURL();
-			response.sendRedirect(loginUrl + "?backurl=" + backUrl); 
+			String url=request.getRequestURI();
+			 response.sendRedirect(url+"?backUrl="+backUrl);   
+			 System.out.println("redirect to "+backUrl);
 		}
-		
+		System.out.println("postHandle");
 	}
 /**
  * Handler执行之前调用这个方法 
@@ -44,7 +50,15 @@ public class StudentLoginInterceptor implements HandlerInterceptor {
 			Object handler) throws Exception {
 		 //获取请求的URL  
         String url = request.getRequestURI();  
-        backUrl=url;
+        Map<String,String[]> list=request.getParameterMap();
+        Iterator<Entry<String, String[]>> it=list.entrySet().iterator();
+        while(it.hasNext()){
+        	Entry<String, String[]> item=it.next();
+        	System.out.println(item.getKey()+" "+item.getValue()[0]);
+        }
+       
+        backUrl= request.getParameter("backurl");
+        System.out.println("backurl="+backUrl);
         //URL:login.jsp是公开的;这个demo是除了login.jsp是可以公开访问的，其它的URL都进行拦截控制  
         if(url.contains("studentLogin.do")){  
             return true;  
