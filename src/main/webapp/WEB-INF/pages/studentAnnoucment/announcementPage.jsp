@@ -23,6 +23,9 @@ String path = request.getContextPath();
 	        }
 	    }
 	}
+	 $(document).ready(function() {
+		 $('#announcement').addClass("titleTip");
+		 })
 	</script>
 	<script type="text/javascript">
 	$(document).ready(function() {

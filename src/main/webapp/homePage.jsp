@@ -264,7 +264,7 @@ a:link, a:visited, a:active {
 <a href="<%=path%>/homePage.jsp" id="homePage">首页</a><em></em>
 <a href="<%=path%>/student/listUserDevice.do?pageIndex=1&pageSize=8"
    id="myDormitoryDevice">我的设备</a><em></em>
-<a href="#">失物招领</a><em></em>
+<a href="<%=path%>/listLostFound.do?pageIndex=1&pageSize=3">失物招领</a><em></em>
 <a href="<%=path%>/repair/listRepairRecord.do?pageIndex=1&pageSize=2">我的报修</a><em></em>
 <a href="#">宿舍明信片</a><em></em>
 <a href="#">虚拟宿舍</a><em></em>

@@ -36,20 +36,20 @@ public class LostFoundController {
 	protected static final Logger LOGGER = LoggerFactory.getLogger(LostFoundController.class);
 
 	@RequestMapping(value = "listLostFound.do")
-	@ResponseBody
-	public String listLostFound(@RequestParam(value = "pageIndex") Integer pageIndex,
+	public ModelAndView listLostFound(@RequestParam(value = "pageIndex") Integer pageIndex,
 			@RequestParam(value = "pageSize") Integer pageSize) {
+		ModelAndView modelAndView = new ModelAndView();
 		List<LostFound> list = lostFoundService.list(pageIndex, pageSize);
 		Integer total = lostFoundService.getSize();
 		Integer totalPage=getTotalPages(total, pageSize);
-		Map<String, Object> map = new HashMap<String, Object>(3);
-		map.put("data", list);
-		map.put("total", total);
-		map.put("totalPages", totalPage);
-		map.put("pageIndex", pageIndex);
-		map.put("pageSize", pageSize);
-		map.put("result", list!=null);
-		return toJSON(map);
+        modelAndView.addObject("data", list);
+        modelAndView.addObject("total", total);
+        modelAndView.addObject("totalPages", totalPage);
+        modelAndView.addObject("pageIndex", pageIndex);
+        modelAndView.addObject("pageSize", pageSize);
+        modelAndView.addObject("result", list!=null);	
+        modelAndView.setViewName("studentAnnoucment/lostFound");
+		return modelAndView;
 	}
 	
 	@RequestMapping(value = "saveOrUpdateLostFound.do",method=RequestMethod.POST)

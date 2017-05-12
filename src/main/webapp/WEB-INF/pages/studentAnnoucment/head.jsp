@@ -23,9 +23,7 @@ String path = request.getContextPath();
 	        }
 	    }
 	}
-	 $(document).ready(function() {
-	 $('#announcement').addClass("titleTip");
-	 })
+
 	</script>
 	<style type="text/css">
 	
@@ -72,7 +70,7 @@ String path = request.getContextPath();
 <a href="<%=path%>/homePage.jsp">首页</a><em></em>
 <a href="<%=path%>/student/listUserDevice.do?pageIndex=1&pageSize=8"
    >我的设备</a>
-<a href="#">失物招领</a><em></em>
+<a href="<%=path%>/listLostFound.do?pageIndex=1&pageSize=3" id="lostFond">失物招领</a><em></em>
 <a href="<%=path%>/repair/listRepairRecord.do?pageIndex=1&pageSize=2" id="repair">我的报修</a><em></em>
 <a href="#">宿舍明信片</a><em></em>
 <a href="#">虚拟宿舍</a><em></em>

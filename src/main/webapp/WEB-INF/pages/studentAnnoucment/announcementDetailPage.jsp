@@ -25,9 +25,9 @@ String path = request.getContextPath();
 	}
 	</script>
 	<script type="text/javascript">
-	$(document).ready(function() {
-		 $("#newAnnounceMent").addClass("newAnnounceMent");
-		})
+	 $(document).ready(function() {
+		 $('#announcement').addClass("titleTip");
+		 })
 	function backAnnouncementList(){
 		window.location.href ="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=1&pageSize=10";	
 	}

@@ -12,9 +12,9 @@ import org.apache.ibatis.annotations.Update;
 import com.dormitory.entity.LostFound;
 
 public interface LostFoundDAO {
-	@Select(" select * from lost_found order by create_time desc limit (#{pageIndex}-1)*#{pageSize},#{pageSize} ")
+	@Select(" select * from lost_found order by create_time desc limit #{start},#{pageSize}")
 	@ResultMap("com.dormitory.mapper.LostFoundMapper.lostFound")
-	public List<LostFound> list(Integer pageIndex, Integer pageSize);
+	public List<LostFound> list(@Param("start")Integer start,@Param("pageSize") Integer pageSize);
 
 	@Select(" select count(*) from lost_found ")
 	public Integer getSize();
