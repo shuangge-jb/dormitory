@@ -27,7 +27,7 @@
 	    }
 	}
 	function goingRepairRecord(){
-		window.location.href ="<%=path%>/repair/listRepairRecord.do?pageIndex=1&pageSize=2";
+		window.location.href ="<%=path%>/student/listRepairRecordByDormitoryId.do?dormitoryId=${dormitoryId}&pageIndex=1&pageSize=2";
 	}
 	function forwardRepair(){
 		window.location.href ="<%=path%>/forwardApplyRepair.do";
@@ -119,11 +119,12 @@
 <a href="<%=path%>/homePage.jsp">首页</a><em></em>
 <a href="<%=path%>/student/listUserDevice.do?pageIndex=1&pageSize=8"
    >我的设备</a>
-<a href="<%=path%>/listLostFound.do?pageIndex=1&pageSize=2" id="lostFond">失物招领</a><em></em>
-<a href="<%=path%>/repair/listRepairRecord.do?pageIndex=1&pageSize=2" id="repair">我的报修</a><em></em>
+
+<a href="#">失物招领</a><em></em>
+<a href="<%=path%>/student/listRepairRecordByDormitoryId.do?dormitoryId=${dormitoryId}&pageIndex=1&pageSize=2">我的报修</a><em></em>
 <a href="#">宿舍明信片</a><em></em>
 <a href="#">虚拟宿舍</a><em></em>
-<a href="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=1&pageSize=10">最新公告</a><em></em>
+<a href="<%=path%>/listMyDormitoryAnnouncement.do?studentId=${studentId }&pageIndex=1&pageSize=10">最新公告</a><em></em>
 <a href="#">使用指南</a>
 </div>
 </div>
@@ -172,15 +173,15 @@
 	 </c:if>
 	 <c:if test="${pageIndex>1}">
 			<td><a
-				href="<%=path%>/repair/listRepairRecord.do?pageIndex=1&pageSize=2">首页</a></td>
+				href="<%=path%>/student/listRepairRecordByDormitoryId.do?dormitoryId=${dormitoryId}&pageIndex=1&pageSize=2">首页</a></td>
 			<td><a
-               href="<%=path%>/repair/listRepairRecord.do?pageIndex=${pageIndex-1}&pageSize=2">上一页</a></td>
+               href="<%=path%>/student/listRepairRecordByDormitoryId.do?dormitoryId=${dormitoryId}&pageIndex=${pageIndex-1}&pageSize=2">上一页</a></td>
 	</c:if>
 	 <c:if test="${pageIndex != totalPages}">
 				<td><a
-					href="<%=path%>/repair/listRepairRecord.do?pageIndex=${pageIndex+1}&pageSize=2">下一页</a></td>
+					href="<%=path%>/student/listRepairRecordByDormitoryId.do?dormitoryId=${dormitoryId}&pageIndex=${pageIndex+1}&pageSize=2">下一页</a></td>
 				<td><a
-					href="<%=path%>/repair/listRepairRecord.do?pageIndex=${totalPages}&pageSize=2">最后一页</a></td>
+					href="<%=path%>/student/listRepairRecordByDormitoryId.do?dormitoryId=${dormitoryId}&pageIndex=${totalPages}&pageSize=2">最后一页</a></td>
 		</c:if>
 	  <c:if test="${pageIndex == totalPages}">
 			<td>下一页&nbsp;&nbsp;最后一页&nbsp;&nbsp;</td>

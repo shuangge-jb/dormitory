@@ -48,14 +48,14 @@ public interface RepairRecordDAO {
 	@Select("select LAST_INSERT_ID()f")
 	public Integer gerLastInsertId();
 
-	@Insert(" insert into repair_record(dormitory_id,device_name,content,price,state,create_time,repair_time,contact_id)  "
-			+ " values(#{dormitoryId},#{deviceName},#{content},#{price},#{state},#{createTime},#{repairTime},#{contactId}) ")
+	@Insert(" insert into repair_record(dormitory_id,device_name,content,price,state,create_time,repair_time,contact_id,description,phone_number)  "
+			+ " values(#{dormitoryId},#{deviceName},#{content},#{price},#{state},#{createTime},#{repairTime},#{contactId},#{description},#{phoneNumber}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "repairRecordId")
 	public void save(RepairRecord repairRecord);
 
 	@Update(" update repair_record  set dormitory_id=#{dormitoryId}, device_name=#{deviceName}, "
 			+ " content=#{content},price=#{price}, state=#{state},create_time=#{createTime}, "
-			+ " repair_time=#{repairTime},contact_id=#{contactId} where repair_record_id=#{repairRecordId} ")
+			+ " repair_time=#{repairTime},contact_id=#{contactId},description=#{description},phone_number=#{phoneNumber} where repair_record_id=#{repairRecordId} ")
 	public void update(RepairRecord repairRecord);
 
 	@Update(" update repair_record set state=0 where repair_record_id=#{repairRecordId} ")

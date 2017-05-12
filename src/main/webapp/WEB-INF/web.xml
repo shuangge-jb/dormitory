@@ -56,14 +56,14 @@
     <servlet-name>dormitory</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
-  <servlet>
+ <!--  <servlet>
     <servlet-name>saveDevice</servlet-name>
     <jsp-file>/WEB-INF/pages/saveDevice.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>saveDevice</servlet-name>
     <url-pattern>/admin/saveDevice</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
   
   
 </web-app>

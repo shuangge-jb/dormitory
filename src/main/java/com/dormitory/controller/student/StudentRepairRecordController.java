@@ -1,5 +1,6 @@
 package com.dormitory.controller.student;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,21 +31,41 @@ public class StudentRepairRecordController extends RepairRecordController {
 	private DormitoryService dormitoryService;
 
 	@RequestMapping(value = "listRepairRecordByDormitoryId.do")
-	@ResponseBody
-	public String listRepairRecordByDormitoryId(@RequestParam("dormitoryId") Integer dormitoryId,
+	public ModelAndView listRepairRecordByDormitoryId(@RequestParam("dormitoryId") Integer dormitoryId,
 			@RequestParam("pageIndex") Integer pageIndex, @RequestParam("pageSize") Integer pageSize) {
 		List<RepairRecord> list = repairRecordService.listByDormitoryId(dormitoryId, pageIndex, pageSize);
 		Integer total = repairRecordService.getSizeByDormitoryId(dormitoryId);
 		Integer totalPage=getTotalPages(total, pageSize);
-		Map<String, Object> map = new HashMap<String, Object>(2);
-		map.put("data", list);
-		map.put("total", total);
-		map.put("totalPages", totalPage);
-		map.put("pageIndex", pageIndex);
-		map.put("pageSize", pageSize);
-		map.put("result", list!=null);
-		return toJSON(map);
+		ModelAndView modelAndView = new ModelAndView("studentAnnoucment/myRepair");
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPages", totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.addObject("dormitoryId", dormitoryId);
+		return modelAndView;
 	}
+	/**
+	 * 学生提交维修记录
+	 * @param repairRecord
+	 * @param result
+	 * @return
+	 */
+	@RequestMapping(value = "saveRepairRecord.do", method = RequestMethod.POST)
+	public ModelAndView saveRepairRecord(@ModelAttribute(value = "repairRecord") @Valid RepairRecord repairRecord,
+			BindingResult result) {
+		ModelAndView modelAndView = new ModelAndView("studentAnnoucment/applyRepair");
+		if (result.hasErrors()) {
+			System.out.println(result.getFieldError().toString());
+			modelAndView.addObject("status", "输入的数据有误，请检查");
+			return modelAndView;
+		}
+		repairRecord.setCreateTime(new Timestamp(System.currentTimeMillis()));
+		repairRecordService.saveOrUpdate(repairRecord);
+		modelAndView.addObject("status", "成功提交");
+		return modelAndView;
+	}
+	
 	/**
 	 * 学生修改维修记录
 	 * @param repairRecord
@@ -61,6 +82,16 @@ public class StudentRepairRecordController extends RepairRecordController {
 		}
 		repairRecordService.saveOrUpdate(repairRecord);
 		modelAndView.addObject("status", "成功");
+		return modelAndView;
+	}
+	
+	/**
+	 * 跳转到报修页面
+	 * @return
+	 */
+	@RequestMapping(value = "forwardRepair.do")
+	public ModelAndView forwardRepair(@RequestParam(value="dormitoryId")Integer dormitoryId){
+		ModelAndView modelAndView = new ModelAndView("");
 		return modelAndView;
 	}
 }

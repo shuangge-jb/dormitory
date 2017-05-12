@@ -110,15 +110,21 @@ public class StudentController {
 
 	@RequestMapping(value = "/studentLogin.do", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam(value = "id") Long studentId,
-			@RequestParam(value = "password") String password, Model model) {
+			@RequestParam(value = "password") String password, Model model,@RequestParam(value = "backurl")String backurl) {
 		ModelAndView modelAndView = new ModelAndView("../../login");// login不在WEB-INF/pages下，要访问父级目录
 		Student temp = studentService.get(studentId);
 		if (temp != null) {
 			if (password.trim().equals(temp.getPassword())) {
-				modelAndView.setViewName("../../homePage");
+				
 				Dormitory dormitory = dormitoryService.get(studentId);
 				setSessionValue(model, dormitory.getDormitoryId(), studentId, temp.getName());
 			}
+		}
+		System.out.println("backurl:"+backurl);
+		if(backurl!=null&&backurl.isEmpty()==false){
+			modelAndView.setViewName("forward:/"+backurl);
+		}else{
+			modelAndView.setViewName("../../homePage");
 		}
 		return modelAndView;
 	}

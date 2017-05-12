@@ -125,15 +125,15 @@ overflow:hidden;border:1px solid #eaeef5;
 	 </c:if>
 	 <c:if test="${pageIndex>1}">
 			<td><a
-				href="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=1&pageSize=10">首页</a></td>
+				href="<%=path%>/listMyDormitoryAnnouncement.do?studentId=${studentId }&pageIndex=1&pageSize=10">首页</a></td>
 			<td><a
-               href="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=${pageIndex-1}&pageSize=10">上一页</a></td>
+               href="<%=path%>/listMyDormitoryAnnouncement.do?studentId=${studentId }&pageIndex=${pageIndex-1}&pageSize=10">上一页</a></td>
 	</c:if>
 	 <c:if test="${pageIndex != totalPages}">
 				<td><a
-					href="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=${pageIndex+1}&pageSize=10">下一页</a></td>
+					href="<%=path%>/listMyDormitoryAnnouncement.do?studentId=${studentId }&pageIndex=${pageIndex+1}&pageSize=10">下一页</a></td>
 				<td><a
-					href="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=${totalPages}&pageSize=10">最后一页</a></td>
+					href="<%=path%>/listMyDormitoryAnnouncement.do?studentId=${studentId }&pageIndex=${totalPages}&pageSize=10">最后一页</a></td>
 		</c:if>
 	  <c:if test="${pageIndex == totalPages}">
 			<td>下一页&nbsp;&nbsp;最后一页&nbsp;&nbsp;</td>

@@ -2,16 +2,28 @@ package com.dormitory.entity;
 
 import java.sql.Timestamp;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class RepairRecord {
 	protected Integer repairRecordId;
+	@NotNull
 	protected Integer dormitoryId;
+	@NotEmpty
 	protected String deviceName;
+	@NotEmpty
 	protected String content;
 	protected Double price;
 	protected Integer state;
 	protected Timestamp createTime;
 	protected Timestamp repairTime;
+	@NotNull
 	protected Long contactId;
+	@NotEmpty
+	protected String description;
+	@NotNull
+	protected Long phoneNumber;
 
 	public Integer getRepairRecordId() {
 		return repairRecordId;
@@ -85,11 +97,28 @@ public class RepairRecord {
 		this.price = price;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Long getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(Long phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	@Override
 	public String toString() {
 		return "RepairRecord [repairRecordId=" + repairRecordId + ", dormitoryId=" + dormitoryId + ", deviceName="
 				+ deviceName + ", content=" + content + ", price=" + price + ", state=" + state + ", createTime="
-				+ createTime + ", repairTime=" + repairTime + ", contactId=" + contactId + "]";
+				+ createTime + ", repairTime=" + repairTime + ", contactId=" + contactId + ", description="
+				+ description + ", phoneNumber=" + phoneNumber + "]";
 	}
 
 }
