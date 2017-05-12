@@ -8,39 +8,18 @@ String path = request.getContextPath();
 <html>
   <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-	<link rel="stylesheet" href="<%=path%>/css/mydevice/head.css" media="all"/>
-	<script type="text/javascript">
-	function AddFavorite(title, url) {
-	    try {
-	        window.external.addFavorite(url, title);
-	    }
-	    catch (e) {
-	        try {
-	            window.sidebar.addPanel(title, url, "");
-	        }
-	        catch (e) {
-	            alert("抱歉，您所使用的浏览器无法完成此操作。\n\n加入收藏失败，请使用Ctrl+D进行添加");
-	        }
-	    }
-	}
-
-	</script>
-	<style type="text/css">
-	
-	</style>
-	
   </head>
   
   <body >
-   <div id="header">
+   <div id="header"> 
       <div id="quick-menu">
          <ul>
          <li><a href="javascript:AddFavorite('虚拟宿舍','http://localhost:8080/dormitory/homePage.jsp/')">收藏</a></li>
          <li class="end"><a href="#">帮助</a></li>
          </ul>
       </div>
-       <c:choose>
-			<c:when test="${empty studentId}">
+      <c:choose>
+			<c:when test="${empty studentId }">
 				<div id="loginRegister">
 					<div class="leftDistance">
 						您好，欢迎来到虚拟宿舍！ <a href="<%=path %>/login.jsp">登录</a> <a href="<%=path %>/reg.jsp">注册</a>
@@ -65,16 +44,16 @@ String path = request.getContextPath();
    </div>
 	</div>
 	</div>
-		<div id="nav">
+	<div id="nav">
 			<div class="navc">
 <a href="<%=path%>/homePage.jsp">首页</a><em></em>
 <a href="<%=path%>/student/listUserDevice.do?pageIndex=1&pageSize=8"
    >我的设备</a>
-<a href="<%=path%>/listLostFound.do?pageIndex=1&pageSize=3" id="lostFond">失物招领</a><em></em>
+<a href="<%=path%>/listLostFound.do?pageIndex=1&pageSize=2" id="lostFond">失物招领</a><em></em>
 <a href="<%=path%>/repair/listRepairRecord.do?pageIndex=1&pageSize=2" id="repair">我的报修</a><em></em>
-<a href="#">宿舍明信片</a><em></em>
+<a href="<%=path%>/student/listPostcardByStudentId.do?studentId=${studentId }&pageIndex=1&pageSize=6" id="postCard">宿舍明信片</a><em></em>
 <a href="#">虚拟宿舍</a><em></em>
-<a href="<%=path%>/listMyDormitoryAnnouncement.do?studentId=${studentId }&pageIndex=1&pageSize=10"  id="announcement">最新公告</a><em></em>
+<a href="<%=path%>/listMyDormitoryAnnouncement.do?studentId=${studentId }&pageIndex=1&pageSize=10">最新公告</a><em></em>
 <a href="#">使用指南</a>
 </div>
 </div>

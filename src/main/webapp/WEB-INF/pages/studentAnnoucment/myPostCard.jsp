@@ -12,6 +12,7 @@
 	<script src="<%=path%>/js/jquery-2.1.4.min.js"></script>
 	<link rel="stylesheet" href="<%=path%>/css/bootstrap.min.css" media="all"/>
 	<link rel="stylesheet" href="<%=path%>/css/mydevice/mydevicehead.css" media="all"/>
+	<script src="<%=path%>/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 	function AddFavorite(title, url) {
 	    try {
@@ -29,8 +30,17 @@
 	function goingRepairRecord(){
 		window.location.href ="<%=path%>/repair/listRepairRecord.do?pageIndex=1&pageSize=2";
 	}
-	function forwardRepair(){
-		window.location.href ="<%=path%>/forwardApplyRepair.do";
+	function getPostCard(state){
+		if(state==1){
+			$('#myModal').modal('show');
+			//alert("设备名称不能为空");
+			$(".modal-body").text("你已经领取了该明信片");
+		}
+		else{
+		$('#myModal').modal('show');
+		//alert("设备名称不能为空");
+		$(".modal-body").text("请前往楼管那里领取");
+		}
 	}
 	
 	</script>
@@ -73,7 +83,7 @@
    border-bottom:0px;font-size:16px;
    font-weight:bolder;color:#029AFF;
    }
-    #repair{
+    #postCard{
  color:#fff;text-decoration:none;background-color:#0074A6;height:50px;line-height:51px;line-height:54px\9;line-height:52px\0;border-bottom:0;
  }
   </style>
@@ -81,42 +91,34 @@
   </head>
   
   <body >
-<jsp:include page="title.jsp"></jsp:include>
+    <jsp:include page="title.jsp"></jsp:include>
     <div class="register-main">
     <div class="register-form" style="min-height:380px;">
-    <h3 class="content-hd"><b>我的报修</b><label class="c_orange">(*可以查看报修记录和申请报修)</label></h3>
-    <div style="margin-left:40px;">
-				<input type="button" id="repairRecord"
-					value="报修记录" onclick="goingRepairRecord();"/>
-				<input type="button"  id="applyRepair"
-					value="现在报修"  onclick="forwardRepair();"/>
-	</div>
-	<div style="border-bottom:1px solid #009AFF;width:790px;margin-left:6px;"></div>
+    <h3 class="content-hd"><b>我的明信片</b><label class="c_orange">(*可以查看宿舍所有相关本人的明信片)</label></h3>
+   
 	<table id="repairTable"
 			>	<tr
 					style="background:#E0F1FE;height:45px;border-bottom:solid 1px #a0c6e5;">
 					<td style="border-right:solid 1px #a0c6e5;width:80px;">序号</td>
-					<td style="border-right:solid 1px #a0c6e5;width:90px;">维修设备</td>
-					<td style="border-right:solid 1px #a0c6e5;">维修简述</td>
-					<td style="border-right:solid 1px #a0c6e5;width:90px;">维修费用</td>
-					<td style="border-right:solid 1px #a0c6e5;">维修状态</td>
-					<td style="border-right:solid 1px #a0c6e5;width:90px;">申请时间</td>
+					<td style="border-right:solid 1px #a0c6e5;width:90px;">收明信片名字</td>
+					<td style="border-right:solid 1px #a0c6e5;">宿舍楼</td>
+					<td style="border-right:solid 1px #a0c6e5;width:90px;">时间</td>
+					<td style="border-right:solid 1px #a0c6e5;">状态</td>
 					<td style="border-right:solid 1px #a0c6e5;width:50px;">操作</td>		
 				</tr>
 				
-	<c:forEach items="${data}" var="repair" varStatus="b">
+	<c:forEach items="${data}" var="postCard" varStatus="b">
 	  <tr>
 	  <td>${b.index+1}</td>
-	  <td>${repair.deviceName}</td>
-	  <td>${repair.content}</td>
-	  <td>${repair.price}</td>
-	  <td><c:if test="${repair.state==1}">已维修</c:if>
-	  <c:if test="${repair.state==0}">未维修</c:if>
+	  <td>${postCard.studentId}</td>
+	  <td>${postCard.dormitoryId}</td>
+	  <td>${postCard.createTime}</td>
+	  <td style="color:red"><c:if test="${postCard.state==1}">已领取</c:if>
+	  <c:if test="${postCard.state==0}">未领取</c:if>
 	  </td>
-	   <td>${repair.createTime}</td>
-	   <td><input type="button"  class="button"
+	   <td><input type="button"  class="button" onclick="getPostCard('${postCard.state}')"
       onMouseOver="this.style.backgroundColor ='#7ACD00';" onMouseOut="this.style.backgroundColor ='#188808';"
-       value="确认"  /></td>
+       value="领取"  /></td>
 	  </tr>
 		</c:forEach>
 		</table>
@@ -127,15 +129,15 @@
 	 </c:if>
 	 <c:if test="${pageIndex>1}">
 			<td><a
-				href="<%=path%>/repair/listRepairRecord.do?pageIndex=1&pageSize=2">首页</a></td>
+				href="<%=path%>/student/listPostcardByStudentId.do?studentId=${studentId}&pageIndex=1&pageSize=6">首页</a></td>
 			<td><a
-               href="<%=path%>/repair/listRepairRecord.do?pageIndex=${pageIndex-1}&pageSize=2">上一页</a></td>
+               href="<%=path%>/student/listPostcardByStudentId.do?studentId=${studentId}&pageIndex=${pageIndex-1}&pageSize=6">上一页</a></td>
 	</c:if>
 	 <c:if test="${pageIndex != totalPages}">
 				<td><a
-					href="<%=path%>/repair/listRepairRecord.do?pageIndex=${pageIndex+1}&pageSize=2">下一页</a></td>
+					href="<%=path%>/student/listPostcardByStudentId.do?studentId=${studentId}&pageIndex=${pageIndex+1}&pageSize=6">下一页</a></td>
 				<td><a
-					href="<%=path%>/repair/listRepairRecord.do?pageIndex=${totalPages}&pageSize=2">最后一页</a></td>
+					href="<%=path%>/student/listPostcardByStudentId.do?studentId=${studentId}&pageIndex=${totalPages}&pageSize=6">最后一页</a></td>
 		</c:if>
 	  <c:if test="${pageIndex == totalPages}">
 			<td>下一页&nbsp;&nbsp;最后一页&nbsp;&nbsp;</td>
@@ -147,5 +149,23 @@
 	</div>
   <jsp:include page="foot.jsp"></jsp:include> 
 </div>
+<!-- 提示框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">错误提示</h4>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">确定
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

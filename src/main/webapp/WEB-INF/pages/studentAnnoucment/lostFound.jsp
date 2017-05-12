@@ -61,52 +61,7 @@ $(document).ready(function() {
 
 
 <body>
- <div id="header"> 
-      <div id="quick-menu">
-         <ul>
-         <li><a href="javascript:AddFavorite('虚拟宿舍','http://localhost:8080/dormitory/homePage.jsp/')">收藏</a></li>
-         <li class="end"><a href="#">帮助</a></li>
-         </ul>
-      </div>
-      <c:choose>
-			<c:when test="${empty studentId }">
-				<div id="loginRegister">
-					<div class="leftDistance">
-						您好，欢迎来到虚拟宿舍！ <a href="<%=path %>/login.jsp">登录</a> <a href="<%=path %>/reg.jsp">注册</a>
-					</div>
-				</div>
-			</c:when>
-			<c:otherwise>
-			<div id="userNameTip">
-			    <div class="leftDistance">
-				欢迎你！<c:out value="${studentName}" />
-				<a href="/dormitory/student/logout.do" >安全退出</a>
-				</div>
-				</div>
-			</c:otherwise>
-		</c:choose>
-   </div>
-   <div id="top">
-   <div class="top_left">
-   <img src="<%=path%>/images/scut_new_logo1.jpg" width="73px" height="75px">
-   <div class="top_h2">
-        华南理工大学虚拟宿舍
-   </div>
-	</div>
-	</div>
-	<div id="nav">
-			<div class="navc">
-<a href="<%=path%>/homePage.jsp">首页</a><em></em>
-<a href="<%=path%>/student/listUserDevice.do?pageIndex=1&pageSize=8"
-   >我的设备</a>
-<a href="<%=path%>/listLostFound.do?pageIndex=1&pageSize=3" id="lostFond">失物招领</a><em></em>
-<a href="<%=path%>/repair/listRepairRecord.do?pageIndex=1&pageSize=2" id="repair">我的报修</a><em></em>
-<a href="#">宿舍明信片</a><em></em>
-<a href="#">虚拟宿舍</a><em></em>
-<a href="<%=path%>/listMyDormitoryAnnouncement.do?pageIndex=1&pageSize=10">最新公告</a><em></em>
-<a href="#">使用指南</a>
-</div>
-</div>
+<jsp:include page="title.jsp"></jsp:include>
  <div class="lostFondMain">
  <div class="lostFond-form" style="min-height:380px;">
    <h3 class="content-hd"><b>&nbsp;&nbsp;失物招领信息</b>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.PostcardController;
 import com.dormitory.entity.Postcard;
@@ -22,20 +23,20 @@ public class StudentPostcardController extends PostcardController {
 	private StudentService studentService;
 
 	@RequestMapping(value = "listPostcardByStudentId.do")
-	@ResponseBody
-	public String listPostcardByStudentId(@RequestParam("studentId") Long studentId, @RequestParam("pageIndex") Integer pageIndex,
+	public ModelAndView listPostcardByStudentId(@RequestParam("studentId") Long studentId, @RequestParam("pageIndex") Integer pageIndex,
 			@RequestParam("pageSize") Integer pageSize) {
+		ModelAndView modelAndView = new ModelAndView();
 		List<Postcard> list = postcardService.listByStudentId(studentId, pageIndex, pageSize);
 		Integer total = postcardService.getSizeByStudentId(studentId);
 		Integer totalPage=getTotalPages(total, pageSize);
-		Map<String, Object> map = new HashMap<String, Object>(2);
-		map.put("data", list);
-		map.put("total", total);
-		map.put("totalPages", totalPage);
-		map.put("pageIndex", pageIndex);
-		map.put("pageSize", pageSize);
-		map.put("result", list!=null);
-		return toJSON(map);
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPages", totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.addObject("result", list!=null);
+		modelAndView.setViewName("studentAnnoucment/myPostCard");
+		return modelAndView;
 	}
 	
 }
