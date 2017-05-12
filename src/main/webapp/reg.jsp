@@ -367,6 +367,10 @@
 		enctype="multipart/form-data" onsubmit="return validate();">
 		<div class="register-form">
 			<h3 class="content-hd"><b>注册信息</b><label class="c_orange">(*为必填项)</label></h3>
+			<li >
+			 <font  style="margin-left:80px;color:#FF0000;" size=4>
+			   ${status}</font>
+			 </li>
 			 <ul class="form-content">
 			 <li class="pb10">
 			  <label class="form-label">
