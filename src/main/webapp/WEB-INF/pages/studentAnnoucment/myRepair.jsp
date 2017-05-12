@@ -27,7 +27,7 @@
 	    }
 	}
 	function goingRepairRecord(){
-		window.location.href ="<%=path%>/repair/listRepairRecord.do?pageIndex=1&pageSize=2";
+		window.location.href ="<%=path%>/student/listRepairRecordByDormitoryId.do?dormitoryId=${dormitoryId}&pageIndex=1&pageSize=2";
 	}
 	function forwardRepair(){
 		window.location.href ="<%=path%>/forwardApplyRepair.do";
@@ -82,6 +82,7 @@
   
   <body >
 <jsp:include page="title.jsp"></jsp:include>
+
     <div class="register-main">
     <div class="register-form" style="min-height:380px;">
     <h3 class="content-hd"><b>我的报修</b><label class="c_orange">(*可以查看报修记录和申请报修)</label></h3>
@@ -127,15 +128,15 @@
 	 </c:if>
 	 <c:if test="${pageIndex>1}">
 			<td><a
-				href="<%=path%>/repair/listRepairRecord.do?pageIndex=1&pageSize=2">首页</a></td>
+				href="<%=path%>/student/listRepairRecordByDormitoryId.do?dormitoryId=${dormitoryId}&pageIndex=1&pageSize=2">首页</a></td>
 			<td><a
-               href="<%=path%>/repair/listRepairRecord.do?pageIndex=${pageIndex-1}&pageSize=2">上一页</a></td>
+               href="<%=path%>/student/listRepairRecordByDormitoryId.do?dormitoryId=${dormitoryId}&pageIndex=${pageIndex-1}&pageSize=2">上一页</a></td>
 	</c:if>
 	 <c:if test="${pageIndex != totalPages}">
 				<td><a
-					href="<%=path%>/repair/listRepairRecord.do?pageIndex=${pageIndex+1}&pageSize=2">下一页</a></td>
+					href="<%=path%>/student/listRepairRecordByDormitoryId.do?dormitoryId=${dormitoryId}&pageIndex=${pageIndex+1}&pageSize=2">下一页</a></td>
 				<td><a
-					href="<%=path%>/repair/listRepairRecord.do?pageIndex=${totalPages}&pageSize=2">最后一页</a></td>
+					href="<%=path%>/student/listRepairRecordByDormitoryId.do?dormitoryId=${dormitoryId}&pageIndex=${totalPages}&pageSize=2">最后一页</a></td>
 		</c:if>
 	  <c:if test="${pageIndex == totalPages}">
 			<td>下一页&nbsp;&nbsp;最后一页&nbsp;&nbsp;</td>

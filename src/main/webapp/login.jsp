@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 	String path = request.getContextPath();
+String backurl=request.getParameter("backurl");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -84,6 +85,7 @@
 				<span id="passwordErrorTip"
 					style="margin-left: 5px; color: #929699;"></span>
 			</div>
+			
 			<div class="account-control">
 				<button type="reset">重置</button>
 				<button type="submit">登陆</button>
@@ -91,6 +93,9 @@
 			<p class="not-registered">
 				还没有虚拟宿舍账号?<a>现在注册!</a>
 			</p>
+			<div class="backurl">
+			<input type="hidden" name="backurl" value="<%=backurl%>"/>
+			</div>
 		</form>
 	</div>
 </body>

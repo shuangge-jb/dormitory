@@ -86,19 +86,7 @@ public class RepairRecordController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "saveRepairRecord.do", method = RequestMethod.POST)
-	public ModelAndView saveRepairRecord(@ModelAttribute(value = "repairRecord") @Valid RepairRecord repairRecord,
-			BindingResult result) {
-		ModelAndView modelAndView = new ModelAndView("");
-		if (result.hasErrors()) {
-			modelAndView.setViewName(ERROR_PAGE);
-			return modelAndView;
-		}
-		repairRecord.setCreateTime(new Timestamp(System.currentTimeMillis()));
-		repairRecordService.saveOrUpdate(repairRecord);
-		modelAndView.addObject("status", "成功");
-		return modelAndView;
-	}
+	
 
 	@RequestMapping(value = "removeRepairRecord.do", method = RequestMethod.POST)
 	public ModelAndView removeRepairRecord(@RequestParam(value = "repairRecordId") Integer repairRecordId) {

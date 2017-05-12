@@ -122,7 +122,11 @@
 				<!-- 登录拦截器 -->
 		<mvc:interceptor>
 			<mvc:mapping path="/listMyDormitoryAnnouncement.do" />
+			<mvc:mapping path="/student/listUserDevice.do"/>
 			<mvc:mapping path="/student/studentLogin.do" />
+			<mvc:mapping path="/student/listRepairRecordByDormitoryId.do"/>
+			<mvc:mapping path="/student/forwardApplyRepair.do"/>
+			<mvc:mapping path="/student/saveRepairRecord.do"/>
 			<bean class="com.dormitory.interceptor.StudentLoginInterceptor"></bean>
 		</mvc:interceptor>
 		</mvc:interceptors>

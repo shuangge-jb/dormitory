@@ -41,11 +41,12 @@ public class StudentDeviceController extends DeviceController {
 	private InterfaceService interfaceService;
 
 	@RequestMapping(value = "invokeInterface.do", method = RequestMethod.POST)
-	@ResponseBody
-	public String invokeInterface(HttpServletRequest request) {
+	public ModelAndView invokeInterface(HttpServletRequest request) {
 		Map<String, String[]> map = request.getParameterMap();
 		Map<String, Object> paramater = new HashMap<String, Object>(map.size());
 		String interfaceId = request.getParameter("interfaceId");
+		Interface function=interfaceService.get(Integer.valueOf(interfaceId));
+		String source=function.getSource();
 		Interface face = interfaceService.get(Integer.valueOf(interfaceId));
 		String url = face.getInterfaceUrl();
 		String method = face.getMethod().toUpperCase();
@@ -76,7 +77,11 @@ public class StudentDeviceController extends DeviceController {
 		}
 
 		System.out.println("result:" + result);
-		return result;
+		ModelAndView modelAndView=new ModelAndView("studentDevices/showData");
+		modelAndView.addObject("data", result);
+		modelAndView.addObject("functionId", interfaceId);
+		modelAndView.addObject("source", source);
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "listUserDevice.do")
