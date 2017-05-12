@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
-String backUrl=request.getParameter("backurl");
+
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -247,6 +247,7 @@ String backUrl=request.getParameter("backurl");
   
 	 <div class="content">
            <form action="<%=path%>/student/studentLogin.do" method="post" class="login-form">
+                
                <div class="username">
                    <input type="text" name="id" placeholder="请输入学生账号" autocomplete="on" />
                    <span class="user-icon icon">u</span>
@@ -256,7 +257,7 @@ String backUrl=request.getParameter("backurl");
                    <input type="password" name="password" placeholder="请输入密码" />
                    <span class="password-icon icon">p</span>
                </div>
-               <input type="hidden" name="backurl" value="${RequestParameters.backurl}"/>
+                
                <div class="account-control">
                <button type="reset">重置</button>
                    <button type="submit">登陆</button>
