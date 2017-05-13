@@ -1,5 +1,6 @@
 package com.dormitory.controller.student;
 
+import java.text.SimpleDateFormat;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -27,11 +28,16 @@ import com.dormitory.dto.student.StudentDTO;
 import com.dormitory.entity.Building;
 import com.dormitory.entity.Dormitory;
 import com.dormitory.entity.Student;
+import com.dormitory.service.AnnouncementService;
 import com.dormitory.service.BuildingService;
 import com.dormitory.service.DormitoryService;
 import com.dormitory.service.EmailService;
 import com.dormitory.service.FileService;
+import com.dormitory.service.LostFoundService;
+import com.dormitory.service.PostcardService;
 import com.dormitory.service.StudentService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SessionAttributes({ "studentId", "dormitoryId", "studentName" })
 @Controller
@@ -47,9 +53,13 @@ public class StudentController {
 	private EmailService emailService;
 	@Resource
 	private FileService fileService;
-
+	@Resource
+	private AnnouncementService announcementService;
+	@Resource
+	private LostFoundService lostFoundService;
 	private static final String IMG_DIR = "/images/";
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
+	private static final Integer LIMIT = 6;
 
 	public StudentController() {
 
@@ -103,7 +113,7 @@ public class StudentController {
 		student.setImgPath(imgName);
 		studentService.saveOrUpdate(student);
 		modelAndView.setViewName("../../Reg_success_tip");
-		
+
 		return modelAndView;
 	}
 
@@ -114,9 +124,11 @@ public class StudentController {
 		Student temp = studentService.get(studentId);
 		if (temp != null) {
 			if (password.trim().equals(temp.getPassword())) {
-				
+
 				Dormitory dormitory = dormitoryService.get(studentId);
 				modelAndView.setViewName("../../homePage");
+				modelAndView.addObject("announcement", toJSON(announcementService.listLimit(LIMIT)));
+				modelAndView.addObject("lostFound", toJSON(lostFoundService.listLimit(LIMIT)));
 				setSessionValue(model, dormitory.getDormitoryId(), studentId, temp.getName());
 			}
 		}
@@ -195,13 +207,13 @@ public class StudentController {
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
 	public ModelAndView logout(ModelMap model, SessionStatus status, HttpSession session) {
 		session.removeAttribute("studentId");
-	    session.removeAttribute("dormitoryId");
-	    session.removeAttribute("studentName");
+		session.removeAttribute("dormitoryId");
+		session.removeAttribute("studentName");
 		status.setComplete();
 		session.invalidate();
 		RedirectView redirect = new RedirectView("/dormitory/homePage.jsp");
 		redirect.setExposeModelAttributes(false);
-		ModelAndView modelAndView= new ModelAndView(redirect, null);
+		ModelAndView modelAndView = new ModelAndView(redirect, null);
 		System.out.println("after logout.");
 		return modelAndView;
 	}
@@ -256,4 +268,19 @@ public class StudentController {
 		model.addAttribute("studentName", studentName);
 	}
 
+	protected String toJSON(Object obj) {
+		ObjectMapper mapper = new ObjectMapper();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		mapper.setDateFormat(format);
+		String result = null;
+		try {
+			result = mapper.writeValueAsString(obj);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("序列化LostFound对象时出错", e);
+			}
+		}
+		return result;
+	}
 }
