@@ -127,6 +127,7 @@
 			<mvc:mapping path="/student/listRepairRecordByDormitoryId.do"/>
 			<mvc:mapping path="/student/forwardApplyRepair.do"/>
 			<mvc:mapping path="/student/saveRepairRecord.do"/>
+			<mvc:mapping path="/student/listPostcardByStudentId.do"/>
 			<bean class="com.dormitory.interceptor.StudentLoginInterceptor"></bean>
 		</mvc:interceptor>
 		</mvc:interceptors>
