@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.PostcardController;
+import com.dormitory.dto.PostcardDTO;
 import com.dormitory.entity.Master;
 import com.dormitory.entity.Postcard;
 import com.dormitory.service.MasterService;
@@ -40,7 +41,7 @@ public class MasterPostcardController extends PostcardController {
 			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
 		Master master=masterService.get(masterId);
 		Integer buildingId=master.getBuildingId();
-		List<Postcard> list = postcardService.listByBuildingId(buildingId, pageIndex, pageSize);
+		List<PostcardDTO> list = postcardService.listByBuildingId(buildingId, pageIndex, pageSize);
 		Integer total=postcardService.getSizeByBuildingId(buildingId);
 		Integer totalPage = getTotalPages(total, pageSize);
 		Map<String, Object> map = new HashMap<String, Object>(4);

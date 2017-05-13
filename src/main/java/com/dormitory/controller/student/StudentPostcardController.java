@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.PostcardController;
+import com.dormitory.dto.PostcardDTO;
 import com.dormitory.entity.Postcard;
 import com.dormitory.service.StudentService;
 
@@ -26,7 +27,7 @@ public class StudentPostcardController extends PostcardController {
 	public ModelAndView listPostcardByStudentId(@RequestParam("studentId") Long studentId, @RequestParam("pageIndex") Integer pageIndex,
 			@RequestParam("pageSize") Integer pageSize) {
 		ModelAndView modelAndView = new ModelAndView();
-		List<Postcard> list = postcardService.listByStudentId(studentId, pageIndex, pageSize);
+		List<PostcardDTO> list = postcardService.listByStudentId(studentId, pageIndex, pageSize);
 		Integer total = postcardService.getSizeByStudentId(studentId);
 		Integer totalPage=getTotalPages(total, pageSize);
 		modelAndView.addObject("data", list);

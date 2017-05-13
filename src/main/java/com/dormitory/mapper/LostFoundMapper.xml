@@ -7,6 +7,8 @@
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="publisher" jdbcType="VARCHAR" property="publisher" />
+    <result column="place" jdbcType="VARCHAR" property="place" />
   </resultMap>
   
 </mapper>

@@ -110,8 +110,8 @@
 	<c:forEach items="${data}" var="postCard" varStatus="b">
 	  <tr>
 	  <td>${b.index+1}</td>
-	  <td>${postCard.studentId}</td>
-	  <td>${postCard.dormitoryId}</td>
+	  <td>${postCard.name}</td>
+	  <td>${postCard.buildingName}</td>
 	  <td>${postCard.createTime}</td>
 	  <td style="color:red"><c:if test="${postCard.state==1}">已领取</c:if>
 	  <c:if test="${postCard.state==0}">未领取</c:if>

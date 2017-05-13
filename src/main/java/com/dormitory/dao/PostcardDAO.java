@@ -11,41 +11,56 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 
 import com.dormitory.dao.sql.SQLProvider;
+import com.dormitory.dto.PostcardDTO;
 import com.dormitory.entity.Postcard;
 
 public interface PostcardDAO {
-	@Select("select * from postcard order by create_time desc limit #{n} ")
+	@Select(" select p.postcard_id,s.name ,b.building_name,p.create_time,p.state "
+			+ " from postcard p join student s on p.student_id=s.student_id "
+			+ " join dormitory d on p.dormitory_id=d.dormitory_id join building b on d.building_id=b.building_id "
+			+ " order by p.create_time desc limit #{n} ")
 	@ResultMap("com.dormitory.mapper.PostcardMapper.postcard")
-	public List<Postcard> listLimit(@Param("n") Integer n);
+	public List<PostcardDTO> listLimit(@Param("n") Integer n);
 
-	@Select("select * from postcard order by create_time desc limit #{start},#{pageSize} ")
-	@ResultMap("com.dormitory.mapper.PostcardMapper.postcard")
-	public List<Postcard> list(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
+	@Select(" select p.postcard_id,s.name ,b.building_name,p.create_time,p.state "
+			+ " from postcard p join student s on p.student_id=s.student_id "
+			+ " join dormitory d on p.dormitory_id=d.dormitory_id join building b on d.building_id=b.building_id "
+			+ " order by p.create_time desc limit #{start},#{pageSize} ")
+	@ResultMap("com.dormitory.mapper.PostcardMapper.postcardDTO")
+	public List<PostcardDTO> list(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
 
 	@Select("select count(*) from postcard ")
 	public Integer getSize();
 
-	@Select(" select * from postcard where student_id=#{studentId} order by create_time desc limit #{start},#{pageSize} ")
-	@ResultMap("com.dormitory.mapper.PostcardMapper.postcard")
-	public List<Postcard> listByStudentId(@Param("studentId") Long studentId, @Param("start") Integer start,
+	@Select(" select p.postcard_id,s.name ,b.building_name,p.create_time,p.state "
+			+ " from postcard p join student s on p.student_id=s.student_id "
+			+ " join dormitory d on p.dormitory_id=d.dormitory_id join building b on d.building_id=b.building_id"
+			+ " where p.student_id=#{studentId} order by p.create_time desc limit #{start},#{pageSize} ")
+	@ResultMap("com.dormitory.mapper.PostcardMapper.postcardDTO")
+	public List<PostcardDTO> listByStudentId(@Param("studentId") Long studentId, @Param("start") Integer start,
 			@Param("pageSize") Integer pageSize);
 
 	@Select(" select count(*) from postcard where student_id=#{studentId} ")
 	public Integer getSizeByStudentId(@Param("studentId") Long studentId);
 
-	@Select(" select c.* from postcard c join dormitory d on c.dormitory_id =d.dormitory_id "
-			+ " where d.building_id=#{buildingId} order by c.create_time desc limit #{start},#{pageSize} ")
-	@ResultMap("com.dormitory.mapper.PostcardMapper.postcard")
-	public List<Postcard> listByBuildingId(@Param("buildingId") Integer buildingId, @Param("start") Integer start,
+	@Select(" select p.postcard_id,s.name ,b.building_name,p.create_time,p.state "
+			+ " from postcard p join student s on p.student_id=s.student_id "
+			+ " join dormitory d on p.dormitory_id=d.dormitory_id join building b on d.building_id=b.building_id "
+			+ " where d.building_id=#{buildingId} order by p.create_time desc limit #{start},#{pageSize} ")
+	@ResultMap("com.dormitory.mapper.PostcardMapper.postcardDTO")
+	public List<PostcardDTO> listByBuildingId(@Param("buildingId") Integer buildingId, @Param("start") Integer start,
 			@Param("pageSize") Integer pageSize);
 
-	@Select(" select count(c.*) from postcard c join dormitory d on c.dormitory_id =d.dormitory_id "
+	@Select(" select count(*) from postcard c join dormitory d on c.dormitory_id =d.dormitory_id "
 			+ " where d.building_id=#{buildingId} ")
 	public Integer getSizeByBuildingId(@Param("buildingId") Integer buildingId);
 
-	@Select(" select * from postcard where postcard_id=#{postcardId} ")
-	@ResultMap("com.dormitory.mapper.PostcardMapper.postcard")
-	public Postcard get(@Param("postcardId") Integer postcardId);
+	@Select(" select p.postcard_id,s.name ,b.building_name,p.create_time,p.state "
+			+ " from postcard p join student s on p.student_id=s.student_id "
+			+ " join dormitory d on p.dormitory_id=d.dormitory_id "
+			+ " join building b on d.building_id=b.building_id where postcard_id=#{postcardId} ")
+	@ResultMap("com.dormitory.mapper.PostcardMapper.postcardDTO")
+	public PostcardDTO get(@Param("postcardId") Integer postcardId);
 
 	@Select(" select LAST_INSERT_ID() ")
 	public Integer getLastInsertId();
