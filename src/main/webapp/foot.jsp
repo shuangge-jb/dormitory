@@ -36,10 +36,9 @@ String path = request.getContextPath();
            >
         <span class="top_h5" >
                  华南理工大学虚拟宿舍
-        </span>
-        <div>     
+        </span>   
    </div> 
-		</div>
+		<div>
 	   <ul>
      <li style="list-style:none;display:block;text-align:center;color:#929699;line-height:25px;font-size:12px;">               
                    地址：华南理工大学 C10 &nbsp;  技术支持：华工软件学院 &nbsp; 华南理工大学软件学院版权所有
@@ -48,6 +47,7 @@ String path = request.getContextPath();
                  粤ICP备12059770号   &nbsp; 粤公网安备 44010402000394号
      </li> 
    </ul>
+   </div>
    </div>
   </body>
 </html>

@@ -8,6 +8,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="css/sucaijiayuan.css"/>
+<script src="<%=path%>/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/slide.js"></script>
+<script type="text/javascript" src="js/animation.js"></script>
 <script type="text/javascript">
 	function AddFavorite(title, url) {
 		try {
@@ -195,7 +199,6 @@ a:link, a:visited, a:active {
 
 </head>
 
-</script>
 <style type="text/css">
 * {
 	margin: 0;
@@ -317,6 +320,90 @@ a:link, a:visited, a:active {
 	line-height: 52px\0;
 	border-bottom: 0;
 }
+#loginTip td{
+  height:40px;
+  font-size:15px;
+  font-weight:normal;
+}
+.inputTxt {
+	outline: none;
+	border: 1px solid #CCC;
+	padding: 5px;
+	-webkit-box-shadow: #DFDFDF 0 1px 2px 0 inset;
+	box-shadow: #DFDFDF 0 1px 2px 0 inset;
+	width: 200px;
+	color: #666;
+	height: 28px;
+	background: #fff;
+	border-radius: 3px;
+	line-height: 28px;
+	overflow: hidden;
+}
+.registerSubmit{
+margin-top:20px;
+     color:#fff;
+    font-weight:bold;
+    width:68px;
+    height:30px;
+    position:relative;
+    background:-webkit-linear-gradient(top,rgb(74,162,241),rgb(52,119,182)) 1px 0 no-repeat, -webkit-linear-gradient(top,rgb(52,118,181),rgb(36,90,141)) left top no-repeat;
+    background-size:66px 28px,68px 29px;
+    border:none;
+    border-top:1px solid rgb(52,118,181);
+    border-radius:2px;
+    box-shadow:inset 0 1px 0 rgb(86,174,251);
+    text-shadow:0 1px 1px rgb(51,113,173);
+    transition: all 200ms linear;
+    }
+    .registerSubmit:hover {
+    text-shadow:0 0 2px rgb(255,255,255);
+    box-shadow:inset 0 1px 0 rgb(86,174,251),0 0 10px 3px rgba(74,162,241,0.5);
+}
+#ilistTile1
+{float:left;width:480px;border-bottom:1px solid #e5e5e5;
+text-align:left; margin-left:152px;}
+#ilistTile2 
+{float:left;width:480px;border-bottom:1px solid #e5e5e5;
+text-align:left; margin-left:2px;}
+.titleAnother{
+  height:225px;margin-top:10px;border: 1px solid #D7D7D7;
+}
+.titleAnother h6{color: #444;
+    background: #f9803a;
+    padding: 0px;
+    font-size: 15px;
+    padding-left: 20px;
+    line-height: 35px;
+    height: 35px;
+    }
+    .titleAnother li{
+    float:left;font-size:13px;
+    width:460px;line-height:29px;
+    height:29px;overflow:hidden;
+    padding-left: 10px;
+     color: #848484;
+     font-weight:normal;
+    }
+   .titleAnother h6 a{
+   color:#fff;
+   } 
+     .titleAnother h6 span { float: right;
+    font-size: 12px;
+    color: #fff;
+    font-weight: normal;
+    padding-right: 20px;
+    }
+    .liDate{
+    float:right; font-size:13px;
+    font-weight:normal; padding-left:10px;
+    padding-right: 20px;color: #848484;
+    }
+  	.foot{
+	background: #F6F6F6;
+	text-align:center;
+	line-height:30px;
+	padding-top:20px;
+	}  
 </style>
 
 </head>
@@ -342,7 +429,107 @@ a:link, a:visited, a:active {
 				href="<%=path%>/listMyDormitoryAnnouncement.do?studentId=${studentId }&pageIndex=1&pageSize=10">最新公告</a><em></em>
 			<a href="#">使用指南</a>
 		</div>
+		</div>
+		<div>
+   <div class="ca1_slide" style="padding-left:152px;float:left;margin-top:15px;"> 
+	<div id="slider-wrapper"> 
+		<div id="slider-bg">				
+				<div id="slider-photos"> 
+					<div id="slides"> 
+						<div class="slides_container"> 						 		 
+			<div class="slide"> 
+               <img src="images/2.jpg" width="700" height="300" alt="whx"/> 
+               <div class="caption" style="bottom:0"> 
+                <h1><a href="#" style="text-decoration:none;font-size:12px;"><b>登陆试试看看有没有你的明信片吧</b></a></h1> 
+              </div> 
+            </div>                                                                                                                                                                <div class="slide"> 
+                <img src="images/4.jpg" width="700" height="300" alt="whx"/> 
+                <div class="caption" style="bottom:0"> 
+                  <h1><a href="#" style="text-decoration:none;font-size:12px;"><b>看看公告，今天有没有来收水壶的？</b></a></h1> 
+                 </div> 
+			</div> 
+			<div class="slide"> 
+			<img src="images/1.jpg" width="700" height="300" alt="whx"/> 
+			  <div class="caption" style="bottom:0"> 
+				<h1><a href="#" style="text-decoration:none;font-size:12px;"><b>我们虚拟宿舍新增了电表设备，可以方便查询电费啦</b></a></h1> 
+				</div> 
+         </div> 
+                                                                                                                                                                     <div class="slide"> 
+              <img src="images/3.jpeg" width="700" height="300" alt="whx"/> 
+            <div class="caption" style="bottom:0"> 
+               <h1><a href="#" style="text-decoration:none;font-size:12px;"><b>去看看有没有你丢的东西吧</b></a></h1> 
+            </div> 
+        </div> 
+          </div>	
+            <a href="#" class="prev"><img src="images/arrow-prev.png" width="30" height="70" alt="Arrow Prev" border="0"></a> 
+            <a href="#" class="next"><img src="images/arrow-next.png" width="30" height="70" alt="Arrow Next" border="0"></a>								
+		</div> 
+	</div> 
+	</div> 
 	</div>
-
+	</div>
+	<div id="login" style="width:250px; height:450;border:1px solid #D0D0D0;float:left;margin-left:10px;margin-top:15px;">
+	<div style="width:250px;height:40px;border:0px solid #000;background-color:#F2F2F2;line-height:40px;">
+    <font style="margin-left:10px" size=4><b>用户登录</font>  </div>
+    <font color="red">
+    </font>
+    <form action="#" method="post">
+    <table id="loginTip">
+    <tr><td>用户名:</td></tr>
+    <tr><td><input type="text" name="userName" class="inputTxt"/></td></tr>
+    <tr><td>密码:</td></tr>
+	<tr><td><input type="password" name="userPwd" class="inputTxt"/></td></tr>
+	<tr ><td>
+	<input  type="submit" value="登录" class="registerSubmit">
+	<input type="button" value="注册" class="registerSubmit" />
+	</td>
+	</tr>
+	<tr><td><a href="#" style="color:blue">忘记密码？</a></td></tr>	
+    </table>
+    <font color=red>${tip4}</font>
+    </form>
+</div>
+</div>
+<div id="ilistTile1" class="titleAnother">
+<h6><a href="#">失物招领</a><span onclick="lostfound();">进去看看</span></h6>
+<ul>
+<li> 本人在东兴路捡到身份证一张  <span class="liDate">05-01</span></li>
+<li>  5月6号（星期六）晚上在丹东月亮岛附近捡到一个钱包！ <span class="liDate">05-02</span></li>
+<li>  G7047高铁捡到身份证一张  <span class="liDate">05-01</span></li>
+<li> 本人在东兴路捡到身份证一张  <span class="liDate">05-01</span></li>
+<li>  Sony蓝牙耳机 <span class="liDate">05-14</span></li>
+<li> 本人在东兴路捡到身份证一张  <span class="liDate">05-01</span></li>
+</ul>
+</div>
+<div id="ilistTile2" class="titleAnother"><h6><a href="#">公告列表</a><span onclick="announcement();">进去看看</span></h6>
+<ul>
+<li>收水费收水费收水费收水费收水费收水费收水费  <span class="liDate">05-01</span></li>
+<li>交电费交电费交电费交电费交电费交电费交电费 <span class="liDate">05-02</span></li>
+<li>交空调费交空调费交空调费交空调费交空调费交  <span class="liDate">05-01</span></li>
+<li>卫生检查卫生检查卫生检查卫生检查卫生检查卫生检查 <span class="liDate">05-01</span></li>
+<li>查水表查水表查水表查水表查水表查水表查水表查水表 <span class="liDate">05-14</span></li>
+<li> 领蚊香领蚊香领蚊香领蚊香领蚊香领蚊香领蚊香领蚊香 <span class="liDate">05-01</span></li>
+</ul>
+</div>
+  <div class="foot"  style="margin-top:600px;">
+  <div class="footer-content">
+          <img src="<%=path%>/images/scut.jpg" width="32px" height="30spx" style="vertical-align:middle;"
+           >
+        <span class="top_h5" >
+                 华南理工大学虚拟宿舍
+        </span>   
+   </div> 
+		<div>
+	   <ul>
+     <li style="list-style:none;display:block;text-align:center;color:#929699;line-height:25px;font-size:12px;">               
+                   地址：华南理工大学 C10 &nbsp;  技术支持：华工软件学院 &nbsp; 华南理工大学软件学院版权所有
+     </li>
+     <li style="list-style:none;text-align:center;color:#929699;line-height:25px;font-size:12px;" > 
+                 粤ICP备12059770号   &nbsp; 粤公网安备 44010402000394号
+     </li> 
+   </ul>
+   </div>
+   </div>
 </body>
+
 </html>
