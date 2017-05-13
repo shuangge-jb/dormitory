@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.dormitory.dao.PostcardDAO;
+import com.dormitory.dto.PostcardDTO;
 import com.dormitory.entity.Postcard;
 import com.dormitory.service.PostcardService;
 
@@ -19,26 +20,26 @@ public class PostcardServiceImpl implements PostcardService {
 	private PostcardDAO postcardDAO;
 
 	@Override
-	public List<Postcard> list(Integer pageIndex,Integer pageSize) {
+	public List<PostcardDTO> list(Integer pageIndex,Integer pageSize) {
 		Integer start=(pageIndex-1)*pageSize;
-		List<Postcard> list=postcardDAO.list(start,pageSize);
+		List<PostcardDTO> list=postcardDAO.list(start,pageSize);
 		return list;
 	}
 
 	@Override
-	public List<Postcard> listLimit(Integer n) {
+	public List<PostcardDTO> listLimit(Integer n) {
 		return postcardDAO.listLimit(n);
 	}
 
 	@Override
-	public List<Postcard> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize) {
+	public List<PostcardDTO> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize) {
 		Integer start=(pageIndex-1)*pageSize;
-		List<Postcard> list=postcardDAO.listByStudentId(studentId,start,pageSize);
+		List<PostcardDTO> list=postcardDAO.listByStudentId(studentId,start,pageSize);
 		return list;
 	}
 
 	@Override
-	public Postcard get(Integer postcardId) {
+	public PostcardDTO get(Integer postcardId) {
 		return postcardDAO.get(postcardId);
 	}
 
@@ -76,7 +77,7 @@ public class PostcardServiceImpl implements PostcardService {
 	}
 
 	@Override
-	public List<Postcard> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize) {
+	public List<PostcardDTO> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize) {
 		Integer start=(pageIndex-1)*pageSize;
 		return postcardDAO.listByBuildingId(buildingId, start, pageSize);
 	}

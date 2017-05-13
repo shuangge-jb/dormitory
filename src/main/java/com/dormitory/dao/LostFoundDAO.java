@@ -14,7 +14,7 @@ import com.dormitory.entity.LostFound;
 public interface LostFoundDAO {
 	@Select(" select * from lost_found order by create_time desc limit #{start},#{pageSize}")
 	@ResultMap("com.dormitory.mapper.LostFoundMapper.lostFound")
-	public List<LostFound> list(@Param("start")Integer start,@Param("pageSize") Integer pageSize);
+	public List<LostFound> list(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
 
 	@Select(" select count(*) from lost_found ")
 	public Integer getSize();
@@ -49,16 +49,17 @@ public interface LostFoundDAO {
 	@Select(" select LAST_INSERT_ID() ")
 	public Integer getLastInsertId();
 
-	@Insert(" insert into lost_found(student_id,content,create_time,state)  "
-			+ " values(#{studentId},#{content},#{createTime},#{state}) ")
+	@Insert(" insert into lost_found(student_id,content,create_time,state,publisher,place)  "
+			+ " values(#{studentId},#{content},#{createTime},#{state},#{publisher},#{place}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "lostFoundId")
 	public void save(LostFound lostFound);
 
-	@Update(" update lost_found  set student_id=#{studentId},content=#{content},create_time=#{createTime} "
+	@Update(" update lost_found  set student_id=#{studentId},content=#{content}, "
+			+ " create_time=#{createTime},state=#{state},publisher=#{publisher},place=#{place} "
 			+ " where lost_found_id=#{lostFoundId} ")
 	public void update(LostFound lostFound);
 
-	@Update(" update lost_found  set state=0 " + " where lost_found_id=#{lostFoundId} ")
+	@Update(" update lost_found  set state=0 where lost_found_id=#{lostFoundId} ")
 	public void remove(@Param("lostFoundId") Integer lostFoundId);
 
 }

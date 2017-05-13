@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -103,14 +104,14 @@ public class StudentController {
 		System.out.println("--imgName:" + imgName);
 		student.setImgPath(imgName);
 		studentService.saveOrUpdate(student);
-		modelAndView.setViewName("../../homePage");
-		setSessionValue(model, dormitory.getDormitoryId(), student.getStudentId(), temp.getName());
+		modelAndView.setViewName("../../Reg_success_tip");
+		setSessionValue(model, dormitory.getDormitoryId(), student.getStudentId(), student.getName());
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/studentLogin.do", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam(value = "id") Long studentId,
-			@RequestParam(value = "password") String password, Model model,@RequestParam(value = "backurl")String backurl) {
+			@RequestParam(value = "password") String password, Model model) {
 		ModelAndView modelAndView = new ModelAndView("../../login");// login不在WEB-INF/pages下，要访问父级目录
 		Student temp = studentService.get(studentId);
 		if (temp != null) {
@@ -120,12 +121,9 @@ public class StudentController {
 				setSessionValue(model, dormitory.getDormitoryId(), studentId, temp.getName());
 			}
 		}
-		System.out.println("backurl:"+backurl);
-		if(backurl!=null&&backurl.isEmpty()==false){
-			modelAndView.setViewName("forward:/"+backurl);
-		}else{
+		
 			modelAndView.setViewName("../../homePage");
-		}
+		
 		return modelAndView;
 	}
 

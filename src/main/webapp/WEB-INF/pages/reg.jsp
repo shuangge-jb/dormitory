@@ -25,6 +25,9 @@
 			<div id="shuoming">
 				<b>注册信息</b><font style="color:red">（*号为必填）</font>
 			</div>
+			<div>
+			${status }
+			</div>
 			<div style="margin-left:130px;margin-top:45px;">
 				<font color=red>*</font> 用户名：<input type="text" id="userName"
 					name="userName" style="width:200px;height:30px;border-radius:5px;">

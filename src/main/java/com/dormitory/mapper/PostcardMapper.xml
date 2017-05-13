@@ -9,4 +9,12 @@
     <result column="state" jdbcType="INTEGER" property="state" />
   </resultMap>
  
+ 
+ <resultMap id="postcardDTO" type="com.dormitory.dto.PostcardDTO">
+    <id column="postcard_id" jdbcType="INTEGER" property="postcardId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="building_name" jdbcType="VARCHAR" property="buildingName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+  </resultMap>
 </mapper>

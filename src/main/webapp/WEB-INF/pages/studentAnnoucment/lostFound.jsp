@@ -81,7 +81,7 @@ $(document).ready(function() {
 				</div>
 				<div style="margin-top:6px;">
 					<font color=#818181 size=2>发布人：</font> <font color=#EF972B size=3>
-					 李子龙</font>
+					${lostFound.publisher}</font>
 				</div>
 			
 				<div style="margin-top:6px;">
@@ -90,7 +90,7 @@ $(document).ready(function() {
 				</div>
 				<div style="margin-top:6px;">
 					<font color=#818181 size=2>拾物地点：</font> <font color=#EF972B size=3>
-					C10篮球场 </font>
+					${lostFound.place}</font>
 				</div>
 				<div style="margin-top:6px;">
 					<font color=#818181 size=2>认领状态：</font> <font color=#EF972B size=3>
