@@ -104,7 +104,7 @@ public class StudentController {
 		System.out.println("--imgName:" + imgName);
 		student.setImgPath(imgName);
 		studentService.saveOrUpdate(student);
-		modelAndView.setViewName("../../homePage");
+		modelAndView.setViewName("../../Reg_success_tip");
 		setSessionValue(model, dormitory.getDormitoryId(), student.getStudentId(), student.getName());
 		return modelAndView;
 	}
