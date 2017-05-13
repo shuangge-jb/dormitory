@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.dormitory.dto.PostcardDTO;
 import com.dormitory.entity.Announcement;
 import com.dormitory.entity.Postcard;
 import com.dormitory.service.PostcardService;
@@ -43,7 +44,7 @@ public class PostcardServiceImplTest {
 	@Test
 	public void testListPostcardLimit() {
 		init();
-		List<Postcard> list = postcardService.listLimit(2);
+		List<PostcardDTO> list = postcardService.listLimit(2);
 		assertNotNull(list);
 		assertEquals(2, list.size());
 		for (Postcard item : list) {
