@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -33,7 +32,6 @@ import com.dormitory.service.DormitoryService;
 import com.dormitory.service.EmailService;
 import com.dormitory.service.FileService;
 import com.dormitory.service.StudentService;
-import com.fasterxml.jackson.databind.deser.impl.ExternalTypeHandler.Builder;
 
 @SessionAttributes({ "studentId", "dormitoryId", "studentName" })
 @Controller
@@ -105,7 +103,7 @@ public class StudentController {
 		student.setImgPath(imgName);
 		studentService.saveOrUpdate(student);
 		modelAndView.setViewName("../../Reg_success_tip");
-		setSessionValue(model, dormitory.getDormitoryId(), student.getStudentId(), student.getName());
+		
 		return modelAndView;
 	}
 
@@ -118,12 +116,10 @@ public class StudentController {
 			if (password.trim().equals(temp.getPassword())) {
 				
 				Dormitory dormitory = dormitoryService.get(studentId);
+				modelAndView.setViewName("../../homePage");
 				setSessionValue(model, dormitory.getDormitoryId(), studentId, temp.getName());
 			}
 		}
-		
-			modelAndView.setViewName("../../homePage");
-		
 		return modelAndView;
 	}
 
