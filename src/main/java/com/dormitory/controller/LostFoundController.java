@@ -102,5 +102,10 @@ public class LostFoundController {
 		}
 		return result;
 	}
-	
+	@RequestMapping(value = "listLostFoundLimit.do")
+	@ResponseBody
+	public String listLostFoundLimit(@RequestParam(value="n")Integer n){
+		List<LostFound> list=lostFoundService.listLimit(n);
+		return toJSON(list);
+	}
 }
