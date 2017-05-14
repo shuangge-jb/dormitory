@@ -53,10 +53,7 @@ public class StudentController {
 	private EmailService emailService;
 	@Resource
 	private FileService fileService;
-	@Resource
-	private AnnouncementService announcementService;
-	@Resource
-	private LostFoundService lostFoundService;
+	
 	private static final String IMG_DIR = "/images/";
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
 	private static final Integer LIMIT = 6;
@@ -127,8 +124,6 @@ public class StudentController {
 
 				Dormitory dormitory = dormitoryService.get(studentId);
 				modelAndView.setViewName("../../homePage");
-				modelAndView.addObject("announcement", toJSON(announcementService.listLimit(LIMIT)));
-				modelAndView.addObject("lostFound", toJSON(lostFoundService.listLimit(LIMIT)));
 				setSessionValue(model, dormitory.getDormitoryId(), studentId, temp.getName());
 			}
 		}
