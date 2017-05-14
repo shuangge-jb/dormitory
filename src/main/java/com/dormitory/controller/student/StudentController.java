@@ -228,6 +228,7 @@ public class StudentController {
 		ModelAndView modelAndView = new ModelAndView("");
 		System.out.println("response studentDTO:" + studentDTO);
 		modelAndView.addObject("student", studentDTO);
+		modelAndView.setViewName("studentAnnoucment/studentInfo");
 		return modelAndView;
 	}
 
@@ -254,6 +255,12 @@ public class StudentController {
 			student.setImgPath(old.getImgPath());
 		}
 		studentService.saveOrUpdate(student);
+		return modelAndView;
+	}
+	@RequestMapping(value = "forwardChangePasswordPage.do")
+	public ModelAndView forwardChangePasswordPage(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("studentAnnoucment/changePassword");
 		return modelAndView;
 	}
 

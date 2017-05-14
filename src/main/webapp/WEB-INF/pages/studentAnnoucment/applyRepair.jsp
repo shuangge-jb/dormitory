@@ -15,6 +15,9 @@
 	media="all" />
 <script src="<%=path%>/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {
+	 $('#myRepair').addClass("titleTip");
+	 })
 	function AddFavorite(title, url) {
 	    try {
 	        window.external.addFavorite(url, title);

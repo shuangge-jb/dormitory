@@ -139,7 +139,7 @@ a:link, a:visited, a:active {
 }
 
 .navc {
-	width: 960px;
+	width: 1100px;
 	height: 50px;
 	margin: 0 auto;
 	display: block;
