@@ -97,31 +97,31 @@
 					<div id="slides"> 
 						<div class="slides_container"> 						 		 
 			<div class="slide"> 
-               <img src="images/2.jpg" width="700" height="300" alt="whx"/> 
+               <img src="<%=path %>/images/2.jpg" width="700" height="300" alt="whx"/> 
                <div class="caption" style="bottom:0"> 
                 <h1><a href="#" style="text-decoration:none;font-size:12px;"><b>登陆试试看看有没有你的明信片吧</b></a></h1> 
               </div> 
             </div>                                                                                                                                                                <div class="slide"> 
-                <img src="images/4.jpg" width="700" height="300" alt="whx"/> 
+                <img src="<%=path %>/images/4.jpg" width="700" height="300" alt="whx"/> 
                 <div class="caption" style="bottom:0"> 
                   <h1><a href="#" style="text-decoration:none;font-size:12px;"><b>看看公告，今天有没有来收水壶的？</b></a></h1> 
                  </div> 
 			</div> 
 			<div class="slide"> 
-			<img src="images/1.jpg" width="700" height="300" alt="whx"/> 
+			<img src="<%=path %>/images/1.jpg" width="700" height="300" alt="whx"/> 
 			  <div class="caption" style="bottom:0"> 
 				<h1><a href="#" style="text-decoration:none;font-size:12px;"><b>我们虚拟宿舍新增了电表设备，可以方便查询电费啦</b></a></h1> 
 				</div> 
          </div> 
                                                                                                                                                                      <div class="slide"> 
-              <img src="images/3.jpeg" width="700" height="300" alt="whx"/> 
+              <img src="<%=path %>/images/3.jpeg" width="700" height="300" alt="whx"/> 
             <div class="caption" style="bottom:0"> 
                <h1><a href="#" style="text-decoration:none;font-size:12px;"><b>去看看有没有你丢的东西吧</b></a></h1> 
             </div> 
         </div> 
           </div>	
-            <a href="#" class="prev"><img src="images/arrow-prev.png" width="30" height="70" alt="Arrow Prev" border="0"></a> 
-            <a href="#" class="next"><img src="images/arrow-next.png" width="30" height="70" alt="Arrow Next" border="0"></a>								
+            <a href="#" class="prev"><img src="<%=path %>/images/arrow-prev.png" width="30" height="70" alt="Arrow Prev" border="0"></a> 
+            <a href="#" class="next"><img src="<%=path %>/images/arrow-next.png" width="30" height="70" alt="Arrow Next" border="0"></a>								
 		</div> 
 	</div> 
 	</div> 
@@ -132,12 +132,12 @@
     <font style="margin-left:10px" size=4><b>用户登录</font>  </div>
     <font color="red">
     </font>
-    <form action="#" method="post">
+    <form action="<%=path%>/student/studentLogin.do" method="post">
     <table id="loginTip">
     <tr><td>用户名:</td></tr>
-    <tr><td><input type="text" name="userName" class="inputTxt"/></td></tr>
+    <tr><td><input type="text" name="id" class="inputTxt"/></td></tr>
     <tr><td>密码:</td></tr>
-	<tr><td><input type="password" name="userPwd" class="inputTxt"/></td></tr>
+	<tr><td><input type="password" name="password" class="inputTxt"/></td></tr>
 	<tr ><td>
 	<input  type="submit" value="登录" class="registerSubmit">
 	<input type="button" value="注册" class="registerSubmit" />
@@ -150,12 +150,12 @@
 </div>
 </div>
 <div id="ilistTile1" class="titleAnother">
-<h6><a href="#">失物招领</a><span onclick="lostfound();">进去看看</span></h6>
+<h6><a href="<%=path%>/listLostFound.do?pageIndex=1&pageSize=3">失物招领</a><span onclick="lostfound();">进去看看</span></h6>
 <ul>
 
 </ul>
 </div>
-<div id="ilistTile2" class="titleAnother"><h6><a href="#">公告列表</a><span onclick="announcement();">进去看看</span></h6>
+<div id="ilistTile2" class="titleAnother"><h6><a href="<%=path%>/listMyDormitoryAnnouncement.do?studentId=${studentId }&pageIndex=1&pageSize=10">公告列表</a><span onclick="announcement();">进去看看</span></h6>
 <ul>
 </ul>
 </div>
