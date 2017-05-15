@@ -156,7 +156,7 @@ $(document).ready(function() {
 					value="修改密码"  onclick="changeUserPassword();"/>
 	</div>
 	<div style="border-bottom:1px solid #009AFF;width:790px;margin-left:6px;"></div>
-     <form action="#" method="post" name="form1" enctype="multipart/form-data" onsubmit="return save();" >
+     <form action="<%=path %>/student/updateStudentInfo.do" method="post" name="form1" enctype="multipart/form-data" onsubmit="return save();" >
   <div style="float:left;">
      <div style="margin-left:15px;">
      <ul>
@@ -186,7 +186,7 @@ $(document).ready(function() {
              <input type="text"  value="${student.email}" id="email"
 					name="email" class="inputTxt" disabled="true"><br></li>	
 	<li class="pb10">		 <font color=#818181 size=4>头像图片：</font> 
-          <input type="text"  class="inputTxt" value="${student.imgPath}" disabled="true"><br>
+          <input type="text"  class="inputTxt" name="img" value="${student.imgPath}" disabled="true"><br>
      </li>
       <li class="pb10">	
 		<font color=#818181 size=4> 头像：</font><input type="file" class="inputTxt" name="img" id="img" style="height:34px;"
