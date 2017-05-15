@@ -163,6 +163,7 @@ public class StudentDTO {
 		student.setName(name);
 		student.setPassword(password);
 		student.setPhoneNumber(Long.valueOf(phoneNumber));
+		student.setImgPath(imgPath);
 		return student;
 	}
 
