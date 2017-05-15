@@ -155,6 +155,7 @@ public class StudentController {
 		ModelAndView modelAndView = new ModelAndView("studentAnnoucment/changePassword");
 		student.setPassword(password);
 		studentService.saveOrUpdate(student);
+		modelAndView.addObject("student", student);
 		modelAndView.addObject("status", "修改成功");
 		return modelAndView;
 	}
@@ -230,6 +231,7 @@ public class StudentController {
 		ModelAndView modelAndView = new ModelAndView("studentAnnoucment/studentInfo");
 		if (result.hasErrors()) {
 			modelAndView.addObject("status", "数据有误，请检查");
+			modelAndView.addObject("student", studentDTO);
 			return modelAndView;
 		}
 		System.out.println("studentDTO:" + studentDTO);
@@ -243,6 +245,7 @@ public class StudentController {
 					LOGGER.debug("img参数异常：");
 				}
 				modelAndView.addObject("status", "请上传JPG格式的图片");
+				modelAndView.addObject("student", studentDTO);
 				return modelAndView;
 			}
 			fileService.saveFile(request, IMG_DIR, img);
