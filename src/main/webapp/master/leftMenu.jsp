@@ -1,0 +1,71 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%
+String path = request.getContextPath();
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<meta http-equiv="pragma" content="no-cache"/>
+	<meta http-equiv="cache-control" content="no-cache"/>
+	<meta http-equiv="expires" content="0"/>    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
+	<meta http-equiv="description" content="This is my page"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>	 
+    <style type="text/css">
+        html
+        {
+            _overflow-x: hidden;
+            height: 100%;
+        }
+        body
+        {
+            background-color: #D9F3FF;
+            padding: 0px;
+            margin: 0px;
+            height: 100%;
+        }
+        ul
+        {
+            margin: 0px;
+            padding: 0px;
+        }
+        li
+        {
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+  </head>
+  <body style="margin: 0px;">
+        <div id="Menu" style="width: 190px; float: left; margin: 2px 0px 0px 2px; _margin-left: 2.5px;overflow: hidden;">
+            <div style="margin-left: 2px; width: 180px; height: 25px; vertical-align: middle;line-height: 25px; font-size: 16px; font-weight: bold; color: White;font-family: 微软雅黑; background-image: url('<%=path %>/images/menutop.png')"> <!-- 管理菜单 -->
+            </div>
+            <ul id="identifier">
+                  <li>        <img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />&nbsp;管理菜单
+				  </li>  
+				<li>
+				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
+				    &nbsp;<a target="main" href="<%=path%>/adminUserAction.action" style="text-decoration:none;color:blue;">学生管理</a>   			
+				</li>
+				<li>
+				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
+				    &nbsp;<a target="main" href="<%=path%>/master/listLostFoundByMasterId.do?pageIndex=1&pageSize=5&masterId=${masterId}" style="text-decoration:none;color:blue;">失物招领</a>	   			
+				</li>
+				<li>
+				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
+				    &nbsp;<a target="main" href="<%=path %>/listDeviceFunction.do?pageIndex=1&pageSize=10" style="text-decoration:none;color:blue;">公告管理</a>   			
+				</li>
+				<li>
+				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
+				    &nbsp;<a target="main" href="<%=path %>/forwardParametersList.do?pageIndex=1&pageSize=5" style="text-decoration:none;color:blue;">明信片管理</a> 			
+				</li>
+				<li>
+				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
+				    &nbsp;<a target="main" href="<%=path %>/admin/listMaster.do?pageIndex=1&pageSize=5" style="text-decoration:none;color:blue;">宿管管理</a> 			
+				</li>	
+            </ul>     
+        </div>
+</body>
+</html>

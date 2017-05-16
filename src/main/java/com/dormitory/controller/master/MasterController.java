@@ -34,7 +34,7 @@ import com.dormitory.service.StudentService;
 
 @Controller
 @RequestMapping(value = "/master")
-@SessionAttributes({ "studentId" })
+@SessionAttributes({ "masterId" })
 public class MasterController {
 	@Resource
 	private MasterService masterService;
@@ -53,13 +53,22 @@ public class MasterController {
 	@RequestMapping(value = "/masterLogin.do", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam(value = "id") Integer masterId,
 			@RequestParam(value = "password") String password, Model model) {
-		ModelAndView modelAndView = new ModelAndView("../../jsp/login");// login不在WEB-INF/pages下，要访问父级目录
+		ModelAndView modelAndView = new ModelAndView();// login不在WEB-INF/pages下，要访问父级目录
 		Master temp = masterService.get(masterId);
 		if (temp != null) {
 			if (password.trim().equals(temp.getPassword())) {
-				modelAndView.setViewName("");
+				modelAndView.setViewName("masterMain");
 				setSessionValue(model, masterId);
+				return modelAndView;
+			}else{
+		
+				modelAndView.setViewName("../../master/login");
+				modelAndView.addObject("status", "密码错误");
 			}
+			
+		}else{
+			modelAndView.setViewName("../../master/login.jsp");
+			modelAndView.addObject("status", "用户名不存在");
 		}
 		return modelAndView;
 	}

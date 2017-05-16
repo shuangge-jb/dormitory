@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.enterprise.inject.Model;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -34,22 +35,27 @@ public class MasterLostFoundController extends LostFoundController {
 	 * @return
 	 */
 	@RequestMapping(value = "listLostFoundByMasterId.do")
-	@ResponseBody
-	public String listLostFoundByMasterId(@RequestParam(value = "masterId") Integer masterId,
+	public ModelAndView listLostFoundByMasterId(@RequestParam(value = "masterId") Integer masterId,
 			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
+		ModelAndView modelAndView = new ModelAndView();
 		Master master = masterService.get(masterId);
 		Integer buildingId = master.getBuildingId();
 		List<LostFound> list = lostFoundService.listByBuildingId(buildingId, pageIndex, pageSize);
 		Integer total = lostFoundService.getSizeByBuildingId(buildingId);
 		Integer count = getTotalPages(total, pageSize);
-		Map<String, Object> map = new HashMap<String, Object>(4);
-		map.put("data", list);
-		map.put("total", total);
-		map.put("totalPages", count);
-		map.put("pageIndex", pageIndex);
-		map.put("pageSize", pageSize);
-		map.put("result", list!=null);
-		return toJSON(map);
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPages", count);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.setViewName("masterList/listLostFound");
+		return modelAndView;
+	}
+	@RequestMapping(value = "forwardAddLostFound.do")
+	public ModelAndView forwardAddLostFound(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("masterList/addLostFound");
+		return modelAndView;
 	}
 
 }

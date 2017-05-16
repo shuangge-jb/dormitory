@@ -38,7 +38,7 @@ public interface LostFoundDAO {
 	public List<LostFound> listByBuildingId(@Param("buildingId") Integer buildingId, @Param("start") Integer start,
 			@Param("pageSize") Integer pageSize);
 
-	@Select("select count(l.*) from lost_found l join student s on l.student_id=s.student_id "
+	@Select("select count(*) from lost_found l join student s on l.student_id=s.student_id "
 			+ " join dormitory d on d.dormitory_id=s.dormitory_id where d.building_id=#{buildingId} ")
 	public Integer getSizeByBuildingId(@Param("buildingId") Integer buildingId);
 
