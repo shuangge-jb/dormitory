@@ -133,6 +133,14 @@
 			<mvc:mapping path="/student/updatePassword.do"/>
 			<bean class="com.dormitory.interceptor.StudentLoginInterceptor"></bean>
 		</mvc:interceptor>
+		
+		<mvc:interceptor>
+		<mvc:mapping path="/master/saveLostFound.do"/>
+		<mvc:mapping path="/master/updateLostFound.do"/>
+		<mvc:mapping path="/master/removeLostFound.do"/>
+		<mvc:mapping path="/master/changeState.do"/>
+		<bean class="com.dormitory.interceptor.MasterLoginInterceptor"></bean>
+		</mvc:interceptor>
 		</mvc:interceptors>
 </beans>
 

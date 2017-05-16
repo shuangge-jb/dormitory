@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.LostFoundController;
+import com.dormitory.dto.master.LostFoundDTO;
 import com.dormitory.entity.LostFound;
 import com.dormitory.service.LostFoundService;
 import com.dormitory.service.StudentService;
@@ -24,7 +25,7 @@ public class StudentLostFoundController  extends LostFoundController{
 	@RequestMapping(value = "listLostFoundByStudentId.do")
 	@ResponseBody
 	public String listLostFoundByStudentId(Long studentId,Integer pageIndex, Integer pageSize) {
-		List<LostFound> list = lostFoundService.listByStudentId(studentId,pageIndex, pageSize);
+		List<LostFoundDTO> list = lostFoundService.listByStudentId(studentId,pageIndex, pageSize);
 		Integer total=lostFoundService.getSizeByStudentId(studentId);
 		Integer totalPage=getTotalPages(total, pageSize);
 		Map<String,Object> map=new HashMap<String,Object>(3);

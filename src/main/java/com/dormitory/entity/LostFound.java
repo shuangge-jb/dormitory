@@ -1,5 +1,6 @@
 package com.dormitory.entity;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class LostFound {
@@ -9,10 +10,10 @@ public class LostFound {
 
 	protected String content;
 
-	protected Timestamp createTime;
+	protected Date createTime;
 
 	protected Integer state;
-	protected String publisher;
+	protected Integer publisherId;
 	protected String place;
 
 	public Integer getLostFoundId() {
@@ -39,11 +40,11 @@ public class LostFound {
 		this.content = content == null ? null : content.trim();
 	}
 
-	public Timestamp getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
@@ -55,12 +56,12 @@ public class LostFound {
 		this.state = state;
 	}
 
-	public String getPublisher() {
-		return publisher;
+	public Integer getPublisherId() {
+		return publisherId;
 	}
 
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
+	public void setPublisherId(Integer publisherId) {
+		this.publisherId = publisherId;
 	}
 
 	public String getPlace() {
@@ -74,7 +75,7 @@ public class LostFound {
 	@Override
 	public String toString() {
 		return "LostFound [lostFoundId=" + lostFoundId + ", studentId=" + studentId + ", content=" + content
-				+ ", createTime=" + createTime + ", state=" + state + ", publisher=" + publisher + ", place=" + place
+				+ ", createTime=" + createTime + ", state=" + state + ", publisherId=" + publisherId + ", place=" + place
 				+ "]";
 	}
 

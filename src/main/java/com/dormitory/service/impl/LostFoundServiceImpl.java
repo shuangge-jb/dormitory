@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.dormitory.dao.LostFoundDAO;
+import com.dormitory.dto.master.LostFoundDTO;
 import com.dormitory.entity.LostFound;
 import com.dormitory.service.LostFoundService;
 
@@ -19,9 +20,9 @@ public class LostFoundServiceImpl implements LostFoundService {
 	private LostFoundDAO lostFoundDAO;
 
 	@Override
-	public List<LostFound> list(Integer pageIndex,Integer pageSize) {
+	public List<LostFoundDTO> list(Integer pageIndex,Integer pageSize) {
 		Integer start=(pageIndex-1)*pageSize;
-		List<LostFound> list=lostFoundDAO.list(start,pageSize);
+		List<LostFoundDTO> list=lostFoundDAO.list(start,pageSize);
 		
 		return list;
 	}
@@ -32,9 +33,9 @@ public class LostFoundServiceImpl implements LostFoundService {
 	}
 
 	@Override
-	public List<LostFound> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize) {
+	public List<LostFoundDTO> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize) {
 		Integer start=(pageIndex-1)*pageSize;
-		List<LostFound> list=lostFoundDAO.list(start,pageSize);
+		List<LostFoundDTO> list=lostFoundDAO.list(start,pageSize);
 		return list;
 	}
 
@@ -77,7 +78,7 @@ public class LostFoundServiceImpl implements LostFoundService {
 	}
 
 	@Override
-	public List<LostFound> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize) {
+	public List<LostFoundDTO> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize) {
 		Integer start=(pageIndex-1)*pageSize;
 		return lostFoundDAO.listByBuildingId(buildingId, start, pageSize);
 	}
@@ -85,6 +86,11 @@ public class LostFoundServiceImpl implements LostFoundService {
 	@Override
 	public Integer getSizeByBuildingId(Integer buildingId) {
 		return lostFoundDAO.getSizeByBuildingId(buildingId);
+	}
+
+	@Override
+	public void changeState(Integer lostFoundId) {
+		 lostFoundDAO.changeState(lostFoundId);
 	}
 
 }

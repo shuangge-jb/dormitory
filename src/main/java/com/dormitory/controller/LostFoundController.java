@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.student.StudentController;
+import com.dormitory.dto.master.LostFoundDTO;
 import com.dormitory.entity.LostFound;
+import com.dormitory.entity.Master;
 import com.dormitory.service.LostFoundService;
+import com.dormitory.service.MasterService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,64 +32,103 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class LostFoundController {
 	@Resource
 	protected LostFoundService lostFoundService;
+	@Resource
+	protected MasterService masterService;
 	protected static final String ERROR_PAGE = "error";
 	protected static final String OPERATE_SUCCESS = "操作成功";
 	protected static final String REMOVE_SUCCESS = "删除成功";
-	protected static final String ERROR_INPUT="输入的参数有误";
+	protected static final String ERROR_INPUT = "输入的参数有误";
 	protected static final Logger LOGGER = LoggerFactory.getLogger(LostFoundController.class);
 
 	@RequestMapping(value = "listLostFound.do")
 	public ModelAndView listLostFound(@RequestParam(value = "pageIndex") Integer pageIndex,
 			@RequestParam(value = "pageSize") Integer pageSize) {
 		ModelAndView modelAndView = new ModelAndView();
-		List<LostFound> list = lostFoundService.list(pageIndex, pageSize);
+		List<LostFoundDTO> list = lostFoundService.list(pageIndex, pageSize);
 		Integer total = lostFoundService.getSize();
-		Integer totalPage=getTotalPages(total, pageSize);
-        modelAndView.addObject("data", list);
-        modelAndView.addObject("total", total);
-        modelAndView.addObject("totalPages", totalPage);
-        modelAndView.addObject("pageIndex", pageIndex);
-        modelAndView.addObject("pageSize", pageSize);
-        modelAndView.addObject("result", list!=null);	
-        modelAndView.setViewName("studentAnnoucment/lostFound");
+		Integer totalPage = getTotalPages(total, pageSize);
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPages", totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.addObject("result", list != null);
+		modelAndView.setViewName("studentAnnoucment/lostFound");
 		return modelAndView;
 	}
-	
-	@RequestMapping(value = "saveOrUpdateLostFound.do",method=RequestMethod.POST)
-	public ModelAndView saveOrUpdateLostFound(@ModelAttribute(value="lostFound")@Valid LostFound lostFound,BindingResult result){
-		ModelAndView modelAndView = new ModelAndView("homePage");
-		if(result.hasErrors()){
-			modelAndView.setViewName(ERROR_PAGE);
+
+	@RequestMapping(value = "saveLostFound.do", method = RequestMethod.POST)
+	public ModelAndView saveLostFound(@ModelAttribute(value = "lostFound") @Valid LostFound lostFound,
+			BindingResult result) {
+		ModelAndView modelAndView = new ModelAndView("masterList/addLostFound");
+		System.out.println("saveLostFound");
+		if (result.hasErrors()) {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("saveLostFound error:" + result.getFieldError());
+			}
+
 			modelAndView.addObject("status", ERROR_INPUT);
 			return modelAndView;
 		}
+		System.out.println("lostFound:" + lostFound);
 		lostFoundService.saveOrUpdate(lostFound);
-		modelAndView.addObject("status", OPERATE_SUCCESS);
+		modelAndView.addObject("status", "新增成功");
+		modelAndView.addObject("data", lostFound);
 		return modelAndView;
 	}
-	@RequestMapping(value = "removeLostFound.do",method=RequestMethod.POST)
-	public ModelAndView removeLostFound(@RequestParam(value="lostFound") Integer lostFoundId){
-		ModelAndView modelAndView = new ModelAndView("homePage");
-		
+
+	@RequestMapping(value = "updateLostFound.do", method = RequestMethod.POST)
+	public ModelAndView updateLostFound(@ModelAttribute(value = "lostFound") @Valid LostFound lostFound,
+			BindingResult result) {
+		ModelAndView modelAndView = new ModelAndView("masterList/addLostFound");
+		if (result.hasErrors()) {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("saveLostFound error:" + result.getFieldError());
+			}
+			modelAndView.addObject("status", ERROR_INPUT);
+			return modelAndView;
+		}
+
+		lostFoundService.saveOrUpdate(lostFound);
+		modelAndView.addObject("status", "修改成功");
+		modelAndView.addObject("data", lostFound);
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "removeLostFound.do", method = RequestMethod.GET)
+	public ModelAndView removeLostFound(@RequestParam(value = "lostFoundId") Integer lostFoundId,
+			@RequestParam(value = "masterId") Integer masterId, @RequestParam(value = "pageIndex") Integer pageIndex,
+			@RequestParam(value = "pageSize") Integer pageSize) {
 		lostFoundService.remove(lostFoundId);
-		modelAndView.addObject("status", REMOVE_SUCCESS);
+		ModelAndView modelAndView = new ModelAndView("forward:/master/listLostFoundByMasterId.do?");
+		modelAndView.addObject("masterId", masterId);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "getLostFound.do")
 	@ResponseBody
 	public String getLostFound(@RequestParam(value = "lostFoundId") Integer lostFoundId) {
 		LostFound lost = lostFoundService.get(lostFoundId);
 		return toJSON(lost);
 	}
-	protected int getTotalPages(Integer count ,Integer pageSize){
-		if(pageSize==null){
-			pageSize=10;
+	@RequestMapping(value = "changeState.do",method=RequestMethod.POST)
+	@ResponseBody
+	public String changeState(@RequestParam(value = "lostFoundId") Integer lostFoundId){
+		lostFoundService.changeState(lostFoundId);
+		return "{\"data\":\"已认领\"}";
+	}
+
+	protected int getTotalPages(Integer count, Integer pageSize) {
+		if (pageSize == null) {
+			pageSize = 10;
 		}
 		int totalPages = 0;
-		totalPages = (count%pageSize==0)?(count/pageSize):(count/pageSize+1);
+		totalPages = (count % pageSize == 0) ? (count / pageSize) : (count / pageSize + 1);
 		return totalPages;
 	}
+
 	protected String toJSON(Object obj) {
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -102,10 +144,11 @@ public class LostFoundController {
 		}
 		return result;
 	}
+
 	@RequestMapping(value = "listLostFoundLimit.do")
 	@ResponseBody
-	public String listLostFoundLimit(@RequestParam(value="n")Integer n){
-		List<LostFound> list=lostFoundService.listLimit(n);
+	public String listLostFoundLimit(@RequestParam(value = "n") Integer n) {
+		List<LostFound> list = lostFoundService.listLimit(n);
 		return toJSON(list);
 	}
 }

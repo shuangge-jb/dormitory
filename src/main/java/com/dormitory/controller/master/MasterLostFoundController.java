@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.LostFoundController;
+import com.dormitory.dto.master.LostFoundDTO;
 import com.dormitory.entity.LostFound;
 import com.dormitory.entity.Master;
 import com.dormitory.service.LostFoundService;
@@ -40,7 +41,7 @@ public class MasterLostFoundController extends LostFoundController {
 		ModelAndView modelAndView = new ModelAndView();
 		Master master = masterService.get(masterId);
 		Integer buildingId = master.getBuildingId();
-		List<LostFound> list = lostFoundService.listByBuildingId(buildingId, pageIndex, pageSize);
+		List<LostFoundDTO> list = lostFoundService.listByBuildingId(buildingId, pageIndex, pageSize);
 		Integer total = lostFoundService.getSizeByBuildingId(buildingId);
 		Integer count = getTotalPages(total, pageSize);
 		modelAndView.addObject("data", list);

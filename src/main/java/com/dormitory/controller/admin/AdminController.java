@@ -101,7 +101,7 @@ public class AdminController {
 			masterDTO.setImgPath(imgPath);
 		}
 		masterDTO.setEntryTime(new Timestamp(new Date().getTime()));
-		masterDTO.setPassword(""+masterDTO.getIdCard());
+		masterDTO.setPassword("123456");
 		MasterDTO newMasterDTO = masterService.saveOrUpdate(masterDTO);
 		modelAndView.addObject("data", newMasterDTO);
 		modelAndView.addObject("status", "新增成功");

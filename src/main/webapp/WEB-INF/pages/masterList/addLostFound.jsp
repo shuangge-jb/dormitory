@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<b>新增失物招领信息</b><font style="color:red">（*号为必填）</font>
 				&nbsp;<font style="color:red">${status}</font>
 			</div>
-            <form action="#" name="form1" method="post" 
+            <form action="<%=path %>/master/saveLostFound.do" name="form1" method="post" 
              onsubmit="return verifyLostFoundInfo();">
             <div style="margin-left:80px;margin-top:30px;">
 				<font color=red>*</font> 物品简述：<input type="text"  id="content"
@@ -121,6 +121,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<textArea name="description" id="description" class="textAreaTxt"
 					placeholder="描述清楚该拾取的物品" onkeyup="keyPress()" onblur="keyPress()"></textArea>
 				<font color="gray" size=2><label id="miaoshu">&nbsp;你还可以输入100个字</label></font>
+			</div>
+			<div>
+			<input type="hidden" name="publisherId" value="${masterId}"/>
 			</div>
 			<input type="hidden" value="0" name="state">
 			     <input type="submit" value="新增" style="margin-top:30px;margin-left:130px;font-weight:bolder;font-size:15px;border:3px solid #0090DB;height:30px;width:50;position:absolute;background:#0090DB;color:#FFEDF1;" 

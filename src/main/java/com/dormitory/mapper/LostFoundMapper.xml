@@ -5,10 +5,20 @@
     <id column="lost_found_id" jdbcType="INTEGER" property="lostFoundId" />
     <result column="student_id" jdbcType="BIGINT" property="studentId" />
     <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
     <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="publisher" jdbcType="VARCHAR" property="publisher" />
+    <result column="publisher_id" jdbcType="INTEGER" property="publisherId" />
     <result column="place" jdbcType="VARCHAR" property="place" />
   </resultMap>
   
+  <resultMap id="lostFoundDTO" type="com.dormitory.dto.master.LostFoundDTO">
+    <id column="lost_found_id" jdbcType="INTEGER" property="lostFoundId" />
+    <result column="student_id" jdbcType="BIGINT" property="studentId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="publisher_id" jdbcType="INTEGER" property="publisherId" />
+    <result column="place" jdbcType="VARCHAR" property="place" />
+     <result column="name" jdbcType="VARCHAR" property="publisher" />
+  </resultMap>
 </mapper>

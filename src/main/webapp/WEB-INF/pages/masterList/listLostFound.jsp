@@ -16,22 +16,25 @@
 <script type="text/javascript">
 
   $(document).ready(function(){
-  function changeState(id){
+	  
+  });
+  function changeState(id,index){
 	  $.ajax({
 			type:"post",
-		    url:'#',
+		    url:"<%=path%>/changeState.do",
 		    dataType:"json",
 		    data:{lostFoundId:id},
 		    success:function(data){	
-		    	$("#lostFoundState").html("");
-		    	$("#lostFoundState").html(data);
+		    	console.log(data);
+		    	//$("#lostFoundState").html("");
+		    	$(index).html(data.data);
 		    },
 		    error:function(data){
 		    //alert("请求失败")
+		    console.log("请求失败");
 		    }
-  })
-  })
-
+		    });
+  }
   function checkDetail(detail){
 	  $('#myModal').modal('show');
 		$(".modal-body").text(detail);
@@ -41,7 +44,9 @@
    {
        if(confirm('您确定删除该失物招领信息吗？'))
        {
-    	   window.location.href ="#";
+    	   var pageIndex=document.getElementById('hiddenPageIndex').value;
+    	   var pageSize=10;
+    	   window.location.href ="<%=path%>/master/removeLostFound.do?lostFoundId="+id+"&masterId=${masterId}&pageIndex="+pageIndex+"&pageSize="+pageSize;
        }
    }
    function functionCheck(id){
@@ -163,14 +168,14 @@ a {
 					<td>${lostFound.content}</td>
 					<td>${lostFound.createTime}</td>
 					<td>${lostFound.place}</td>
-					<td id="lostFoundState"><c:if test="${lostFound.state==0}">未认领</c:if>
-					<c:if test="${lostFound.state==1}">已认领</c:if> </td>
-					<td><span style="color:blue;" onclick="checkDetail('${lostFound.content}')">查看详情</span></td>
+					<td id="lostFoundState${status.index+1}"><c:if test="${lostFound.state==0}">未认领</c:if>
+						<c:if test="${lostFound.state==1}">已认领</c:if></td>
+					<td><span style="color: blue;"
+						onclick="checkDetail('${lostFound.content}')">查看详情</span></td>
 					<td><input type="button" value="删除" class="crud_device"
-						onclick="lostFoundDel(${lostFound.lostFoundId});" /> 
-						<input type="button" value="确认领取" class="crud_device"
-						onclick="changeState(${lostFound.lostFoundId});" />
-					</td>
+						onclick="lostFoundDel(${lostFound.lostFoundId});" /> <input
+						type="button" value="确认领取" class="crud_device"
+						onclick="changeState(${lostFound.lostFoundId},lostFoundState${status.index+1});" /></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -195,7 +200,7 @@ a {
 		<c:if test="${pageIndex == totalPages}">
 			<td>下一页&nbsp;&nbsp;最后一页&nbsp;&nbsp;</td>
 		</c:if>
-		共${totalPages}页&nbsp;&nbsp; 共${total}条记录&nbsp;&nbsp; 
+		共${totalPages}页&nbsp;&nbsp; 共${total}条记录&nbsp;&nbsp;
 	</div>
 	<input type="hidden" id="hiddenPageIndex" value="${pageIndex}" />
 	<input type="hidden" id="backhiddenPageIndex"
