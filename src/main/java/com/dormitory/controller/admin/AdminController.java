@@ -57,22 +57,28 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/listMaster.do")
-	@ResponseBody
-	public String listMaster(@RequestParam(value = "pageIndex") Integer pageIndex,
+	public ModelAndView listMaster(@RequestParam(value = "pageIndex") Integer pageIndex,
 			@RequestParam(value = "pageSize") Integer pageSize) {
+		ModelAndView modelAndView = new ModelAndView();
 		List<Master> list = masterService.list(pageIndex, pageSize);
 		Integer total = masterService.getSize();
 		Integer totalPage = getTotalPages(total, pageSize);
-		Map<String, Object> map = new HashMap<String, Object>(4);
-		map.put("data", list);
-		map.put("total", total);
-		map.put("totalPages", totalPage);
-		map.put("pageIndex", pageIndex);
-		map.put("pageSize", pageSize);
-		return toJSON(map);
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPages", totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.setViewName("masterList/listMster");
+		return modelAndView;
 
 	}
-
+	@RequestMapping(value = "/forwardAddMaster.do")
+	public ModelAndView  forwardAddMaster(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("masterList/addMaster");
+		return modelAndView;
+	}
+	 
 	@RequestMapping(value = "/saveMaster.do", method = RequestMethod.POST)
 	public ModelAndView saveMaster(@ModelAttribute(value = "master") @Valid MasterDTO masterDTO, BindingResult result,
 			MultipartFile img, HttpServletRequest request) {
