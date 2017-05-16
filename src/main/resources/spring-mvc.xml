@@ -123,11 +123,14 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/listMyDormitoryAnnouncement.do" />
 			<mvc:mapping path="/student/listUserDevice.do"/>
-			<mvc:mapping path="/student/studentLogin.do" />
 			<mvc:mapping path="/student/listRepairRecordByDormitoryId.do"/>
 			<mvc:mapping path="/student/forwardApplyRepair.do"/>
 			<mvc:mapping path="/student/saveRepairRecord.do"/>
 			<mvc:mapping path="/student/listPostcardByStudentId.do"/>
+			<mvc:mapping path="/student/getStudentInfo.do"/>
+			<mvc:mapping path="/student/updateStudentInfo.do"/>
+			<mvc:mapping path="/student/forwardChangePasswordPage.do"/>
+			<mvc:mapping path="/student/updatePassword.do"/>
 			<bean class="com.dormitory.interceptor.StudentLoginInterceptor"></bean>
 		</mvc:interceptor>
 		</mvc:interceptors>

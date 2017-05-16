@@ -8,11 +8,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="css/sucaijiayuan.css"/>
+<link rel="stylesheet" type="text/css" href="<%=path%>/css/sucaijiayuan.css"/>
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/homePage.css"/>
 <script src="<%=path%>/js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="js/slide.js"></script>
-<script type="text/javascript" src="js/animation.js"></script>
+<script type="text/javascript" src="<%=path%>/js/slide.js"></script>
+<script type="text/javascript" src="<%=path%>/js/animation.js"></script>
 <script type="text/javascript">
 	function AddFavorite(title, url) {
 		try {
@@ -70,7 +70,7 @@
 	<jsp:include page="head.jsp"></jsp:include>
 	<div id="top">
 		<div class="top_left">
-			<img src="/dormitory/images/scut_new_logo1.jpg" width="73px"
+			<img src="<%=path%>/images/scut_new_logo1.jpg" width="73px"
 				height="75px">
 			<div class="top_h2">华南理工大学虚拟宿舍</div>
 		</div>

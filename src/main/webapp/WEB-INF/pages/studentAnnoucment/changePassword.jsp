@@ -137,16 +137,16 @@ $(document).ready(function() {
 					value="修改密码"  onclick="changeUserPassword();"/>
 	</div>
 	<div style="border-bottom:1px solid #009AFF;width:790px;margin-left:6px;"></div>
-     <form action="#" method="post" name="form1"  onsubmit="return verifyPassword();" >
+     <form action="<%=path %>/student/updatePassword.do?studentId=${studentId}" method="post" name="form1"  onsubmit="return verifyPassword();" >
   <div style="float:left;">
      <div style="margin-left:15px;margin-top:15px;">
      <ul>
      <li class="pb10">  
       <font color=#818181 size=4>新密码：</font> 
-             <input type="text"   id="password"
+             <input type="password"   id="password"
 					name="password" class="inputTxt" ><br></li>
 	 <li class="pb10"> <font color=#818181 size=4>确认新密码：</font> 
-             <input type="text"   id="password1"
+             <input type="password"   id="password1"
 					name="password1" class="inputTxt" ><br></li>
 	
      </ul>    </div>

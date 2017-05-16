@@ -53,7 +53,7 @@ public class StudentController {
 	private EmailService emailService;
 	@Resource
 	private FileService fileService;
-	
+
 	private static final String IMG_DIR = "/images/";
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
 	private static final Integer LIMIT = 6;
@@ -152,18 +152,11 @@ public class StudentController {
 	public ModelAndView updatePassword(@RequestParam(value = "studentId") Long studentId,
 			@RequestParam(value = "password") String password, Model model) {
 		Student student = studentService.get(studentId);
-		ModelAndView modelAndView = new ModelAndView();
-
-		if (student == null) {
-			modelAndView.setViewName("redirect:/error");
-		} else {
-			student.setPassword(password);
-			studentService.saveOrUpdate(student);
-			modelAndView.setViewName("");
-			model.addAttribute("studentId", studentId);
-			Integer dormitoryId = dormitoryService.get(studentId).getDormitoryId();
-			model.addAttribute("dormitoryId", dormitoryId);
-		}
+		ModelAndView modelAndView = new ModelAndView("studentAnnoucment/changePassword");
+		student.setPassword(password);
+		studentService.saveOrUpdate(student);
+		modelAndView.addObject("student", student);
+		modelAndView.addObject("status", "修改成功");
 		return modelAndView;
 	}
 
@@ -235,30 +228,45 @@ public class StudentController {
 	@RequestMapping(value = "/updateStudentInfo.do", method = RequestMethod.POST)
 	public ModelAndView updateStudentInfo(@RequestParam(value = "img") MultipartFile img, HttpServletRequest request,
 			@ModelAttribute(value = "studentDTO") @Valid StudentDTO studentDTO, BindingResult result) {
-		ModelAndView modelAndView = new ModelAndView("student");
+		ModelAndView modelAndView = new ModelAndView("studentAnnoucment/studentInfo");
 		if (result.hasErrors()) {
-			modelAndView.setViewName("");
+			modelAndView.addObject("status", "数据有误，请检查");
+			modelAndView.addObject("student", studentDTO);
 			return modelAndView;
 		}
+		System.out.println("studentDTO:" + studentDTO);
 		Student student = studentDTO.getStudent();
 		Dormitory dormitory = dormitoryService.save(studentDTO.getBuildingName(), studentDTO.getRoom());
 		student.setDormitoryId(dormitory.getDormitoryId());
 		// 新上传照片时，保存照片，更改照片路径
 		if (img.getSize() > 0) {
+			if (!(img.getOriginalFilename().toLowerCase().endsWith(".jpg"))) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("img参数异常：");
+				}
+				modelAndView.addObject("status", "请上传JPG格式的图片");
+				modelAndView.addObject("student", studentDTO);
+				return modelAndView;
+			}
 			fileService.saveFile(request, IMG_DIR, img);
 			String imgName = fileService.getFilePath(request, IMG_DIR, img);
 			System.out.println("--imgName:" + imgName);
 			student.setImgPath(imgName);
-		} else {
-			// 没有上传照片时，用旧的照片路径
-			Student old = studentService.get(studentDTO.getStudentId());
-			student.setImgPath(old.getImgPath());
-		}
+		} /*
+			 * else { // 没有上传照片时，用旧的照片路径 Student old =
+			 * studentService.get(studentDTO.getStudentId());
+			 * student.setImgPath(old.getImgPath()); }
+			 */
+		studentDTO.setStudent(student);
+		System.out.println("after update:" + studentDTO);
 		studentService.saveOrUpdate(student);
+		modelAndView.addObject("status", "修改成功");
+		modelAndView.addObject("student", studentDTO);
 		return modelAndView;
 	}
+
 	@RequestMapping(value = "forwardChangePasswordPage.do")
-	public ModelAndView forwardChangePasswordPage(){
+	public ModelAndView forwardChangePasswordPage() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("studentAnnoucment/changePassword");
 		return modelAndView;
