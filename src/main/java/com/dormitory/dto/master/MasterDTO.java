@@ -1,5 +1,7 @@
 package com.dormitory.dto.master;
 
+import java.sql.Timestamp;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -21,13 +23,9 @@ public class MasterDTO {
 	@Length(min = 11, max = 11, message = "{user.phoneNumber.length.illegal}")
 	@Pattern(regexp = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$", message = "{master.phoneNumber.illegal}")
 	protected String phoneNumber;
-	@NotEmpty(message = "{user.email.null}")
-	@Length(min = 5, max = 50, message = "{user.email.length.illegal}")
-	@Email(message = "{user.email.illegal}")
+	
 	protected String email;
-	@NotEmpty(message = "{user.password.null}")
-	@Length(min = 5, max = 20, message = "{user.password.length.illegal}")
-	@Pattern(regexp = "[a-zA-Z0-9]{6,20}", message = "{user.password.illegal}")
+	
 	protected String password;
 	@NotNull(message = "doritory.buildingName.null")
 	@NotEmpty
@@ -36,6 +34,9 @@ public class MasterDTO {
 	protected String buildingName;
 
 	private String imgPath;
+@NotNull
+	private Long idCard;
+	private Timestamp entryTime;
 
 	public String getBuildingName() {
 		return buildingName;
@@ -93,6 +94,22 @@ public class MasterDTO {
 		this.masterId = masterId;
 	}
 
+	public Long getIdCard() {
+		return idCard;
+	}
+
+	public void setIdCard(Long idCard) {
+		this.idCard = idCard;
+	}
+
+	public Timestamp getEntryTime() {
+		return entryTime;
+	}
+
+	public void setEntryTime(Timestamp entryTime) {
+		this.entryTime = entryTime;
+	}
+
 	public Master getMaster() {
 		Master master = new Master();
 		master.setEmail(email);
@@ -102,6 +119,8 @@ public class MasterDTO {
 		master.setPassword(password);
 		master.setPhoneNumber(Long.valueOf(phoneNumber));
 		master.setMasterId(masterId);
+		master.setIdCard(idCard);
+		master.setEntryTime(entryTime);
 		return master;
 	}
 
@@ -111,8 +130,10 @@ public class MasterDTO {
 		this.name = master.getName();
 		this.password = master.getPassword();
 		this.phoneNumber = String.valueOf(master.getPhoneNumber());
-		this.masterId=master.getMasterId();
+		this.masterId = master.getMasterId();
 		this.setImgPath(master.getImgPath());
+		this.setIdCard(master.getIdCard());
+		this.setEntryTime(master.getEntryTime());
 	}
 
 	public MasterDTO() {
@@ -122,7 +143,8 @@ public class MasterDTO {
 	@Override
 	public String toString() {
 		return "MasterDTO [masterId=" + masterId + ", name=" + name + ", phoneNumber=" + phoneNumber + ", email="
-				+ email + ", password=" + password + ", buildingName=" + buildingName + ", imgPath=" + imgPath + "]";
+				+ email + ", password=" + password + ", buildingName=" + buildingName + ", imgPath=" + imgPath
+				+ ", idCard=" + idCard + ", entryTime=" + entryTime + "]";
 	}
 
 }

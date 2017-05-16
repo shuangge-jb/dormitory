@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.AnnouncementController;
+import com.dormitory.dto.master.MasterDTO;
 import com.dormitory.entity.Announcement;
 import com.dormitory.entity.Master;
 import com.dormitory.service.FileService;

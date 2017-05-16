@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" language="java"
-	errorPage="error.jsp"%>
+	%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
@@ -54,13 +54,13 @@
    function paramaterQuery(id,pageIndex){
 	   window.location.href ="<%=path%>/getParamater.do?pageIndex="+pageIndex+"&paramaterId="+id;
    }
-   function paramaterDel(id)
+   function masterDel(id)
    {
-       if(confirm('您确定删除该参数吗？'))
+       if(confirm('您确定删除该宿管吗？'))
        {
     	   var pageIndex = document.getElementById('hiddenPageIndex').value;
     	   var pageSize=10;
-    	   window.location.href ="<%=path%>/admin/removeParamater.do?paramaterId="+id+"&pageIndex="+pageIndex+"&pageSize="+pageSize;
+    	   window.location.href ="<%=path%>/admin/removeMaster.do?masterId="+id+"&pageIndex="+pageIndex+"&pageSize="+pageSize;
        }
    }
    function functionCheck(id){
@@ -72,7 +72,7 @@
    function addMaster(){
 	   window.location.href="<%=path%>/admin/forwardAddMaster.do";
    }
-   function paramaterEdit(id){
+   function masterEdit(id){
 	   //alert("修改"+id);
 	   var pageIndex = document.getElementById('hiddenPageIndex').value;
 	   var pageSize=10;
@@ -178,12 +178,12 @@ a {
 				<tr>
 					<td>${status.index+1}</td>
 					<td>${master.name}</td>
-					<td>${master.buildingId}</td>
+					<td>${master.buildingName}</td>
 					<td>${master.phoneNumber}</td>
-					<td>身份证</td>
-					<td>入职时间</td>
+					<td>${master.idCard }</td>
+					<td>${master.entryTime }</td>
 					<td><input type="button" value="删除" class="crud_device"
-						onclick="paramaterDel(${master.masterId})" /> 
+						onclick="masterDel(${master.masterId})" /> 
 						</td>
 				</tr>
 			</c:forEach>

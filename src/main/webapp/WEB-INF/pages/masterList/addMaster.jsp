@@ -19,6 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   window.location.href ="<%=path%>/admin/listMaster.do?pageIndex=1&pageSize=5";
     }
     function verifyMasterInfo(){
+    	var phoneNumber=$("#phoneNumber").val();
     	if(document.form1.name.value==""){
     		$('#myModal').modal('show');
     		$(".modal-body").text("楼管名称不能为空");
@@ -91,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<b>新增宿管信息</b><font style="color:red">（*号为必填）</font>
 				&nbsp;<font style="color:red">${status}</font>
 			</div>
-            <form action="#" name="form1" method="post" 
+            <form action="<%=path %>/admin/saveMaster.do" name="form1" method="post" 
             enctype="multipart/form-data" onsubmit="return verifyMasterInfo();">
             <div style="margin-left:80px;margin-top:30px;">
 				<font color=red>*</font> 宿管名字：<input type="text"  id="name"
@@ -102,12 +103,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					name="phoneNumber" class="inputTxt">
 			</div>
 			<div style="margin-left:80px;margin-top:30px;">
-				<font color=red>*</font> 所在宿舍楼：<input type="text" id="buildingId"
-					name="buildingId" class="inputTxt">
+				<font color=red>*</font> 所在宿舍楼：<input type="text" id="buildingName"
+					name="buildingName" class="inputTxt">
 			</div>
 		<div style="margin-left:80px;margin-top:30px;">
-				<font color=red>*</font> 身份证号：<input type="text" id="IdCard"
-					name="IdCard" class="inputTxt">
+				<font color=red>*</font> 身份证号：<input type="text" id="idCard"
+					name="idCard" class="inputTxt">
 			</div>
 			     <input type="submit" value="新增" style="margin-top:30px;margin-left:130px;font-weight:bolder;font-size:15px;border:3px solid #0090DB;height:30px;width:50;position:absolute;background:#0090DB;color:#FFEDF1;" 
 			     onMouseOver="this.style.backgroundColor='#EF972B';"

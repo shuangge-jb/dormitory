@@ -6,9 +6,9 @@ import com.dormitory.dto.master.MasterDTO;
 import com.dormitory.entity.Master;
 
 public interface MasterService extends GetService<Master, Integer>, SaveOrUpdateService<MasterDTO> {
-	List<Master> list();
+	List<MasterDTO> list();
 
-	List<Master> list(Integer pageIndex, Integer pageSize);
+	List<MasterDTO> list(Integer pageIndex, Integer pageSize);
 
 	Integer getSize();
 	

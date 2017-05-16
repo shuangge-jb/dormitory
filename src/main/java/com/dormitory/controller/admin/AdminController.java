@@ -1,6 +1,9 @@
 package com.dormitory.controller.admin;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +63,7 @@ public class AdminController {
 	public ModelAndView listMaster(@RequestParam(value = "pageIndex") Integer pageIndex,
 			@RequestParam(value = "pageSize") Integer pageSize) {
 		ModelAndView modelAndView = new ModelAndView();
-		List<Master> list = masterService.list(pageIndex, pageSize);
+		List<MasterDTO> list = masterService.list(pageIndex, pageSize);
 		Integer total = masterService.getSize();
 		Integer totalPage = getTotalPages(total, pageSize);
 		modelAndView.addObject("data", list);
@@ -72,33 +75,36 @@ public class AdminController {
 		return modelAndView;
 
 	}
+
 	@RequestMapping(value = "/forwardAddMaster.do")
-	public ModelAndView  forwardAddMaster(){
+	public ModelAndView forwardAddMaster() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("masterList/addMaster");
 		return modelAndView;
 	}
-	 
+
 	@RequestMapping(value = "/saveMaster.do", method = RequestMethod.POST)
 	public ModelAndView saveMaster(@ModelAttribute(value = "master") @Valid MasterDTO masterDTO, BindingResult result,
 			MultipartFile img, HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView("");
+		ModelAndView modelAndView = new ModelAndView("masterList/addMaster");
 		if (result.hasErrors()) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug(result.getFieldError().toString());
 			}
-			modelAndView.setViewName(ERROR_PAGE);
-			modelAndView.addObject("status", "参数异常");
+			modelAndView.addObject("status", "输入的数据有误，请检查");
 			return modelAndView;
 		}
-		
+
 		if (img != null && (img.isEmpty() == false)) {
 			fileService.saveFile(request, IMG_DIR, img);
 			String imgPath = fileService.getFilePath(request, IMG_DIR, img);
 			masterDTO.setImgPath(imgPath);
 		}
+		masterDTO.setEntryTime(new Timestamp(new Date().getTime()));
+		masterDTO.setPassword(""+masterDTO.getIdCard());
 		MasterDTO newMasterDTO = masterService.saveOrUpdate(masterDTO);
 		modelAndView.addObject("data", newMasterDTO);
+		modelAndView.addObject("status", "新增成功");
 		return modelAndView;
 	}
 
@@ -114,34 +120,38 @@ public class AdminController {
 			modelAndView.addObject("status", "参数异常");
 			return modelAndView;
 		}
-		Master oldMaster=masterService.get(masterDTO.getMasterId());
-		System.out.println("oldMaster:"+oldMaster);
-		if(oldMaster==null){
+		Master oldMaster = masterService.get(masterDTO.getMasterId());
+		System.out.println("oldMaster:" + oldMaster);
+		if (oldMaster == null) {
 			modelAndView.setViewName(ERROR_PAGE);
 			modelAndView.addObject("status", "用户不存在");
 			return modelAndView;
 		}
-		//已上传图片
+		// 已上传图片
 		if (img != null && (img.isEmpty() == false)) {
 			fileService.saveFile(request, IMG_DIR, img);
 			String imgPath = fileService.getFilePath(request, IMG_DIR, img);
 			masterDTO.setImgPath(imgPath);
-		}else{
-			//未上传图片
+		} else {
+			// 未上传图片
 			masterDTO.setImgPath(oldMaster.getImgPath());
 		}
 		masterService.saveOrUpdate(masterDTO);
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/removeMaster.do", method = RequestMethod.POST)
-	public ModelAndView removeMaster(@RequestParam(value = "masterId") Integer masterId) {
-		ModelAndView modelAndView = new ModelAndView("");
+	@RequestMapping(value = "/removeMaster.do", method = RequestMethod.GET)
+	public ModelAndView removeMaster(@RequestParam(value = "masterId") Integer masterId,
+			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
 		masterService.remove(masterId);
+		ModelAndView modelAndView = new ModelAndView(
+				"forward:/admin/listMaster.do");
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "removeStudent.do", method = RequestMethod.POST)
+	@RequestMapping(value = "removeStudent.do", method = RequestMethod.GET)
 	public ModelAndView removeStudent(@RequestParam(value = "studentId") Long studentId) {
 		ModelAndView modelAndView = new ModelAndView("");
 		Student student = studentService.get(studentId);
