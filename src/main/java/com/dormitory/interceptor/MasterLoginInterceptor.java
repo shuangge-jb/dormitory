@@ -60,9 +60,9 @@ public class MasterLoginInterceptor implements HandlerInterceptor {
 		}
 		// 获取Session
 		HttpSession session = request.getSession();
-		Long studentId = (Long) session.getAttribute("masterId");
-		System.out.println("masterId: " + studentId);
-		if (studentId != null) {
+		Integer masterId = (Integer) session.getAttribute("masterId");
+		System.out.println("masterId: " + masterId);
+		if (masterId != null) {
 			return true;
 		}
 		// 不符合条件的，跳转到登录页
