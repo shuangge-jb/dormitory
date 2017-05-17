@@ -55,16 +55,13 @@ String path = request.getContextPath();
 				</li>
 				<li>
 				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
-				    &nbsp;<a target="main" href="<%=path %>/listDeviceFunction.do?pageIndex=1&pageSize=10" style="text-decoration:none;color:blue;">公告管理</a>   			
+				    &nbsp;<a target="main" href="<%=path %>/master/listAnnouncementByMasterId.do?pageIndex=1&pageSize=5&masterId=${masterId}" style="text-decoration:none;color:blue;">公告管理</a>   			
 				</li>
 				<li>
 				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
 				    &nbsp;<a target="main" href="<%=path %>/forwardParametersList.do?pageIndex=1&pageSize=5" style="text-decoration:none;color:blue;">明信片管理</a> 			
 				</li>
-				<li>
-				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
-				    &nbsp;<a target="main" href="<%=path %>/admin/listMaster.do?pageIndex=1&pageSize=5" style="text-decoration:none;color:blue;">宿管管理</a> 			
-				</li>	
+				
             </ul>     
         </div>
 </body>

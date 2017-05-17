@@ -147,35 +147,29 @@ a {
 <body>
 	<table class="table table-bordered table-striped table-hover"
 		id="parametersTable">
-		<caption>参数列表</caption>
+		<caption>公告列表</caption>
 		<thead>
 			<tr>
 				<th>序号</th>
-				<th>发布人</th>
-				<th>物品</th>
+				<th>公告标题</th>
 				<th>时间</th>
-				<th>地点</th>
-				<th>是否已领取</th>
+				<th>重要程度</th>
 				<th>详情</th>
 				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="lostFound" items="${data}" varStatus="status">
+			<c:forEach var="announcement" items="${data}" varStatus="status">
 				<tr>
 					<td>${status.index+1}</td>
-					<td>${lostFound.publisher}</td>
-					<td>${lostFound.content}</td>
-					<td>${lostFound.createTime}</td>
-					<td>${lostFound.place}</td>
-					<td id="lostFoundState${status.index+1}"><c:if test="${lostFound.state==0}">未认领</c:if>
-						<c:if test="${lostFound.state==1}">已认领</c:if></td>
+					<td>${announcement.title}</td>
+					<td>${announcement.createTime}</td>
+					<td ><c:if test="${announcement.importance==0}">不重要</c:if>
+						<c:if test="${announcement.importance==1}">重要</c:if></td>
 					<td><span style="color: blue;"
-						onclick="checkDetail('${lostFound.content}')">查看详情</span></td>
+						onclick="checkDetail('${announcement.content}')">查看详情</span></td>
 					<td><input type="button" value="删除" class="crud_device"
-						onclick="lostFoundDel(${lostFound.lostFoundId});" /> <input
-						type="button" value="确认领取" class="crud_device"
-						onclick="changeState(${lostFound.lostFoundId},lostFoundState${status.index+1});" /></td>
+						onclick="lostFoundDel(${announcement.announcementId});" /></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -187,15 +181,15 @@ a {
 		</c:if>
 		<c:if test="${pageIndex>1}">
 			<td><a
-				href="<%=path%>/master/listLostFoundByMasterId.do?pageIndex=1&pageSize=5&masterId=${masterId}">首页</a></td>
+				href="<%=path%>/master/listAnnouncementByMasterId.do?pageIndex=1&pageSize=5&masterId=${masterId}">首页</a></td>
 			<td><a
-				href="<%=path%>/master/listLostFoundByMasterId.do?pageIndex=${pageIndex-1}&pageSize=5&masterId=${masterId}">上一页</a></td>
+				href="<%=path%>/master/listAnnouncementByMasterId.do?pageIndex=${pageIndex-1}&pageSize=5&masterId=${masterId}">上一页</a></td>
 		</c:if>
 		<c:if test="${pageIndex != totalPages}">
 			<td><a
-				href="<%=path%>/master/listLostFoundByMasterId.do?pageIndex=${pageIndex+1}&pageSize=5&masterId=${masterId}">下一页</a></td>
+				href="<%=path%>/master/listAnnouncementByMasterId.do?pageIndex=${pageIndex+1}&pageSize=5&masterId=${masterId}">下一页</a></td>
 			<td><a
-				href="<%=path%>/master/listLostFoundByMasterId.do?pageIndex=${totalPages}&pageSize=5&masterId=${masterId}">最后一页</a></td>
+				href="<%=path%>/master/listAnnouncementByMasterId.do?pageIndex=${totalPages}&pageSize=5&masterId=${masterId}">最后一页</a></td>
 		</c:if>
 		<c:if test="${pageIndex == totalPages}">
 			<td>下一页&nbsp;&nbsp;最后一页&nbsp;&nbsp;</td>
@@ -207,7 +201,7 @@ a {
 		value="${hiddenPageIndex}" />
 	<input type="hidden" id="hiddenTotalPage" value="${totalPages}" />
 	<a onclick="addLostFound();"
-		class="button button-glow button-rounded button-raised button-primary">新增失物招领</a>
+		class="button button-glow button-rounded button-raised button-primary">新增公告</a>
 
 	<!-- 错误提示框（Modal） -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"

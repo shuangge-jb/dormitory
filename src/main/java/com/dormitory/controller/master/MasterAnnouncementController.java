@@ -110,21 +110,21 @@ public class MasterAnnouncementController extends AnnouncementController {
 	}
 
 	@RequestMapping(value = "listAnnouncementByMasterId.do")
-	@ResponseBody
-	public String listAnnouncementByMasterId(@RequestParam(value = "masterId") Integer masterId,
+	public ModelAndView listAnnouncementByMasterId(@RequestParam(value = "masterId") Integer masterId,
 			@RequestParam("pageIndex") Integer pageIndex, @RequestParam("pageSize") Integer pageSize) {
+		ModelAndView modelAndView = new ModelAndView();
 		Master master = masterService.get(masterId);
 		Integer buildingId = master.getBuildingId();
 		List<Announcement> list = announcementService.listByBuildingId(buildingId, pageIndex, pageSize);
 		Integer total = announcementService.getSizeByBuildingId(buildingId);
 		Integer totalPage = getTotalPages(total, pageSize);
-		Map<String, Object> map = new HashMap<String, Object>(2);
-		map.put("data", list);
-		map.put("total", total);
-		map.put("totalPages", totalPage);
-		map.put("pageIndex", pageIndex);
-		map.put("pageSize", pageSize);
-		map.put("result", list != null);
-		return toJSON(map);
+		modelAndView.setViewName("masterList/listAnnoucement");
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPages", totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.addObject("result", list != null);
+		return modelAndView;
 	}
 }
