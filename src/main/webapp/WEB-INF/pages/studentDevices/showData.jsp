@@ -19,11 +19,12 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	var data=$("#data").val();
+	console.log("string:"+data);
 	if(data==null||data==""){
 		$("#appendTable").append("<div style='margin-left: 80px; margin-top: 10px;'><strong style='font-size:larger;#F00'>找不到数据</strong></div>");
 	}else{
 		console.log("data:"+data);
-		var json= eval(data);
+		var json=  eval(data);
 		console.log("json array:"+json);
 		for(var i=0;i<json.length;i++){
 			for(var key in json[i]){
@@ -33,7 +34,8 @@ $(document).ready(function(){
 	var jsonHtmlTable = ConvertJsonToTable(json, 'jsonTable','table table-striped table-bordered',null);
 	console.log(jsonHtmlTable);
 	$("#appendTable").append(jsonHtmlTable);
-	$("#jsonTable").css("minHeight",380);
+	//$("#jsonTable").css("minHeight",380);
+	$("#jsonTable").css("style",'margin-left: 80px; margin-top: 10px;');
 	}
 					});
 				
@@ -109,8 +111,8 @@ $(document).ready(function(){
 <body bgcolor="#FFFFFF">
 <jsp:include page="head.jsp"></jsp:include>
 <h3  class="text-center">来自${source}的数据</h3>
-<input type="hidden" name="data" value="${data }"/>
-	<div id="appendTable"></div>
+<input type="hidden" name="data" id="data" value='${data }'/>
+	<div id="appendTable"  style='margin-left: 80px; margin-top: 10px;'></div>
 	<div   style="margin-left: 80px; margin-top: 10px;">
 	<button class="btn btn-info" onclick="back()">返回参数页面</button>
 	</div>
