@@ -9,6 +9,7 @@
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="publisher_id" jdbcType="INTEGER" property="publisherId" />
     <result column="place" jdbcType="VARCHAR" property="place" />
+    <result column="img_path" jdbcType="VARCHAR" property="imgPath" />
   </resultMap>
   
   <resultMap id="lostFoundDTO" type="com.dormitory.dto.master.LostFoundDTO">
@@ -19,6 +20,7 @@
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="publisher_id" jdbcType="INTEGER" property="publisherId" />
     <result column="place" jdbcType="VARCHAR" property="place" />
+     <result column="img_path" jdbcType="VARCHAR" property="imgPath" />
      <result column="name" jdbcType="VARCHAR" property="publisher" />
   </resultMap>
 </mapper>

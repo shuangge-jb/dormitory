@@ -71,7 +71,7 @@ $(document).ready(function() {
 			style="width:100%;height:180px;margin-top:10px;border-bottom:1px solid #D7D7D7;">
 			<div
 				style="float:left;margin-top:5px;margin-left:5px;margin-bottom:5px;">
-				<img src="<%=path%>/images/test/image1.jpg" width="220" height="160" 
+				<img src="${lostFound.imgPath }" width="220" height="160" 
 					alt="whx" />
 			</div>
 			<div style="margin-left:12px;float:left;width:500px;">

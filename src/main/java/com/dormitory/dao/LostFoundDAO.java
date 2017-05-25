@@ -14,7 +14,7 @@ import com.dormitory.dto.master.LostFoundDTO;
 import com.dormitory.entity.LostFound;
 
 public interface LostFoundDAO {
-	@Select(" select l.lost_found_id,l.student_id,l.content,l.create_time,l.state,m.name,l.place "
+	@Select(" select l.lost_found_id,l.student_id,l.content,l.create_time,l.state,m.name,l.place,l.img_path "
 			+ " from lost_found l join master m on l.publisher_id=m.master_id order by create_time desc limit #{start},#{pageSize}")
 	@ResultMap("com.dormitory.mapper.LostFoundMapper.lostFoundDTO")
 	public List<LostFoundDTO> list(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
@@ -34,7 +34,7 @@ public interface LostFoundDAO {
 	@Select(" select count(*) from lost_found where student_id=#{studentId} ")
 	public Integer getSizeByStudentId(@Param("studentId") Long studentId);
 
-	@Select(" select l.lost_found_id,l.student_id,l.content,l.create_time,l.state,m.name,l.place "
+	@Select(" select l.lost_found_id,l.student_id,l.content,l.create_time,l.state,m.name,l.place,l.img_path "
 			+ " from lost_found l join master m on l.publisher_id=m.master_id "
 			+ "where m.building_id=#{buildingId} limit #{start},#{pageSize} ")
 	@ResultMap("com.dormitory.mapper.LostFoundMapper.lostFoundDTO")
@@ -52,18 +52,19 @@ public interface LostFoundDAO {
 	@Select(" select LAST_INSERT_ID() ")
 	public Integer getLastInsertId();
 
-	@Insert(" insert into lost_found(student_id,content,create_time,state,publisher_id,place)  "
-			+ " values(#{studentId},#{content},#{createTime},#{state},#{publisherId},#{place}) ")
+	@Insert(" insert into lost_found(student_id,content,create_time,state,publisher_id,place,img_path)  "
+			+ " values(#{studentId},#{content},#{createTime},#{state},#{publisherId},#{place},#{imgPath}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "lostFoundId")
 	public void save(LostFound lostFound);
 
-	@Update(" update lost_found  set student_id=#{studentId},content=#{content}, "
-			+ " create_time=#{createTime},state=#{state},publisher_id=#{publisherId},place=#{place} "
+	@Update(" update lost_found  set student_id=#{studentId},content=#{content},create_time=#{createTime}, "
+			+ " state=#{state},publisher_id=#{publisherId},place=#{place},img_path=#{imgPath} "
 			+ " where lost_found_id=#{lostFoundId} ")
 	public void update(LostFound lostFound);
 
 	@Delete("delete from lost_found where lost_found_id=#{lostFoundId} ")
 	public void remove(@Param("lostFoundId") Integer lostFoundId);
+
 	@Update("update lost_found set state=1 where lost_found_id=#{lostFoundId} ")
 	public void changeState(@Param("lostFoundId") Integer lostFoundId);
 

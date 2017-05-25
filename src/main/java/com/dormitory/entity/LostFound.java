@@ -15,6 +15,7 @@ public class LostFound {
 	protected Integer state;
 	protected Integer publisherId;
 	protected String place;
+	protected String imgPath;
 
 	public Integer getLostFoundId() {
 		return lostFoundId;
@@ -72,11 +73,19 @@ public class LostFound {
 		this.place = place;
 	}
 
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+
 	@Override
 	public String toString() {
 		return "LostFound [lostFoundId=" + lostFoundId + ", studentId=" + studentId + ", content=" + content
-				+ ", createTime=" + createTime + ", state=" + state + ", publisherId=" + publisherId + ", place=" + place
-				+ "]";
+				+ ", createTime=" + createTime + ", state=" + state + ", publisherId=" + publisherId + ", place="
+				+ place + ", imgPath=" + imgPath + "]";
 	}
 
 }
