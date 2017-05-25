@@ -36,22 +36,27 @@ public class MasterPostcardController extends PostcardController {
 	 * @return
 	 */
 	@RequestMapping(value = "listPostcardByMasterId.do")
-	@ResponseBody
-	public String listPostcardByMasterId(@RequestParam(value = "masterId") Integer masterId,
+	public ModelAndView listPostcardByMasterId(@RequestParam(value = "masterId") Integer masterId,
 			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
+		ModelAndView modelAndView = new ModelAndView();
 		Master master=masterService.get(masterId);
 		Integer buildingId=master.getBuildingId();
 		List<PostcardDTO> list = postcardService.listByBuildingId(buildingId, pageIndex, pageSize);
 		Integer total=postcardService.getSizeByBuildingId(buildingId);
 		Integer totalPage = getTotalPages(total, pageSize);
-		Map<String, Object> map = new HashMap<String, Object>(4);
-		map.put("data", list);
-		map.put("total", total);
-		map.put("totalPages", totalPage);
-		map.put("pageIndex", pageIndex);
-		map.put("pageSize", pageSize);
-		map.put("result", list!=null);
-		return toJSON(map);
+		modelAndView.setViewName("masterList/listPostCard");
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPages", totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		modelAndView.addObject("result", list != null);
+		return modelAndView;
 	}
-
+	@RequestMapping(value ="/forwardAddPostCard.do")
+    public ModelAndView forwardAddAnnouncement(){
+    	ModelAndView modelAndView = new ModelAndView();
+    	modelAndView.setViewName("masterList/addPostCard");
+    	return modelAndView;
+    }
 }

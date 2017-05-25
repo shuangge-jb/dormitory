@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <td>${status.index+1}</td>
         <td>${ device.name}</td>
         <td>${device.type}</td>
-        <td><img id="img1" src="images/test/image1.jpg" width="30px" height="30px" data-action="zoom"></td>
+        <td><img id="img1" src="${device.imgPath}" width="30px" height="30px" data-action="zoom"></td>
        
            <td><input type="button" value="删除" class="crud_device"
            onclick="deviceDel(${device.deviceId})" />

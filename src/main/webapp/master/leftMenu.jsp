@@ -59,9 +59,16 @@ String path = request.getContextPath();
 				</li>
 				<li>
 				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
-				    &nbsp;<a target="main" href="<%=path %>/forwardParametersList.do?pageIndex=1&pageSize=5" style="text-decoration:none;color:blue;">明信片管理</a> 			
+				    &nbsp;<a target="main" href="<%=path %>/master/listPostcardByMasterId.do?pageIndex=1&pageSize=5&masterId=${masterId}" style="text-decoration:none;color:blue;">明信片管理</a> 			
 				</li>
-				
+				<li>
+				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
+				    &nbsp;<a target="main" href="<%=path %>/master/forwardChangePassword.do" style="text-decoration:none;color:blue;">修改密码</a> 			
+				</li>
+				<li>
+				    &nbsp;<img style='vertical-align:middle' src="<%=path %>/images/admin/group.png" />
+				    &nbsp;<a target="main" href="<%=path %>/master/getMasterInfo.do?masterId=${masterId}" style="text-decoration:none;color:blue;">个人信息</a> 			
+				</li>
             </ul>     
         </div>
 </body>

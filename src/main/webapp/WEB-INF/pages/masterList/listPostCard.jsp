@@ -40,13 +40,13 @@
 		$(".modal-body").text(detail);
 		return false;
   }
-   function lostFoundDel(id)
+   function postCardDel(id)
    {
-       if(confirm('您确定删除该失物招领信息吗？'))
+       if(confirm('您确定删除该明信片信息吗？'))
        {
     	   var pageIndex=document.getElementById('hiddenPageIndex').value;
-    	   var pageSize=10;
-    	   window.location.href ="<%=path%>/master/removeLostFound.do?lostFoundId="+id+"&masterId=${masterId}&pageIndex="+pageIndex+"&pageSize="+pageSize;
+    	   var pageSize=5;
+    	   window.location.href ="<%=path%>/master/removePostcard.do?postcardId="+id+"&masterId=${masterId}&pageIndex="+pageIndex+"&pageSize="+pageSize;
        }
    }
    function functionCheck(id){
@@ -55,8 +55,8 @@
 	  
 	   window.location.href ="<%=path%>/getInterface.do?interfaceId="+id+"&pageIndex="+pageIndex+"&hiddenPageIndex="+hiddenPageIndex;
    }
-   function addAnnouncement(){
-	   window.location.href="<%=path%>/master/forwardAddAnnouncement.do";
+   function addPostCard(){
+	   window.location.href="<%=path%>/master/forwardAddPostCard.do";
    }
    function paramaterEdit(id){
 	   //alert("修改"+id);
@@ -147,29 +147,31 @@ a {
 <body>
 	<table class="table table-bordered table-striped table-hover"
 		id="parametersTable">
-		<caption>公告列表</caption>
+		<caption>明信片列表</caption>
 		<thead>
 			<tr>
 				<th>序号</th>
-				<th>公告标题</th>
+				<th>发布人</th>
+				<th>领取人</th>
 				<th>时间</th>
-				<th>重要程度</th>
-				<th>详情</th>
+				<th>状态</th>
 				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="announcement" items="${data}" varStatus="status">
+			<c:forEach var="postCard" items="${data}" varStatus="status">
 				<tr>
 					<td>${status.index+1}</td>
-					<td>${announcement.title}</td>
-					<td>${announcement.createTime}</td>
-					<td ><c:if test="${announcement.importance==0}">不重要</c:if>
-						<c:if test="${announcement.importance==1}">重要</c:if></td>
-					<td><span style="color: blue;"
-						onclick="checkDetail('${announcement.content}')">查看详情</span></td>
+					<td>${masterId}</td>
+					<td>${postCard.name}</td>
+					<td>${postCard.createTime}</td>
+					<td id="lostFoundState${status.index+1}"><c:if test="${postCard.state==0}">未认领</c:if>
+						<c:if test="${postCard.state==1}">已认领</c:if></td>
+
 					<td><input type="button" value="删除" class="crud_device"
-						onclick="lostFoundDel(${announcement.announcementId});" /></td>
+						onclick="postCardDel(${postCard.postcardId});" /> <input
+						type="button" value="确认已领取" class="crud_device"
+						onclick="" /></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -181,15 +183,15 @@ a {
 		</c:if>
 		<c:if test="${pageIndex>1}">
 			<td><a
-				href="<%=path%>/master/listAnnouncementByMasterId.do?pageIndex=1&pageSize=5&masterId=${masterId}">首页</a></td>
+				href="<%=path%>/master/listPostcardByMasterId.do?pageIndex=1&pageSize=5&masterId=${masterId}">首页</a></td>
 			<td><a
-				href="<%=path%>/master/listAnnouncementByMasterId.do?pageIndex=${pageIndex-1}&pageSize=5&masterId=${masterId}">上一页</a></td>
+				href="<%=path%>/master/listPostcardByMasterId.do?pageIndex=${pageIndex-1}&pageSize=5&masterId=${masterId}">上一页</a></td>
 		</c:if>
 		<c:if test="${pageIndex != totalPages}">
 			<td><a
-				href="<%=path%>/master/listAnnouncementByMasterId.do?pageIndex=${pageIndex+1}&pageSize=5&masterId=${masterId}">下一页</a></td>
+				href="<%=path%>/master/listPostcardByMasterId.do?pageIndex=${pageIndex+1}&pageSize=5&masterId=${masterId}">下一页</a></td>
 			<td><a
-				href="<%=path%>/master/listAnnouncementByMasterId.do?pageIndex=${totalPages}&pageSize=5&masterId=${masterId}">最后一页</a></td>
+				href="<%=path%>/master/listPostcardByMasterId.do?pageIndex=${totalPages}&pageSize=5&masterId=${masterId}">最后一页</a></td>
 		</c:if>
 		<c:if test="${pageIndex == totalPages}">
 			<td>下一页&nbsp;&nbsp;最后一页&nbsp;&nbsp;</td>
@@ -200,8 +202,8 @@ a {
 	<input type="hidden" id="backhiddenPageIndex"
 		value="${hiddenPageIndex}" />
 	<input type="hidden" id="hiddenTotalPage" value="${totalPages}" />
-	<a onclick="addAnnouncement();"
-		class="button button-glow button-rounded button-raised button-primary">新增公告</a>
+	<a onclick="addPostCard();"
+		class="button button-glow button-rounded button-raised button-primary">新增明信片</a>
 
 	<!-- 错误提示框（Modal） -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -211,7 +213,7 @@ a {
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">错误提示</h4>
+					<h4 class="modal-title" id="myModalLabel">失物招领详情</h4>
 				</div>
 				<div class="modal-body"></div>
 				<div class="modal-footer">

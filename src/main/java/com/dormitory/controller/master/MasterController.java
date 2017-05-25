@@ -154,7 +154,7 @@ public class MasterController {
 			return new ModelAndView("../../login");
 		}
 		masterDTO.setMaster(master);
-		ModelAndView modelAndView = new ModelAndView("");
+		ModelAndView modelAndView = new ModelAndView("masterList/getMasterInfo");
 		System.out.println("response masterDTO:"+masterDTO);
 		modelAndView.addObject("master", masterDTO);
 		return modelAndView;
@@ -246,4 +246,10 @@ public class MasterController {
 		studentService.remove(studentId);
 		return modelAndView;
 	}
+	@RequestMapping(value ="/forwardChangePassword.do")
+    public ModelAndView forwardAddAnnouncement(){
+    	ModelAndView modelAndView = new ModelAndView();
+    	modelAndView.setViewName("masterList/changePassword");
+    	return modelAndView;
+    }
 }

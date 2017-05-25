@@ -40,20 +40,14 @@
 		$(".modal-body").text(detail);
 		return false;
   }
-   function lostFoundDel(id)
+   function deleteStudent(id)
    {
-       if(confirm('您确定删除该失物招领信息吗？'))
+       if(confirm('您确定删除该学生信息吗？'))
        {
     	   var pageIndex=document.getElementById('hiddenPageIndex').value;
-    	   var pageSize=10;
-    	   window.location.href ="<%=path%>/master/removeLostFound.do?lostFoundId="+id+"&masterId=${masterId}&pageIndex="+pageIndex+"&pageSize="+pageSize;
+    	   var pageSize=5;
+    	   window.location.href ="#";
        }
-   }
-   function functionCheck(id){
-	   var pageIndex = document.getElementById('hiddenPageIndex').value;
-	   var hiddenPageIndex = document.getElementById('backhiddenPageIndex').value;
-	  
-	   window.location.href ="<%=path%>/getInterface.do?interfaceId="+id+"&pageIndex="+pageIndex+"&hiddenPageIndex="+hiddenPageIndex;
    }
    function addAnnouncement(){
 	   window.location.href="<%=path%>/master/forwardAddAnnouncement.do";
@@ -147,29 +141,29 @@ a {
 <body>
 	<table class="table table-bordered table-striped table-hover"
 		id="parametersTable">
-		<caption>公告列表</caption>
+		<caption>学生列表</caption>
 		<thead>
 			<tr>
 				<th>序号</th>
-				<th>公告标题</th>
-				<th>时间</th>
-				<th>重要程度</th>
-				<th>详情</th>
+				<th>学号</th>
+				<th>姓名</th>
+				<th>手机号</th>
+				<th>宿舍号</th>
+				<th>床号</th>
 				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="announcement" items="${data}" varStatus="status">
+			<c:forEach var="student" items="${data}" varStatus="status">
 				<tr>
 					<td>${status.index+1}</td>
-					<td>${announcement.title}</td>
-					<td>${announcement.createTime}</td>
-					<td ><c:if test="${announcement.importance==0}">不重要</c:if>
-						<c:if test="${announcement.importance==1}">重要</c:if></td>
-					<td><span style="color: blue;"
-						onclick="checkDetail('${announcement.content}')">查看详情</span></td>
+					<td>${student.studentId}</td>
+					<td>${student.name}</td>
+					<td>${student.phoneNumber}</td>
+					<td>${student.room}</td>
+					<td>${student.bedId}</td>
 					<td><input type="button" value="删除" class="crud_device"
-						onclick="lostFoundDel(${announcement.announcementId});" /></td>
+						onclick="deleteStudent(${student.studentId});" /></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -181,15 +175,15 @@ a {
 		</c:if>
 		<c:if test="${pageIndex>1}">
 			<td><a
-				href="<%=path%>/master/listAnnouncementByMasterId.do?pageIndex=1&pageSize=5&masterId=${masterId}">首页</a></td>
+				href="<%=path%>/master/listStudentByMasterId.do?pageIndex=1&pageSize=5&masterId=${masterId}">首页</a></td>
 			<td><a
-				href="<%=path%>/master/listAnnouncementByMasterId.do?pageIndex=${pageIndex-1}&pageSize=5&masterId=${masterId}">上一页</a></td>
+				href="<%=path%>/master/listStudentByMasterId.do?pageIndex=${pageIndex-1}&pageSize=5&masterId=${masterId}">上一页</a></td>
 		</c:if>
 		<c:if test="${pageIndex != totalPages}">
 			<td><a
-				href="<%=path%>/master/listAnnouncementByMasterId.do?pageIndex=${pageIndex+1}&pageSize=5&masterId=${masterId}">下一页</a></td>
+				href="<%=path%>/master/listStudentByMasterId.do?pageIndex=${pageIndex+1}&pageSize=5&masterId=${masterId}">下一页</a></td>
 			<td><a
-				href="<%=path%>/master/listAnnouncementByMasterId.do?pageIndex=${totalPages}&pageSize=5&masterId=${masterId}">最后一页</a></td>
+				href="<%=path%>/master/listStudentByMasterId.do?pageIndex=${totalPages}&pageSize=5&masterId=${masterId}">最后一页</a></td>
 		</c:if>
 		<c:if test="${pageIndex == totalPages}">
 			<td>下一页&nbsp;&nbsp;最后一页&nbsp;&nbsp;</td>
@@ -200,8 +194,6 @@ a {
 	<input type="hidden" id="backhiddenPageIndex"
 		value="${hiddenPageIndex}" />
 	<input type="hidden" id="hiddenTotalPage" value="${totalPages}" />
-	<a onclick="addAnnouncement();"
-		class="button button-glow button-rounded button-raised button-primary">新增公告</a>
 
 	<!-- 错误提示框（Modal） -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"

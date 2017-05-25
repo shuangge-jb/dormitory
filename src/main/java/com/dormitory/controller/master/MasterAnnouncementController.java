@@ -108,7 +108,12 @@ public class MasterAnnouncementController extends AnnouncementController {
 		modelAndView.addObject("status", REMOVE_SUCCESS);
 		return modelAndView;
 	}
-
+	@RequestMapping(value ="/forwardAddAnnouncement.do")
+    public ModelAndView forwardAddAnnouncement(){
+    	ModelAndView modelAndView = new ModelAndView();
+    	modelAndView.setViewName("masterList/addAnnouncement");
+    	return modelAndView;
+    }
 	@RequestMapping(value = "listAnnouncementByMasterId.do")
 	public ModelAndView listAnnouncementByMasterId(@RequestParam(value = "masterId") Integer masterId,
 			@RequestParam("pageIndex") Integer pageIndex, @RequestParam("pageSize") Integer pageSize) {

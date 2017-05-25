@@ -174,6 +174,13 @@ public class StudentDeviceController extends DeviceController {
 		return modelAndView;
 
 	}
+	@RequestMapping(value = "virtualDormitory.do")
+	public ModelAndView forwardVirtualDormitory() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("studentAnnoucment/myDormitory");
+		return modelAndView;
+
+	}
 
 	@RequestMapping(value = "listUserParamByInterfaceId.do")
 	@ResponseBody

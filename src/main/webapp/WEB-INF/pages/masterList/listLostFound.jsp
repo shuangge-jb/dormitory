@@ -217,7 +217,7 @@ a {
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">错误提示</h4>
+					<h4 class="modal-title" id="myModalLabel">失物招领详情</h4>
 				</div>
 				<div class="modal-body"></div>
 				<div class="modal-footer">
