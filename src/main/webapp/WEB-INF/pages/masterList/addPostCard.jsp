@@ -78,11 +78,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<b>新增明信片信息</b><font style="color:red">（*号为必填）</font>
 				&nbsp;<font style="color:red">${status}</font>
 			</div>
-            <form action="<%=path %>/master/saveOrUpdatePostcard.do" name="form1" method="post" 
+            <form action="<%=path %>/master/savePostcard.do?buildingId=${buildingId}" name="form1" method="post" 
              onsubmit="return verifyPostCard();">
             <div style="margin-left:80px;margin-top:30px;">
 				<font color=red>*</font> 接收人：<input type="text"  id="name"
-					name="title" class="inputTxt">
+					name="name" class="inputTxt">
 			</div>
 			 <div style="margin-left:80px;margin-top:30px;">
 				<font color=red>*</font> 明信片到达时间：<input type="date"  id="createTime"

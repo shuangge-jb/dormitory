@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" language="java"
-	errorPage="error.jsp"%>
+	%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
@@ -21,9 +21,9 @@
   function changeState(id,index){
 	  $.ajax({
 			type:"post",
-		    url:"<%=path%>/changeState.do",
+		    url:"<%=path%>/master/changePostcardState.do",
 		    dataType:"json",
-		    data:{lostFoundId:id},
+		    data:{postcardId:id},
 		    success:function(data){	
 		    	console.log(data);
 		    	//$("#lostFoundState").html("");
@@ -162,16 +162,16 @@ a {
 			<c:forEach var="postCard" items="${data}" varStatus="status">
 				<tr>
 					<td>${status.index+1}</td>
-					<td>${masterId}</td>
+					<td>${masterName}</td>
 					<td>${postCard.name}</td>
 					<td>${postCard.createTime}</td>
-					<td id="lostFoundState${status.index+1}"><c:if test="${postCard.state==0}">未认领</c:if>
+					<td id="postcardState${status.index+1}"><c:if test="${postCard.state==0}">未认领</c:if>
 						<c:if test="${postCard.state==1}">已认领</c:if></td>
 
 					<td><input type="button" value="删除" class="crud_device"
 						onclick="postCardDel(${postCard.postcardId});" /> <input
 						type="button" value="确认已领取" class="crud_device"
-						onclick="" /></td>
+						onclick="changeState(${postCard.postcardId},postcardState${status.index+1})" /></td>
 				</tr>
 			</c:forEach>
 		</tbody>

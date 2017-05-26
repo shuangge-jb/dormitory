@@ -14,4 +14,11 @@
 		<result column="img_path" jdbcType="VARCHAR" property="imgPath" />
 	</resultMap>
 
+	<resultMap id="studentDTO" type="com.dormitory.dto.student.StudentDTO">
+		<id column="student_id" jdbcType="BIGINT" property="studentId" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="phone_number" jdbcType="BIGINT" property="phoneNumber" />
+		<result column="room" jdbcType="VARCHAR" property="room" />
+		<result column="bed_id" jdbcType="INTEGER" property="bedId" />
+	</resultMap>
 </mapper>

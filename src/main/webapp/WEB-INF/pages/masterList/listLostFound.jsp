@@ -147,7 +147,7 @@ a {
 <body>
 	<table class="table table-bordered table-striped table-hover"
 		id="parametersTable">
-		<caption>参数列表</caption>
+		<caption>失物招领列表</caption>
 		<thead>
 			<tr>
 				<th>序号</th>

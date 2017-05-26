@@ -3,8 +3,8 @@
 <mapper namespace="com.dormitory.mapper.PostcardMapper">
   <resultMap id="postcard" type="com.dormitory.entity.Postcard">
     <id column="postcard_id" jdbcType="INTEGER" property="postcardId" />
-    <result column="student_id" jdbcType="BIGINT" property="studentId" />
-    <result column="dormitory_id" jdbcType="INTEGER" property="dormitoryId" />
+     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="building_id" jdbcType="INTEGER" property="buildingId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="state" jdbcType="INTEGER" property="state" />
   </resultMap>

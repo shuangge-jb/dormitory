@@ -40,13 +40,13 @@
 		$(".modal-body").text(detail);
 		return false;
   }
-   function lostFoundDel(id)
+   function announcementDel(id)
    {
-       if(confirm('您确定删除该失物招领信息吗？'))
+       if(confirm('您确定删除该公告信息吗？'))
        {
     	   var pageIndex=document.getElementById('hiddenPageIndex').value;
     	   var pageSize=10;
-    	   window.location.href ="<%=path%>/master/removeLostFound.do?lostFoundId="+id+"&masterId=${masterId}&pageIndex="+pageIndex+"&pageSize="+pageSize;
+    	   window.location.href ="<%=path%>/master/removeAnnouncement.do?announcementId="+id+"&masterId=${masterId}&pageIndex="+pageIndex+"&pageSize="+pageSize;
        }
    }
    function functionCheck(id){
@@ -169,7 +169,7 @@ a {
 					<td><span style="color: blue;"
 						onclick="checkDetail('${announcement.content}')">查看详情</span></td>
 					<td><input type="button" value="删除" class="crud_device"
-						onclick="lostFoundDel(${announcement.announcementId});" /></td>
+						onclick="announcementDel(${announcement.announcementId});" /></td>
 				</tr>
 			</c:forEach>
 		</tbody>

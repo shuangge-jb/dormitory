@@ -93,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<b>修改个人密码</b><font style="color:red">（*号为必填）</font>
 				&nbsp;<font style="color:red">${status}</font>
 			</div>
-            <form action="#" name="form1" method="post" 
+            <form action="<%=path %>/master/updateMasterPassword.do" name="form1" method="post" 
              onsubmit="return verifyPassword();">
             <div style="margin-left:80px;margin-top:30px;">
 				<font color=red>*</font> 新密码：<input type="password"  id="password"
@@ -104,10 +104,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					name="repassword" class="inputTxt" >
 			</div>
 			<div>
-			<input type="hidden" name="publisherId" value="${masterId}"/>
+			<input type="hidden" name="masterId" value="${masterId}"/>
 			</div>
 			<input type="hidden" value="0" name="state">
-			     <input type="submit" value="新增" style="margin-top:30px;margin-left:90px;font-weight:bolder;font-size:15px;border:3px solid #0090DB;height:30px;width:50;position:absolute;background:#0090DB;color:#FFEDF1;" 
+			     <input type="submit" value="提交" style="margin-top:30px;margin-left:90px;font-weight:bolder;font-size:15px;border:3px solid #0090DB;height:30px;width:50;position:absolute;background:#0090DB;color:#FFEDF1;" 
 			     onMouseOver="this.style.backgroundColor='#EF972B';"
 				onMouseOut="this.style.backgroundColor ='#0090DB';"/>&nbsp;
            </form>

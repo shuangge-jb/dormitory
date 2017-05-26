@@ -38,25 +38,7 @@ public class PostcardController {
 		Postcard card = postcardService.get(postcardId);
 		return toJSON(card);
 	}
-	@RequestMapping(value = "saveOrUpdatePostcard.do", method = RequestMethod.POST)
-	public ModelAndView saveOrUpdatePostcard(@ModelAttribute(value = "postcard") @Valid Postcard postcard,
-			BindingResult result) {
-		ModelAndView modelAndView = new ModelAndView();
-		if (result.hasErrors()) {
-			modelAndView.setViewName(ERROR_PAGE);
-			modelAndView.addObject("status", ERROR_INPUT);
-			return modelAndView;
-		}
-		postcardService.saveOrUpdate(postcard);
-		return modelAndView;
-	}
-
-	@RequestMapping(value = "removePostcard.do", method = RequestMethod.POST)
-	public ModelAndView removePostcard(@RequestParam(value = "postcardId") Integer postcardId) {
-		ModelAndView modelAndView = new ModelAndView();
-		postcardService.remove(postcardId);
-		return modelAndView;
-	}
+	
 	protected String toJSON(Object obj) {
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

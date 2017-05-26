@@ -14,7 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.PostcardController;
 import com.dormitory.dto.PostcardDTO;
+import com.dormitory.entity.Dormitory;
 import com.dormitory.entity.Postcard;
+import com.dormitory.entity.Student;
+import com.dormitory.service.DormitoryService;
 import com.dormitory.service.StudentService;
 
 @Controller
@@ -22,22 +25,26 @@ import com.dormitory.service.StudentService;
 public class StudentPostcardController extends PostcardController {
 	@Resource
 	private StudentService studentService;
+	@Resource
+	private DormitoryService dormitoryService;
 
 	@RequestMapping(value = "listPostcardByStudentId.do")
-	public ModelAndView listPostcardByStudentId(@RequestParam("studentId") Long studentId, @RequestParam("pageIndex") Integer pageIndex,
-			@RequestParam("pageSize") Integer pageSize) {
+	public ModelAndView listPostcardByStudentId(@RequestParam("studentId") Long studentId,
+			@RequestParam("pageIndex") Integer pageIndex, @RequestParam("pageSize") Integer pageSize) {
 		ModelAndView modelAndView = new ModelAndView();
-		List<PostcardDTO> list = postcardService.listByStudentId(studentId, pageIndex, pageSize);
-		Integer total = postcardService.getSizeByStudentId(studentId);
-		Integer totalPage=getTotalPages(total, pageSize);
+		Student student = studentService.get(studentId);
+		Dormitory dormitory = dormitoryService.get(student.getDormitoryId());
+		Integer buildingId = dormitory.getBuildingId();
+		List<PostcardDTO> list = postcardService.listByBuildingId(buildingId, pageIndex, pageSize);
+		Integer total = postcardService.getSizeByBuildingId(buildingId);
+		Integer totalPage = getTotalPages(total, pageSize);
 		modelAndView.addObject("data", list);
 		modelAndView.addObject("total", total);
 		modelAndView.addObject("totalPages", totalPage);
 		modelAndView.addObject("pageIndex", pageIndex);
 		modelAndView.addObject("pageSize", pageSize);
-		modelAndView.addObject("result", list!=null);
 		modelAndView.setViewName("studentAnnoucment/myPostCard");
 		return modelAndView;
 	}
-	
+
 }

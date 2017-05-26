@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
     function back(id){
        
-	   window.location.href ="<%=path%>/master/listAnnouncementByMasterId.do?pageIndex=1&pageSize=5&masterId="+id;
+	   window.location.href ="<%=path%>/master/listAnnouncementByMasterId.do?pageIndex=1&pageSize=5&masterId=${masterId}";
 
     }
     function keyPress() //textArea输入长度处理   
@@ -129,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<font color="gray" size=2><label id="miaoshu">&nbsp;你还可以输入100个字</label></font>
 			</div>
 			<div>
-			<input type="hidden" name="publisherId" value="${masterId}"/>
+			<input type="hidden" name="authorId" value="${masterId}"/>
 			</div>
 			<input type="hidden" value="0" name="state">
 			     <input type="submit" value="新增" style="margin-top:30px;margin-left:130px;font-weight:bolder;font-size:15px;border:3px solid #0090DB;height:30px;width:50;position:absolute;background:#0090DB;color:#FFEDF1;" 

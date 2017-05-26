@@ -32,14 +32,7 @@ public class PostcardServiceImpl implements PostcardService {
 	}
 
 	@Override
-	public List<PostcardDTO> listByStudentId(Long studentId,Integer pageIndex,Integer pageSize) {
-		Integer start=(pageIndex-1)*pageSize;
-		List<PostcardDTO> list=postcardDAO.listByStudentId(studentId,start,pageSize);
-		return list;
-	}
-
-	@Override
-	public PostcardDTO get(Integer postcardId) {
+	public Postcard get(Integer postcardId) {
 		return postcardDAO.get(postcardId);
 	}
 
@@ -62,8 +55,8 @@ public class PostcardServiceImpl implements PostcardService {
 
 	@Transactional
 	@Override
-	public void remove(Integer postcardId) {
-		postcardDAO.remove(postcardId);
+	public void changeState(Integer postcardId) {
+		postcardDAO.changeState(postcardId);
 	}
 
 	@Override
@@ -71,10 +64,6 @@ public class PostcardServiceImpl implements PostcardService {
 		return postcardDAO.getSize();
 	}
 
-	@Override
-	public Integer getSizeByStudentId(Long studentId) {
-		return postcardDAO.getSizeByStudentId(studentId);
-	}
 
 	@Override
 	public List<PostcardDTO> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize) {
@@ -85,6 +74,11 @@ public class PostcardServiceImpl implements PostcardService {
 	@Override
 	public Integer getSizeByBuildingId(Integer buildingId) {
 		return postcardDAO.getSizeByBuildingId(buildingId);
+	}
+
+	@Override
+	public void remove(Integer postcardId) {
+		postcardDAO.remove(postcardId);
 	}
 
 }

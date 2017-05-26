@@ -1,15 +1,21 @@
 package com.dormitory.entity;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class Postcard {
     protected Integer postcardId;
+@NotNull
+@NotEmpty
+    protected String name;
 
-    protected Long studentId;
+    protected Integer buildingId;
 
-    protected Integer dormitoryId;
-
-    protected Timestamp createTime;
+    protected Date createTime;
 
     protected Integer state;
 
@@ -21,27 +27,29 @@ public class Postcard {
         this.postcardId = postcardId;
     }
 
-    public Long getStudentId() {
-        return studentId;
-    }
+    
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
+    public String getName() {
+		return name;
+	}
 
-    public Integer getDormitoryId() {
-        return dormitoryId;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setDormitoryId(Integer dormitoryId) {
-        this.dormitoryId = dormitoryId;
-    }
+    public Integer getBuildingId() {
+		return buildingId;
+	}
 
-    public Timestamp getCreateTime() {
+	public void setBuildingId(Integer buildingId) {
+		this.buildingId = buildingId;
+	}
+
+	public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
@@ -60,8 +68,8 @@ public class Postcard {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", postcardId=").append(postcardId);
-        sb.append(", studentId=").append(studentId);
-        sb.append(", dormitoryId=").append(dormitoryId);
+        sb.append(", name=").append(name);
+        sb.append(", buildingId=").append(buildingId);
         sb.append(", createTime=").append(createTime);
         sb.append(", state=").append(state);
         sb.append("]");

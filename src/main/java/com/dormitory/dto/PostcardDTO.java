@@ -3,7 +3,7 @@ package com.dormitory.dto;
 import com.dormitory.entity.Postcard;
 
 public class PostcardDTO extends Postcard {
-	protected String name;
+	
 	protected String buildingName;
 
 	public String getName() {
@@ -24,9 +24,10 @@ public class PostcardDTO extends Postcard {
 
 	@Override
 	public String toString() {
-		return "PostcardDTO [name=" + name + ", buildingName=" + buildingName + ", postcardId=" + postcardId
-				+ ", studentId=" + studentId + ", dormitoryId=" + dormitoryId + ", createTime=" + createTime
-				+ ", state=" + state + "]";
+		return "PostcardDTO [buildingName=" + buildingName + ", postcardId=" + postcardId + ", name=" + name
+				+ ", buildingId=" + buildingId + ", createTime=" + createTime + ", state=" + state + "]";
 	}
+
+	
 
 }

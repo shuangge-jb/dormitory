@@ -46,7 +46,7 @@
        {
     	   var pageIndex=document.getElementById('hiddenPageIndex').value;
     	   var pageSize=5;
-    	   window.location.href ="#";
+    	   window.location.href ="<%=path%>/master/removeStudent.do?studentId="+id+"&masterId=${masterId}&pageIndex="+pageIndex+"&pageSize="+pageSize;
        }
    }
    function addAnnouncement(){

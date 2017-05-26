@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.dormitory.dao.BuildingDAO;
 import com.dormitory.dao.MasterDAO;
+import com.dormitory.dao.StudentDAO;
 import com.dormitory.dto.master.MasterDTO;
 import com.dormitory.entity.Building;
 import com.dormitory.entity.Master;
+import com.dormitory.entity.Student;
 import com.dormitory.service.BuildingService;
 import com.dormitory.service.MasterService;
 
@@ -21,7 +23,8 @@ public class MasterServiceImpl implements MasterService {
 	private MasterDAO masterDAO;
 	@Resource
 	private BuildingDAO buildingDAO;
-
+	@Resource
+private StudentDAO stuentDAO;
 	public MasterServiceImpl() {
 
 	}
@@ -81,6 +84,12 @@ public class MasterServiceImpl implements MasterService {
 	public Master updatePassword(Master master) {
 		masterDAO.updatePassword(master);
 		return master;
+	}
+
+	@Override
+	public List<Student> listStudentByMasterId(Integer masterId) {
+		
+		return null;
 	}
 
 }

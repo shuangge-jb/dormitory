@@ -1,5 +1,6 @@
 package com.dormitory.controller.master;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -26,6 +27,7 @@ import com.dormitory.dto.student.StudentDTO;
 import com.dormitory.entity.Dormitory;
 import com.dormitory.entity.Master;
 import com.dormitory.entity.Student;
+import com.dormitory.service.BuildingService;
 import com.dormitory.service.DormitoryService;
 import com.dormitory.service.EmailService;
 import com.dormitory.service.FileService;
@@ -34,7 +36,7 @@ import com.dormitory.service.StudentService;
 
 @Controller
 @RequestMapping(value = "/master")
-@SessionAttributes({ "masterId" })
+@SessionAttributes({ "masterId", "masterName", "buildingId" })
 public class MasterController {
 	@Resource
 	private MasterService masterService;
@@ -46,10 +48,12 @@ public class MasterController {
 	private StudentService studentService;
 	@Resource
 	private DormitoryService dormitoryService;
+	@Resource
+	private BuildingService buildingService;
 	private static final String IMG_DIR = "/images/";
 	private static final String ERROR_PAGE = "error";
 	private static final Logger LOGGER = LoggerFactory.getLogger(MasterController.class);
-	
+
 	@RequestMapping(value = "/masterLogin.do", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam(value = "id") Integer masterId,
 			@RequestParam(value = "password") String password, Model model) {
@@ -58,15 +62,15 @@ public class MasterController {
 		if (temp != null) {
 			if (password.trim().equals(temp.getPassword())) {
 				modelAndView.setViewName("masterMain");
-				setSessionValue(model, masterId);
+				setSessionValue(model, temp);
 				return modelAndView;
-			}else{
-		
+			} else {
+
 				modelAndView.setViewName("../../master/login");
 				modelAndView.addObject("status", "密码错误");
 			}
-			
-		}else{
+
+		} else {
 			modelAndView.setViewName("../../master/login.jsp");
 			modelAndView.addObject("status", "用户名不存在");
 		}
@@ -92,31 +96,33 @@ public class MasterController {
 	}
 
 	@RequestMapping("/updateMasterPassword.do")
-	public ModelAndView updatePassword(@RequestParam(value = "masterId") Integer masterId,@RequestParam(value="password")String password, Model model) {
+	public ModelAndView updatePassword(@RequestParam(value = "masterId") Integer masterId,
+			@RequestParam(value = "password") String password, Model model) {
 		Master master = masterService.get(masterId);
-		ModelAndView modelAndView = new ModelAndView();
+		ModelAndView modelAndView = new ModelAndView("masterList/changePassword");
 		if (master == null) {
-			modelAndView.setViewName(ERROR_PAGE);
+			return new ModelAndView("../../login");
 		} else {
 			master.setPassword(password);
 			masterService.updatePassword(master);
-			modelAndView.setViewName("");
-			setSessionValue(model, master.getMasterId());
-			
+			setSessionValue(model, master);
+			modelAndView.addObject("status", "修改成功");
 		}
 		return modelAndView;
 	}
 
-//	@RequestMapping("/forgetPassword.do")
-//	public Map<String, String> forgetPassword(@RequestParam(value = "request") HttpServletRequest request,
-//			@RequestParam(value = "masterId") Integer masterId) {
-//
-//		String path = request.getContextPath();
-//		String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
-//				+ "/";
-//		Master master = masterService.get(masterId);
-//		return emailService.sendEmail(master, basePath);
-//	}
+	// @RequestMapping("/forgetPassword.do")
+	// public Map<String, String> forgetPassword(@RequestParam(value =
+	// "request") HttpServletRequest request,
+	// @RequestParam(value = "masterId") Integer masterId) {
+	//
+	// String path = request.getContextPath();
+	// String basePath = request.getScheme() + "://" + request.getServerName() +
+	// ":" + request.getServerPort() + path
+	// + "/";
+	// Master master = masterService.get(masterId);
+	// return emailService.sendEmail(master, basePath);
+	// }
 
 	/**
 	 * 找回链接已经发到邮箱了。进入邮箱点开链接 以下为链接检验代码，验证通过 跳转到修改密码界面,否则跳转到失败界面
@@ -139,7 +145,6 @@ public class MasterController {
 		}
 	}
 
-
 	@RequestMapping("/logout.do")
 	public String logout(SessionStatus status) {
 		status.setComplete();
@@ -150,23 +155,27 @@ public class MasterController {
 	public ModelAndView getPersonalInfo(@RequestParam(value = "masterId") Integer masterId) {
 		MasterDTO masterDTO = new MasterDTO();
 		Master master = masterService.get(masterId);
-		if(master==null){
+		if (master == null) {
 			return new ModelAndView("../../login");
 		}
 		masterDTO.setMaster(master);
+		masterDTO.setBuildingName(buildingService.get(master.getBuildingId()).getBuildngName());
 		ModelAndView modelAndView = new ModelAndView("masterList/getMasterInfo");
-		System.out.println("response masterDTO:"+masterDTO);
+		System.out.println("response masterDTO:" + masterDTO);
 		modelAndView.addObject("master", masterDTO);
 		return modelAndView;
 	}
 
-	private void setSessionValue(Model model, Integer masterId) {
-		model.addAttribute("masterId", masterId);
+	private void setSessionValue(Model model, Master master) {
+		model.addAttribute("masterId", master.getMasterId());
+		model.addAttribute("masterName", master.getName());
+		model.addAttribute("buildingId", master.getBuildingId());
 	}
-	
+
 	@RequestMapping(value = "/saveStudent.do", method = RequestMethod.POST)
-	public ModelAndView saveStudent(@ModelAttribute(value = "register") @Valid StudentDTO register, BindingResult result,
-			@RequestParam(value = "img") MultipartFile img, HttpServletRequest request, Model model) {
+	public ModelAndView saveStudent(@ModelAttribute(value = "register") @Valid StudentDTO register,
+			BindingResult result, @RequestParam(value = "img") MultipartFile img, HttpServletRequest request,
+			Model model) {
 		ModelAndView modelAndView = new ModelAndView("../../reg");// 默认为跳转回注册页面
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError().toString());
@@ -214,7 +223,7 @@ public class MasterController {
 		modelAndView.setViewName("");
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/updateStudent.do", method = RequestMethod.POST)
 	public ModelAndView updateStudent(@RequestParam(value = "img") MultipartFile img, HttpServletRequest request,
 			@ModelAttribute(value = "studentDTO") @Valid StudentDTO studentDTO, BindingResult result) {
@@ -240,16 +249,50 @@ public class MasterController {
 		studentService.saveOrUpdate(student);
 		return modelAndView;
 	}
-	@RequestMapping(value="removeStudent.do",method=RequestMethod.POST)
-	public ModelAndView removeStudent(@RequestParam(value="studentId")Long studentId){
-		ModelAndView modelAndView = new ModelAndView("");
+
+	@RequestMapping(value = "removeStudent.do", method = RequestMethod.GET)
+	public ModelAndView removeStudent(@RequestParam(value = "studentId") Long studentId,
+			@RequestParam(value = "masterId") Integer masterId, @RequestParam(value = "pageIndex") Integer pageIndex,
+			@RequestParam(value = "pageSize") Integer pageSize) {
+
 		studentService.remove(studentId);
+		ModelAndView modelAndView = new ModelAndView("forward:forwardListStudent.do");
+		modelAndView.addObject("masterId", masterId);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
 		return modelAndView;
 	}
-	@RequestMapping(value ="/forwardChangePassword.do")
-    public ModelAndView forwardAddAnnouncement(){
-    	ModelAndView modelAndView = new ModelAndView();
-    	modelAndView.setViewName("masterList/changePassword");
-    	return modelAndView;
-    }
+
+	@RequestMapping(value = "/forwardChangePassword.do")
+	public ModelAndView forwardAddAnnouncement() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("masterList/changePassword");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/forwardListStudent.do")
+	public ModelAndView forwardListStudent(@RequestParam(value = "masterId") Integer masterId,
+			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
+		ModelAndView modelAndView = new ModelAndView("masterList/listStudents");
+		Master master = masterService.get(masterId);
+		Integer buildingId = master.getBuildingId();
+		List<StudentDTO> list = studentService.listByBuildingId(buildingId, pageIndex, pageSize);
+		Integer total = studentService.getSizeByBuildingId(buildingId);
+		Integer totalPage = getTotalPages(total, pageSize);
+		modelAndView.addObject("data", list);
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("totalPages", totalPage);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		return modelAndView;
+	}
+
+	protected int getTotalPages(Integer count, Integer pageSize) {
+		if (pageSize == null) {
+			pageSize = 10;
+		}
+		int totalPages = 0;
+		totalPages = (count % pageSize == 0) ? (count / pageSize) : (count / pageSize + 1);
+		return totalPages;
+	}
 }

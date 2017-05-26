@@ -53,10 +53,41 @@ public class MasterPostcardController extends PostcardController {
 		modelAndView.addObject("result", list != null);
 		return modelAndView;
 	}
-	@RequestMapping(value ="/forwardAddPostCard.do")
+	@RequestMapping(value ="forwardAddPostCard.do")
     public ModelAndView forwardAddAnnouncement(){
     	ModelAndView modelAndView = new ModelAndView();
     	modelAndView.setViewName("masterList/addPostCard");
     	return modelAndView;
     }
+	@RequestMapping(value = "savePostcard.do", method = RequestMethod.POST)
+	public ModelAndView savePostcard(@ModelAttribute(value = "postcard") @Valid Postcard postcard,
+			BindingResult result) {
+		ModelAndView modelAndView = new ModelAndView("masterList/addPostCard");
+		System.out.println("postcard="+postcard);
+		if (result.hasErrors()) {
+			
+			modelAndView.addObject("status", ERROR_INPUT);
+			return modelAndView;
+		}
+		postcardService.saveOrUpdate(postcard);
+		modelAndView.addObject("status", "添加成功");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "removePostcard.do", method = RequestMethod.GET)
+	public ModelAndView removePostcard(@RequestParam(value = "postcardId") Integer postcardId,@RequestParam(value = "masterId") Integer masterId,
+			@RequestParam(value = "pageIndex") Integer pageIndex, @RequestParam(value = "pageSize") Integer pageSize) {
+		postcardService.remove(postcardId);
+		ModelAndView modelAndView = new ModelAndView("forward:listPostcardByMasterId.do");
+		modelAndView.addObject("masterId", masterId);
+		modelAndView.addObject("pageIndex", pageIndex);
+		modelAndView.addObject("pageSize", pageSize);
+		return modelAndView;
+	}
+	@RequestMapping(value = "changePostcardState.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String changePostcardState(@RequestParam(value = "postcardId")Integer postcardId){
+		postcardService.changeState(postcardId);
+		return "{\"data\":\"已认领\"}";
+	}
 }

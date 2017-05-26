@@ -7,7 +7,7 @@ import com.dormitory.entity.Student;
 
 public interface StudentService
 		extends GetService<Student, Long>, SaveOrUpdateService<Student> {
-	List<Student> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize);
+	List<StudentDTO> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize);
 
 	Integer getSizeByBuildingId(Integer buildingId);
 	

@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.dormitory.dto.student.StudentDTO;
 import com.dormitory.entity.Student;
 
 public interface StudentDAO {
@@ -45,13 +46,13 @@ public interface StudentDAO {
 	@Select("select count(*) from student ")
 	public Integer getSize();
 
-	@Select("select s.* from student s join dormitory d on s.dormitory_id=d.dormitory_id "
+	@Select("select s.student_id,s.name,s.phone_number,d.room,s.bed_id from student s join dormitory d on s.dormitory_id=d.dormitory_id "
 			+ " where d.building_id=#{buildingId} limit #{start},#{pageSize}")
-	@ResultMap("com.dormitory.mapper.StudentMapper.student")
-	public List<Student> listByBuildingId(@Param("buildingId") Integer buildingId,
+	@ResultMap("com.dormitory.mapper.StudentMapper.studentDTO")
+	public List<StudentDTO> listByBuildingId(@Param("buildingId") Integer buildingId,
 			@Param("start") Integer start, @Param("pageSize") Integer pageSize);
 
-	@Select("select count(s.*) from student s join dormitory d on s.dormitory_id=d.dormitory_id "
+	@Select("select count(*) from student s join dormitory d on s.dormitory_id=d.dormitory_id "
 			+ " where d.building_id=#{buildingId} ")
 	public Integer getSizeByBuildingId();
 }

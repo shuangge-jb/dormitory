@@ -64,7 +64,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Student> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize) {
+	public List<StudentDTO> listByBuildingId(Integer buildingId, Integer pageIndex, Integer pageSize) {
 		Integer start=(pageIndex-1)*pageSize;
 		return studentDAO.listByBuildingId(buildingId, start, pageSize);
 	}

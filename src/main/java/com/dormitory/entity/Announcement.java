@@ -1,5 +1,6 @@
 package com.dormitory.entity;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.validation.constraints.NotNull;
@@ -17,7 +18,7 @@ public class Announcement {
 	@NotNull
 	protected Integer authorId;
 	@NotNull
-	protected Timestamp createTime;
+	protected Date createTime;
 	protected Integer importance;
 	protected Integer buildingId;
 
@@ -37,11 +38,11 @@ public class Announcement {
 		this.content = content == null ? null : content.trim();
 	}
 
-	public Timestamp getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
