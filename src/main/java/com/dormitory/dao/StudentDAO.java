@@ -54,5 +54,5 @@ public interface StudentDAO {
 
 	@Select("select count(*) from student s join dormitory d on s.dormitory_id=d.dormitory_id "
 			+ " where d.building_id=#{buildingId} ")
-	public Integer getSizeByBuildingId();
+	public Integer getSizeByBuildingId(Integer buildingId);
 }

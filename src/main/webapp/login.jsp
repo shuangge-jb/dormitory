@@ -15,87 +15,88 @@ String backurl=request.getParameter("backurl");
 	type="text/css" />
 <script src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
+ var userNameFlag=false;
+ var passwordFlag=false;
 	function checkUsername(id) {
 		var result=false;
 		$.ajax({
-			   type:"get",
-			   url:'<%=path%>/student/isStudentIdExisted.do',
-			data : {
-				studentId : id
-			},
+			type:"post",
+			url:'<%=path%>/student/isStudentIdExisted.do',
+			data : {studentId:id},
 			dataType : "json",
-			 async: false,
 			success : function(data) {
-				result=!data.equals("existed");
+				if(data=="unexisted"){
+				document.getElementById("usrNameTip").innerText="";	
+				document.getElementById("usrNameTip").innerText="该用户名不存在";
+				}
+				else if(data=="studentIdNull"){
+				document.getElementById("usrNameTip").innerText="";
+				document.getElementById("usrNameTip").innerText="用户名不能为空";	
+				}
+				else{
+				document.getElementById("usrNameTip").innerText="";
+				userNameFlag=true;
+				}
+			},
+			error:function (data){
+				alert("请求异常");
 			}
 		});
-		return result;
+	
 	}
-	function checkPwd(pwd) {
-		var reg = /^[\w]{6,20}$/;
-		if (pwd == null || pwd == "") {
-			document.getElementById("passwordErrorTip").innerText = "用户的密码不能设置为空，请设置密码";
-			document.getElementById("passwordErrorTip").style.color = "red";
-			passwordflag = false;
-			return false;
-		} else if (pwd.length<6||pwd.length>20) {
-			document.getElementById("passwordErrorTip").innerText = "密码长度不对，请输入6-20位长度的密码！";
-			document.getElementById("passwordErrorTip").style.color = "red";
-			passwordflag = false;
-			return false;
-		} else if (!pwd.match(reg)) {
-			document.getElementById("passwordErrorTip").innerText = "密码只能是由字母、数字和下划线组成";
-			document.getElementById("passwordErrorTip").style.color = "red";
-			passwordflag = false;
-			return false;
-		} else {
-			
-		var result=false;
+	function checkPassword(password){
+		var id=document.getElementById("studentId").value;
 		$.ajax({
-			   type:"get",
-			   url:'<%=path%>/student/isStudentIdExisted.do',
-			data : {
-				studentId : id
-			},
+			type:"get",
+			url:'<%=path%>/student/isPasswordCorrect.do',
+			data : {studentId:id,password:password},
 			dataType : "json",
-			 async: false,
 			success : function(data) {
-				result=!data.equals("existed");
+				if(data=="incorrect"){
+					document.getElementById("passwordErrorTip").innerText="";
+				document.getElementById("passwordErrorTip").innerText="密码不正确";
+				}
+				else{
+					document.getElementById("passwordErrorTip").innerText="";
+					passwordFlag=true;
+				}
+			},
+			error:function (data){
+				alert("请求异常");
 			}
 		});
-		document.getElementById("passwordErrorTip").innerText = "";
-		return true;
 	}
+	function vrifyLogin(){		
+	 return passwordFlag&&passwordFlag;
 	}
+	
 </script>
 </head>
 
 <body id="login">
 	<div class="content">
-		<form action="<%=path%>/student/studentLogin.do" method="post"
+	<form action="<%=path%>/student/studentLogin.do" method="post" onsubmit="return vrifyLogin();"
 			class="login-form">
-			<div class="username">
-				<input type="text" name="id" placeholder="请输入学生账号" autocomplete="on" onblur="checkUsername(this.value);" />
-				<span class="user-icon icon">u</span> <span id="usrNameTip"
-					style="margin-left: 5px; color: #929699;"></span>
+			<div class="username" >
+				<input type="text" name="id" id="studentId" placeholder="请输入学生账号"  onblur="checkUsername(this.value);" />
+				<span id="usrNameTip" style="margin-left: 5px;color: red;"></span>
+				<span class="user-icon icon">u</span> 
 			</div>
-			<div class="password">
+			<div class="password" style="margin-top:25px;">
 				<input type="password" name="password" placeholder="请输入密码"
-					onblur="checkPwd(this.value);" /> <span class="password-icon icon">p</span>
+					onblur="checkPassword(this.value);"  /> <span class="password-icon icon">p</span>
 				<span id="passwordErrorTip"
-					style="margin-left: 5px; color: #929699;"></span>
+					style="margin-left: 5px; color: red;"></span>
 			</div>
 			
-			<div class="account-control">
+			<div class="account-control" style="margin-top:25px;">
 				<button type="reset">重置</button>
 				<button type="submit">登陆</button>
 			</div>
 			<p class="not-registered">
-				还没有虚拟宿舍账号?<a>现在注册!</a>
+				还没有虚拟宿舍账号?<a href="<%=path%>/reg.jsp">现在注册!</a>
 			</p>
-			<div class="backurl">
-			<input type="hidden" name="backurl" value="<%=backurl%>"/>
-			</div>
+			
 		</form>
 	</div>
 </body>

@@ -71,7 +71,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public Integer getSizeByBuildingId(Integer buildingId) {
-		return studentDAO.getSizeByBuildingId();
+		return studentDAO.getSizeByBuildingId(buildingId);
 	}
 
 }

@@ -2,6 +2,9 @@ package com.dormitory.controller.student;
 
 import java.text.SimpleDateFormat;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -130,22 +133,49 @@ public class StudentController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/isStudentIdExisted.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/isStudentIdExisted.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String isStudentIdExisted(@RequestParam(value = "studentId") Long studentId) {
+	public String isStudentIdExisted(@RequestParam(value = "studentId") String id) {
+		if(id==null||id.trim().length()==0){
+			return toJSON("studentIdNull");
+		}
+		Pattern pattern = Pattern.compile("[0-9]+");
+		Matcher isNum =pattern.matcher(id);
+		if(!isNum.matches()){
+			return toJSON("unexisted");
+		}
+		Long studentId = Long.parseLong(id);
 		Student student = studentService.get(studentId);
-		return student != null ? "existed" : "unexisted";
+		String result=null;
+		if(student != null){
+			result ="existed";
+		}else{
+			result = "unexisted";
+		}
+		return toJSON(result);
 	}
 
 	@RequestMapping(value = "/isPasswordCorrect.do", method = RequestMethod.GET)
 	@ResponseBody
 	public String isPasswordCorrect(@RequestParam(value = "studentId") String studentId,
 			@RequestParam(value = "password") String password) {
+		if(studentId==null||studentId.trim().length()==0){
+			return toJSON("incorrect");
+		}
+		else{
+		Pattern pattern = Pattern.compile("[0-9]+");
+		Matcher isNum =pattern.matcher(studentId);
+		if(!isNum.matches()){
+			return toJSON("incorrect");
+		}else{
 		Student student = studentService.get(Long.valueOf(studentId));
 		if (student == null) {
-			return "incorrect";
+			return toJSON("incorrect");
 		}
-		return student.getPassword().equals(password.trim()) ? "correct" : "incorrect";
+		String result= student.getPassword().equals(password.trim()) ? "correct" : "incorrect";
+		return toJSON(result);
+		}
+		}
 	}
 
 	@RequestMapping(value = "/updatePassword.do", method = RequestMethod.POST)
