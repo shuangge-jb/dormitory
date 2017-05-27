@@ -11,7 +11,7 @@
 		<result column="validate_code" jdbcType="VARCHAR" property="validateCode" />
 		<result column="building_id" jdbcType="INTEGER" property="buildingId" />
 		<result column="id_card" jdbcType="BIGINT" property="idCard" />
-		<result column="entry_time" jdbcType="TIMESTAMP" property="entryTime" />
+		<result column="entry_time" jdbcType="DATE" property="entryTime" />
 	</resultMap>
 
 <resultMap id="masterDTO" type="com.dormitory.dto.master.MasterDTO">
@@ -24,6 +24,6 @@
 		<result column="validate_code" jdbcType="VARCHAR" property="validateCode" />
 		<result column="building_name" jdbcType="INTEGER" property="buildingName" />
 		<result column="id_card" jdbcType="BIGINT" property="idCard" />
-		<result column="entry_time" jdbcType="TIMESTAMP" property="entryTime" />
+		<result column="entry_time" jdbcType="DATE" property="entryTime" />
 	</resultMap>
 </mapper>

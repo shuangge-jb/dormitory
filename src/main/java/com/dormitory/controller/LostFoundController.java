@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -17,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dormitory.controller.student.StudentController;
 import com.dormitory.dto.master.LostFoundDTO;
 import com.dormitory.entity.LostFound;
 import com.dormitory.entity.Master;
+import com.dormitory.service.FileService;
 import com.dormitory.service.LostFoundService;
 import com.dormitory.service.MasterService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,6 +37,9 @@ public class LostFoundController {
 	protected LostFoundService lostFoundService;
 	@Resource
 	protected MasterService masterService;
+	@Resource
+	private FileService fileService;
+	protected static final String IMG_DIR = "/images/";
 	protected static final String ERROR_PAGE = "error";
 	protected static final String OPERATE_SUCCESS = "操作成功";
 	protected static final String REMOVE_SUCCESS = "删除成功";
@@ -59,7 +65,7 @@ public class LostFoundController {
 
 	@RequestMapping(value = "saveLostFound.do", method = RequestMethod.POST)
 	public ModelAndView saveLostFound(@ModelAttribute(value = "lostFound") @Valid LostFound lostFound,
-			BindingResult result) {
+			BindingResult result, @RequestParam(value = "img") MultipartFile img, HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("masterList/addLostFound");
 		System.out.println("saveLostFound");
 		if (result.hasErrors()) {
@@ -69,6 +75,23 @@ public class LostFoundController {
 
 			modelAndView.addObject("status", ERROR_INPUT);
 			return modelAndView;
+		}
+		if (img != null && img.getSize() > 0) {
+			System.out.println("file:" + img.getOriginalFilename());
+			String imgName = img.getOriginalFilename().toLowerCase();
+			System.out.println("img name:" + imgName + " ends with jpg:" + imgName.endsWith(".jpg"));
+
+			if (!(imgName.endsWith(".jpg"))) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("img文件类型异常：");
+				}
+				modelAndView.addObject("status", "img文件类型错误");
+				return modelAndView;
+			}
+			fileService.saveFile(request, IMG_DIR, img);
+			// 保存图片对象
+			String imgPath = fileService.getFilePath(request, IMG_DIR, img);
+			lostFound.setImgPath(imgPath);
 		}
 		System.out.println("lostFound:" + lostFound);
 		lostFoundService.saveOrUpdate(lostFound);
@@ -113,9 +136,10 @@ public class LostFoundController {
 		LostFound lost = lostFoundService.get(lostFoundId);
 		return toJSON(lost);
 	}
-	@RequestMapping(value = "changeState.do",method=RequestMethod.POST)
+
+	@RequestMapping(value = "changeState.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String changeState(@RequestParam(value = "lostFoundId") Integer lostFoundId){
+	public String changeState(@RequestParam(value = "lostFoundId") Integer lostFoundId) {
 		lostFoundService.changeState(lostFoundId);
 		return "{\"data\":\"已认领\"}";
 	}

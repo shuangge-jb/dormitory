@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<b>新增失物招领信息</b><font style="color:red">（*号为必填）</font>
 				&nbsp;<font style="color:red">${status}</font>
 			</div>
-            <form action="<%=path %>/master/saveLostFound.do" name="form1" method="post" 
+            <form action="<%=path %>/master/saveLostFound.do" name="form1" method="post"  enctype="multipart/form-data" 
              onsubmit="return verifyLostFoundInfo();">
             <div style="margin-left:80px;margin-top:30px;">
 				<font color=red>*</font> 物品简述：<input type="text"  id="content"
@@ -115,6 +115,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div style="margin-left:80px;margin-top:30px;">
 				<font color=red>*</font> 拾取时间：<input type="date"  id="createTime"
 					name="createTime" class="inputTxt">
+			</div>
+			<div style="margin-left:80px;margin-top:13px;">
+				<font style="color:red">*</font>物品图片： <input type="file" name="img" id="myFile"
+					class="inputTxt" style="height:34px;"> 
 			</div>
 			<div style="margin-left: 80px; margin-top: 10px;">
 				<font color=red>*</font> 详细描述：<br>
