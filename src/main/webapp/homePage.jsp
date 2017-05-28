@@ -90,7 +90,7 @@
 		</div>
 		</div>
 		<div>
-   <div class="ca1_slide" style="padding-left:122px;float:left;margin-top:15px;"> 
+   <div class="ca1_slide" style="padding-left:132px;float:left;margin-top:15px;"> 
 	<div id="slider-wrapper"> 
 		<div id="slider-bg">				
 				<div id="slider-photos"> 

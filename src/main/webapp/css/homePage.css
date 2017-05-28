@@ -49,7 +49,7 @@ a:link, a:visited, a:active {
 
 #loginRegister a {
 	margin: 0 5px;
-	text-
+	text-decoration: none;
 }
 
 #quick-menu {
@@ -70,7 +70,7 @@ a:link, a:visited, a:active {
 
 #top {
 	width: 1000px;
-	height: 92px;
+	height:92px;
 	padding-top: 12px;
 	margin: 0 auto;
 	position: relative;
@@ -209,7 +209,7 @@ margin-top:20px;
 
 #ilistTile1
 {float:left;width:480px;border-bottom:1px solid #e5e5e5;
-text-align:left; margin-left:122px;}
+text-align:left; margin-left:132px;}
 #ilistTile2 
 {float:left;width:480px;border-bottom:1px solid #e5e5e5;
 text-align:left; margin-left:2px;}

@@ -49,7 +49,6 @@ html {
 #header a {
 	color: #6C6C6C;
 }
-
 a:link, a:visited, a:active {
 	text-decoration: none;
 }
@@ -58,6 +57,7 @@ a:link, a:visited, a:active {
 	color: #f60;
 	text-decoration: underline;
 }
+
 
 .leftDistance {
 	margin-left: 150px;
@@ -110,6 +110,7 @@ a:link, a:visited, a:active {
 	height: 92px;
 	padding-top: 12px;
 	margin: 0 auto;
+	 margin-bottom:-12px;
 	position: relative;
 }
 
@@ -143,6 +144,7 @@ a:link, a:visited, a:active {
 	height: 50px;
 	margin: 0 auto;
 	display: block;
+	margin-left:132px;
 }
 
 #nav a {
