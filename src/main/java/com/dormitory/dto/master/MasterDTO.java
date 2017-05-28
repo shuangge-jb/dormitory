@@ -1,6 +1,8 @@
 package com.dormitory.dto.master;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -36,7 +38,7 @@ public class MasterDTO {
 	private String imgPath;
 @NotNull
 	private Long idCard;
-	private Timestamp entryTime;
+	private Date entryTime;
 
 	public String getBuildingName() {
 		return buildingName;
@@ -102,11 +104,11 @@ public class MasterDTO {
 		this.idCard = idCard;
 	}
 
-	public Timestamp getEntryTime() {
+	public Date getEntryTime() {
 		return entryTime;
 	}
 
-	public void setEntryTime(Timestamp entryTime) {
+	public void setEntryTime(Date entryTime) {
 		this.entryTime = entryTime;
 	}
 
@@ -134,6 +136,7 @@ public class MasterDTO {
 		this.setImgPath(master.getImgPath());
 		this.setIdCard(master.getIdCard());
 		this.setEntryTime(master.getEntryTime());
+		
 	}
 
 	public MasterDTO() {

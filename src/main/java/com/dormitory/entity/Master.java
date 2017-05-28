@@ -1,5 +1,6 @@
 package com.dormitory.entity;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.validation.constraints.NotNull;
@@ -14,7 +15,7 @@ public class Master extends User {
 
 	protected Integer buildingId;
 	protected Long idCard;
-	protected Timestamp entryTime;
+	protected Date entryTime;
 
 	public Master() {
 
@@ -44,11 +45,11 @@ public class Master extends User {
 		this.idCard = idCard;
 	}
 
-	public Timestamp getEntryTime() {
+	public Date getEntryTime() {
 		return entryTime;
 	}
 
-	public void setEntryTime(Timestamp entryTime) {
+	public void setEntryTime(Date entryTime) {
 		this.entryTime = entryTime;
 	}
 

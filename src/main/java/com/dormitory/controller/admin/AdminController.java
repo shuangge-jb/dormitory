@@ -100,7 +100,7 @@ public class AdminController {
 			String imgPath = fileService.getFilePath(request, IMG_DIR, img);
 			masterDTO.setImgPath(imgPath);
 		}
-		masterDTO.setEntryTime(new Timestamp(new Date().getTime()));
+		masterDTO.setEntryTime(new java.sql.Date(new Date().getTime()));
 		masterDTO.setPassword("123456");
 		MasterDTO newMasterDTO = masterService.saveOrUpdate(masterDTO);
 		modelAndView.addObject("data", newMasterDTO);
