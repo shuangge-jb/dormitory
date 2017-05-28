@@ -166,6 +166,7 @@ a {
 			<tr>
 				<th>序号</th>
 				<th>楼管名称</th>
+				<th>楼管Id</th>
 				<th>所在宿舍楼</th>
 				<th>手机号码</th>
 				<th>身份证</th>
@@ -178,6 +179,7 @@ a {
 				<tr>
 					<td>${status.index+1}</td>
 					<td>${master.name}</td>
+					<td>${master.masterId}</td>
 					<td>${master.buildingName}</td>
 					<td>${master.phoneNumber}</td>
 					<td>${master.idCard }</td>
