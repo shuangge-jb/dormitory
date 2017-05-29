@@ -211,14 +211,11 @@ $(document).ready(function() {
 							<li class="pb10"><font color=#818181 size=4>邮箱：</font> <input
 								type="text" value="${student.email}" id="email" name="email"
 								class="inputTxt" disabled="true"/><br></li>
-							<li><input
-								type="hidden" name="imgPath"
-								value="${student.imgPath}"/><br></li>
-							<li class="pb10"><font color=#818181 size=4> 头像：</font><input
+							<li>
+							<li class="pb10"><span style="float:left;"><font color=#818181 size=4> 头像：</font></span><input
 								type="file" class="inputTxt" name="img" id="img"
-								style="height: 34px;" disabled="true"/></li>
-							<li><input type="hidden" name="password"
-								value="${student.password }" /></li>
+								style="height: 32px;" disabled="true"/></li>
+							
 						</ul>
 
 					</div>
@@ -240,7 +237,11 @@ $(document).ready(function() {
 						alt="userImg" />
 
 				</div>
-
+<input type="hidden" name="password"
+								value="${student.password }" />
+							<input
+								type="hidden" name="imgPath"
+								value="${student.imgPath}"/><br>
 			</form>
 		</div>
 	</div>
