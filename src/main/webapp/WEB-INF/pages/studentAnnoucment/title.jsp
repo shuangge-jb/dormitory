@@ -56,7 +56,7 @@ String path = request.getContextPath();
 <a href="<%=path%>/student/virtualDormitory.do" id="virtualDormitory">虚拟宿舍</a><em></em>
 <a href="<%=path%>/listMyDormitoryAnnouncement.do?studentId=${studentId }&pageIndex=1&pageSize=10">最新公告</a><em></em>
 <a href="<%=path%>/student/getStudentInfo.do?studentId=${studentId }" id="userInfo">个人中心</a>
-<a href="#">使用指南</a>
+<a href="<%=path%>/student/forwardUserGuide.do" id="userGuide">使用指南</a>
 </div>
 </div>
   </body>

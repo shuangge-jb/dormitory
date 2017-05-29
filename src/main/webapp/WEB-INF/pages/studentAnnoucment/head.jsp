@@ -71,13 +71,13 @@ String path = request.getContextPath();
 <a href="<%=path%>/student/listUserDevice.do?pageIndex=1&pageSize=8"
    >我的设备</a>
 
-<a href="#">失物招领</a><em></em>
+<a href="<%=path%>/listLostFound.do?pageIndex=1&pageSize=3">失物招领</a><em></em>
 <a href="<%=path%>/student/listRepairRecordByDormitoryId.do?dormitoryId=${dormitoryId}&pageIndex=1&pageSize=2" id="repair">我的报修</a><em></em>
 <a href="<%=path%>/student/listPostcardByStudentId.do?studentId=${studentId }&pageIndex=1&pageSize=6" >宿舍明信片</a><em></em>
 <a href="<%=path%>/student/virtualDormitory.do">虚拟宿舍</a><em></em>
 <a href="<%=path%>/listMyDormitoryAnnouncement.do?studentId=${studentId }&pageIndex=1&pageSize=10"  id="announcement">最新公告</a><em></em>
 <a href="<%=path%>/student/getStudentInfo.do?studentId=${studentId }" id="userInfo">个人中心</a>
-<a href="#">使用指南</a>
+<a href="<%=path%>/student/forwardUserGuide.do">使用指南</a>
 </div>
 </div>
   </body>

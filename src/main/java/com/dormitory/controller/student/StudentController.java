@@ -1,6 +1,7 @@
 package com.dormitory.controller.student;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.dormitory.dto.PostcardDTO;
 import com.dormitory.dto.student.StudentDTO;
 import com.dormitory.entity.Building;
 import com.dormitory.entity.Dormitory;
@@ -322,5 +324,11 @@ public class StudentController {
 			}
 		}
 		return result;
+	}
+	@RequestMapping(value = "forwardUserGuide.do")
+	public ModelAndView forwardUserGuide() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("studentAnnoucment/userGuide");
+		return modelAndView;
 	}
 }

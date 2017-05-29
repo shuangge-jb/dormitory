@@ -23,14 +23,6 @@
   <a-asset-item id="tree" src="computer.dae"></a-asset-item>
     <a-asset-item  id ="tree-obj"  src ="iphone5.obj"> </a-asset-item >
     <a-asset-item  id ="tree-mtl" src ="iphone5.mtl"> </a-asset-item >
-   <a-cubemap id="test1233">
-     <img src="card.jpg">
-      <img src="card.jpg">
-      <img src="card.jpg">
-      <img src="card.jpg">
-      <img src="card.jpg">
-      <img src="card.jpg"> 
-     </a-cubemap>
     <img id="skyTexture" src="test.jpg">
     
   </a-assets>
@@ -75,7 +67,7 @@
     <a-animation attribute="rotation" fill ="forward"
        begin="click" dur="300" to="225 405 0"></a-animation>
    </a-collada-model> -->
-   <a-collada-model src="mouse.dae" id="mouse" position="0 0 -4" scale="2 2 2" rotation="0 180 0" 
+   <a-collada-model src="images/model/mouse.dae" id="mouse" position="0 0 -4" scale="2 2 2" rotation="0 180 0" 
     >
     <a-animation attribute="rotation" fill ="forward"
        begin="click" dur="300" to="225 405 0"></a-animation>
